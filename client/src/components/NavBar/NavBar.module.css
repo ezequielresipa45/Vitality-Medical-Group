@@ -1,0 +1,27 @@
+.container__navbar{
+    background-color: #fff;
+    width: 100%;
+    margin: 0;
+    padding: 3rem 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.container__navbar img{
+    pointer-events: none;
+    width: 60px;
+}   
+
+
+.container__navbar ul{
+ display: flex;
+}  
+
+
+
+.container__logo{
+    display: flex;
+    gap: 1rem;
+}

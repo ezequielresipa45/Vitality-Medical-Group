@@ -7,6 +7,7 @@ function App() {
   return (
     <div className="App">
 
+    <NavBar/>
      <h2>Soy el Home</h2>
 
      <Routes>
