@@ -2,13 +2,21 @@ import { Routes, Route } from "react-router-dom";
 import './App.css'
 import NavBar from "./components/NavBar/NavBar";
 
+
 function App() {
 
   return (
     <div className="App">
 
+
+     <header className="contenedorHeader">
     <NavBar/>
-     <h2>Soy el Home</h2>
+
+
+
+
+
+     </header>
 
      <Routes>
         <Route path="/prueba" element={<NavBar />} />
