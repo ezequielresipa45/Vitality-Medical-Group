@@ -39,11 +39,11 @@ const handlerEspeciality = ()=> {
       </div>
 
 <ul>
-<Link to='*'>Home</Link>
-<Link to='*'>Institutional</Link>
-<Link to='*'>News</Link>
-<Link to='/'    style={clickBoolean ? {backgroundColor: "#639cc7", color:"#fff"} : {}}  onClick={handlerEspeciality} >Especialitys</Link>
-<Link to='*'>Plans</Link>
+<Link to='*'>Inicio</Link>
+<Link to='*'>Institucional</Link>
+<Link to='*'>Novedades</Link>
+<Link to='/'    style={clickBoolean ? {backgroundColor: "#639cc7", color:"#fff"} : {}}  onClick={handlerEspeciality} >Especialidades</Link>
+<Link to='*'>Planes</Link>
 </ul>
   </div>
 
