@@ -135,7 +135,11 @@
     display: block;
   }
 
- 
+ .container__especialitys {
+    position: absolute;
+    top: 70px;
+    width: 100%;
+ }
 
 
   .container__especialitys ul{
