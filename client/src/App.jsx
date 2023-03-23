@@ -3,11 +3,12 @@ import Home from "./components/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
 
 function App() {
+  
   return (
 
-    <div className="App">
+    <div>
 
-      {/* <NavBar/> */} {/* Ojo la nav deberia renderizarse aca no dentro del Home/Header, si no no se va a ver en el resto de las vistas */}
+      <NavBar/>
 
       <Routes>
 
@@ -16,6 +17,7 @@ function App() {
       </Routes>
 
     </div>
+
   );
 }
 
