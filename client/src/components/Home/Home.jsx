@@ -1,7 +1,9 @@
 import React from 'react';
 import Header from '../Header/Header';
+import Cards from '../HomeCards/Cards'
 import ContainerNews from '../News/ContainerNews';
 import styles from "./Home.module.css";
+
 
 export default function Home() {
 
@@ -12,6 +14,8 @@ export default function Home() {
     <div className={styles.container__home}>
 
     <Header/>
+
+    <Cards/>
 
     <ContainerNews />
 
