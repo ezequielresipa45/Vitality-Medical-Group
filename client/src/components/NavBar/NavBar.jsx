@@ -2,7 +2,7 @@ import React from 'react'
 import styles from "./NavBar.module.css";
 import logo from "../../images/logo.png"
 import { Link } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 
 export default function NavBar() {
 
@@ -18,26 +18,6 @@ export default function NavBar() {
   ]
 
   const [clickBoolean, setClickBoolean] = useState(false);
-
-  let menuRef = useRef();
-
-  useEffect(() => {
-
-    let handler = (e) => {
-
-      if (!menuRef.current.contains(e.target)) {
-        setClickBoolean(false);
-
-      }
-    }
-
-
-    document.addEventListener("mousedown", handler);
-
-    return () => {
-      document.removeEventListener("mousedown", handler);
-    }
-  })
 
   const handlerEspeciality = () => {
 
@@ -58,15 +38,15 @@ export default function NavBar() {
         </div>
 
         <ul>
-          <Link to='*'>Inicio</Link>
-          <Link to='*'>Institucional</Link>
-          <Link to='*'>Novedades</Link>
-          <Link to='/' style={clickBoolean ? { backgroundColor: "#639cc7", color: "#fff" } : {}} onClick={handlerEspeciality} >Especialidades</Link>
-          <Link to='*'>Planes</Link>
+          <Link to='/'>Inicio</Link>
+          <Link to=''>Institucional</Link>
+          <Link to=''>Novedades</Link>
+          <Link to='' style={clickBoolean ? { backgroundColor: "#639cc7", color: "#fff" } : {}} onClick={handlerEspeciality} >Especialidades</Link>
+          <Link to=''>Planes</Link>
         </ul>
       </div>
 
-      {clickBoolean ? (<div className={styles.container__especialitys} ref={menuRef}>
+      {clickBoolean ? (<div className={styles.container__especialitys}  >
 
         <ul>
           {arraySpecialists.map(specialist => (

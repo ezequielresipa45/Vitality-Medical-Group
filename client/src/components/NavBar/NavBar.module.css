@@ -13,7 +13,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-
+z-index: 1000;
   position: absolute;
   /* position: fixed; */
 }
@@ -137,6 +137,7 @@
 
  .container__especialitys {
     position: absolute;
+    z-index: 1000;
     top: 70px;
     width: 100%;
  }
