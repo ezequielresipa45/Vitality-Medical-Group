@@ -59,7 +59,7 @@ export default function NavBar() {
 
         <ul>
           <Link to='*'>Inicio</Link>
-          <Link to='*'>Institucional</Link>
+          <Link to='/Institucional'>Institucional</Link>
           <Link to='*'>Novedades</Link>
           <Link to='/' style={clickBoolean ? { backgroundColor: "#639cc7", color: "#fff" } : {}} onClick={handlerEspeciality} >Especialidades</Link>
           <Link to='*'>Planes</Link>
