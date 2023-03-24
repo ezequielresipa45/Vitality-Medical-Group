@@ -1,0 +1,30 @@
+.footer{
+    flex-grow: 1;
+    margin-top: 20;
+    background-color: var(--primary);
+    border-top: "solid 3px white";
+    padding-top: 16px;
+    overflow-x: hidden;
+    position : fixed;
+    bottom: 0;  
+    width: 100%;
+}
+.footer a:hover {  
+    color:white;
+}
+/* hover es un suedo selector */
+
+
+.subFooter{
+    background-color: rgba(0, 0, 0, 0.1);
+
+}
+.link{
+    margin: 20px;
+    color: #213547;
+
+}
+.link :hover{
+    transform: scale(1.1);
+}
+
