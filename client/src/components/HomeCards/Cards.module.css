@@ -1,0 +1,15 @@
+.dad{
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-width: 80vw;
+    margin-left: 35px;
+    margin-right: 35px;
+  }
