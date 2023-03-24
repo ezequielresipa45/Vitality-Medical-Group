@@ -14,7 +14,7 @@ export default function News(props) {
 
             <div className={styles.item}>
 
-                <h2>{props.title}</h2>
+                <h3>{props.title}</h3>
 
                 <p>{props.description}</p>
 

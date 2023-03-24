@@ -76,6 +76,8 @@ export default function ContainerNews() {
 
         <div className={styles.container}>
 
+            <h2>Novedades internacionales</h2>
+
             {/* <button onClick={() => prevHandler()}>{'<'}</button> */}
 
             {itemsPage && itemsPage.map((item, index) => (
