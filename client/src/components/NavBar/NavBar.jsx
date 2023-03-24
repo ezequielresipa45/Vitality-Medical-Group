@@ -38,11 +38,11 @@ export default function NavBar() {
         </div>
 
         <ul>
-          <Link to='/'>Inicio</Link>
-          <Link to=''>Institucional</Link>
-          <Link to=''>Novedades</Link>
-          <Link to='' style={clickBoolean ? { backgroundColor: "#639cc7", color: "#fff" } : {}} onClick={handlerEspeciality} >Especialidades</Link>
-          <Link to=''>Planes</Link>
+          <Link to='*'>Inicio</Link>
+          <Link to='*'>Institucional</Link>
+          <Link to='*'>Novedades</Link>
+          <Link to='/' style={clickBoolean ? { backgroundColor: "#639cc7", color: "#fff" } : {}} onClick={handlerEspeciality} >Especialidades</Link>
+          <Link to='*'>Planes</Link>
         </ul>
       </div>
 
