@@ -3,13 +3,30 @@
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: rgb(60, 60, 60);
+  background-color: rgb(250, 250, 250);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+body {
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+  height: 100vh;
 }
 
 a {
@@ -19,16 +36,6 @@ a {
 }
 a:hover {
   color: #535bf2;
-}
-
-
-body {
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
 }
 
 h1 {
@@ -47,15 +54,17 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
-button:focus,
+
+/* button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
+} */
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
@@ -66,4 +75,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */

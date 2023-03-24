@@ -24,7 +24,7 @@
     align-items: center;
     justify-content: space-between;
 
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 
     width: 80%;
     height: 80%;
@@ -33,9 +33,9 @@
     
     margin: 20px;
     
-    background-color: rgba(85, 84, 84, 0.2);
+    background: rgba(229, 224, 224, 0.5);
     backdrop-filter: blur(2px);
-    box-shadow: 2px 2px 10px 0px rgb(0, 0, 0, 1);
+    box-shadow: 5px 5px 15px 0px rgb(50, 50, 50);
     transition: 0.3s ease-out;
 
     border-radius: 10px;
@@ -60,7 +60,7 @@
     align-items: flex-start;
     justify-content: space-between;
 
-    width: 60%;
+    width: 65%;
     height: 100%;
 
     padding: 20px;
@@ -69,12 +69,21 @@
 
 }
 
- .item h2 {
+.item h2 {
+    width: 100%;
+    margin: 0;
+    /* text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap; */
+}
+
+
+.item p {
     width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    margin: 0 0;
+    margin: 0;
 }
 
 /*
