@@ -85,14 +85,16 @@ export default function ContainerNews() {
                 {itemsPage && itemsPage.map((item, index) => (
                     <>
                         <News
-                        key = {index}
+                        
                         title = {item.title}
                         description = {item.description}
                         image = {item.urlToImage ? item.urlToImage : DEFAULT_IMAGE}
                         url = {item.url}
                         date = {item.publishedAt.slice(0,10)}
                         />
+
                         {index !== itemsPage.length -1 && <hr />}
+                        
                     </>
                 ))}
 
