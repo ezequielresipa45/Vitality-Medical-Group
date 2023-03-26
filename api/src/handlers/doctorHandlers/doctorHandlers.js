@@ -7,6 +7,7 @@ const {
   createDoctor,
   updateDoctor,
   deleteDoctor,
+  deleteSchedule,
 } = require("../../controllers/doctorControllers/doctorControllers.js");
 
 const getNamesHandler = async (req, res) => {
@@ -103,6 +104,16 @@ const deleteDoctorHandler = async (req, res) => {
   }
 };
 
+const deleteScheduleHandler = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const request = await deleteSchedule(id);
+    return res.status(200).json(request);
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   getNamesHandler,
   getDoctorsHandler,
@@ -111,4 +122,5 @@ module.exports = {
   createDoctorHandler,
   updateDoctorHandler,
   deleteDoctorHandler,
+  deleteScheduleHandler,
 };
