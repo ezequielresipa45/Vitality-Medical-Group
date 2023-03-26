@@ -1,0 +1,269 @@
+Json Pacientes:
+[
+    {
+        "dni": 43183214,
+        "full_name": "Jonathan Rodriguez",
+        "gender": "diabolico",
+        "birthday": "1983-05-04",
+        "age": 40,
+        "phone": 256589742541,
+        "address": "Aragua, Venezuela",
+        "consultations_available": 10
+    },
+    {
+        "dni": 5986487,
+        "full_name": "Gustavo Pérez",
+        "gender": "masculino",
+        "birthday": "1970-12-12",
+        "age": 53,
+        "phone": 2659749851,
+        "address": "Lima, Perú",
+        "consultations_available": 10
+    },
+    {
+        "dni": 3265984,
+        "full_name": "Shakira Cornuda",
+        "gender": "loba",
+        "birthday": "1980-06-03",
+        "age": 43,
+        "phone": 795486524,
+        "address": "Madrid, España",
+        "consultations_available": 10
+    },
+    {
+        "dni": 6598425,
+        "full_name": "Gerard Pique",
+        "gender": "pendejo",
+        "birthday": "1980-12-23",
+        "age": 43,
+        "phone": 6598532458,
+        "address": "Madrid, España",
+        "consultations_available": 10
+    },
+    {
+        "dni": 7598462,
+        "full_name": "Lady Gaga",
+        "gender": "loca",
+        "birthday": "1995-09-20",
+        "age": 28,
+        "phone": 32674985,
+        "address": "Algún lugar, Narnia",
+        "consultations_available": 10
+    },
+    {
+        "dni": 2987598,
+        "full_name": "Cher",
+        "gender": "momia",
+        "birthday": "0001-01-01",
+        "age": 2022,
+        "phone": 1000000001,
+        "address": "Matusalén",
+        "consultations_available": 10
+    },
+    {
+        "dni": 23598774,
+        "full_name": "Madona Josefina Trump",
+        "gender": "inmortal",
+        "birthday": "0001-02-01",
+        "age": 2021,
+        "phone": 1000000002,
+        "address": "EEUU",
+        "consultations_available": 10
+    },
+    {
+        "dni": 79563254,
+        "full_name": "Maluma la del Barrio",
+        "gender": "empoderada",
+        "birthday": "1998-02-06",
+        "age": 25,
+        "phone": 859874621,
+        "address": "Colombia",
+        "consultations_available": 10
+    }
+]
+
+Json Doctores:
+[
+    {
+        "dni": 3698754,
+        "code": 236514,
+        "full_name": "Paco Gerlo",
+        "gender": "masculino",
+        "birthday": "1998-02-06",
+        "age": 25,
+        "phone": 631498745,
+        "address": "CABA, Argentina",
+        "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+        "specialities": "neurología"
+    },
+    {
+        "dni": 5469854,
+        "code": 148796,
+        "full_name": "Devora Testa",
+        "gender": "femenino",
+        "birthday": "1988-12-03",
+        "age": 35,
+        "phone": 79632548,
+        "address": "Lanus, Argentina",
+        "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+        "specialities": "obstetricia, ginecología"
+    },
+    {
+        "dni": 26589874,
+        "code": 687498,
+        "full_name": "Maxima Poronga",
+        "gender": "femenino",
+        "birthday": "1980-12-09",
+        "age": 43,
+        "phone": 46859731,
+        "address": "Tierra de Fuego, Argentina",
+        "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+        "specialities": "cardiología"
+    },
+    {
+        "dni": 65749137,
+        "code": 214685,
+        "full_name": "Jorge Nitales",
+        "gender": "masculino",
+        "birthday": "1998-02-06",
+        "age": 25,
+        "phone": 69854784,
+        "address": "Banfield, Argentina",
+        "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+        "specialities": "neumonología"
+    },
+    {
+        "dni": 5784986,
+        "code": 58749,
+        "full_name": "Tomas Melano",
+        "gender": "masculino",
+        "birthday": "1974-02-06",
+        "age": 49,
+        "phone": 74895684,
+        "address": "El Rosario, Argentina",
+        "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+        "specialities": "oftalmología"
+    },
+    {
+        "dni": 3698754,
+        "code": 987456,
+        "full_name": "Dolores Delano",
+        "gender": "femenino",
+        "birthday": "1986-06-25",
+        "age": 37,
+        "phone": 13655987,
+        "address": "Almirante Brown, Argentina",
+        "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+        "specialities": "pediatría"
+    },
+    {
+        "dni": 4785965,
+        "code": 368547,
+        "full_name": "Armando Bronca",
+        "gender": "masculino",
+        "birthday": "1982-10-10",
+        "age": 41,
+        "phone": 58749685,
+        "address": "Lanus, Argentina",
+        "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+        "specialities": "otorrinolaringología"
+    },
+    {
+        "dni": 63528795,
+        "code": 487925,
+        "full_name": "Harry Putas",
+        "gender": "masculino",
+        "birthday": "1998-06-02",
+        "age": 25,
+        "phone": 87965487,
+        "address": "San Justo, Argentina",
+        "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+        "specialities": "clínica médica"
+    },
+    {
+        "dni": 9896587,
+        "code": 52634,
+        "full_name": "Elba Surero",
+        "gender": "Femenino",
+        "birthday": "1988-01-16",
+        "age": 35,
+        "phone": 124785946,
+        "address": "Quilmes, Argentina",
+        "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+        "specialities": "psiquiatría"
+    },
+    {
+        "dni": 2569854,
+        "code": 78965,
+        "full_name": "Alex Cremento",
+        "gender": "masculino",
+        "birthday": "1975-12-25",
+        "age": 48,
+        "phone": 32659854,
+        "address": "San Isidro, Argentina",
+        "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+        "specialities": "neurología"
+    },
+]
+
+Json TicketMedical:
+[
+    {
+        "title": ,
+        "observations": ,
+        "doctorId": ,
+        "patientId": ,
+        "date": ,
+        "hour_start": ,
+        "hour_end": ,
+    }
+]
+
+Json Especialidades:
+[
+    {
+        "speciality": "kinesiología"
+    },
+    {
+        "speciality": "clínica médica"
+    },
+    {
+        "speciality": "neurología"
+    },
+    {
+        "speciality": "otorrinolaringología"
+    },
+    {
+        "speciality": "pediatría"
+    },
+    {
+        "speciality": "psiquiatría"
+    },
+    {
+        "speciality": "endocrinología"
+    },
+    {
+        "speciality": "cardiología"
+    },
+    {
+        "speciality": "traumatología"
+    },
+    {
+        "speciality": "ginecología"
+    },
+    {
+        "speciality": "obstetricia"
+    },
+    {
+        "speciality": "oftalmología"
+    },
+    {
+        "speciality": "gastroenterología"
+    },
+    {
+        "speciality": "neumonología"
+    },
+    {
+        "speciality": "dermatología"
+    },
+]
