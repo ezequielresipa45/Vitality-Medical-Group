@@ -183,6 +183,19 @@ const deleteDoctor = async (id) => {
   return "El Médico fue borrado exitosamente";
 };
 
+// *Este controller permite borrar todos los horarios de un doctor a través del Id del doctor:
+const deleteSchedule = async (id) => {
+  const request = await Doctor.findByPk(id, {
+    include: {
+      model: Schedule,
+      through: { attributes: [] },
+    },
+  });
+  request.schedules.forEach((item) => item.destroy());
+
+  return "Se han borrado los horarios exitosamente";
+};
+
 module.exports = {
   getAllNames,
   searchDoctorByName,
@@ -192,4 +205,5 @@ module.exports = {
   createDoctor,
   updateDoctor,
   deleteDoctor,
+  deleteSchedule,
 };
