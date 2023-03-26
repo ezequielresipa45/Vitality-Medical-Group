@@ -13,7 +13,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-z-index: 1000;
+  z-index: 1000;
   position: absolute;
   /* position: fixed; */
 }
@@ -46,8 +46,7 @@ z-index: 1000;
   align-items: center;
 }
 
-
-.button__ul{
+.button__ul {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -59,7 +58,6 @@ z-index: 1000;
   background-color: transparent;
   color: var(--secondary);
   font-weight: 400;
-
 }
 
 .container__navbar ul a {
@@ -76,15 +74,14 @@ z-index: 1000;
 }
 
 .container__navbar ul a:hover {
-    background-color: var(--primary);
-    color: #fff;
-  }
+  background-color: var(--primary);
+  color: #fff;
+}
 
-  .button__ul:hover{
-    background-color: var(--primary);
-    color: #fff;
-  }
-
+.button__ul:hover {
+  background-color: var(--primary);
+  color: #fff;
+}
 
 .container__navbar ul a:first-of-type::before {
   content: ""; /* No se necesita contenido */
@@ -113,75 +110,68 @@ z-index: 1000;
   display: block;
 }
 
-
 .container__navbar ul a:nth-child(3)::before {
-    content: ""; /* No se necesita contenido */
-    width: 20px;
-    height: 20px;
-    background: url("../../images/icono-news.png") no-repeat center
-      center;
-    background-size: cover;
-    display: none;
-  }
-  
-  .container__navbar ul a:nth-child(3):hover::before {
-    display: block;
-  }
+  content: ""; /* No se necesita contenido */
+  width: 20px;
+  height: 20px;
+  background: url("../../images/icono-news.png") no-repeat center center;
+  background-size: cover;
+  display: none;
+}
 
-  .button__ul::before {
-    content: ""; /* No se necesita contenido */
-    width: 20px;
-    height: 20px;
-    background: url("../../images/icono-especiality.png") no-repeat center
-      center;
-    background-size: cover;
-    display: none;
-  }
-  
-  .button__ul:hover::before {
-    display: block;
-  }
+.container__navbar ul a:nth-child(3):hover::before {
+  display: block;
+}
 
-  .container__navbar ul a:nth-child(5)::before {
-    content: ""; /* No se necesita contenido */
-    width: 20px;
-    height: 20px;
-    background: url("../../images/icono-plans.png") no-repeat center
-      center;
-    background-size: cover;
-    display: none;
-  }
-  
-  .container__navbar ul a:nth-child(5):hover::before {
-    display: block;
-  }
+.button__ul::before {
+  content: ""; /* No se necesita contenido */
+  width: 20px;
+  height: 20px;
+  background: url("../../images/icono-especiality.png") no-repeat center center;
+  background-size: cover;
+  display: none;
+}
 
- .container__especialitys {
-    position: absolute;
-    z-index: 1000;
-    top: 70px;
-    width: 100%;
- }
+.button__ul:hover::before {
+  display: block;
+}
 
+.container__navbar ul a:nth-child(5)::before {
+  content: ""; /* No se necesita contenido */
+  width: 20px;
+  height: 20px;
+  background: url("../../images/icono-plans.png") no-repeat center center;
+  background-size: cover;
+  display: none;
+}
 
-  .container__especialitys ul{
-    
-    display: flex;
-    gap: 2rem;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 1rem;
-    background-color: var(--primary);
-  }
+.container__navbar ul a:nth-child(5):hover::before {
+  display: block;
+}
 
-  .container__especialitys ul a{
-    list-style-type: none;
-    color: #fff;
-    font-weight: 400;
-  }
+.container__especialitys {
+  position: absolute;
+  z-index: 1000;
+  top: 70px;
+  width: 100%;
+}
 
-  .container__especialitys ul a:hover{
-    color: #5d5d5d;
-    
-  }
+.container__especialitys ul {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 1rem;
+  background-color: var(--primary);
+}
+
+.container__especialitys ul a {
+  list-style-type: none;
+  color: #fff;
+  font-weight: 400;
+}
+
+.container__especialitys ul a:hover {
+  color: #5d5d5d;
+}
