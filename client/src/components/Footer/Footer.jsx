@@ -17,7 +17,7 @@ const Footer = ()=>{
       
         
         <h4>SOBRE NOSOTROS </h4> 
-           <Link className={style.link} to = "*">Institucional</Link>
+           <Link className={style.link} to = "/institucional">Institucional</Link>
            <Link className={style.link} to = "*">Contactanos</Link>
            <Link className={style.link} to = "*">Conocenos</Link>
        
