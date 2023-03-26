@@ -37,7 +37,7 @@ const Footer = ()=>{
         
   </Grid>
   <Grid className={style.subFooter} item xs={12}>
-   <span>©Vitality Medical Group 2020 - Todos los derechos reservados -</span>
+   <span>©Vitality Medical Group 2023 - Todos los derechos reservados </span>
   </Grid>
 </Grid>
 </div>
