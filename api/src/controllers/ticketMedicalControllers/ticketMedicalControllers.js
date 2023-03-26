@@ -24,12 +24,14 @@ const createTicket = async (
 
   const doctor = await Doctor.findByPk(doctorId); // ?correcto
   await doctor.addSchedule(requestSchedule); // ?correcto
-  await doctor.save(); // ?correcto
+  await doctor.save();
 
-  const patient = await Patient.findByPk(patientId); // !incorrecto
-  // await patient.addTicketmedical(requestTicket); // !incorrecto
-  await requestTicket.addPatient(patient);
-  await requestTicket.save(); // !incorrecto
+  await doctor.addTicketMedical(requestTicket); // ?correcto
+  await doctor.save();
+
+  const patient = await Patient.findByPk(patientId); // ?correcto
+  await patient.addTicketMedical(requestTicket); // ?correcto
+  await requestTicket.save(); /// ?correcto
 
   return "Turno creado exitosamente";
 };
@@ -63,6 +65,10 @@ const getTicketId = async (id) => {
 // *Este controller permite borrar un ticketsMedicals por id.
 const deleteTicket = async (id) => {
   const request = await TicketMedical.findByPk(id, { include: { all: true } });
+  const idSchedule = request.schedule.id;
+  const requestSchedule = await Schedule.findByPk(idSchedule);
+
+  requestSchedule.destroy();
   request.destroy();
 
   return "El Turno médico fue borrado exitosamente";
