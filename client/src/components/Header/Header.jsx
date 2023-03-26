@@ -1,6 +1,7 @@
 import React from 'react'
-//import NavBar from '../NavBar/NavBar';
 import styles from "./Header.module.css";
+import { Link } from 'react-router-dom';
+
 
 export default function Header() {
   return (
@@ -10,29 +11,26 @@ export default function Header() {
 
 <div className={styles.container__boxs}>
 
-  <div className={styles.container__boxs__box}>
-    <img src="*" alt="logo" />
+
+<Link to='' className={styles.container__boxs__box}>
     <h3>Cartilla Médica</h3>
-    <p>Guía que le permite al usuario y su grupo familiar acceder a todos los servicios que le ofrece Vitality Medical Group</p>
-  </div>
+    <p>Guía que le permite al usuario y su grupo familiar acceder a todos los servicios que le ofrece Vitality Medical Group.</p>
+  </Link>
 
-  <div className={styles.container__boxs__box}>
-    <img src="*" alt="logo" />
+  <Link to='' className={styles.container__boxs__box}>
     <h3>Turnos Clínicos</h3>
-    <p>Guía que le permite al usuario y su grupo familiar acceder a todos los servicios que le ofrece Vitality Medical Group</p>
-  </div>
+    <p>Los turnos clínicos son periodos de tiempo asignados donde un profesional de la salud atiende a los pacientes.</p>
+  </Link>
 
-  <div className={styles.container__boxs__box}>
-    <img src="*" alt="logo" />
+  <Link to='' className={styles.container__boxs__box}>
     <h3>Análisis Clínicos</h3>
-    <p>Guía que le permite al usuario y su grupo familiar acceder a todos los servicios que le ofrece Vitality Medical Group</p>
-  </div>
+    <p>Los análisis clínicos son procedimientos que se realizan en laboratorios para detectar y monitorear afecciones médicas.</p>
+  </Link>
 
-  <div className={styles.container__boxs__box}>
-    <img src="*" alt="logo" />
+  <Link to=''className={styles.container__boxs__box}>
     <h3>Médico Online</h3>
-    <p>Guía que le permite al usuario y su grupo familiar acceder a todos los servicios que le ofrece Vitality Medical Group</p>
-  </div>
+    <p>Medico online es una forma de ofrecer asesoramiento médico a través del uso de internet.</p>
+ </Link>
 
 
 </div>

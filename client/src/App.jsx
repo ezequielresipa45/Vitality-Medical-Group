@@ -29,7 +29,7 @@ function App() {
 
         <Route path="/" element={<Home />} />
 
-        <Route path="/Institucional" element={<Institutional />} />
+        <Route path="/institucional" element={<Institutional />} />
 
         <Route path='/analisis' element={<AnalysisContainer/>} />
 
