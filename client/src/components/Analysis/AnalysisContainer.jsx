@@ -8,7 +8,7 @@ import styles from './Analysis.module.css';
 import { getSpecialities , getAnalysis , filterAnalysis } from '../../redux/actions';
 
 const INITIAL_PAGE = 0;
-const ITEMS = 5;
+const ITEMS = 4;
 
 export default function AnalysisContainer() {
 
@@ -20,7 +20,7 @@ export default function AnalysisContainer() {
     
     const filterRef = useRef(null);
 
-    const specilities = useSelector((state) => state.specilities);
+    const specialities = useSelector((state) => state.specialities);
 
     const allAnalysis = useSelector((state) => state.analysis);
 
@@ -49,6 +49,10 @@ export default function AnalysisContainer() {
         dispatch(getSpecialities());
         dispatch(getAnalysis());
       }, []);
+
+    useEffect(() => {
+        setAnalysis(allAnalysis);
+    }, [allAnalysis]);
     
     useEffect(() => {
 
@@ -66,14 +70,14 @@ export default function AnalysisContainer() {
     }, [ filteredAnalysis ]);
     
     const nextHandler = () => {
-        const totalElements = recipes.length;
+        const totalElements = analysis.length;
         const nextPage = currentPage + 1;
         const indexNextPage = nextPage * ITEMS;
         
         if(indexNextPage >= totalElements) {
             setItemsPage(INITIAL_ITEMS);
             setCurrentPage(INITIAL_PAGE);
-            ref.current.scrollIntoView();
+            //ref.current.scrollIntoView();
             return;
         };
         //console.log(nextPage);
@@ -82,7 +86,7 @@ export default function AnalysisContainer() {
 
         setItemsPage([...analysis].splice(indexNextPage, ITEMS));
         setCurrentPage(nextPage);
-        ref.current.scrollIntoView();
+        //ref.current.scrollIntoView();
     };
     const prevHandler = () => {
         const prevPage = currentPage -1;
@@ -90,7 +94,7 @@ export default function AnalysisContainer() {
         
         setItemsPage([...analysis].splice(indexPrevPage, ITEMS));
         setCurrentPage(prevPage);
-        ref.current.scrollIntoView();
+        //ref.current.scrollIntoView();
     };
 
     const onClickPageHandler = (item) => {
@@ -103,12 +107,11 @@ export default function AnalysisContainer() {
 
     const handleFilter = (value) => {
 
-        //dispatch(filterRecipes(value));
+        dispatch(filterAnalysis(value));
 
         //setRecipes(filtered);
 
         sortRef.current.options.selectedIndex = 0;
-        filterRef.current.options.selectedIndex = 0;
 
         //console.log(value);
     };
@@ -138,36 +141,35 @@ export default function AnalysisContainer() {
         <>
             <div className={styles.container}>
 
-                <div className={styles.div_description}>
-                    <h1>Servicios analíticos y de diagnostico</h1>
-
-                    <p>Prestamos servicios analíticos y de diagnostico con asesoramiento de profesionales altamente capacitados. Contamos con equipos de ultima tecnología que nos permiten brindar resultados confiables y de precisión, para estudiar, diagnosticar, prevenir y tratar las diferentes afecciones.</p>
-                </div>
-
-
                 <div className={styles.div_container}>
+
+                    <div className={styles.description}>
+                        <h1>Servicios analíticos y de diagnostico</h1>
+
+                        <p>Contamos con equipos de ultima tecnología que nos permiten brindar resultados confiables y de precisión para diagnosticar, prevenir y tratar las diferentes afecciones, con el asesoramiento de profesionales en salud altamente capacitados.</p>
+                    </div>
 
                     <div className={styles.filter}>
 
-                        <h3> Especialidades </h3>
+                        <h3>Especialidades </h3>
 
                         <select name='specilities' onChange={(e) => handleFilter(e.target.value)}>
 
                             <option defaultValue={null} >Todos</option>
 
-                            {specilities?.map((item, index) => (
+                            {specialities?.map((item, index) => (
                                 <option key={index} value={item}>{item}</option>
                             ))}
 
                         </select>
 
-                        <h3> Ordenar </h3>
+                        <h3>Ordenar por nombre</h3>
 
                         <select ref={sortRef} name='orderByTitle' onChange={(e) => handleOrder(e)}>
 
-                            <option defaultValue={null} >Order...</option>
-                            <option value={'upward'} >Upward</option>
-                            <option value={'downward'} >Downward</option>
+                            <option defaultValue={null} >Orden</option>
+                            <option value={'upward'} >Ascendente</option>
+                            <option value={'downward'} >Descendente</option>
                             
                         </select>
 
@@ -193,6 +195,8 @@ export default function AnalysisContainer() {
                                 title={item.title}
                                 description={item.description}
                                 speciality={item.speciality}
+                                image= {item.image}
+                                price={item.price}
                             />
                         ))}
                         
