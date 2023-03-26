@@ -7,6 +7,7 @@ import Home from "./components/Home/Home";
 import Institutional from "./components/Institutional/Institutional";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
+import AddMedicForm from "./components/AddMedicForm/AddMedicForm";
 import AnalysisContainer from "./components/Analysis/AnalysisContainer";
 import { getAnalysis, getSpecialities } from './redux/actions';
 
@@ -32,6 +33,8 @@ function App() {
         <Route path="/institucional" element={<Institutional />} />
 
         <Route path='/analisis' element={<AnalysisContainer/>} />
+
+        <Route path='/agregarMedico' element={<AddMedicForm/>} />
 
       </Routes>
 

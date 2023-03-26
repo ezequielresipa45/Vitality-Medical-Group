@@ -1,0 +1,75 @@
+.container__medic {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  padding-top: 6rem;
+  flex-direction: row-reverse;
+  background-color: #f1efef;
+}
+
+.container__medic img {
+  pointer-events: none;
+}
+
+.container__medicForm {
+  padding-top: 2rem;
+  width: 50%;
+  color: #787878;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.btn__form {
+  border: none;
+  color: #fff;
+  border-radius: 0.3rem;
+}
+
+.btn__form:hover {
+  color: #bebebe;
+}
+
+.container__medicForm form {
+  display: flex;
+  width: 70%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  /* background-color: red; */
+}
+
+.container__medicForm form input {
+  border: none;
+  text-decoration: none;
+  background-color: transparent;
+  border-bottom: 1px solid #aaaaaa;
+  padding: 0.5rem;
+  outline: none;
+  color: #aaaaaa;
+}
+
+.container__selects {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  gap: 6.3rem;
+}
+
+.container__medicForm form select {
+  text-decoration: none;
+  background-color: transparent;
+  border: 1px solid #aaaaaa;
+  padding: 0.5rem;
+  outline: none;
+  color: #aaaaaa;
+}
+
+.errors{
+    background-color: rgb(148, 41, 41);
+    width: 60%;
+    color: #fff;
+    text-transform: uppercase;
+}
