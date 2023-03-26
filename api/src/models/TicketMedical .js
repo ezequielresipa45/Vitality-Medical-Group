@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
         autoIncrement: true,
         unique: true,
       },
-      titile: {
+      title: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -26,7 +26,6 @@ module.exports = (sequelize) => {
       hour_start: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
       },
       is_confirmed: {
         type: DataTypes.BOOLEAN,

@@ -106,7 +106,7 @@ Json Doctores:
         "phone": 79632548,
         "address": "Lanus, Argentina",
         "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
-        "specialities": "obstetricia, ginecología"
+        "specialities": "obstetricia"
     },
     {
         "dni": 26589874,
