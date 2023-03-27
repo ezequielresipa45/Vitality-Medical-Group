@@ -103,7 +103,7 @@
     
     background-color: rgb(240, 240, 240);
     
-    transition: 0.3s ease-out;
+    transition: 0.5s ease-out;
 
 }
 
@@ -144,6 +144,17 @@
 /* .item:hover {
     transform: scale(1.05);
 } */
+
+
+.item button {
+    border-radius: 0;
+    padding: 2px 5px 2px 5px;
+    opacity: 0%;
+}
+
+.item:hover button {
+    opacity: 100%;
+}
 
 .filter {
     display: flex;
