@@ -22,7 +22,7 @@ export default function Header() {
     <p>Los turnos clínicos son periodos de tiempo asignados donde un profesional de la salud atiende a los pacientes.</p>
   </Link>
 
-  <Link to='' className={styles.container__boxs__box}>
+  <Link to='/analisis' className={styles.container__boxs__box}>
     <h3>Análisis Clínicos</h3>
     <p>Los análisis clínicos son procedimientos que se realizan en laboratorios para detectar y monitorear afecciones médicas.</p>
   </Link>

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import styles from "./AddMedicForm.module.css";
 import medicForm from "../../images/medico-form.jpg"
-
+import Swal from 'sweetalert2'
 
 function isValidURL(urlString) {
 
@@ -26,19 +26,19 @@ function isValidURL(urlString) {
 function validate(inputs) {
     let errors = {};
     const regex = /^[a-zA-Z ]+$/;
-  if(!regex.test(inputs.nombre)){
-    errors.nombre = "Nombre NO válido"
+  if(!regex.test(inputs.full_name)){
+    errors.full_name = "Nombre NO válido"
   }
-    else if (inputs.nombre.length > 30) {
-        errors.nombre = "Debe ingresar un nombre más corto";
+    else if (inputs.full_name.length > 30) {
+        errors.full_name = "Debe ingresar un nombre más corto";
       } 
 
-      else if (inputs.edad < 18 || inputs.edad > 80 ) {
-        errors.edad = "Debe ingresar una edad mayor o igual que 18 y menor que 80";
+      else if (inputs.age < 18 || inputs.age > 80 ) {
+        errors.age = "Debe ingresar una edad mayor o igual que 18 y menor que 80";
       } 
 
-      else if (!isValidURL(inputs.imagen)) {
-       errors.imagen = "La URL no es válida o no es una imagen JPG";
+      else if (!isValidURL(inputs.image)) {
+       errors.image = "La URL no es válida o no es una imagen JPG";
      }
 
     return errors;
@@ -50,19 +50,18 @@ export default function AddMedicForm() {
   
   
     const [userDate, setUserDate] = useState({
-        nombre: "",
+      full_name: "",
         dni: "",
-        edad:18,
-        tel:"",
-        direccion:"",
-        imagen:"",
-        especialidad:"",
-        genero:""
+        age:18,
+        phone:"",
+        address:"",
+        image:"",
+        specialities:"",
+        gender:""
         
       });
       
-      const [especialidad, setEspecialidad] = useState("");
-      const [genero, setGenero] = useState("");  
+
 
       const handleInputChange = (e) => {
         setUserDate({ ...userDate, [e.target.name]: e.target.value });
@@ -71,20 +70,14 @@ export default function AddMedicForm() {
 
 
       const [errors, setErrors] = useState({
-        nombre: "",
-        edad:"",
-        tel:"",
-        direccion:"",
-        imagen:""
+        full_name: "",
+        age:"",
+        phone:"",
+        address:"",
+        image:""
       });
 
-const handleSelectChangeEspecialidad = (e)=>{
 
-
-  setEspecialidad(e.target.value);
-
-
-}
 
     let arraySpecialists = [
         "Clínica Médica",
@@ -105,18 +98,24 @@ const handleSelectChangeEspecialidad = (e)=>{
         // try {
         //   // Enviar la solicitud POST a la API
         //   const response = await axios.post(
-        //     "https://project-henry-videogames-production.up.railway.app/videogames",
+        //     "http://localhost:3001/doctor/",
         //     userDate
         //   );
         //   console.log(response.data);
         // } catch (error) {
         //   console.error(error.message);
         // }
-    alert("Medico creado")
-    setUserDate({ ...userDate, especialidad: especialidad });
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Su médico ah sido creado.',
+          showConfirmButton: false,
+          timer: 1500
+        })
 
     console.log(userDate)
       };
+
 
 
 
@@ -134,23 +133,23 @@ const handleSelectChangeEspecialidad = (e)=>{
 
 <form onSubmit={handleSubmit}>
 
-<input type="text" name='nombre' placeholder='Nombre Completo' autoComplete='nop' required onChange={handleInputChange} value={userDate.nombre}/>
+<input type="text" name='full_name' placeholder='Nombre Completo' autoComplete='nop' required onChange={handleInputChange} value={userDate.full_name}/>
 
 
 <input type="text" name='dni' placeholder='DNI' autoComplete='nop' maxlength="8" minlength="8" required onChange={handleInputChange} value={userDate.dni} />
 
-<input type="number" name='edad' placeholder='Edad' autoComplete='nop' max={80} required  onChange={handleInputChange} value={userDate.edad} />
+<input type="number" name='age' placeholder='Edad' autoComplete='nop' max={80} required  onChange={handleInputChange} value={userDate.age} />
 
-<input type="tel" name='tel' placeholder='Cel. Ej: (123) 456-7890' autoComplete='nop' min={10} required  onChange={handleInputChange} value={userDate.tel}/>
-<input type="text" name='direccion' placeholder='Dirección' autoComplete='nop' required  onChange={handleInputChange} value={userDate.direccion}/>
-<input type="text" name='imagen' placeholder='URL de la imagen' autoComplete='nop'required  onChange={handleInputChange} value={userDate.imagen}/>
+<input type="tel" name='phone' placeholder='Cel. Ej: (123) 456-7890' autoComplete='nop' min={10} required  onChange={handleInputChange} value={userDate.phone}/>
+<input type="text" name='address' placeholder='Dirección' autoComplete='nop' required  onChange={handleInputChange} value={userDate.address}/>
+<input type="text" name='image' placeholder='URL de la imagen' autoComplete='nop'required  onChange={handleInputChange} value={userDate.image}/>
 
 
 <div className={styles.container__selects}>
 
 
-<select value={especialidad} onChange={handleSelectChangeEspecialidad} >
-    <option disabled selected>Especialidades</option>
+<select name='specialities' onChange={(e) => setUserDate({ ...userDate, specialities: e.target.value })} value={userDate.specialities}  >
+    <option disabled value=''>Seleccionar especialidades</option>
 {arraySpecialists.map(specialist => (
 // con estos métodos, sacamos las mayusculas, los espacios y los acentos.
 <option value={specialist.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\u0300-\u036f]/g, "")}>{specialist}</option>
@@ -158,8 +157,8 @@ const handleSelectChangeEspecialidad = (e)=>{
 ))}
 </select>
 
-<select >
-    <option  disabled selected >Género</option>
+<select name='gender' onChange={(e) => setUserDate({ ...userDate, gender: e.target.value })} value={userDate.gender} >
+  <option disabled  value=''>Seleccionar género</option>
     <option value="masculino">Masculino</option>
     <option value="femenino">Femenino</option>
     <option value="no-binario">No Binario</option>
@@ -173,9 +172,9 @@ const handleSelectChangeEspecialidad = (e)=>{
 
 </form>
 
-{errors.nombre && <p className={styles.errors}>{errors.nombre}</p>}
-{errors.edad && <p className={styles.errors} >{errors.edad}</p>}
-{errors.imagen && <p className={styles.errors} >{errors.imagen}</p>}
+{errors.full_name && <p className={styles.errors}>{errors.full_name}</p>}
+{errors.age && <p className={styles.errors} >{errors.age}</p>}
+{errors.image && <p className={styles.errors} >{errors.image}</p>}
 
 
 </div>
