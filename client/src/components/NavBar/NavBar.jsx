@@ -43,7 +43,7 @@ export default function NavBar() {
           <Link to='/institucional'>Institucional</Link>
           <Link to=''>Novedades</Link>
           <button className={styles.button__ul}  style={clickBoolean ? { backgroundColor: "#639cc7", color: "#fff",height: "100%", borderRadius:"0", border:"none" } : {}} onClick={handlerEspeciality} >Especialidades</button>
-          <Link to=''>Planes</Link>
+          <Link to='/planes'>Planes</Link>
         </ul>
 
         <Link to={'/agregarMedico'}>

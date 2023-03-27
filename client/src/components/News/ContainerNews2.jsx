@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import News from './News2';
 import styles from './News2.module.css';
 
-const DEFAULT_IMAGE = 'https://images.pexels.com/photos/8851547/pexels-photo-8851547.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
+const DEFAULT_IMAGE = 'https://cdn.pixabay.com/photo/2015/05/24/06/13/medical-781422_1280.jpg';
 const INITIAL_PAGE = 0;
 const ITEMS = 3;
 
