@@ -109,8 +109,6 @@ export default function AnalysisContainer() {
 
         dispatch(filterAnalysis(value));
 
-        //setRecipes(filtered);
-
         sortRef.current.options.selectedIndex = 0;
 
         //console.log(value);
