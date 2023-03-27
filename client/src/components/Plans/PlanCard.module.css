@@ -1,0 +1,57 @@
+.container{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+    border-color: black;
+    box-shadow: 0.3cm;
+    
+
+}
+/* .container :hover{
+    transform: scale(0,3) ;
+} */
+.card{
+    background-color:  var(--primary);
+    border-radius: 1rem;
+    box-shadow: 20px;
+    display:flex;
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 250px;
+    width: 400px;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+
+   
+}
+
+
+.left{
+    background-color: #6581bee8;
+    border-color: black;
+    padding: 2rem;
+    align-items: center;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    width: 100px;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+
+}
+
+.right{
+    display: flex;
+    padding: 2rem;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+
+}
+/* .button{
+    border-radius: 3rem;
+    box-shadow: 0 1rem 1rem rgba(0,0,0, 0.2);
+    color: aqua;
+    font-size: 1,2rem;
+    letter-spacing: 1rem;
+    align-self: flex-end;
+
+} */
