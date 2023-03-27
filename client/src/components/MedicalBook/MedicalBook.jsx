@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSpecialities, getAnalysis } from "../../redux/actions";
+import { getSpecialities, getAnalysis,getDoctors, getPlan, getFarmacy } from "../../redux/actions";
 
 const MedicalBook = () => {
   const dispatch = useDispatch();
   const analysis = useSelector((state) => state.analysis);
   const specialities = useSelector((state) => state.specialities);
+  const doctors= useSelector((state) => state.doctors);
+  const plans= useSelector((state) => state.plans);
+  const farmacies = useSelector((state) => state.farmacies);
 
   const [selectedAnalysis, setSelectedAnalysis] = useState("");
   const [selectedSpeciality, setSelectedSpeciality] = useState("");
+  const [selectedDoctors, setSelectedDoctors] = useState("");
+  const [selectedPlan, setSelectedPlan] = useState("");
+  const [selectedFarmacy, setSelectedFarmacy] = useState("");
 
   useEffect(() => {
     dispatch(getAnalysis());
     dispatch(getSpecialities());
+    dispatch(getDoctors());
+    dispatch(getPlan());
+    dispatch(getFarmacy());
   }, [dispatch]);
 
   return (
@@ -43,6 +52,48 @@ const MedicalBook = () => {
             {specialities?.map((speciality) => (
               <option key={speciality.id} value={speciality.id}>
                 {speciality}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Seleccione un Profesional:</label>
+          <select
+            value={selectedDoctors}
+            onChange={(e) => setSelectedDoctors(e.target.value)}
+          >
+            <option value="">Seleccione un medico</option>
+            {doctors?.map((doctor) => (
+              <option key={doctor.id} value={doctor.id}>
+                {doctor}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Seleccione un Plan:</label>
+          <select
+            value={selectedPlan}
+            onChange={(e) => setSelectedPlan(e.target.value)}
+          >
+            <option value="">Seleccione un plan</option>
+            {plans?.map((plan) => (
+              <option key={plan.id} value={plan.id}>
+                {plan}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Seleccione una Farmacia:</label>
+          <select
+            value={selectedFarmacy}
+            onChange={(e) => setSelectedFarmacy(e.target.value)}
+          >
+            <option value="">Seleccione una farmacia</option>
+            {farmacies?.map((farm) => (
+              <option key={farm.id} value={farm.id}>
+                {farm.name}
               </option>
             ))}
           </select>
