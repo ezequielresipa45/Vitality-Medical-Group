@@ -12,6 +12,7 @@ import Footer from "./components/Footer/Footer";
 import AddMedicForm from "./components/AddMedicForm/AddMedicForm";
 import AnalysisContainer from "./components/Analysis/AnalysisContainer";
 import { getAnalysis, getSpecialities } from './redux/actions';
+import MedicalBook from './components/MedicalBook/MedicalBook';
 
 function App() {
 
@@ -41,6 +42,8 @@ function App() {
         <Route path='/analisis' element={<AnalysisContainer/>} />
 
         <Route path='/agregarMedico' element={<AddMedicForm/>} />
+
+        <Route path='/cartilla' element={<MedicalBook/>} />
 
       </Routes>
 
