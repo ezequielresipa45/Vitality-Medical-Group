@@ -1,5 +1,6 @@
 import React from 'react';
-import styles from './Analysis.module.css'
+import { useNavigate } from 'react-router-dom';
+import styles from './Analysis.module.css';
 
 const ANALYSIS_IMAGE = 'https://images.pexels.com/photos/4226902/pexels-photo-4226902.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
 const TRAUMA_IMAGE = 'https://images.pexels.com/photos/4226258/pexels-photo-4226258.jpeg';
@@ -7,10 +8,9 @@ const CARDIO_IMAGE = 'https://cdn.pixabay.com/photo/2019/06/18/01/06/ecg-4281208
 const NEURO_IMAGE = 'https://cdn.pixabay.com/photo/2021/12/02/22/15/x-ray-6841384_1280.jpg';
 const PSIQUIA_IMAGE = 'https://cdn.pixabay.com/photo/2020/03/23/17/04/brain-4961452_1280.jpg';
 
-
-
-
 export default function Analysis(props) {
+
+    const navigate = useNavigate();
 
     let default_image = ANALYSIS_IMAGE;
 
@@ -34,6 +34,8 @@ export default function Analysis(props) {
             <p>{props.description}</p>
 
             <p>{props.price}</p>
+
+            <button onClick={() => navigate('/turnos')}>Turno</button>
 
         </div>
 
