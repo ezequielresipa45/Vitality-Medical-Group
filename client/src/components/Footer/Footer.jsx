@@ -18,7 +18,7 @@ const Footer = ()=>{
         
         <h4>SOBRE NOSOTROS </h4> 
            <Link className={style.link} to = "/institucional">Institucional</Link>
-           <Link className={style.link} to = "*">Contactanos</Link>
+           <a className={style.link} href="mailto:infovitalitymedical@gmail.com">Contactanos</a>
            <Link className={style.link} to = "/conocenos">Conocenos</Link>
        
        

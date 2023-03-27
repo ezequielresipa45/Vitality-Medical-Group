@@ -1,6 +1,10 @@
 import React from "react";
 import AboutCard from "./AboutCard";
-import img2 from "../../images/farmacia.jpeg"
+import img1 from "../../images/pamela-h.jpeg"
+import img2 from "../../images/lucas-g.jpeg"
+import img4 from "../../images/jonathan-r.jpeg"
+import img5 from "../../images/ezequiel-r.jpeg"
+import img6 from "../../images/jonathan-b.jpeg"
 import style from "../About/AboutCard.module.css"
 
 const AboutCards = () => {
@@ -12,7 +16,7 @@ const AboutCards = () => {
           city="CABA, Argentina"
           about="Full stack Devoloper - Front End"
           linkedin="https://www.linkedin.com/in/pamela-yael-herrera1987/"
-          image={img2}
+          image={img1}
         />
 
         <AboutCard
@@ -28,7 +32,7 @@ const AboutCards = () => {
         city="Santa fe, Argentina"
         about="Full stack Devoloper - Front End"
         linkedin="https://www.linkedin.com/in/emanuel-marquez-dev/"
-        image={img2}
+        image={img1}
         /> 
 
         <AboutCard
@@ -36,7 +40,7 @@ const AboutCards = () => {
           city="Aragua, Venezuela"
           about="Full stack Devoloper - Back End"
           linkedin="https://www.linkedin.com/in/rodriguezjmm/"
-          image={img2}
+          image={img4}
         />
 
         <AboutCard
@@ -44,7 +48,7 @@ const AboutCards = () => {
         city="Buenos Aires, Argentina"
         about="Full stack Devoloper - Front End"
         linkedin="https://www.linkedin.com/in/ezequiel-resipa/"
-        image={img2}
+        image={img5}
           
         />
         <AboutCard
@@ -52,14 +56,14 @@ const AboutCards = () => {
           city="Lima,Peru"
           about="Full stack Devoloper - Back End"
           linkedin="https://www.linkedin.com/in/jonathan-berna-ab8112265/"
-          image={img2}
+          image={img6}
         />
         <AboutCard
           fullName="Catalina Hardoy"
           city="CABA, Argentina"
           about="Full stack Devoloper - Front End"
           linkedin="https://www.linkedin.com/in/catalina-hardoy-8a3a48119/"
-          image={img2}
+          image={img1}
         />
         <AboutCard
           fullName="Santiago Mendoza"
