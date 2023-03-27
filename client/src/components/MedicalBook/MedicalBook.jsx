@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpecialities, getAnalysis,getDoctors, getPlan, getFarmacy } from "../../redux/actions";
+import style from '../MedicalBook/MedicalBook.module.css';
 
 const MedicalBook = () => {
   const dispatch = useDispatch();
@@ -25,11 +26,11 @@ const MedicalBook = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      <h1>Cartilla médica</h1>
-      <form>
-        <div>
-          <label>Seleccione un análisis:</label>
+    <div className={style.firstDiv}>
+      <h1 className={style.h1}>Cartilla médica</h1>
+      
+        <div className={style.secondDiv}>
+          <label className={style.title}>Seleccione un análisis:</label>
           <select
             value={selectedAnalysis}
             onChange={(e) => setSelectedAnalysis(e.target.value)}
@@ -42,8 +43,8 @@ const MedicalBook = () => {
             ))}
           </select>
         </div>
-        <div>
-          <label>Seleccione una especialidad:</label>
+        <div className={style.secondDiv}>
+          <label className={style.title}>Seleccione una especialidad:</label>
           <select
             value={selectedSpeciality}
             onChange={(e) => setSelectedSpeciality(e.target.value)}
@@ -56,8 +57,8 @@ const MedicalBook = () => {
             ))}
           </select>
         </div>
-        <div>
-          <label>Seleccione un Profesional:</label>
+        <div className={style.secondDiv}>
+          <label className={style.title}>Seleccione un Profesional:</label>
           <select
             value={selectedDoctors}
             onChange={(e) => setSelectedDoctors(e.target.value)}
@@ -70,8 +71,8 @@ const MedicalBook = () => {
             ))}
           </select>
         </div>
-        <div>
-          <label>Seleccione un Plan:</label>
+        <div className={style.secondDiv}>
+          <label className={style.title}>Seleccione un Plan:</label>
           <select
             value={selectedPlan}
             onChange={(e) => setSelectedPlan(e.target.value)}
@@ -84,8 +85,8 @@ const MedicalBook = () => {
             ))}
           </select>
         </div>
-        <div>
-          <label>Seleccione una Farmacia:</label>
+        <div className={style.secondDiv}>
+          <label className={style.title}>Seleccione una Farmacia:</label>
           <select
             value={selectedFarmacy}
             onChange={(e) => setSelectedFarmacy(e.target.value)}
@@ -98,8 +99,8 @@ const MedicalBook = () => {
             ))}
           </select>
         </div>
-        <button type="submit">Agendar cita</button>
-      </form>
+       
+      
     </div>
   );
 };
