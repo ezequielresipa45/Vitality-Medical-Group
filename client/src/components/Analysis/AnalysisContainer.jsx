@@ -8,7 +8,7 @@ import styles from './Analysis.module.css';
 import { getSpecialities , getAnalysis , filterAnalysis } from '../../redux/actions';
 
 const INITIAL_PAGE = 0;
-const ITEMS = 4;
+const ITEMS = 8;
 
 export default function AnalysisContainer() {
 
@@ -109,8 +109,6 @@ export default function AnalysisContainer() {
 
         dispatch(filterAnalysis(value));
 
-        //setRecipes(filtered);
-
         sortRef.current.options.selectedIndex = 0;
 
         //console.log(value);
@@ -122,7 +120,7 @@ export default function AnalysisContainer() {
             e.target.value === 'upward' 
                 ? orderedAnalysis = [...analysis].sort((itemA, itemB) => itemB.title.localeCompare(itemA.title))
                 : orderedAnalysis = [...analysis].sort((itemA, itemB) => itemA.title.localeCompare(itemB.title))
-            sortRef.current.options.selectedIndex = 0;
+            /* sortRef.current.options.selectedIndex = 0; */
             return setAnalysis([...orderedAnalysis]);
         
         };

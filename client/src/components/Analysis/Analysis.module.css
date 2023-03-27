@@ -66,6 +66,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+    flex-wrap: wrap;
     width: 100%;
     min-height: 50vh;
     
@@ -89,6 +90,7 @@
 .item {
     display: flex;
     flex-direction: column;
+    flex: 0 0 21%; 
     align-items: center;
     justify-content: flex-start;
     height: 300px;
@@ -154,14 +156,16 @@
     text-shadow: 2px 2px 20px rgb(36, 36, 36, 1); */
 }
 
-/* .filter select {
+.filter select {
     
-    border-radius: 10px;
-    width: 15%;
-    height: 20px;
-    border: black;
+    text-decoration: none;
+    background-color: transparent;
+    border: 1px solid #aaaaaa;
+    padding: 0.5rem;
+    outline: none;
+    color: #000000;
     
-} */
+}
 
 .pageButton {
     height: 30px;
