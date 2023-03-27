@@ -19,7 +19,7 @@ const Footer = ()=>{
         <h4>SOBRE NOSOTROS </h4> 
            <Link className={style.link} to = "/institucional">Institucional</Link>
            <Link className={style.link} to = "*">Contactanos</Link>
-           <Link className={style.link} to = "*">Conocenos</Link>
+           <Link className={style.link} to = "/conocenos">Conocenos</Link>
        
        
         </Grid>
@@ -28,9 +28,9 @@ const Footer = ()=>{
    
         <ul>
         <h4>SEGUINOS</h4>
-        <Link className={style.link} to = "https://www.facebook.com/catuhardoy"> <FacebookIcon fontSize="medium"/></Link>
-        <Link className={style.link} to = "https://www.instagram.com/catuhardoy"> <InstagramIcon fontSize="medium"/></Link>
-        <Link className={style.link} to = "https://www.instagram.com/catuhardoy"> <TwitterIcon fontSize="medium"/></Link>
+        <Link className={style.link} to = "https://www.facebook.com/profile.php?id=100091161765205"> <FacebookIcon fontSize="medium"/></Link>
+        <Link className={style.link} to = "https://www.instagram.com/vitalitymedicalgroup"> <InstagramIcon fontSize="medium"/></Link>
+        <Link className={style.link} to = "https://twitter.com/group_medi78854"> <TwitterIcon fontSize="medium"/></Link>
 
         </ul>
         {/* </Typography> */}
