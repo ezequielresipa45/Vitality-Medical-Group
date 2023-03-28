@@ -13,6 +13,7 @@ import AddMedicForm from "./components/AddMedicForm/AddMedicForm";
 import AnalysisContainer from "./components/Analysis/AnalysisContainer";
 import { getAnalysis, getSpecialities } from './redux/actions';
 import MedicalBook from './components/MedicalBook/MedicalBook';
+import Specialitys from './components/Specialitys/Specialitys';
 
 axios.defaults.baseURL = 'https://apiclinica.onrender.com/';
 
@@ -46,6 +47,9 @@ function App() {
         <Route path='/agregarMedico' element={<AddMedicForm/>} />
 
         <Route path='/cartilla' element={<MedicalBook/>} />
+
+        <Route path="/especialidad/:speciality" element={<Specialitys />} />
+
 
       </Routes>
 

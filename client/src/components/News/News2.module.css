@@ -20,9 +20,9 @@
 }
 
 .container h2 {
-    align-self: flex-start;
-    text-align: left;
-    padding-left: 80px;
+width: 100%;
+text-align: center;
+color: #787878;
 }
 
 .container button {
