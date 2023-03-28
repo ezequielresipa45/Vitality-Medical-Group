@@ -1,0 +1,31 @@
+.firstDiv {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .h1 {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .secondDiv {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    align-items: flex-start;
+  }
+  
+  .title {
+    margin-bottom: 10px;
+    margin-right: 20px;
+  }
+  
+  select {
+    margin-left: 10px;
+  }
+  
+  
+  
