@@ -1,0 +1,46 @@
+:root {
+    --primary: #639cc7;
+    --secondary: #787878;
+  }
+
+
+.container__speciality {
+  width: 100%;
+  /* height: 100vh; */
+  display: flex;
+  background-color: #f1efef;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 7rem ;
+
+}
+
+.container__speciality h1{
+    font-size: 3em;
+    padding: 1rem;
+    text-transform: uppercase;
+    color: #fffcfc;
+    background-color: #639cc7;
+    
+}
+
+.container__speciality header {
+    height: 18rem;
+    width: 100%;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), #f1efef),
+    linear-gradient(to bottom, #f1efef, rgba(255, 255, 255, 0)) , url('../../images/especialidades-medicas.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+
+  .container__speciality section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }

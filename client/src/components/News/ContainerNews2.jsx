@@ -74,7 +74,7 @@ export default function ContainerNews() {
 
     return (
 
-        <div className={styles.container}>
+        <div className={styles.container} >
 
             <h2>Novedades internacionales</h2>
 

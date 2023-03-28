@@ -12,7 +12,7 @@ export default function Header() {
 <div className={styles.container__boxs}>
 
 
-<Link to='' className={styles.container__boxs__box}>
+<Link to='/cartilla' className={styles.container__boxs__box}>
     <i className='fa-solid fa-user-doctor'></i>
     <h3>Cartilla Médica</h3>
     <p>Guía que le permite al usuario y su grupo familiar acceder a todos los servicios que le ofrece Vitality Medical Group.</p>
