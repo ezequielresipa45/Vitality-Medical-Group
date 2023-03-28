@@ -28,17 +28,26 @@ export function filterAnalysis(value) {
     }; 
 };
 
+
+// export function getVideogames(){
+//   return async function(dispatch) { 
+//       const json = await axios.get("http://localhost:3001/videogames");//hago la peticion al back
+      
+      
+//       return dispatch({ //armo la action 
+//           type: 'GET_VIDEOGAMES',
+//           payload: json.data
+//       })
+//   }
+// };
 export function getDoctors(){
-    return{
+    return async function(dispatch){
+      const json = await axios.get("https://apiclinica.onrender.com/doctor");
+
+      return dispatch({
         type: GET_DOCTORS,
-        payload: [
-            "Dr. Juan González","Dra. Ana García","Dr. Manuel López","Dra. Sofía Pérez",
-            "Dr. Carlos Gómez","Dra. María Fernández","Dr. Luis Hernández","Dra. Laura Torres",
-            "Dr. José Ramírez","Dra. Ana María Díaz","Dr. Roberto Castro",
-            "Dra. Claudia Ramírez","Dr. Santiago Hernández","Dra. Gabriela Castro","Dr. Julio Flores","Dra. Ana Belén Morales",
-            "Dr. Miguel Ángel Ramírez","Dra. Valeria Sánchez","Dr. Antonio Rivera","Dra. Beatriz Martínez"
-          ],
-          
+        payload: json.data,
+      })
     }
 };
 
