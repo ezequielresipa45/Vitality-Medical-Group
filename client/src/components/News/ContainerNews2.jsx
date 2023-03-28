@@ -101,9 +101,9 @@ export default function ContainerNews() {
             </div>
 
             <div>
-                <button onClick={() => prevHandler()}>{'<'}</button>
+                <button onClick={() => prevHandler()}><i className='fas fa-chevron-left'></i></button>
 
-                <button onClick={() => nextHandler()}>{'>'}</button>
+                <button onClick={() => nextHandler()}><i className='fas fa-chevron-right'></i></button>
             </div>
 
         </div>
