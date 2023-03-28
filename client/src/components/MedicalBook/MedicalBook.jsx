@@ -3,6 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSpecialities, getAnalysis,getDoctors, getPlan, getFarmacy } from "../../redux/actions";
 import style from '../MedicalBook/MedicalBook.module.css';
 
+//si es un plan solo debe seleccionarlo
+//si son Farmacias devuelve la info harc de farmacias
+//si son especialidades debe mostrarme todos los medicos de esa especialidad y 
+//sus respectivas turneras
+//si es un medico debe render la info con su turnera
+// si son analisis debe renderizarme todos los analisis o solo los de esa espacialidad
+
 const MedicalBook = () => {
   const dispatch = useDispatch();
   const analysis = useSelector((state) => state.analysis);
