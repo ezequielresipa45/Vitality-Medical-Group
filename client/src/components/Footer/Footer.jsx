@@ -24,7 +24,7 @@ const Footer = ()=>{
        
         </Grid>
   <Grid item xs={6}>
-      {/* <Typography> */}
+      
    
         <ul>
         <h4>SEGUINOS</h4>
@@ -33,7 +33,7 @@ const Footer = ()=>{
         <Link className={style.link} to = "https://twitter.com/group_medi78854"> <TwitterIcon fontSize="medium"/></Link>
 
         </ul>
-        {/* </Typography> */}
+        
         
   </Grid>
   <Grid className={style.subFooter} item xs={12}>
