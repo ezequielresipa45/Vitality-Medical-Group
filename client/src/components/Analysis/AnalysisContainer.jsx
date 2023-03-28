@@ -206,7 +206,7 @@ export default function AnalysisContainer() {
                     <div className={styles.div_controllers}>
 
                         <button className= { currentPage !== INITIAL_PAGE ? styles.pageButton : styles.noButton } onClick={currentPage !== INITIAL_PAGE ? () => prevHandler() : null } >
-                                {/* <i className='fas fa-chevron-left'></i> */}{'<'}
+                            <i className='fas fa-chevron-left'></i>
                         </button>
 
                         {/* <button className= {style.pageButton} >{currentPage + 1}</button> */}
@@ -214,7 +214,7 @@ export default function AnalysisContainer() {
                         {PAGES.map((item, index) => <button key={index} className= {currentPage+1 === item ? styles.pageActive : styles.pageButton} onClick={() => onClickPageHandler(item)}> {item} </button>)}
 
                         <button className= {currentPage +1 !== PAGES.length ? styles.pageButton : styles.noButton } onClick={() => nextHandler()}>
-                                {/* <i className='fas fa-chevron-right'></i> */}{'>'}
+                            <i className='fas fa-chevron-right'></i>
                         </button>
 
                     </div>
