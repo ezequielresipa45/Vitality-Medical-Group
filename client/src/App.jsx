@@ -13,6 +13,8 @@ import AddMedicForm from "./components/AddMedicForm/AddMedicForm";
 import AnalysisContainer from "./components/Analysis/AnalysisContainer";
 import { getAnalysis, getSpecialities } from './redux/actions';
 
+axios.defaults.baseURL = 'https://apiclinica.onrender.com/';
+
 function App() {
 
   const dispatch = useDispatch();
