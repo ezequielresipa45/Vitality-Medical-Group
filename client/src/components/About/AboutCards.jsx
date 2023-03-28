@@ -2,7 +2,7 @@ import React from "react";
 import AboutCard from "./AboutCard";
 import img1 from "../../images/pamela-h.jpeg"
 import img2 from "../../images/lucas-g.jpeg"
-import img3 from "../../images/emanuel-m.jpeg"
+import img3 from "../../images/emanuel-m.jpg"
 import img4 from "../../images/jonathan-r.jpeg"
 import img5 from "../../images/ezequiel-r.jpeg"
 import img6 from "../../images/jonathan-b.jpeg"
