@@ -4,7 +4,7 @@ import Button from "@mui/material/Button"
 
 const PlanCard = ({ name,icon, description, price, consultations_per_patient }) => {
     return (
-       
+       <div className ={style.background}>
       <div className={style.container}>
           <div className={style.card}>
           <div className={style.left}> 
@@ -22,6 +22,7 @@ const PlanCard = ({ name,icon, description, price, consultations_per_patient }) 
           
           </div>
           </div>
+      </div>
       </div>
       
     );

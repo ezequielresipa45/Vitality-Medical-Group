@@ -2,9 +2,12 @@ import React from "react";
 import AboutCard from "./AboutCard";
 import img1 from "../../images/pamela-h.jpeg"
 import img2 from "../../images/lucas-g.jpeg"
+import img3 from "../../images/emanuel-m.jpeg"
 import img4 from "../../images/jonathan-r.jpeg"
 import img5 from "../../images/ezequiel-r.jpeg"
 import img6 from "../../images/jonathan-b.jpeg"
+import img7 from "../../images/catalina-h.jpeg"
+import img8 from "../../images/santiago-m.jpeg"
 import style from "../About/AboutCard.module.css"
 
 const AboutCards = () => {
@@ -32,7 +35,7 @@ const AboutCards = () => {
         city="Santa fe, Argentina"
         about="Full stack Devoloper - Front End"
         linkedin="https://www.linkedin.com/in/emanuel-marquez-dev/"
-        image={img1}
+        image={img3}
         /> 
 
         <AboutCard
@@ -63,14 +66,14 @@ const AboutCards = () => {
           city="CABA, Argentina"
           about="Full stack Devoloper - Front End"
           linkedin="https://www.linkedin.com/in/catalina-hardoy-8a3a48119/"
-          image={img1}
+          image={img7}
         />
         <AboutCard
           fullName="Santiago Mendoza"
           city="Buenos Aires, Argentina"
           about="Full stack Devoloper - Back End"
           linkedin="https://www.linkedin.com/in/santiago-mendoza-722a43222/"
-          image={img2}
+          image={img8}
         
         /> 
     </div>
