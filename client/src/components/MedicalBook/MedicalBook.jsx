@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDoctors, getFarmacy  } from '../../redux/actions';
+import style from './MedicalBook.module.css';
 
 const itemsPerPage = 4; // number of items to show per page
 
@@ -28,28 +29,28 @@ const MedicalBook = () => {
   const totalPages = Math.ceil(maxItems / itemsPerPage);
 
   return (
-    <div>
-      <h2>Farmacias</h2>
-      {currentPharmacies.map((pharmacy, index) => (
-        <div key={index}>
+    <div className={style.firstDiv}>
+      <h2 className={style.h2}>Farmacias</h2>
+      { currentPharmacies.map((pharmacy, index) => (
+        <div className={style.divCard} key={index}>
           <h3>{pharmacy.name}</h3>
           <p>Dirección: {pharmacy.address}</p>
           <p>Teléfono: {pharmacy.phone}</p>
         </div>
       ))}
-      <h2>Doctores</h2>
+      <h2 className={style.h2}>Doctores</h2>
       {currentDoctors.map((doctor, index) => (
-        <div key={index}>
+        <div className={style.divCard} key={index}>
           <h3>{doctor.full_name}</h3>
           <p>Especialidad: {doctor.specialities.map((esp)=> esp.speciality)}</p>
           <p>Teléfono: {doctor.phone}</p>
           <p>Dirección: {doctor.address}</p>
         </div>
       ))}
-      <div>
-        <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>Anterior</button>
-        <span>Página {currentPage} de {totalPages}</span>
-        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>Siguiente</button>
+      <div className={style.buttonDiv}>
+        <button className={style.button} onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>Anterior</button>
+        <span className={style.span}>Página {currentPage} de {totalPages}</span>
+        <button className={style.button} onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>Siguiente</button>
       </div>
     </div>
   );
