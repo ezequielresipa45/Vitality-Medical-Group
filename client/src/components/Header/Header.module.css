@@ -103,9 +103,20 @@
 .container__boxs__box i {
   font-size: 30px;
   margin: 10px;
-  color: initial;
 }
 
 .container__boxs:hover a {
-  color: initial;
+  color: #fff;
+}
+
+
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+ 
+input[type=number] {
+  -moz-appearance: textfield;
 }
