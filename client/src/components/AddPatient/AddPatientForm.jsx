@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import style from "../AddPatient/AddPatientForm.module.css"
-import patientPic from "../../../images/patientForm-img.jpeg"
+import patientPic from "../../images/patientForm-img.jpeg"
 
 
 function validate(inputs) {
