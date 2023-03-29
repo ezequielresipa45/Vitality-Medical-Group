@@ -25,9 +25,6 @@ const POST_SPECIALITY = async (req, res) => {
 const PUT_SPECIALITY = async (req, res) =>{
     try {
         const {id, speciality} = req.body
-        
-
-        //console.log(req.body,'handler')
         const data = await changeSpeciality(id, speciality)
         res.status(200).json(data)
         

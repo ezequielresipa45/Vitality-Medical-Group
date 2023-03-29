@@ -1,8 +1,27 @@
 const { Router } = require("express");
+const {
+  ticketAnalisysHandler,
+  confirmTicketAnalisysHandler,
+  allTicketAnalisysHandler,
+  ticketAnalisysIdHandler,
+  deleteTicketAnalisysHandler,
+} = require("../handlers/ticketAnalisysHandlers/ticketAnalisysHandlers.js");
+const {
+  validatorCreateTicketAnalisys,
+} = require("../middlewares/validators.js");
 
-// *Acá definimos las rutas de turnos análisis:
-const ticketAnalysisRouter = Router();
+// *Acá definimos las rutas de turnos médicos:
+const ticketAnalisysRouter = Router();
 
-// !POR DEFINIR...
+//ticketAnalisysRouter.get("/", allTicketAnalisysHandler);
 
-module.exports = ticketAnalysisRouter;
+//ticketAnalisysRouter.get("/:id", ticketAnalisysIdHandler);
+
+ticketAnalisysRouter.post("/createTicketAnalisys", /*validatorCreateTicketAnalisys*/ ticketAnalisysHandler
+);
+
+ticketAnalisysRouter.put("/confirmTicket", confirmTicketAnalisysHandler);
+
+//ticketAnalisysRouter.delete("/:id/delete", deleteTicketAnalisysHandler);
+
+module.exports = ticketAnalisysRouter;
