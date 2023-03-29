@@ -1,0 +1,105 @@
+.container__patient {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    padding-top: 6rem;
+    flex-direction: row;
+    background-color: #f1efef;
+  }
+  
+  .container__patient img {
+    pointer-events: none;
+    height: 400px;
+    width: 600px;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 60px;
+
+  }
+  
+  .container__patient_form {
+    padding-top: 2rem;
+    width: 50%;
+    color: #787878;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    
+  }
+  
+  .btn__form {
+    border: none;
+    color: #fff;
+    border-radius: 0.3rem;
+    position:relative;
+    bottom: 30px;
+    z-index: 999;
+    
+  }
+  
+  .btn__form:hover {
+    color: #bebebe;
+  }
+  
+  .container__patient_form form {
+    display: flex;
+    width: 70%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  .container__patient_form form input {
+    border: none;
+    text-decoration: none;
+    background-color: transparent;
+    border-bottom: 1px solid #aaaaaa;
+    padding: 0.5rem;
+    outline: none;
+    color: #aaaaaa;
+    width: 10rem;
+    text-align: left;
+  }
+  
+  .container__patient_form form select {
+    text-decoration: none;
+    background-color: transparent;
+    border: 1px solid #aaaaaa;
+    padding: 0.5rem;
+    outline: none;
+    color: #aaaaaa;
+    width: 15rem;
+  }
+  
+  .errors {
+    background-color: rgb(148, 41, 41);
+    width: 60%;
+    color: #fff;
+    text-transform: uppercase;
+  }
+  
+  .container__selects {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 2rem;
+  }
+  .input_comments {
+    width: 500px;
+    height: 125px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    justify-content: center;
+  }
+
+  
+  
+
+
