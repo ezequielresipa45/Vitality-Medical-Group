@@ -58,19 +58,44 @@ export default function AddMedicForm() {
     phone: "",
     address: "",
     image: "",
-    specialities: "",
+    specialities: [],
     gender: "",
     code: "",
     birthday: ""
 
   });
 
+
+  const [userSpecialities, setUserSpecialities] = useState([]);
+
+
+  const handleChangeSpecialities = (e)=>{
+    const { name, value } = e.target;
+
+    let newValues = [...userSpecialities, value];
+
+    setUserSpecialities(newValues);
+
+
+    setUserDate({ ...userDate, specialities: newValues });
+
+
+  }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
     if (name === "dni" || name === "age" || name === "code") { // Verificar si el campo es dni, age o code
       setUserDate({ ...userDate, [name]: Number(value) }); // Convertir el valor a número antes de establecerlo en el estado
-    } else {
+    }else if (name === "specialities"){
+
+      const specialtiesArray = userDate.specialities; // Obtener el valor actual del array "specialities"
+      const newSpeciality = value;
+      const updatedSpecialities = [...specialtiesArray, newSpeciality]; // Agregar el nuevo valor ingresado al final del array
+      setUserDate(prevState => ({ ...prevState, specialities: updatedSpecialities })); // Actualizar el estado "userDate" con el nuevo valor del array "specialities"
+    }
+    
+    else {
       setUserDate({ ...userDate, [name]: value });
     }
     setErrors(validate({ ...userDate, [name]: value }));
@@ -158,11 +183,11 @@ export default function AddMedicForm() {
           <div className={styles.container__selects}>
 
 
-            <select name='specialities' onChange={(e) => setUserDate({ ...userDate, specialities: e.target.value })} value={userDate.specialities}  >
+            <select name='specialities' onChange={handleChangeSpecialities} value={userDate.specialities}  >
               <option disabled value=''>Seleccionar especialidades</option>
               {arraySpecialists.map(specialist => (
                 // con estos métodos, sacamos las mayusculas, los espacios y los acentos.
-                <option value={specialist.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\u0300-\u036f]/g, "")}>{specialist}</option>
+                <option value={specialist.toLowerCase()}>{specialist}</option>
 
               ))}
             </select>
