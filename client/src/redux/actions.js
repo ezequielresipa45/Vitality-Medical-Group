@@ -119,7 +119,7 @@ export function deleteDoctor(id){
 };
 export function deletePatient(id){
   return async function(dispatch){
-    const json = await axios.get(`https://apiclinica.onrender.com/patient/${id}/delete`);
+    const json = await axios.delete(`https://apiclinica.onrender.com/patient/${id}/delete`);
 
     return dispatch({
       type: DELETE_PATIENT,
