@@ -11,10 +11,6 @@ module.exports = (sequelize) => {
         autoIncrement: true,
         unique: true,
       },
-      type_analysis: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       date: {
         type: DataTypes.DATEONLY,
         allowNull: false,
