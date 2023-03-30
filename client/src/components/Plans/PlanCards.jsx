@@ -1,38 +1,31 @@
 import PlanCard from "../Plans/PlanCard"
 import style from "../Plans/PlanCard.module.css"
-import PersonIcon from '@mui/icons-material/Person';
-import Diversity3Icon from '@mui/icons-material/Diversity3';
-import PeopleIcon from '@mui/icons-material/People';
+
 
 const PlanCards = () => {
+
+  const descriptions = ["Incluye atencion por urgencias las 24hs", "Analisis de laboratorio sin costo", "Atencion online 24hs"]
     return (
       <div className={style.container}>
         
-        
           <PlanCard
-
-            name= "INDIVIDUAL"
-            icon= {<PersonIcon/>}
-            description = "Plan para una sola persona"
-            price = "1000"
-            consultations_per_patient = "25"
+            name= "PLAN VITAL"
+            description = {descriptions}
+            price = "1000$"    
             
       />
-  
+    
           <PlanCard
-          name= "DUO"
-          icon = {< PeopleIcon/>}
-          description = "Plan para dos personas pueden ser familiares, amigxs, pareja."
-          price = "2000"
-          consultations_per_patient = "30"
+          name= "PLAN FAMILIA VITAL"
+          description = {descriptions}
+          price = "5000$"
           />
   
           <PlanCard
-            name= "FAMILIAR"
-            icon = {< Diversity3Icon/>}
-            description = "Plan para personas dentro del mismo grupo familiar"
-            price = "5000"
-            consultations_per_patient = "40"
+            name= "PLAN AGE VITAL"
+            description = {descriptions}
+            price = "3000$"
+
           /> 
           
           </div>)

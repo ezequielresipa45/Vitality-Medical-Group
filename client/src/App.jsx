@@ -10,6 +10,7 @@ import AboutCards from './components/About/AboutCards';
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 import AddMedicForm from "./components/AddMedicForm/AddMedicForm";
+import AddPatientForm from './components/AddPatient/AddPatientForm';
 import AnalysisContainer from "./components/Analysis/AnalysisContainer";
 import { getAnalysis, getSpecialities } from './redux/actions';
 import MedicalBook from './components/MedicalBook/MedicalBook';
@@ -45,6 +46,8 @@ function App() {
         <Route path='/analisis' element={<AnalysisContainer/>} />
 
         <Route path='/agregarMedico' element={<AddMedicForm/>} />
+
+        <Route path='/agregarPaciente' element={<AddPatientForm/>} />
 
         <Route path='/cartilla' element={<MedicalBook/>} />
 

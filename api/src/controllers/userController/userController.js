@@ -72,7 +72,7 @@ const createUser = async (
     image,
 )  => {
 
-    // funciona o hay que hacer un anderson?? &&
+
 
     if ( full_name &&
         email &&
@@ -93,17 +93,17 @@ const createUser = async (
         throw new Error("Faltan datos para crear el registro de usuario")
     }}
 
-const isAdmin = async (id, boolean ) =>{
+const isAdmin = async (id, is_Admin ) =>{
     
     // esto hace que la app nunca se quede sin admin, siempre tiene que existir uno almenos 
     let allUser = await getAllUser()
-    console.log(allUser);
+
     const countAdmins = allUser.reduce(
         (count, item) => count + (item.is_admin === true ? 1 : 0),
         0
     )
 
-    if (countAdmins > 1 && boolean === 'false') {
+    if (countAdmins > 1 && is_Admin == 'false') {
         const result = await User.update(
         {
             is_admin: false
@@ -116,7 +116,7 @@ const isAdmin = async (id, boolean ) =>{
     );
         return {message: 'El usuario ya no es Administador'}
 
-    }else if(boolean === 'true') {
+    }else if(is_Admin == 'true') {
         const result = await User.update(
             {
                 is_admin: true

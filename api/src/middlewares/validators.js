@@ -84,6 +84,34 @@ const validatorCreateTicketMedical = (req, res, next) => {
   next();
 };
 
+// *Validador para crear un turno para estudios/análisis:
+const validatorCreateTicketAnalisys = (req, res, next) => {
+  const {
+    title,
+    observations,
+    doctorId,
+    patientId,
+    date,
+    hour_start,
+    hour_end,
+  } = req.body;
+
+  if (
+    ![
+      title,
+      observations,
+      doctorId,
+      patientId,
+      date,
+      hour_start,
+      hour_end,
+    ].every(Boolean)
+  )
+    return res.status(404).json({ error: "Falta enviar datos obligatorios" });
+
+  next();
+};
+
 module.exports = {
   validatorCreateDoctor,
   validatorUpdateDoctor,
