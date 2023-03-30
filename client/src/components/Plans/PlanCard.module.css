@@ -8,18 +8,19 @@
     justify-content: center;
     height: 100vh;
     align-items: center;
-    background-image: url("../../images/plans_background_img2.jpeg");
     background-size: cover;
 
 }
 
+
 .card{
     position: relative;
     background-color:  var(--primary);
-    border-radius: 1rem;
+    border-radius:8px;
     box-shadow: 20px;
     margin-left: 10px;
     margin-right: 10px;
+    margin-top: 200px;
     height: 250px;
     width: 400px;
     background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
@@ -78,7 +79,16 @@
     
     font-size: 12px;
 }
+.last_img{
+    height: 30px;
+    width: 200px;
+}
 
+.square {
+    background-color: red;
+    height: 100px;
+    width: 100px;
+  }
 /* .button{
     border-radius: 3rem;
     box-shadow: 0 1rem 1rem rgba(0,0,0, 0.2);
