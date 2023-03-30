@@ -8,8 +8,8 @@ export const GET_PLANS="GET_PLANS";
 export const GET_FARMACY="GET_FARMACY";
 export const DELETE_DOCTOR= "DELETE_DOCTOR";
 export const DELETE_PATIENT= "DELETE_PATIENT";
-export const DELETE_SPECIALITY= "DELETE_SPECIALITY";
 export const GET_DOCTOR_BYID= "GET_DOCTOR_BYID";
+export const GET_PATIENT_BYID= "GET_PATIENT_BYID";
 
 export function getSpecialities() {
     return {
@@ -61,6 +61,17 @@ export function getDoctorsByID(id){
 
     return dispatch({
       type: GET_DOCTOR_BYID,
+      payload: json.data,
+    })
+  }
+}
+
+export function getPatientsById(id){
+  return async function(dispatch){
+    const json= await axios.get(`https://apiclinica.onrender.com/patient/${id}`);
+
+    return dispatch({
+      type: GET_PATIENT_BYID,
       payload: json.data,
     })
   }
@@ -123,16 +134,6 @@ export function deletePatient(id){
 
     return dispatch({
       type: DELETE_PATIENT,
-      payload: json.data,
-    })
-  }
-};
-export function deleteSpeciality(id){
-  return async function(dispatch){
-    const json = await axios.get(`https://apiclinica.onrender.com/speciality/${id}`);
-
-    return dispatch({
-      type: DELETE_SPECIALITY,
       payload: json.data,
     })
   }
