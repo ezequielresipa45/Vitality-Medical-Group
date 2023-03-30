@@ -65,6 +65,7 @@ const createDoctorHandler = async (req, res) => {
       address,
       image,
       specialities,
+      is_delivery,
     } = req.body;
     const request = await createDoctor(
       code,
@@ -76,7 +77,8 @@ const createDoctorHandler = async (req, res) => {
       phone,
       address,
       image,
-      specialities
+      specialities,
+      is_delivery
     );
     return res.status(201).json(request);
   } catch (error) {
