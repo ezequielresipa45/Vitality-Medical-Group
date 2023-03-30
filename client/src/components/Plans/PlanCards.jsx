@@ -1,5 +1,6 @@
 import PlanCard from "../Plans/PlanCard"
 import style from "../Plans/PlanCard.module.css"
+import img2 from "../../images/happy_doctors.avif"
 
 
 const PlanCards = () => {
@@ -13,7 +14,7 @@ const PlanCards = () => {
             description = {descriptions}
             price = "1000$"    
             
-      />
+          />
     
           <PlanCard
           name= "PLAN FAMILIA VITAL"
@@ -27,6 +28,9 @@ const PlanCards = () => {
             price = "3000$"
 
           /> 
+          
+          
+
           
           </div>)
 }
