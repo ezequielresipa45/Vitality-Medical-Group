@@ -1,65 +1,109 @@
-import React, { useState, useEffect } from 'react';
-import DeleteItem from './DeleteItem.jsx';
-import style from './AdminDelete.module.css';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDoctorsByID, deleteDoctor } from '../../redux/actions';
 
-
-function AdminDelete({ itemType }) {
-  const [items, setItems] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-
+const AdminDelete = () => {
+  const [doctorID, setDoctorID] = useState('');
+  const dispatch = useDispatch();
+  const [doctorInfo, setDoctorInfo] = useState({});
+  // Obtener el médico desde el estado global
+  const doctor = useSelector(state => state.doctor);
   useEffect(() => {
-    // Realizar una solicitud a la API para obtener la lista de elementos
-    fetch(`https://miapi.com/${itemType}`)
-      .then(response => response.json())
-      .then(data => setItems(data))
-      .catch(error => console.log(error));
-  }, [itemType]);
+    setDoctorInfo(doctor[0])
+  }, [doctor]);
 
-  const handleDelete = (itemId) => {
-    // Filtrar la lista de elementos para excluir el elemento eliminado
-    setItems(items.filter(item => item.id !== itemId));
+  const handleSearch = e => {
+    e.preventDefault();
+    dispatch(getDoctorsByID(doctorID));
   };
 
-  const handleSearch = (event) => {
-    // Actualizar el término de búsqueda
-    setSearchTerm(event.target.value);
+  const handleDelete = () => {
+    dispatch(deleteDoctor(doctorInfo.id));
   };
-
-  // Filtrar la lista de elementos basándonos en el término de búsqueda
-  const filteredItems = items.filter(item => item.nombre.includes(searchTerm));
 
   return (
-    <div className={style.firstDiv}>
-      <h2>Buscar y eliminar {itemType}</h2>
-      <input type="text" placeholder="Buscar por nombre" value={searchTerm} onChange={handleSearch} />
-      <ul>
-        {filteredItems.map(item => (
-          <li key={item.id}>
-            {item.nombre} {item.apellido}
-            <DeleteItem itemType={itemType} itemId={item.id} onDelete={() => handleDelete(item.id)} />
-          </li>
-        ))}
-      </ul>
+    <div>
+      <h1>Buscar médico por ID</h1>
+      <form onSubmit={handleSearch}>
+        <label htmlFor="doctorID">ID del médico:</label>
+        <input
+          type="text"
+          id="doctorID"
+          value={doctorID}
+          onChange={e => setDoctorID(e.target.value)}
+        />
+        <button type="submit">Buscar</button>
+      </form>
+
+      {doctorInfo && (
+        <div>
+          <h2>{doctorInfo.full_name}</h2>
+          <p>Especialidad: {doctorInfo.phone}</p>
+          <p>Horario: {doctorInfo.address}</p>
+          {/* Puedes mostrar otros detalles del médico */}
+          <button onClick={handleDelete}>Borrar médico</button>
+        </div>
+      )}
+
     </div>
   );
-}
-
-function EliminarDoctoresPorNombre() {
-  return (
-    <AdminDelete itemType="doctores" />
-  );
-}
-
-function EliminarPacientesPorNombre() {
-  return (
-    <AdminDelete itemType="pacientes" />
-  );
-}
-
-function EliminarEspecialidadesPorNombre() {
-  return (
-    <AdminDelete itemType="especialidades" />
-  );
-}
+};
 
 export default AdminDelete;
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { getDoctorsByID } from '../../redux/actions';
+
+// const AdminDelete = () => {
+//   const [doctorID, setDoctorID] = useState('');
+//   const dispatch = useDispatch();
+//   const [doctorInfo, setDoctorInfo] = useState({});
+//   // Obtener el médico desde el estado global
+//   const doctor = useSelector(state => state.doctor);
+//   useEffect(()=>{
+//   setDoctorInfo(doctor[0])
+// },[doctor]);
+
+//   const handleSearch = e => {
+//     e.preventDefault();
+//     dispatch(getDoctorsByID(doctorID));
+//   };
+
+  
+
+//   return (
+//     <div>
+//       <h1>Buscar médico por ID</h1>
+//       <form onSubmit={handleSearch}>
+//         <label htmlFor="doctorID">ID del médico:</label>
+//         <input
+//           type="text"
+//           id="doctorID"
+//           value={doctorID}
+//           onChange={e => setDoctorID(e.target.value)}
+//         />
+//         <button type="submit">Buscar</button>
+//       </form>
+
+//       {doctorInfo && (
+//         <div>
+//           <h2>{doctorInfo.full_name}</h2>
+//           <p>Especialidad: {doctorInfo.phone}</p>
+//           <p>Horario: {doctorInfo.address}</p>
+//           {/* Puedes mostrar otros detalles del médico */}
+//         </div>
+//       )}
+      
+//     </div>
+//   );
+// };
+
+// export default AdminDelete;
+
+
+
+
+

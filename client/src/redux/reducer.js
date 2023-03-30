@@ -1,4 +1,4 @@
-import { GET_ANALYSIS , GET_SPECIALITIES, FILTER_ANALYSIS, GET_DOCTORS, GET_PLANS, GET_FARMACY } from "./actions";
+import { GET_ANALYSIS , GET_SPECIALITIES, FILTER_ANALYSIS, GET_DOCTORS, GET_PLANS, GET_FARMACY, DELETE_DOCTOR, DELETE_PATIENT, GET_DOCTOR_BYID } from "./actions";
 
 const initialState = {
     specialities: [],
@@ -7,6 +7,8 @@ const initialState = {
     doctors: [],
     plans: [],
     farmacies: [],
+    doctor: [],
+    
   };
   
  
@@ -41,17 +43,33 @@ const initialState = {
             doctors: action.payload,
           };
 
-          case GET_PLANS:
+        case GET_PLANS:
             return{
               ...state, 
               plans: action.payload,
             };
 
-            case GET_FARMACY:
+        case GET_FARMACY:
               return{
                 ...state, 
                 farmacies: action.payload,
               };
+
+        case DELETE_DOCTOR:
+                return{
+                  ...state,
+                  id: action.payload,
+                };
+        case DELETE_PATIENT:
+                  return{
+                    ...state,
+                    id: action.payload,
+                  };
+        case GET_DOCTOR_BYID:
+                  return{
+                    ...state,
+                    doctor: action.payload,
+                  }
   
       default:
         return {
