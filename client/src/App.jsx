@@ -15,11 +15,8 @@ import AnalysisContainer from "./components/Analysis/AnalysisContainer";
 import { getAnalysis, getSpecialities } from './redux/actions';
 import MedicalBook from './components/MedicalBook/MedicalBook';
 import Specialitys from './components/Specialitys/Specialitys';
-<<<<<<< HEAD
-import AdminDashboard from './components/AdminDashboard/AdminDashboard';
-=======
 import DeletePatient from './DeletePatient/DeletePatient';
->>>>>>> 85def51fe9cd28dde3348f6e565a37aacb7decee
+import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 
 axios.defaults.baseURL = 'https://apiclinica.onrender.com/';
 
@@ -59,14 +56,11 @@ function App() {
         <Route path='/cartilla' element={<MedicalBook />} />
 
         <Route path="/especialidad/:speciality" element={<Specialitys />} />
-<<<<<<< HEAD
 
         <Route path='/admin' element={<AdminDashboard />} />
-=======
         
         {/* <Route path='/adminDelete' element= {<DeletePatient/>}/> */}
->>>>>>> 85def51fe9cd28dde3348f6e565a37aacb7decee
-
+        
       </Routes>
 
       {!isAdmin && <Footer />}
