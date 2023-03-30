@@ -47,8 +47,11 @@ const AdminDelete = () => {
       {doctor && (
         <div>
           <h2>{doctor.full_name}</h2>
-          <p>Especialidad: {doctor.phone}</p>
-          <p>Horario: {doctor.address}</p>
+          <p>Telefóno: {doctor.phone}</p>
+          <p>Dirección: {doctor.address}</p>
+          <p>Género: {doctor.gender}</p>
+          <p>Edad: {doctor.age}</p>
+          <p>Matrícula: {doctor.code}</p>
           <button className={style.button} onClick={handleDelete}>Eliminar</button>
           {/* Puedes mostrar otros detalles del médico */}
         </div>
