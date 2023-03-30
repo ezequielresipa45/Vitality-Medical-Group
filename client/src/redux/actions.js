@@ -6,6 +6,10 @@ export const FILTER_ANALYSIS = 'FILTER_ANALYSIS';
 export const GET_DOCTORS="GET_DOCTORS";
 export const GET_PLANS="GET_PLANS";
 export const GET_FARMACY="GET_FARMACY";
+export const DELETE_DOCTOR= "DELETE_DOCTOR";
+export const DELETE_PATIENT= "DELETE_PATIENT";
+export const GET_DOCTOR_BYID= "GET_DOCTOR_BYID";
+export const GET_PATIENT_BYID= "GET_PATIENT_BYID";
 
 export function getSpecialities() {
     return {
@@ -40,18 +44,6 @@ export function filterAnalysis(value) {
     }; 
 };
 
-
-// export function getVideogames(){
-//   return async function(dispatch) { 
-//       const json = await axios.get("http://localhost:3001/videogames");//hago la peticion al back
-      
-      
-//       return dispatch({ //armo la action 
-//           type: 'GET_VIDEOGAMES',
-//           payload: json.data
-//       })
-//   }
-// };
 export function getDoctors(){
     return async function(dispatch){
       const json = await axios.get("https://apiclinica.onrender.com/doctor");
@@ -62,6 +54,28 @@ export function getDoctors(){
       })
     }
 };
+
+export function getDoctorsByID(id){
+  return async function(dispatch){
+    const json= await axios.get(`https://apiclinica.onrender.com/doctor/${id}`);
+
+    return dispatch({
+      type: GET_DOCTOR_BYID,
+      payload: json.data,
+    })
+  }
+}
+
+export function getPatientsById(id){
+  return async function(dispatch){
+    const json= await axios.get(`https://apiclinica.onrender.com/patient/${id}`);
+
+    return dispatch({
+      type: GET_PATIENT_BYID,
+      payload: json.data,
+    })
+  }
+}
 
 export function getPlan(){
     return{
@@ -102,4 +116,25 @@ export function getFarmacy(){
           ]
           
     }
+};
+
+export function deleteDoctor(id){
+  return async function(dispatch){
+    const json = await axios.delete(`https://apiclinica.onrender.com/doctor/${id}/delete`);
+
+    return dispatch({
+      type: DELETE_DOCTOR,
+      payload: json.data,
+    })
+  }
+};
+export function deletePatient(id){
+  return async function(dispatch){
+    const json = await axios.delete(`https://apiclinica.onrender.com/patient/${id}/delete`);
+
+    return dispatch({
+      type: DELETE_PATIENT,
+      payload: json.data,
+    })
+  }
 };

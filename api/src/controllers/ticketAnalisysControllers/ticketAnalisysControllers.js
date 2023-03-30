@@ -1,51 +1,54 @@
-const { Doctor, Patient, Schedule, TicketAnalysis } = require("../../db");
-// *Este controller permite crear el TicketMedical, crear el Schedule asociado a ese ticket y realizar la asociación de doctor a schedule y paciente a ticketMedical:
-const createTicket = async (
-  title,
-  observations,
-  doctorId,
-  patientId,
-  date,
-  hour_start,
-  hour_end
-) => {
-  const requestTicket = await TicketAnalysis.create({
-    title,
-    observations,
+const { Patient, TicketAnalysis, Analysis } = require("../../db.js");
+// *Este controller permite crear el TicketAnalysis, realizar la asociación entre TicketAnalysis y Analysis y paciente a TicketAnalysis:
+const createTicket = async (idAnalysis, idPatient, date, hour, price) => {
+  const requestAnalysis = await TicketAnalysis.create({
     date,
-    hour_start,
+    hour,
+    price,
   });
 
-  const requestSchedule = await Schedule.create({ date, hour_start, hour_end });
+  const analysis = await Analysis.findByPk(idAnalysis);
+  await requestAnalysis.AddAnalysis(analysis);
+  await requestAnalysis.save();
 
-  const doctor = await Doctor.findByPk(doctorId);
-  await doctor.addSchedule(requestSchedule);
-  await doctor.save();
-
-  await TicketMedical.setSchedule(requestSchedule);
-
-  const patient = await Patient.findByPk(patientId);
-  await patient.addTicketmedical(requestTicket);
+  const patient = await Patient.findByPk(idPatient);
+  await patient.addTicketAnalysis(requestAnalysis);
   await patient.save();
 
-  return;
+  return "Turno creado exitosamente";
 };
 
-// *Este controller permite setear la propiedad "is_confirmed" de un ticket a "true" y eliminar esa info de la tabla schedule de un doctor.
-const confirmTicket = async (ticketId) => {
-  const request = await TicketMedical.findByPk(ticketId);
-  request.set({
-    is_confirmed: true,
+// *Este controller devuelve todos los turnos de análisis.
+const allTickets = async () => {
+  const request = await TicketAnalysis.findAll({ include: { all: true } });
+  const filtered = request.filter((item) => item.is_delete !== true);
+  return filtered;
+};
+
+// *Este controller permite buscar un turno para análisis por Id y devolverlo.
+const ticketAnalisysId = async (id) => {
+  const request = await TicketAnalysis.findByPk(id, { include: { all: true } });
+  if (request && request.is_delete === false) {
+    return request;
+  } else {
+    return "No existe turno para análisis clinico con ese Id";
+  }
+};
+
+// *Este controller permite buscar un turno para análisis por Id y devolverlo.
+const deleteTicketAnalisys = async (id) => {
+  const request = await TicketAnalysis.findByPk(id);
+  await request.set({
+    is_delete: true,
   });
   await request.save();
 
-  const associatedSchedule = await request.getSchedule();
-  await associatedSchedule.destroy();
-
-  return "El turno para análisis ha sido confirmado exitosamente";
+  return "El turno para análisis clinico fue borrado exitosamente";
 };
 
 module.exports = {
   createTicket,
-  confirmTicket,
+  allTickets,
+  ticketAnalisysId,
+  deleteTicketAnalisys,
 };

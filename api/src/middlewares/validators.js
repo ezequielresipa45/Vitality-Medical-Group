@@ -86,27 +86,9 @@ const validatorCreateTicketMedical = (req, res, next) => {
 
 // *Validador para crear un turno para estudios/análisis:
 const validatorCreateTicketAnalisys = (req, res, next) => {
-  const {
-    title,
-    observations,
-    doctorId,
-    patientId,
-    date,
-    hour_start,
-    hour_end,
-  } = req.body;
+  const { idAnalysis, idPatient, date, hour, price } = req.body;
 
-  if (
-    ![
-      title,
-      observations,
-      doctorId,
-      patientId,
-      date,
-      hour_start,
-      hour_end,
-    ].every(Boolean)
-  )
+  if (![idAnalysis, idPatient, date, hour, price].every(Boolean))
     return res.status(404).json({ error: "Falta enviar datos obligatorios" });
 
   next();
@@ -118,4 +100,5 @@ module.exports = {
   validatorCreatePatient,
   validatorUpdatePatient,
   validatorCreateTicketMedical,
+  validatorCreateTicketAnalisys,
 };

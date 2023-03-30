@@ -33,8 +33,8 @@ const PUT_ANALYSIS = async (req, res) =>{
 
 const DELETE_ANALYSIS = async (req, res) =>{
     try {
-        const params = req.body 
-        const data = await deleteAnalysis(params)
+        const {id} = req.body 
+        const data = await deleteAnalysis(id)
         res.status(200).json(data)
     } catch (error) {
         res.status(400).json({ error: error.message })

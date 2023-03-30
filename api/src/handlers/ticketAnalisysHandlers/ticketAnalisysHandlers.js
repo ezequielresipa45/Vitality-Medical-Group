@@ -1,45 +1,58 @@
 const {
-    createTicket,
-    confirmTicket,
-  } = require("../../controllers/ticketAnalisysControllers/ticketAnalisysControllers.js");
-  
-  const ticketAnalisysHandler = async (req, res) => {
-    try {
-      const {
-        title,
-        observations,
-        doctorId,
-        patientId,
-        date,
-        hour_start,
-        hour_end,
-      } = req.body;
-      const request = await createTicket(
-        title,
-        observations,
-        doctorId,
-        patientId,
-        date,
-        hour_start,
-        hour_end
-      );
-      return res.status(201).json(request);
-    } catch (error) {
-      return res.status(404).json({ error: error.message });
-    }
-  };
-  
-  const confirmTicketAnalisysHandler = async (req, res) => {
-    try {
-      const { ticketId } = req.body;
-      const request = await confirmTicket(ticketId);
-      return res.status(201).json(request);
-    } catch (error) {
-      return req.status(404).json({ error: error.message });
-    }
-  };
-  
-  module.exports = {
-    ticketAnalisysHandler,
-    confirmTicketAnalisysHandler,
-  };
+  createTicket,
+  allTickets,
+  ticketAnalisysId,
+  deleteTicketAnalisys,
+} = require("../../controllers/ticketAnalisysControllers/ticketAnalisysControllers.js");
+
+const createTicketAnalisysHandler = async (req, res) => {
+  try {
+    const { idAnalysis, idPatient, date, hour, price } = req.body;
+    const request = await createTicket(
+      idAnalysis,
+      idPatient,
+      date,
+      hour,
+      price
+    );
+    return res.status(201).json(request);
+  } catch (error) {
+    return res.status(404).json({ error: error.message });
+  }
+};
+
+const allTicketAnalisysHandler = async (req, res) => {
+  try {
+    const request = await allTickets();
+    return res.status(200).json(request);
+  } catch (error) {
+    return req.status(400).json({ error: error.message });
+  }
+};
+
+const ticketAnalisysIdHandler = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const request = await ticketAnalisysId(id);
+    return res.status(200).json(request);
+  } catch (error) {
+    return req.status(400).json({ error: error.message });
+  }
+};
+
+const deleteTicketAnalisysHandler = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const request = await deleteTicketAnalisys(id);
+    return res.status(200).json(request);
+  } catch (error) {
+    return req.status(400).json({ error: error.message });
+  }
+};
+
+module.exports = {
+  createTicketAnalisysHandler,
+  allTicketAnalisysHandler,
+  ticketAnalisysIdHandler,
+  deleteTicketAnalisysHandler,
+};

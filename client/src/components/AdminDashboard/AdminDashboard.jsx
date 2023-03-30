@@ -26,6 +26,9 @@ export default function AdminDashboard() {
                     </div>
                 </div>
                 <h2>General</h2>
+                <div className={styles.items__container}>
+
+                </div>
 
 
 
