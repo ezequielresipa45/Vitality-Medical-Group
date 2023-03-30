@@ -53,19 +53,37 @@ const mailResetPass = async(email, pass) => {
     return res;
 }
 
-const mailConfirmed = async (email, ticket) => {
+const mailConfirmedTicketMedical = async (email, ticket) => {
     options.to = email;
-    options.subject = "Ticket confirmed";
+    options.subject = "Ticket Medical confirmed";
     options.text = "Reservation confirmed"
     options.html = `<div>
                         <b>Your reservation is</b>
                         <p>Name: ${ticket.name}</p>
-                        <p>Name: ${ticket.fecha}</p>
-                        <p>Hora: ${ticket.hora}</p>
+                        <p>Fecha: ${ticket.date}</p>
+                        <p>Hora inicio: ${ticket.hour_start}</p>
                         <p>Doctor: ${ticket.doctor}</p>
                         <p>Speciality: ${ticket.speciality}</p>
                     </div>`
-    const res = sendMail(options);
+    const res = await sendMail(options);
+    resetOptions();
+    return res;
+
+}
+const mailConfirmedTicketAnalysis = async (email, ticket) => {
+    options.to = email;
+    options.subject = "Ticket Analysis confirmed";
+    options.text = "Reservation confirmed"
+    options.html = `<div>
+                        <b>Your reservation is</b>
+                        <p>Name: ${ticket.name}</p>
+                        <p>Fecha: ${ticket.date}</p>
+                        <p>Hora: ${ticket.hour}</p>
+                        <p>Doctor: ${ticket.doctor}</p>
+                        <p>Speciality: ${ticket.speciality}</p>
+                        <p>Analisis: ${ticket.type_analysis}</p>
+                    </div>`
+    const res = await sendMail(options);
     resetOptions();
     return res;
 
@@ -73,5 +91,6 @@ const mailConfirmed = async (email, ticket) => {
 
 module.exports = {
     mailResetPass,
-    mailConfirmed
+    mailConfirmedTicketMedical,
+    mailConfirmedTicketAnalysis
 }

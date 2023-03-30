@@ -109,7 +109,7 @@ const getDoctorById = async (id) => {
     ],
   });
   if (request && request.is_delete === false) {
-    return [request];
+    return request;
   } else {
     return "No existe Médico con ese Id";
   }
@@ -126,7 +126,8 @@ const createDoctor = async (
   phone,
   address,
   image,
-  specialities
+  specialities,
+  is_delivery
 ) => {
   let newDoctor = await Doctor.create({
     code,
@@ -138,6 +139,7 @@ const createDoctor = async (
     phone,
     address,
     image,
+    is_delivery,
   });
 
   let specialitys = await Speciality.findAll({
