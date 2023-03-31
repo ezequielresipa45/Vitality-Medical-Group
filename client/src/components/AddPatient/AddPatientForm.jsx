@@ -29,6 +29,7 @@ export default function AddPatientForm() {
   const [patientDate, setPatientDate] = useState({
     full_name: "",
     dni: "",
+    email: "",
     age: "",
     phone: "",
     address: "",
@@ -58,7 +59,8 @@ export default function AddPatientForm() {
     age: "",
     phone: "",
     address: "",
-    birthday: ""
+    birthday: "",
+    email: ""
   });
 
   
@@ -113,6 +115,7 @@ export default function AddPatientForm() {
 
           <input type="text" name='address' placeholder='Dirección' autoComplete='nop' required onChange={handleInputChange} value={patientDate.address} />
 
+          <input type="text" name='email' placeholder='E-mail' autoComplete='nop' required onChange={handleInputChange} value={patientDate.email} />
 
           <div className={style.container__selects}>
 
