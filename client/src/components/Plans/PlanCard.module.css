@@ -1,41 +1,58 @@
+@font-face {
+    font-family: "FireSans";
+    src: url("../../Fonts/FiraSans-Bold.ttf");
+}
 
 .container{
     display: flex;
     justify-content: center;
     height: 100vh;
     align-items: center;
-    border-color: black;
-    box-shadow: 0.3cm;
-    
+    background-size: cover;
+    background-color: #f1efef;
 
 }
-/* .container :hover{
-    transform: scale(0,3) ;
-} */
+
+
 .card{
+    position: relative;
     background-color:  var(--primary);
-    border-radius: 1rem;
+    border-radius:8px;
     box-shadow: 20px;
-    display:flex;
     margin-left: 10px;
     margin-right: 10px;
+    margin-top: 200px;
     height: 250px;
     width: 400px;
     background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
-
+   z-index: 1;
    
 }
+.name{
+    font-family:"FireSans" ;
+    font-size: 40px;
+    justify-content: center;
+    text-align: center;
+    color: rgb(215, 207, 196);
+    margin-bottom: -5px;
 
+}
+.imagen{
+    height: 50px;
+    width: 50px;
+    margin-bottom: 20px;
+    
+}
 
 .left{
-    background-color: #6581bee8;
-    border-color: black;
     padding: 2rem;
-    align-items: center;
     border-top-left-radius: 1rem;
     border-bottom-left-radius: 1rem;
     width: 100px;
+    height: 122px;
     background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+    margin-bottom: -10px;
+    text-align: center;
 
 }
 
@@ -45,8 +62,34 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
+    font-family: "FireSans";
+    font-size: 17px;
+    align-self: stretch;
+    text-align: left
+
 
 }
+.right_text{
+    margin-top: -225px;
+    margin-left: 110px;
+}
+.btn{
+  margin-bottom: 10px;
+}
+.price{
+    
+    font-size: 12px;
+}
+.last_img{
+    height: 30px;
+    width: 200px;
+}
+
+.square {
+    background-color: red;
+    height: 100px;
+    width: 100px;
+  }
 /* .button{
     border-radius: 3rem;
     box-shadow: 0 1rem 1rem rgba(0,0,0, 0.2);

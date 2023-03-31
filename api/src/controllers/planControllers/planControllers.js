@@ -57,7 +57,7 @@ const addPlan = async (name, members, price, description, code, consultations_pe
 }
 
 const deletePlan = async (id) => {
-    const plan = await Plan.findByPK(id)
+    const plan = await Plan.findByPk(id)
     if(!plan) return `No existe plan con el  id = ${id} , no se puede eliminar`
 
     await plan.destroy();

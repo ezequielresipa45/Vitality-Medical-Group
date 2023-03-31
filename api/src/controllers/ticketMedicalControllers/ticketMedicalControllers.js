@@ -37,15 +37,21 @@ const createTicket = async (
 };
 
 // *Este controller permite setear la propiedad "is_confirmed" de un ticket a "true" y eliminar esa info de la tabla schedule de un doctor.
-const confirmTicket = async (ticketId) => {
-  const request = await TicketMedical.findByPk(ticketId);
-  request.set({
+const confirmTicket = async (id) => {
+  const request = await TicketMedical.findByPk(id, { include: { all: true } });
+  await request.set({
     is_confirmed: true,
+    is_delete: true,
   });
   await request.save();
 
-  const associatedSchedule = await request.getSchedule();
-  await associatedSchedule.destroy();
+  const idSchedule = request.schedule.id;
+
+  const requestSchedule = await Schedule.findByPk(idSchedule);
+  await requestSchedule.set({
+    is_delete: true,
+  });
+  await requestSchedule.save();
 
   return "El turno ha sido confirmado exitosamente";
 };
@@ -53,13 +59,18 @@ const confirmTicket = async (ticketId) => {
 // *Este controller permite devolver todos los ticketsMedicals.
 const allTicketMedicals = async () => {
   const request = await TicketMedical.findAll({ include: { all: true } });
-  return request;
+  const filtered = request.filter((item) => item.is_delete !== true);
+  return filtered;
 };
 
 // *Este controller permite buscar un ticketsMedicals por id.
 const getTicketId = async (id) => {
   const request = await TicketMedical.findByPk(id, { include: { all: true } });
-  return request;
+  if (request && request.is_delete === false) {
+    return request;
+  } else {
+    return "No existe turno médico con ese ID";
+  }
 };
 
 // *Este controller permite borrar un ticketsMedicals por id.
@@ -68,8 +79,15 @@ const deleteTicket = async (id) => {
   const idSchedule = request.schedule.id;
   const requestSchedule = await Schedule.findByPk(idSchedule);
 
-  requestSchedule.destroy();
-  request.destroy();
+  await request.set({
+    is_delete: true,
+  });
+  await request.save();
+
+  await requestSchedule.set({
+    is_delete: true,
+  });
+  await requestSchedule.save();
 
   return "El Turno médico fue borrado exitosamente";
 };

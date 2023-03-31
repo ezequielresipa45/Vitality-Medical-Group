@@ -12,9 +12,8 @@ const getSpeciality = async () => {
 // createSpeciality permite crear mas especialidades en la tabla Speciality
 
 const createSpeciality = async (params) => {
-    //console.log(params);
+
     if (params) {
-        console.log(params);
         const nuevaSpeciality = await Speciality.create({
         speciality: params.speciality
     });
@@ -31,7 +30,6 @@ const createSpeciality = async (params) => {
 // changeSpeciality modifica el valor de la tabla Speciality
 
 const changeSpeciality = async (id, speciality) => {
-    //console.log(id, speciality,'controller');
     const request = await Speciality.findByPk(id);
     if (request) {
       request.speciality = speciality;

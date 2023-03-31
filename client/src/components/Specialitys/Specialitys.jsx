@@ -20,21 +20,33 @@ console.log(doctors.filter(doctor => doctor.specialities[0].speciality === speci
 
   return (
     <div className={styles.container__speciality}>
-      <h1>{` ${speciality}`}</h1>
-      <header></header>
-       <section>
+      {/* <h1>{` ${speciality}`}</h1> */}
+      <header>      
+        
+        
+      <h2>Profesionales</h2>
+          <hr />
+         <section>
         {doctors && doctors.filter(doctor => doctor.specialities[0].speciality === speciality.toLocaleLowerCase()).map((doctor) =>(
-        <div key={doctor.id}>
-         <img width={100} src={doctor.image} alt={doctor.full_name} />   
+        <div key={doctor.id} className = {styles.cardMedic__container}>
+
+         <img width={120} src={doctor.image} alt={doctor.full_name} />   
         <h3>{doctor.full_name}</h3> 
-        <h3>{doctor.gender}</h3> 
-        <h3>{doctor.age}</h3> 
-        <h3>{doctor.specialities[0].speciality}</h3> 
+        <h4>{doctor.specialities[0].speciality}</h4> 
+        {/* <h3>{doctor.gender}</h3>  */}
+        {/* <h3>{doctor.age}</h3>  */}
+        <button>Pedí un turno</button>
         </div>
         )
-        
+          
         )}
-      </section> 
+      </section> </header>
+      {doctors.length === 0 && (
+        <div>
+            Cargando...
+        </div>
+      )}
+
     </div>
   );
 }

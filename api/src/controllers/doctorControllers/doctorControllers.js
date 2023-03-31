@@ -109,7 +109,7 @@ const getDoctorById = async (id) => {
     ],
   });
   if (request && request.is_delete === false) {
-    return [request];
+    return request;
   } else {
     return "No existe Médico con ese Id";
   }
@@ -126,7 +126,8 @@ const createDoctor = async (
   phone,
   address,
   image,
-  specialities
+  specialities,
+  is_delivery
 ) => {
   let newDoctor = await Doctor.create({
     code,
@@ -138,6 +139,7 @@ const createDoctor = async (
     phone,
     address,
     image,
+    is_delivery,
   });
 
   let specialitys = await Speciality.findAll({
@@ -162,28 +164,36 @@ const createDoctor = async (
 // *Este controller permite actualizar un médico buscándolo por id:
 const updateDoctor = async (id, phone, address, image) => {
   const request = await Doctor.findByPk(id);
-  await request.set({
-    phone: phone,
-    address: address,
-    image: image,
-  });
+  if (request && request.is_delete === false) {
+    await request.set({
+      phone: phone,
+      address: address,
+      image: image,
+    });
 
-  await request.save();
+    await request.save();
 
-  return request;
+    return [request];
+  } else {
+    return "No existe Médico con ese Id";
+  }
 };
 
 // *Este controller elimina un médico por id:
 const deleteDoctor = async (id) => {
   const request = await Doctor.findByPk(id);
-  request.set({
-    is_delete: true,
-  });
-  await request.save();
-  return "El Médico fue borrado exitosamente";
+  if (request && request.is_delete === false) {
+    request.set({
+      is_delete: true,
+    });
+    await request.save();
+    return "El Médico fue borrado exitosamente";
+  } else {
+    return "No existe Médico con ese Id";
+  }
 };
 
-// *Este controller permite borrar todos los horarios de un doctor a través del Id del doctor:
+// *Este controller permite borrar TODOS los horarios de un doctor a través del Id del doctor:
 const deleteSchedule = async (id) => {
   const request = await Doctor.findByPk(id, {
     include: {
@@ -191,7 +201,12 @@ const deleteSchedule = async (id) => {
       through: { attributes: [] },
     },
   });
-  request.schedules.forEach((item) => item.destroy());
+  await request.schedules.forEach((item) => {
+    item.set({
+      is_delete: true,
+    });
+    item.save();
+  });
 
   return "Se han borrado los horarios exitosamente";
 };

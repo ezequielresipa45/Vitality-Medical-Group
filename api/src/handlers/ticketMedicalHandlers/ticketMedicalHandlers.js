@@ -35,11 +35,11 @@ const ticketMedicalHandler = async (req, res) => {
 
 const confirmTicketHandler = async (req, res) => {
   try {
-    const { ticketId } = req.body;
-    const request = await confirmTicket(ticketId);
+    const { id } = req.body;
+    const request = await confirmTicket(id);
     return res.status(201).json(request);
   } catch (error) {
-    return req.status(404).json({ error: error.message });
+    return res.status(404).json({ error: error.message });
   }
 };
 
