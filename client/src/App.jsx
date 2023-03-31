@@ -18,8 +18,6 @@ import Specialitys from './components/Specialitys/Specialitys';
 // import DeleteDoctor from './components/DeleteDoctor/DeleteDoctor';
 // import DeletePatient from './DeletePatient/DeletePatient';
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
-import ExperienceForm from './components/UserExperience/UserExpForm';
-
 
 
 axios.defaults.baseURL = 'https://apiclinica.onrender.com/';
@@ -62,8 +60,6 @@ function App() {
         <Route path="/especialidad/:speciality" element={<Specialitys />} />
 
         <Route path='/admin' element={<AdminDashboard />} />
-
-        <Route path = '/experiencia' element ={<ExperienceForm/>}/>
         
 
         {/* <Route path='/adminDelete' element= {<DeleteDoctor/>}/> */}
