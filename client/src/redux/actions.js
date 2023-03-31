@@ -174,9 +174,11 @@ export const putDoctor = (doctorData) => async (dispatch) => {
     type: 'PUT_DOCTOR',
     payload: res.data,
   });
+  }
+
   export function getUser(){
     return async function(dispatch){
-      const json = await axios.get(`https://apiclinica.onrender.com/user`);
+      const json = await axios.get(`/user`);
   
       return dispatch({
         type: GET_USER,
@@ -184,5 +186,4 @@ export const putDoctor = (doctorData) => async (dispatch) => {
       })
     }
 
-  
 }

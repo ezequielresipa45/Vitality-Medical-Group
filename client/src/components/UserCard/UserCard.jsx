@@ -1,11 +1,18 @@
-import React, {useState} from 'react';
-import datos from './user.json';
+import React, {useLayoutEffect, useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './UserCard.module.css';
+import { getUser } from '../../redux/actions';
 
 
 const UserCard = () => {
 
+  const dispatch = useDispatch();
+  const datos = useSelector((state) => state.allUsers);
+
   const [check, setCheck] = useState(false);
+  useLayoutEffect(() => {
+    dispatch(getUser())
+  }, []);
 
   return(
     <div className={styles.contenedor}>

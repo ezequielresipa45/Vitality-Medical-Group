@@ -10,7 +10,7 @@ const initialState = {
     doctor: [],
     patient: [],
     selectedTickets: [],
-    
+    allUsers: [],
   };
   
  
@@ -105,7 +105,7 @@ const initialState = {
       case GET_USER:
         return{
           ...state,
-          user: action.payload,
+          allUsers: action.payload,
         }
   
       default:
