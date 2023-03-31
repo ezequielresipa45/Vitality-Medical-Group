@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPatientsById, deletePatient } from '../redux/actions';
+import { getPatientsById, deletePatient } from '../../redux/actions';
 import style from './DeletePatient.module.css';
 
 const DeletePatient = () => {

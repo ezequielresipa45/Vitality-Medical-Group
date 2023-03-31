@@ -1,4 +1,4 @@
-import { GET_ANALYSIS , GET_SPECIALITIES, FILTER_ANALYSIS, GET_DOCTORS, GET_PLANS, GET_FARMACY, DELETE_DOCTOR, DELETE_PATIENT, GET_DOCTOR_BYID, GET_PATIENT_BYID, GET_REQUESTED_TICKETS , POST_REQUESTED_TICKETS , DELETE_REQUESTED_TICKETS } from "./actions";
+import { GET_ANALYSIS , GET_SPECIALITIES, FILTER_ANALYSIS, GET_DOCTORS, GET_PLANS, GET_FARMACY, DELETE_DOCTOR, DELETE_PATIENT, GET_DOCTOR_BYID, GET_PATIENT_BYID, GET_REQUESTED_TICKETS , POST_REQUESTED_TICKETS , DELETE_REQUESTED_TICKETS, PUT_DOCTOR } from "./actions";
 
 const initialState = {
     specialities: [],
@@ -96,6 +96,12 @@ const initialState = {
           ...state,
           requestedTickets: [...state.requestedTickets.filter((item) => item.code !== action.payload)]
         };
+
+      case PUT_DOCTOR:
+        return{
+          ...state,
+          doctor: action.payload,
+        }
   
       default:
         return {
