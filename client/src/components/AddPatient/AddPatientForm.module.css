@@ -49,6 +49,7 @@
     justify-content: center;
     align-items: center;
     gap: 2rem;
+  
   }
   
   .container__patient_form form input {
@@ -75,14 +76,14 @@
   
   .errors {
     background-color: rgb(148, 41, 41);
-    width: 60%;
-    color: #fff;
-    text-transform: uppercase;
+  width: 60%;
+  color: #fff;
+  text-transform: uppercase;
   }
   
   .container__selects {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -97,6 +98,19 @@
     border: 2px solid #ccc;
     border-radius: 4px;
     justify-content: center;
+    flex-direction: column;
+    background-color: #f1efef;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-style: oblique;
+    font-size: 15px;
+
+  }
+  .text_img{
+    pointer-events: none;
+    size:30px;
+   display: flex;
+    margin-top: 300px;
+
   }
 
   
