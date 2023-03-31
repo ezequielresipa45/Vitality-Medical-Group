@@ -26,12 +26,22 @@ export default function AdminDashboard() {
                     </div>
                 </div>
                 <h2>General</h2>
+                <div className={styles.items__container}>
+
+                    <div className={styles.items__container__text}>
+                <i class="fas fa-user-plus " style= {{color: "#ed950c"}}></i>    
+                    <p>Agregar Médico</p>
+                    </div>
+
+
+
+                </div>
 
 
 
             </section>
             <section className={styles.container__principal}>
-                <p>Soy Principal</p>
+                <div className={styles.container__navbar}></div>
             </section>
 
 
