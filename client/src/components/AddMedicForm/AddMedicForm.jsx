@@ -162,7 +162,6 @@ export default function AddMedicForm() {
 
       <div className={styles.container__medicForm}>
 
-        <h2>Agregar Médico </h2>
 
         <form onSubmit={handleSubmit}>
 
