@@ -10,6 +10,7 @@ export const DELETE_DOCTOR= "DELETE_DOCTOR";
 export const DELETE_PATIENT= "DELETE_PATIENT";
 export const GET_DOCTOR_BYID= "GET_DOCTOR_BYID";
 export const GET_PATIENT_BYID= "GET_PATIENT_BYID";
+export const PUT_DOCTOR = "PUT_DOCTOR";
 
 export function getSpecialities() {
     return {
@@ -138,3 +139,27 @@ export function deletePatient(id){
     })
   }
 };
+
+// export function putDoctor(id, phone, address, image){
+//   return async function(dispatch){
+//     const json = await axios.put(`https://apiclinica.onrender.com/doctor`,{
+//       id,
+//       phone,
+//       address,
+//       image,
+//     });
+
+//     return dispatch({
+//       type: PUT_DOCTOR,
+//       payload: json.data,
+//     })
+//   }
+// }
+export const putDoctor = (id, phone, address, image) => async (dispatch) => {
+  
+    const response = await axios.put('https://apiclinica.onrender.com/doctor', { id, phone, address, image });
+    const updatedDoctor = response.data[0];
+    dispatch({ type: PUT_DOCTOR, payload: updatedDoctor });
+  
+};
+
