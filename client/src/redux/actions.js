@@ -10,6 +10,9 @@ export const DELETE_DOCTOR= "DELETE_DOCTOR";
 export const DELETE_PATIENT= "DELETE_PATIENT";
 export const GET_DOCTOR_BYID= "GET_DOCTOR_BYID";
 export const GET_PATIENT_BYID= "GET_PATIENT_BYID";
+export const GET_REQUESTED_TICKETS = "GET_REQUESTED_TICKETS";
+export const POST_REQUESTED_TICKETS = "POST_REQUESTED_TICKETS";
+export const DELETE_REQUESTED_TICKETS = "GET_REQUESTED_TICKETS";
 
 export function getSpecialities() {
     return {
@@ -137,4 +140,25 @@ export function deletePatient(id){
       payload: json.data,
     })
   }
+};
+
+export function getRequestedTickets(value) {
+  return {
+      type: GET_REQUESTED_TICKETS,
+      payload: value
+  }; 
+};
+
+export function postRequestedTickets(value) {
+  return {
+      type: POST_REQUESTED_TICKETS,
+      payload: value
+  }; 
+};
+
+export function delRequestedTickets(value) {
+  return {
+      type: DELETE_REQUESTED_TICKETS,
+      payload: value
+  }; 
 };
