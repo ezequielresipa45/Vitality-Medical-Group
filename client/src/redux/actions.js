@@ -10,9 +10,9 @@ export const DELETE_DOCTOR= "DELETE_DOCTOR";
 export const DELETE_PATIENT= "DELETE_PATIENT";
 export const GET_DOCTOR_BYID= "GET_DOCTOR_BYID";
 export const GET_PATIENT_BYID= "GET_PATIENT_BYID";
-export const GET_REQUESTED_TICKETS = "GET_REQUESTED_TICKETS";
-export const POST_REQUESTED_TICKETS = "POST_REQUESTED_TICKETS";
-export const DELETE_REQUESTED_TICKETS = "GET_REQUESTED_TICKETS";
+export const GET_SELECTED_TICKETS = "GET_REQUESTED_TICKETS";
+export const POST_SELECTED_TICKETS = "POST_REQUESTED_TICKETS";
+export const DELETE_SELECTED_TICKETS = "GET_REQUESTED_TICKETS";
 export const PUT_DOCTOR= "PUT_DOCTOR";
 
 export function getSpecialities() {
@@ -143,23 +143,23 @@ export function deletePatient(id){
   }
 };
 
-export function getRequestedTickets(value) {
+export function getSelectedTickets(value) {
   return {
-      type: GET_REQUESTED_TICKETS,
+      type: GET_SELECTED_TICKETS,
       payload: value
   }; 
 };
 
-export function postRequestedTickets(value) {
+export function postSelectedTickets(value) {
   return {
-      type: POST_REQUESTED_TICKETS,
+      type: POST_SELECTED_TICKETS,
       payload: value
   }; 
 };
 
-export function delRequestedTickets(value) {
+export function deleteSelectedTickets(value) {
   return {
-      type: DELETE_REQUESTED_TICKETS,
+      type: DELETE_SELECTED_TICKETS,
       payload: value
   }; 
 };

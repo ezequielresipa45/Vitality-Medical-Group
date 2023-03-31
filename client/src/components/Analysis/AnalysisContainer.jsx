@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Analysis from './Analysis';
 import styles from './Analysis.module.css';
 
-import { getSpecialities , getAnalysis , filterAnalysis, postRequestedTickets } from '../../redux/actions';
+import { getSpecialities , getAnalysis , filterAnalysis, postSelectedTickets } from '../../redux/actions';
 
 const INITIAL_PAGE = 0;
 const ITEMS = 8;
@@ -141,7 +141,7 @@ export default function AnalysisContainer() {
     };
 
     const onClickTicket = (value) => {
-        dispatch(postRequestedTickets(value));
+        dispatch(postSelectedTickets(value));
         navigate('/turnos');
     };
 
@@ -204,7 +204,7 @@ export default function AnalysisContainer() {
                                 description={item.description}
                                 speciality={item.speciality}
                                 image= {item.image}
-                                price={item.price}
+                                price={'$5000'}
                                 code={item.code}
                                 onClick={onClickTicket}
                             />
