@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef} from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import style from "../AddPatient/AddPatientForm.module.css"
@@ -23,8 +23,9 @@ function validate(inputs) {
 
 
 export default function AddPatientForm() {
+  
 
-
+ 
   const [patientDate, setPatientDate] = useState({
     full_name: "",
     dni: "",
@@ -33,14 +34,17 @@ export default function AddPatientForm() {
     address: "",
     gender: "",
     birthday: "", 
-    comments: ""
+    comments: "",
+    plan:"",
+    disease: ""
 
   });
+ 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === "dni" || name === "age" ) { // Verificar si el campo es dni, age o code
+    if (name === "dni" || name === "age" ) { 
       setPatientDate({ ...patientDate, [name]: Number(value) }); // Convertir el valor a número antes de establecerlo en el estado
     } else {
       setPatientDate({ ...patientDate, [name]: value });
@@ -57,10 +61,12 @@ export default function AddPatientForm() {
     birthday: ""
   });
 
-
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
+
     try {
       // Enviar la solicitud POST a la API
       const response = await axios.post(
@@ -82,15 +88,16 @@ export default function AddPatientForm() {
     console.log(patientDate)
   };
 
-
   return (
     <div className={style.container__patient}>
 
         <img src={patientPic} alt="" />
+        <h2 className={style.text_img}></h2>
 
       <div className={style.container__patient_form}>
 
         <h2>Formulario de paciente </h2>
+        
 
         <form onSubmit={handleSubmit}>
 
@@ -109,25 +116,39 @@ export default function AddPatientForm() {
 
           <div className={style.container__selects}>
 
-            <select name='gender' onChange={(e) => setPatientDate({ ...userDate, gender: e.target.value })} value={patientDate.gender} >
+            <select name='gender' onChange={(e) => setPatientDate({ ...patientDate, gender: e.target.value })} value={patientDate.gender} >
               <option disabled value=''>Seleccionar género</option>
               <option value="masculino">Masculino</option>
               <option value="femenino">Femenino</option>
               <option value="no-binario">No Binario</option>
             </select>
 
-            <textarea className={style.input_comments} type="text" name= "comments" autoComplete= "nop" placeholder= "Información adicional: enfermedades ya exsistentes, embarazos en curso, etc" required onChange={handleInputChange} value={patientDate.comments} />
+            <select name='plan' onChange={(e) => setPatientDate({ ...patientDate, plan: e.target.value })} value={patientDate.plan} >
+            <option disabled value=''>Seleccionar plan</option>
+              <option value="vital">Vital</option>
+              <option value="familiar">Vital Familiar</option>
+              <option value="age">Vital Age</option>
+            </select>
+            <select name='disease' onChange={(e) => setPatientDate({ ...patientDate, disease: e.target.value })} value={patientDate.disease} >
+             <option disabled value=''>Enfermedades existentes</option>
+              <option value="si">SI</option>
+              <option value="no">NO</option>
+            </select>
 
+        </div>
+          <div>
+          <textarea className={style.input_comments} type="text" name= "comments" autoComplete= "nop" placeholder= "Especifique enfermedades ya exsistentes, embarazos en curso u otros comentarios" onChange={handleInputChange} value={patientDate.comments} />
           </div>
 
           <button className={style.btn__form} type='submit' disabled={Object.keys(errors).length > 0}>Agregar</button>
-
+          <button  className={style.btn__form} type='submit' >Agregar familiar</button>
         </form>
+        </div>
 
         {errors.full_name && <p className={style.errors}>{errors.full_name}</p>}
         {errors.age && <p className={style.errors} >{errors.age}</p>}
 
-      </div>
+   
 
 
     </div>
