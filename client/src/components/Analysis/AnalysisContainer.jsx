@@ -1,16 +1,18 @@
 import React from 'react';
 import { useState , useEffect , useLayoutEffect , useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Analysis from './Analysis';
 import styles from './Analysis.module.css';
 
-import { getSpecialities , getAnalysis , filterAnalysis } from '../../redux/actions';
+import { getSpecialities , getAnalysis , filterAnalysis, postRequestedTickets } from '../../redux/actions';
 
 const INITIAL_PAGE = 0;
 const ITEMS = 8;
 
 export default function AnalysisContainer() {
+
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -28,7 +30,10 @@ export default function AnalysisContainer() {
 
     //const ordered = useSelector((state) => state.orderedAnalysis);
     
-    const [analysis, setAnalysis] = useState(allAnalysis);
+    const [analysis, setAnalysis] = useState([...allAnalysis].map((item, index) => {
+        item.code = index;
+        return item
+    }));
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -135,6 +140,11 @@ export default function AnalysisContainer() {
         }; */
     };
 
+    const onClickTicket = (value) => {
+        dispatch(postRequestedTickets(value));
+        navigate('/turnos');
+    };
+
     return (
         <>
             <div className={styles.container}>
@@ -195,6 +205,8 @@ export default function AnalysisContainer() {
                                 speciality={item.speciality}
                                 image= {item.image}
                                 price={item.price}
+                                code={item.code}
+                                onClick={onClickTicket}
                             />
                         ))}
                         

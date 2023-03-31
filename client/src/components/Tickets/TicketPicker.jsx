@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { LocalizationProvider , DatePicker, DateTimePicker, TimePicker } from '@mui/x-date-pickers';
 import { FormControl , InputLabel , Select , MenuItem , FormHelperText } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -8,6 +9,9 @@ import { enGB, es } from 'date-fns/locale';
 import styles from './TicketPicker.module.css';
 
 export default function TicketPicker() {
+
+    const requestedTickets = useSelector((state) => state.requestedTickets);
+
     const date = new Date();
     const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
@@ -62,6 +66,8 @@ export default function TicketPicker() {
             <div className={styles.container}>
                 
                 <h2>Selector de fecha y horario para el turno</h2>
+                <p>Tipo de turno: Analisis / Estudio</p>
+                <p>Nombre: {requestedTickets[0].title}</p>
                 <DatePicker 
                     sx={{ m: 1, minWidth: 320 }}
                     label='Selecciona la fecha'
