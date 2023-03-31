@@ -6,7 +6,7 @@
     background-position: top;
     background-attachment: inherit;
     width: 100%;
-   height: 100px;
+    min-height: 100vh;
     padding-top: 70px;
 
 }
