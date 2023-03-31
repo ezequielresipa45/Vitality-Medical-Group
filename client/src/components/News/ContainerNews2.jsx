@@ -78,14 +78,12 @@ export default function ContainerNews() {
 
             <h2>Novedades internacionales</h2>
 
-            {/* <button onClick={() => prevHandler()}>{'<'}</button> */}
-
             <div className={styles.news_div}>
 
                 {itemsPage && itemsPage.map((item, index) => (
-                    <>
+                    <React.Fragment key={index}>
+
                         <News
-                        
                         title = {item.title}
                         description = {item.description}
                         image = {item.urlToImage ? item.urlToImage : DEFAULT_IMAGE}
@@ -93,9 +91,9 @@ export default function ContainerNews() {
                         date = {item.publishedAt.slice(0,10)}
                         />
 
-                        {index !== itemsPage.length -1 && <hr />}
-                        
-                    </>
+                        {index !== itemsPage.length -1 && <hr />}  
+
+                    </React.Fragment>
                 ))}
 
             </div>
