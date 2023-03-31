@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDoctorsByID, deleteDoctor } from '../../redux/actions';
-import style from './AdminDelete.module.css';
+import style from './DeleteDoctor.module.css';
 
-const AdminDelete = () => {
+const DeleteDoctor = () => {
   const [doctorID, setDoctorID] = useState('');
   const dispatch = useDispatch();
   const [doctorInfo, setDoctorInfo] = useState({});
@@ -60,7 +60,7 @@ const AdminDelete = () => {
   );
 };
 
-export default AdminDelete;
+export default DeleteDoctor;
 
 
 
