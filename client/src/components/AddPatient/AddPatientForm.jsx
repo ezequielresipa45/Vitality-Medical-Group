@@ -39,7 +39,8 @@ export default function AddPatientForm() {
     disease: ""
 
   });
- 
+ // const handle agregar flia que con el onclick me mande cartelito diferente "puede agregar otro fliar"
+// seetear formulario en cero.
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

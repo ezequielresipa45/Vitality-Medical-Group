@@ -80,11 +80,19 @@ export function getPatientsById(id){
   }
 }
 
-export function getPlan(){
-    return{
-        type: GET_PLANS,
-        payload: ["Juvenil", "Adulto", "Familiar", "Sin Plan"],
-    }
+export function getPlans(){
+  return async function(dispatch){
+    const json = await axios.get("https://apiclinica.onrender.com/plan"); 
+
+    return dispatch({
+      type: GET_PLANS,
+      payload: json.data,
+    })
+  }
+    // return{
+    //     type: GET_PLANS,
+    //     payload: ["Juvenil", "Adulto", "Familiar", "Sin Plan"],
+    // }
 };
 
 export function getFarmacy(){
