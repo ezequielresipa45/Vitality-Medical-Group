@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useState , useEffect , useLayoutEffect } from 'react';
 import { useLocation, Routes , Route } from 'react-router-dom';
 import { useDispatch , useSelector } from 'react-redux';
+import { getAnalysis, getSpecialities } from './redux/actions';
 import Home from "./components/Home/Home";
 import Institutional from "./components/Institutional/Institutional";
 import PlanCards from "./components/Plans/PlanCards"
@@ -12,9 +13,9 @@ import Footer from "./components/Footer/Footer";
 import AddMedicForm from "./components/AddMedicForm/AddMedicForm";
 import AddPatientForm from './components/AddPatient/AddPatientForm';
 import AnalysisContainer from "./components/Analysis/AnalysisContainer";
-import { getAnalysis, getSpecialities } from './redux/actions';
 import MedicalBook from './components/MedicalBook/MedicalBook';
 import Specialitys from './components/Specialitys/Specialitys';
+import TicketPicker from './components/Tickets/TicketPicker';
 
 axios.defaults.baseURL = 'https://apiclinica.onrender.com/';
 
@@ -53,6 +54,7 @@ function App() {
 
         <Route path="/especialidad/:speciality" element={<Specialitys />} />
 
+        <Route path='/turnos' element={<TicketPicker />} />
 
       </Routes>
 
