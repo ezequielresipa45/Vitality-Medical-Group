@@ -19,6 +19,7 @@ import PutDoctor from './components/PutDoctor/PutDoctor';
 // import DeletePatient from './DeletePatient/DeletePatient';
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import TicketPicker from './components/Tickets/TicketPicker';
+import UserCard from './components/UserCard/UserCard';
 
 axios.defaults.baseURL = 'https://apiclinica.onrender.com/';
 
@@ -64,6 +65,8 @@ function App() {
         <Route path='/turnos' element={<TicketPicker />} />
 
         <Route path='/putDoctor' element= {<PutDoctor/>}/>
+
+        <Route path='/administrador' element= {<UserCard/>}/>
 
 
         {/* <Route path='/adminDelete' element= {<DeletePatient/>}/> */}
