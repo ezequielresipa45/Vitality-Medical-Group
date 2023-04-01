@@ -154,7 +154,7 @@
   align-items: center;
   gap: 1rem;
   padding: 0 1.5rem;
-  background-color: rgba(0, 0, 0, 0.657);
+  background-color: rgba(0, 0, 0, 0.125);
   height: 100%;
 }
 
@@ -182,16 +182,19 @@
     width: 100%;
     height: 92%;
 }
+.containar__master img{
+  width: 30%;
+  height: 82%;
+}
 
 .containar__master h2{
     width: 100%;
     background-color: #fff;
     margin: 0;
-   padding: 0.6rem;
-   height: 8%;
    text-align: left;
-   padding-left: 3rem;
+   padding-left: 5.3rem;
    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
    box-sizing: border-box;
+   font-size: 20px;
 
 }
