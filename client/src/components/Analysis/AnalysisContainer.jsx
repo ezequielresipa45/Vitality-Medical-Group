@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState , useEffect , useLayoutEffect , useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { getSpecialities , getAnalysis , filterAnalysis, postSelectedTickets } from '../../redux/actions';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { getSpecialities , getAnalysis , filterAnalysis, postSelectedTickets, deleteSelectedTickets } from '../../redux/actions';
 import { Backdrop, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import Analysis from './Analysis';
 import styles from './Analysis.module.css';
@@ -11,6 +11,8 @@ const INITIAL_PAGE = 0;
 const ITEMS = 8;
 
 export default function AnalysisContainer() {
+
+    const location = useLocation();
 
     const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ export default function AnalysisContainer() {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [modalOn, setModalOn] = useState(false);
+    const [isTrue, setIsTrue] = useState(false);
     
     const [analysis, setAnalysis] = useState([...allAnalysis].map((item, index) => {
         item.code = index;
@@ -144,6 +146,7 @@ export default function AnalysisContainer() {
 
     const handleClickTicket = (value) => {
         dispatch(postSelectedTickets({
+            from: location.pathname,
             title: value.title,
             speciality: value.speciality,
             code: value.code,
@@ -151,39 +154,29 @@ export default function AnalysisContainer() {
         }));
         
         localStorage.setItem('selectedItems' , JSON.stringify({
+            from: location.pathname,
             title: value.title,
             speciality: value.speciality,
             code: value.code,
             price: value.price
         }));
 
-        !false && setModalOn(true); // Aca hay que validar si el usuario esta logueado
+        !false && setIsTrue(true); // Aca hay que validar si el usuario esta logueado
     };
 
     const handleCloseModal = () => {
-        setModalOn(false);
+        setIsTrue(false);
+        dispatch(deleteSelectedTickets());
+        localStorage.removeItem('selectedItems');
     };
 
     const onClickLogin = () => {
-        /* localStorage.setItem('selectedItems' , JSON.stringify({
-            title: value.title,
-            speciality: value.speciality,
-            code: value.code,
-            price: value.price
-        })); */
-
+        //navigate('/login');
         navigate('/turnos');
         console.log(JSON.parse(localStorage.getItem('selectedItems')));
     };
 
     const onClickRegister = () => {
-        localStorage.setItem('selectedItems' , JSON.stringify({
-            title: value.title,
-            speciality: value.speciality,
-            code: value.code,
-            price: value.price
-        }));
-
         navigate('/register');
     };
 
@@ -277,9 +270,9 @@ export default function AnalysisContainer() {
 
             </div>
 
-            {modalOn &&  
+            {isTrue &&  
                 <Dialog
-                open={modalOn}
+                open={isTrue}
                 onClose={handleCloseModal}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
