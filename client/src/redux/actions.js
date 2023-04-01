@@ -10,9 +10,12 @@ export const DELETE_DOCTOR= "DELETE_DOCTOR";
 export const DELETE_PATIENT= "DELETE_PATIENT";
 export const GET_DOCTOR_BYID= "GET_DOCTOR_BYID";
 export const GET_PATIENT_BYID= "GET_PATIENT_BYID";
-export const GET_SELECTED_TICKETS = "GET_REQUESTED_TICKETS";
-export const POST_SELECTED_TICKETS = "POST_REQUESTED_TICKETS";
-export const DELETE_SELECTED_TICKETS = "GET_REQUESTED_TICKETS";
+export const GET_SELECTED_TICKETS = "GET_SELECTED_TICKETS";
+export const POST_SELECTED_TICKETS = "POST_SELECTED_TICKETS";
+export const DELETE_SELECTED_TICKETS = "DELETE_SELECTED_TICKETS";
+export const GET_CONFIRMED_TICKETS = "GET_CONFIRMED_TICKETS";
+export const POST_CONFIRMED_TICKETS = "POST_CONFIRMED_TICKETS";
+export const DELETE_CONFIRMED_TICKETS = "DELETE_CONFIRMED_TICKETS";
 export const PUT_DOCTOR= "PUT_DOCTOR";
 export const GET_USER = "GET_USER";
 
@@ -144,7 +147,8 @@ export function deletePatient(id){
   }
 };
 
-export function getSelectedTickets(value) {
+export function getSelectedTickets() {
+  const value = JSON.parse(localStorage.getItem('selectedItems'));
   return {
       type: GET_SELECTED_TICKETS,
       payload: value
@@ -158,7 +162,29 @@ export function postSelectedTickets(value) {
   }; 
 };
 
-export function deleteSelectedTickets(value) {
+export function deleteSelectedTickets() {
+  return {
+      type: DELETE_SELECTED_TICKETS,
+      payload: {}
+  }; 
+};
+
+export function getConfirmedTickets() {
+  const value = JSON.parse(localStorage.getItem('confirmedItems'));
+  return {
+      type: GET_SELECTED_TICKETS,
+      payload: value
+  }; 
+};
+
+export function postConfirmedTickets(value) {
+  return {
+      type: POST_SELECTED_TICKETS,
+      payload: value
+  }; 
+};
+
+export function deleteConfirmedTickets(value) {
   return {
       type: DELETE_SELECTED_TICKETS,
       payload: value
