@@ -15,8 +15,8 @@ import AddPatientForm from './components/AddPatient/AddPatientForm';
 import AnalysisContainer from "./components/Analysis/AnalysisContainer";
 import MedicalBook from './components/MedicalBook/MedicalBook';
 import Specialitys from './components/Specialitys/Specialitys';
+import PatientPut from './components/PatientPut/PatientPut';
 import PutDoctor from './components/PutDoctor/PutDoctor';
-// import DeletePatient from './DeletePatient/DeletePatient';
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import TicketPicker from './components/Tickets/TicketPicker';
 import UserCard from './components/UserCard/UserCard';
@@ -64,12 +64,12 @@ function App() {
         
         <Route path='/turnos' element={<TicketPicker />} />
 
-        <Route path='/putDoctor' element= {<PutDoctor/>}/>
+        <Route path='/patient' element= {<PatientPut/>}/>
 
         <Route path='/administrador' element= {<UserCard/>}/>
 
 
-        {/* <Route path='/adminDelete' element= {<DeletePatient/>}/> */}
+        <Route path='/putdoc' element= {<PutDoctor/>}/>
         
 
       </Routes>

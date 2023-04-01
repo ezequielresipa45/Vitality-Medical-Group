@@ -14,6 +14,7 @@ export const GET_SELECTED_TICKETS = "GET_REQUESTED_TICKETS";
 export const POST_SELECTED_TICKETS = "POST_REQUESTED_TICKETS";
 export const DELETE_SELECTED_TICKETS = "GET_REQUESTED_TICKETS";
 export const PUT_DOCTOR= "PUT_DOCTOR";
+export const PUT_PATIENT= "PUT_PATIENT";
 export const GET_USER = "GET_USER";
 
 export function getSpecialities() {
@@ -174,7 +175,16 @@ export const putDoctor = (doctorData) => async (dispatch) => {
     type: 'PUT_DOCTOR',
     payload: res.data,
   });
-  }
+};
+
+export const putPatient = (patientData) => async (dispatch)=> {
+  const res = await axios.put(`https://apiclinica.onrender.com/patient`, patientData);
+
+  dispatch({
+    type: 'PUT_PATIENT',
+    payload: res.data,
+  });
+};
 
   export function getUser(){
     return async function(dispatch){
