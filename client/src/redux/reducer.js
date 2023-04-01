@@ -1,4 +1,4 @@
-import { GET_ANALYSIS , GET_SPECIALITIES, FILTER_ANALYSIS, GET_DOCTORS, GET_PLANS, GET_FARMACY, DELETE_DOCTOR, DELETE_PATIENT, GET_DOCTOR_BYID, GET_PATIENT_BYID, GET_SELECTED_TICKETS , POST_SELECTED_TICKETS , DELETE_SELECTED_TICKETS, PUT_DOCTOR } from "./actions";
+import { GET_ANALYSIS , GET_SPECIALITIES, FILTER_ANALYSIS, GET_DOCTORS, GET_PLANS, GET_FARMACY, DELETE_DOCTOR, DELETE_PATIENT, GET_DOCTOR_BYID, GET_PATIENT_BYID, GET_SELECTED_TICKETS , POST_SELECTED_TICKETS , DELETE_SELECTED_TICKETS, PUT_DOCTOR, GET_USER ,PUT_PATIENT, GET_CONFIRMED_TICKETS , POST_CONFIRMED_TICKETS , DELETE_CONFIRMED_TICKETS } from "./actions";
 
 const initialState = {
     specialities: [],
@@ -9,8 +9,9 @@ const initialState = {
     farmacies: [],
     doctor: [],
     patient: [],
-    selectedTickets: [],
-    
+    selectedTickets: {},
+    confirmedTickets: [],
+    allUsers: [],
   };
   
  
@@ -88,20 +89,48 @@ const initialState = {
       case POST_SELECTED_TICKETS:
         return{
           ...state,
-          selectedTickets: [...state.selectedTickets, action.payload]
+          selectedTickets: action.payload
         };
 
       case DELETE_SELECTED_TICKETS:
         return{
           ...state,
-          selectedTickets: [...state.selectedTickets.filter((item) => item.code !== action.payload)]
+          selectedTickets: action.payload
+        };
+
+      case GET_CONFIRMED_TICKETS:
+        return{
+          ...state,
+          confirmedTickets: action.payload
+        };
+
+      case POST_CONFIRMED_TICKETS:
+        return{
+          ...state,
+          confirmedTickets: [...state.confirmedTickets, action.payload]
+        };
+
+      case DELETE_CONFIRMED_TICKETS:
+        return{
+          ...state,
+          confirmedTickets: [...state.confirmedTickets.filter((item) => item.code !== action.payload)]
         };
 
       case PUT_DOCTOR:
         return{
           ...state,
           doctor: action.payload,
-        }
+        };
+      case GET_USER:
+        return{
+          ...state,
+          allUsers: action.payload,
+        };
+        case PUT_PATIENT:
+        return{
+          ...state,
+          patient: action.payload,
+        };
   
       default:
         return {

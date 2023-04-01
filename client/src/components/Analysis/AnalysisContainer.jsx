@@ -1,16 +1,18 @@
 import React from 'react';
 import { useState , useEffect , useLayoutEffect , useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { getSpecialities , getAnalysis , filterAnalysis, postSelectedTickets, deleteSelectedTickets } from '../../redux/actions';
+import { Backdrop, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import Analysis from './Analysis';
 import styles from './Analysis.module.css';
-
-import { getSpecialities , getAnalysis , filterAnalysis, postSelectedTickets } from '../../redux/actions';
 
 const INITIAL_PAGE = 0;
 const ITEMS = 8;
 
 export default function AnalysisContainer() {
+
+    const location = useLocation();
 
     const navigate = useNavigate();
 
@@ -29,22 +31,24 @@ export default function AnalysisContainer() {
     const filteredAnalysis = useSelector((state) => state.filteredAnalysis);
 
     //const ordered = useSelector((state) => state.orderedAnalysis);
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    const [isTrue, setIsTrue] = useState(false);
     
     const [analysis, setAnalysis] = useState([...allAnalysis].map((item, index) => {
         item.code = index;
         return item
     }));
-
-    const [isLoading, setIsLoading] = useState(false);
-
-    let orderedAnalysis = [];
-
+    
     const INITIAL_ITEMS = [...analysis].splice(INITIAL_PAGE, ITEMS);
     const [itemsPage, setItemsPage] = useState(INITIAL_ITEMS);
     const [currentPage, setCurrentPage] = useState(INITIAL_PAGE);
+    
+    let orderedAnalysis = [];
 
     const TOTAL_PAGES = new Array(Math.ceil(analysis.length / ITEMS)).fill(0);
-
+    
     const PAGES = TOTAL_PAGES.map((item, index) => {
         item = index + 1;
         return item;
@@ -140,9 +144,40 @@ export default function AnalysisContainer() {
         }; */
     };
 
-    const onClickTicket = (value) => {
-        dispatch(postSelectedTickets(value));
+    const handleClickTicket = (value) => {
+        dispatch(postSelectedTickets({
+            from: location.pathname,
+            title: value.title,
+            speciality: value.speciality,
+            code: value.code,
+            price: value.price
+        }));
+        
+        localStorage.setItem('selectedItems' , JSON.stringify({
+            from: location.pathname,
+            title: value.title,
+            speciality: value.speciality,
+            code: value.code,
+            price: value.price
+        }));
+
+        !false && setIsTrue(true); // Aca hay que validar si el usuario esta logueado
+    };
+
+    const handleCloseModal = () => {
+        setIsTrue(false);
+        dispatch(deleteSelectedTickets());
+        localStorage.removeItem('selectedItems');
+    };
+
+    const onClickLogin = () => {
+        //navigate('/login');
         navigate('/turnos');
+        console.log(JSON.parse(localStorage.getItem('selectedItems')));
+    };
+
+    const onClickRegister = () => {
+        navigate('/register');
     };
 
     return (
@@ -206,7 +241,7 @@ export default function AnalysisContainer() {
                                 image= {item.image}
                                 price={'$5000'}
                                 code={item.code}
-                                onClick={onClickTicket}
+                                onClick={handleClickTicket}
                             />
                         ))}
                         
@@ -235,7 +270,27 @@ export default function AnalysisContainer() {
 
             </div>
 
-
+            {isTrue &&  
+                <Dialog
+                open={isTrue}
+                onClose={handleCloseModal}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        {'Antes de continuar debe iniciar sesión'}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Para continuar el proceso de selección del turno seleccionado debe inicar sesión con su cuenta de usuario. Si no tiene una cuenta aún, puede crearla haciendo click en registrarse.
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={onClickRegister}>Registrarse</Button>
+                        <Button onClick={onClickLogin} autoFocus>Iniciar Sesión</Button>
+                    </DialogActions>
+                </Dialog>
+            }
 
         </>
     )
