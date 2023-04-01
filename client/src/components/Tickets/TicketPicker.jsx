@@ -72,7 +72,8 @@ export default function TicketPicker() {
             type: typeOfTicket,
             title: selectedTickets.title,
             date: format(selectedDate, 'dd/MM/yyyy'),
-            schedule: selectedSchedule
+            schedule: selectedSchedule,
+            code: selectedTickets.code
         }));
         console.log('Confirmaste el turno');
         setIsTrue(true);

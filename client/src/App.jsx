@@ -35,7 +35,7 @@ function App() {
   useLayoutEffect(() => {
     dispatch(getSpecialities());
     dispatch(getAnalysis());
-    dispatch(getConfirmedTickets());
+    localStorage.getItem('confirmedItems') && dispatch(getConfirmedTickets());
   }, []);
 
   return (
@@ -77,7 +77,7 @@ function App() {
 
       </Routes>
 
-      {userTickets && <TicketsDrawer />}
+      <TicketsDrawer />
 
       {!isAdmin && <Footer />}
 
