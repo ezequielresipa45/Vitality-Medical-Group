@@ -19,6 +19,7 @@ export const DELETE_CONFIRMED_TICKETS = "DELETE_CONFIRMED_TICKETS";
 export const PUT_DOCTOR= "PUT_DOCTOR";
 export const PUT_PATIENT= "PUT_PATIENT";
 export const GET_USER = "GET_USER";
+export const PUT_USER = "PUT_USER";
 
 export function getSpecialities() {
     return {
@@ -227,7 +228,17 @@ export const putDoctor = (doctorData) => async (dispatch) => {
       return dispatch({
         type: GET_USER,
         payload: json.data,
-      })
-    }
+      });
+    };
+  };
 
-}
+  export function putUser(userData){ 
+    return async function(dispatch){
+    const res = await axios.put(`/user`, userData);
+    
+    return dispatch({
+      type: 'PUT_USER',
+      payload: res.data,
+    });
+  };
+};
