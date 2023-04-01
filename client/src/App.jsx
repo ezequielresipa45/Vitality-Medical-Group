@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { useLocation, Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAnalysis, getSpecialities } from './redux/actions';
+import { getAnalysis, getConfirmedTickets, getSpecialities } from './redux/actions';
 import Home from "./components/Home/Home";
 import Institutional from "./components/Institutional/Institutional";
 import PlanCards from "./components/Plans/PlanCards"
@@ -20,6 +20,7 @@ import PatientPut from './components/PatientPut/PatientPut';
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import TicketPicker from './components/Tickets/TicketPicker';
 import UserCard from './components/UserCard/UserCard';
+import TicketsDrawer from './components/TicketsDrawer/TicketsDrawer';
 
 axios.defaults.baseURL = 'https://apiclinica.onrender.com/';
 
@@ -29,9 +30,12 @@ function App() {
   const location = useLocation();
   const isAdmin = location.pathname === "/admin";
 
+  const userTickets = useSelector((state) => state.confirmedTickets);
+
   useLayoutEffect(() => {
     dispatch(getSpecialities());
     dispatch(getAnalysis());
+    dispatch(getConfirmedTickets());
   }, []);
 
   return (
@@ -68,11 +72,12 @@ function App() {
 
         <Route path='/administrador' element= {<UserCard/>}/>
 
-
         {/* <Route path='/adminDelete' element= {<DeletePatient/>}/> */}
         
 
       </Routes>
+
+      {userTickets && <TicketsDrawer />}
 
       {!isAdmin && <Footer />}
 

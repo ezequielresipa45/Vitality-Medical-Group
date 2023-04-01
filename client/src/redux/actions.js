@@ -181,21 +181,21 @@ export function deleteSelectedTickets() {
 export function getConfirmedTickets() {
   const value = JSON.parse(localStorage.getItem('confirmedItems'));
   return {
-      type: GET_SELECTED_TICKETS,
+      type: GET_CONFIRMED_TICKETS,
       payload: value
   }; 
 };
 
 export function postConfirmedTickets(value) {
   return {
-      type: POST_SELECTED_TICKETS,
+      type: POST_CONFIRMED_TICKETS,
       payload: value
   }; 
 };
 
 export function deleteConfirmedTickets(value) {
   return {
-      type: DELETE_SELECTED_TICKETS,
+      type: DELETE_CONFIRMED_TICKETS,
       payload: value
   }; 
 };
