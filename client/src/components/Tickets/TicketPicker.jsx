@@ -27,7 +27,6 @@ export default function TicketPicker() {
     let typeOfTicket;
     if (selectedTickets.from === '/analisis') typeOfTicket = 'Análisis / Estudio';
     else typeOfTicket = 'Consulta Médica';
-
     
     //const dateFormat = format(date, 'dd/MM/yyyy');
 
@@ -40,17 +39,17 @@ export default function TicketPicker() {
     const [error, setError] = useState(null);
 
     const availabilityValidator = (value) => {
-        let days = ['Domingo','Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes']
+        let days = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado']
         let userDate = new Date(value);
-        console.log(userDate);
-        console.log(days[userDate.getDay()]);
+        //console.log(userDate);
+        //console.log(days[userDate.getDay()]);
         if(availableDays.includes(days[userDate.getDay()])) {
             setIsAvailable(true);
             return setError(null);
         }
         else {
             setIsAvailable(false);
-            return setError('El dia seleccionado no esta disponible')
+            return setError('El dia seleccionado no esta disponible');
         };
     };
 
@@ -64,7 +63,7 @@ export default function TicketPicker() {
 
     const handleSchedulesChange = (e) => {
         setSelectedSchedule(e.target.value);
-        //setAvailableSchedules(availableSchedules.filter((item) => item !== e.target.value));
+        
     };
 
     const onClickConfirm = () => {
@@ -77,13 +76,19 @@ export default function TicketPicker() {
         }));
         console.log('Confirmaste el turno');
         setIsTrue(true);
+        setSelectedSchedule('');
+        setAvailableSchedules(availableSchedules.filter((item) => item !== selectedSchedule));
     };
 
-    const onClickNext = () => {
+    const handleCloseModal = () => {
+        setIsTrue(false);
+    };
+
+    const onClickGoToPaid = () => {
         console.log('continuar');
     };
 
-    const onClickBack = () => {
+    const onClickBackToSelect = () => {
         console.log('volver');
     }
 
@@ -138,7 +143,7 @@ export default function TicketPicker() {
                 {isTrue &&  
                 <Dialog
                 open={isTrue}
-                onClose={null}
+                onClose={handleCloseModal}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 >
@@ -151,8 +156,8 @@ export default function TicketPicker() {
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={onClickBack}>Seleccionar Items</Button>
-                        <Button onClick={onClickNext} autoFocus>Finalizar</Button>
+                        <Button onClick={onClickBackToSelect}>Seleccionar Items</Button>
+                        <Button onClick={onClickGoToPaid} autoFocus>Finalizar</Button>
                     </DialogActions>
                 </Dialog>
             }
