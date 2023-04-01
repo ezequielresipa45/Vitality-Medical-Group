@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "FireSans";
+    src: url("../../Fonts/FiraSans-Bold.ttf");
+}
+
+.text{
+    font-family: "FireSans";
+    font-size: 22px;
+}
+.btn{
+    font-family: "FireSans";
+}
