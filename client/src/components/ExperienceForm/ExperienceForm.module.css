@@ -1,0 +1,33 @@
+@font-face {
+    font-family: "FireSans";
+    src: url("../../Fonts/FiraSans-Bold.ttf");
+}
+
+.container {
+ 
+    flex-direction: row;
+    text-align: center;
+    display: block;
+ 
+    
+}
+.text{
+    font-family: "FireSans";
+    text-align: center;
+    margin-bottom: -10px;
+    
+}
+/* .face_area{
+    
+} */
+.text_area{
+    height: 100px;
+    width: 350px;
+    border-radius: 5px;
+    margin-top: 6px;
+    align-items: center;
+    font-style: italic;
+    
+}
+
+    
