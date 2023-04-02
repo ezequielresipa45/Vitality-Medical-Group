@@ -1,8 +1,8 @@
 .container {
-
     position: absolute;
-    top: 200px;
+    top: 12px;
     right: 50px;
+    z-index: 1001;
 
     /* display: flex;
     flex-direction: column;
@@ -22,4 +22,22 @@
 .container i {
     font-size: 30px;
     color: rgb(0, 0, 0);
+}
+
+.badge {
+    clip-path: circle(7px);
+    background-color: var(--primary);
+    height: 15px;
+    width: 15px;
+
+    position: absolute;
+    right: 4px;
+    bottom: 8px;
+}
+
+.badge p {
+    font-size: 10px;
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
 }
