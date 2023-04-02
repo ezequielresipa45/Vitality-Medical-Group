@@ -3,6 +3,7 @@ import { useState , useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteConfirmedTickets } from '../../redux/actions';
 import { Drawer , IconButton, Tooltip , List , ListItem , ListItemButton, ListItemText , Box , Divider , Typography, Button} from '@mui/material';
+import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import PaymentIcon from '@mui/icons-material/Payment';
 import styles from './TicketsDrawer.module.css';
@@ -21,25 +22,33 @@ export default function TicketsDrawer() {
     
     const deleteHandler = (value) => {
         dispatch(deleteConfirmedTickets(value));
-        console.log(value);
+        localStorage.setItem('confirmedItems', JSON.stringify(userTickets));
     };
     
     useEffect(() => {
-        localStorage.setItem('confirmedItems', JSON.stringify(userTickets));
+        toggle && localStorage.setItem('confirmedItems', JSON.stringify(userTickets));
     }, [userTickets]);
 
     return (
-        <div className={styles.container}> 
+        <>
+    
+            <div className={styles.container}> 
 
-            {userTickets.length > 0 &&
-            
-            <Tooltip placement="right-start">
-                <IconButton onClick={toggleDrawer}>
-                    <i className='fa-solid fa-heart-circle-exclamation'></i>
-                </IconButton>
-            </Tooltip>
-            
-            }
+                {userTickets.length > 0 &&
+                
+                <Tooltip placement="right-start">
+                    <IconButton onClick={toggleDrawer}>
+                        <MonitorHeartIcon sx={{ fontSize: 30 }} />
+                    </IconButton>
+                </Tooltip>
+                
+                }
+
+                <div className={styles.badge}>
+                    <p>{userTickets.length}</p>
+                </div>
+
+            </div>
 
             <Drawer
                 anchor='right'
@@ -75,6 +84,6 @@ export default function TicketsDrawer() {
                 </Box>
 
             </Drawer>
-        </div>
+        </>
     )
 }

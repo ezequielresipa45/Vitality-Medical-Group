@@ -71,9 +71,9 @@ export default function NavBar() {
           <Link to="/planes">Planes</Link>
         </ul>
 
-        <Link to={"/agregarMedico"}>
+        {/* <Link to={"/agregarMedico"}>
           <img width={20} src={addMedic} alt="icon-addMedic" />
-        </Link>
+        </Link> */}
       </div>
 
       {clickBoolean ? (
