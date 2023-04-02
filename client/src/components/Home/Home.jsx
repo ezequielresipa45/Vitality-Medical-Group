@@ -6,17 +6,13 @@ import ContainerNews from '../News/ContainerNews2';
 import Sponsors from '../Sponsors/Sponsors';
 import styles from "./Home.module.css";
 import Popup from '../PopUp/PopUp';
+import ExperienceForm from "../ExperienceForm/ExperienceForm.jsx"
 
 
 export default function Home() {
 
   const [buttonPopup, setButtonPopup] = useState(false)
 
-  useEffect(()=> {
-  setTimeout(()=>{
-    setTimePopup(true);
-  }, 7000)
-},[]);
 
 // Aca va la logica
 
@@ -25,6 +21,14 @@ export default function Home() {
     <div className={styles.container__home}>
 
     <Header/>
+
+    <br /><br /><br />
+    <button onClick={()=>setButtonPopup(true)}>Contanos tu experiencia</button>
+    <Popup trigger = {buttonPopup} setTrigger = {setButtonPopup}>
+        
+        <ExperienceForm/>
+    </Popup>
+    
 
     <Cards/>
 
@@ -37,9 +41,9 @@ export default function Home() {
   )
 }
 
-{/* <br /><br />
-<button onClick={()=>setButtonPopup(true)}>Contanos tu experiencia</button>
-<Popup trigger = {buttonPopup} setTrigger = {setButtonPopup}>
- <h4 className={styles.text}>Queremos conocer tu experiencia con Vitality para poder seguir mejorando </h4>
- <button className={styles.btn}>Completá el formulario</button>
- </Popup> */}
+//  <br /><br />
+// <button onClick={()=>setButtonPopup(true)}>Contanos tu experiencia</button>
+// <Popup trigger = {buttonPopup} setTrigger = {setButtonPopup}>
+//  <h4 className={styles.text}>Queremos conocer tu experiencia con Vitality para poder seguir mejorando </h4>
+//  <button className={styles.btn}>Completá el formulario</button>
+//  </Popup>
