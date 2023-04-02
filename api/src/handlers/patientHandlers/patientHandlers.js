@@ -58,7 +58,6 @@ const createPatientHandler = async (req, res) => {
       birthday,
       phone,
       address,
-      consultations_available,
     } = req.body;
     const request = await createPatient(
       idUser,
@@ -70,7 +69,6 @@ const createPatientHandler = async (req, res) => {
       birthday,
       phone,
       address,
-      consultations_available
     );
     return res.status(201).json(request);
   } catch (error) {

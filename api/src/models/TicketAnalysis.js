@@ -18,7 +18,6 @@ module.exports = (sequelize) => {
       hour: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
       },
       price: {
         type: DataTypes.INTEGER,
