@@ -10,7 +10,7 @@ import Popup from '../PopUp/PopUp';
 
 export default function Home() {
 
-  const [timePopup, setTimePopup] = useState(false)
+  const [buttonPopup, setButtonPopup] = useState(false)
 
   useEffect(()=> {
   setTimeout(()=>{
@@ -25,11 +25,6 @@ export default function Home() {
     <div className={styles.container__home}>
 
     <Header/>
-    
-    <Popup trigger = {timePopup} setTrigger = {setTimePopup}>
-      <h4 className={styles.text}>Queremos conocer tu experiencia con Vitality para poder seguir mejorando </h4>
-      <button className={styles.btn}>Completá el formulario</button>
-      </Popup>
 
     <Cards/>
 
@@ -41,3 +36,10 @@ export default function Home() {
     </div>
   )
 }
+
+{/* <br /><br />
+<button onClick={()=>setButtonPopup(true)}>Contanos tu experiencia</button>
+<Popup trigger = {buttonPopup} setTrigger = {setButtonPopup}>
+ <h4 className={styles.text}>Queremos conocer tu experiencia con Vitality para poder seguir mejorando </h4>
+ <button className={styles.btn}>Completá el formulario</button>
+ </Popup> */}
