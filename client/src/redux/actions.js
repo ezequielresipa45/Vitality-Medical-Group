@@ -20,6 +20,7 @@ export const PUT_DOCTOR= "PUT_DOCTOR";
 export const PUT_PATIENT= "PUT_PATIENT";
 export const GET_USER = "GET_USER";
 export const PUT_USER = "PUT_USER";
+export const POST_PATIENT = "POST_PATIENT";
 
 export function getSpecialities() {
     return {
@@ -238,6 +239,17 @@ export const putDoctor = (doctorData) => async (dispatch) => {
     
     return dispatch({
       type: 'PUT_USER',
+      payload: res.data,
+    });
+  };
+};
+
+export const postPatient = (newPatient) => {
+  return async function(dispatch) {
+    const res = await axios.post("https://apiclinica.onrender.com/patient/", newPatient);
+          
+    return dispatch ({
+      type: "POST_PATIENT",
       payload: res.data,
     });
   };
