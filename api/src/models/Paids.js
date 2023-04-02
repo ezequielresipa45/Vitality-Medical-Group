@@ -1,4 +1,4 @@
-const { DataTypes, DATEONLY } = require("sequelize");
+const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
@@ -11,24 +11,16 @@ module.exports = (sequelize) => {
         autoIncrement: true,
         unique: true,
       },
-      period: {
+      date: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      cutoff_date: {
-        type: DataTypes.DATEONLY,
-        allowNull: false,
-      },
-      date_pay: {
-        type: DataTypes.DATEONLY,
+      description: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
       price: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      check: {
-        type: DataTypes.STRING,
         allowNull: false,
       },
     },

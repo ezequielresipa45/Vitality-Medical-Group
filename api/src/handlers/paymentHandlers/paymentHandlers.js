@@ -1,14 +1,14 @@
 const {
   allPayments,
   paymentId,
-  createPaymentAnalysis,
   createPaymentPlan,
+  createPaymentAnalysis,
 } = require("../../controllers/paymentControllers/paymentControllers.js");
 
-const allPaymentsHandler = async (req, res) => {
+const allPaymentsUserHandler = async (req, res) => {
   try {
-    const { idUser } = req.body;
-    const request = await allPayments(idUser);
+    const { userId } = req.body;
+    const request = await allPayments(userId);
     return res.status(200).json(request);
   } catch (error) {
     return res.status(400).json({ error: error.message });
@@ -17,7 +17,7 @@ const allPaymentsHandler = async (req, res) => {
 
 const paymentIdHandler = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     const request = await paymentId(id);
     return res.status(200).json(request);
   } catch (error) {
@@ -25,20 +25,34 @@ const paymentIdHandler = async (req, res) => {
   }
 };
 
-const createPaymentAnalysisHandler = async (req, res) => {
+const createPaymentPlanHandler = async (req, res) => {
   try {
-    const { user, tickets, detail } = req.body;
-    const request = await createPaymentAnalysis(user, tickets, detail);
+    const { user, planId, description, price, code, date } = req.body;
+    const request = await createPaymentPlan(
+      user,
+      planId,
+      description,
+      price,
+      code,
+      date
+    );
     return res.status(201).json(request);
   } catch (error) {
     return res.status(404).json({ error: error.message });
   }
 };
 
-const createPaymentPlanHandler = async (req, res) => {
+const createPaymentAnalysisHandler = async (req, res) => {
   try {
-    const { user, plan, detail } = req.body;
-    const request = await createPaymentPlan(user, plan, detail);
+    const { ticketsIds, user, description, price, code, date } = req.body;
+    const request = await createPaymentAnalysis(
+      ticketsIds,
+      user,
+      description,
+      price,
+      code,
+      date
+    );
     return res.status(201).json(request);
   } catch (error) {
     return res.status(404).json({ error: error.message });
@@ -46,8 +60,8 @@ const createPaymentPlanHandler = async (req, res) => {
 };
 
 module.exports = {
-  allPaymentsHandler,
+  allPaymentsUserHandler,
   paymentIdHandler,
-  createPaymentAnalysisHandler,
   createPaymentPlanHandler,
+  createPaymentAnalysisHandler,
 };

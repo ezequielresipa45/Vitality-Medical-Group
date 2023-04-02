@@ -77,15 +77,11 @@ const {
   Analysis,
 } = sequelize.models;
 
-// *Aca vendrian las relaciones:
+/// *Aca vendrian las relaciones:
 // *Relaciones 1 a 1:
 // ?Schedule vs TicketMedical = 1 : 1
 TicketMedical.hasOne(Schedule, { onDelete: "cascade" });
 Schedule.belongsTo(TicketMedical, { onDelete: "cascade" });
-
-// ?Payment vs Plan = 1 : 1
-Payment.hasOne(Plan);
-Plan.belongsTo(Payment);
 
 // *Relaciones 1 a N:
 // ?Patient vs TicketMedical = 1 : N
@@ -143,16 +139,8 @@ Doctor.belongsToMany(Speciality, { through: "DoctorSpeciality" });
 Speciality.belongsToMany(Doctor, { through: "DoctorSpeciality" });
 
 // ?Doctor vs Schedule = N : N
-Doctor.belongsToMany(
-  Schedule,
-  { through: "DoctorSchedule" },
-  { onDelete: "cascade" }
-);
-Schedule.belongsToMany(
-  Doctor,
-  { through: "DoctorSchedule" },
-  { onDelete: "cascade" }
-);
+Doctor.belongsToMany(Schedule, { through: "DoctorSchedule" });
+Schedule.belongsToMany(Doctor, { through: "DoctorSchedule" });
 
 // ?Doctor vs TicketMedical = N : N
 Doctor.belongsToMany(TicketMedical, { through: "DoctorTM" });

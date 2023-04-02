@@ -117,6 +117,7 @@ const getDoctorById = async (id) => {
 
 // *Este controller permite crear un médico:
 const createDoctor = async (
+  idUser,
   code,
   dni,
   full_name,
@@ -147,13 +148,19 @@ const createDoctor = async (
   });
   await newDoctor.addSpeciality(specialitys);
 
+  const user = await User.findByPk(idUser);
+  await newDoctor.setUser(user);
+
   const doctor_created = await Doctor.findOne({
     where: { full_name: { [Op.iLike]: `%${full_name}%` } },
-    include: {
-      model: Speciality,
-      attributes: ["speciality"],
-      through: { attributes: [] },
-    },
+    include: [
+      {
+        model: Speciality,
+        attributes: ["speciality"],
+        through: { attributes: [] },
+      },
+      { model: User },
+    ],
   });
   return {
     message: "El registro del médico se ha creado exitosamente",
