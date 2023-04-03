@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import addMedic from "../../images/medical-doctor.png";
 
+import { useAuth0 } from "@auth0/auth0-react"; // Import para Auth0
+import LoginButton from "../LoginButtons/LoginButton"
+import LogoutButton from "../LoginButtons/LogoutButton"
+
 export default function NavBar() {
   let arraySpecialists = [
     "Clínica Médica",
@@ -16,6 +20,11 @@ export default function NavBar() {
     "Endocrinología",
     "Cardiología",
   ];
+
+  
+   // Todo sobre Auth0  
+   const { isAuthenticated } = useAuth0();
+
 
   const [clickBoolean, setClickBoolean] = useState(false);
 
@@ -69,11 +78,17 @@ export default function NavBar() {
             Especialidades
           </button>
           <Link to="/planes">Planes</Link>
+          
+        <div>
+          {!isAuthenticated  ? <LoginButton/>
+                            : <LogoutButton/>}
+        </div>
+        
         </ul>
 
-        <Link to={"/agregarMedico"}>
+        {/* <Link to={"/agregarMedico"}>
           <img width={20} src={addMedic} alt="icon-addMedic" />
-        </Link>
+        </Link> */}
       </div>
 
       {clickBoolean ? (

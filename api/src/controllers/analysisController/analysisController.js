@@ -2,12 +2,29 @@ const { Analysis } = require("../../db")
 const { Op } = require("sequelize");
 
 
+const filterAnalysisDB = (item) => {
+    return{
+        id: item.id,
+        name: item.name,
+        speciality: item.speciality,
+        price: item.price,
+        is_delete: item.is_delete,
+
+    }
+
+}
 
 
 //getAnalysis devuelve todos los campos que tenga la tabla Analysis
-const getAnalysis = async () => {
+const getAnalysis = async () =>{
     const request = await Analysis.findAll()
-    return request
+    let filtered = request
+    .map((item) => filterAnalysisDB(item))
+    .filter((item) => item.is_delete !== true)
+    .flat();
+
+
+  return filtered;   
 }
 
 //createAnalysis crea un nuevo analysis
@@ -50,18 +67,20 @@ const changeAnalysis = async ({id, name, speciality, price}) => {
 
 
   // deleteAnalysis permite eliminar especialidades en la tabla Analisis
-const deleteAnalysis = async (id) => {
-    console.log(id)
-    const analysis = await Analysis.findByPk(id)
-    if (analysis) {
-
-        await analysis.destroy();
-        return {
-            message: `Se ha eliminado el analisis exitosamente`
-        };
-    } else { throw new Error (`No se ha encontrado el analisis`)
+  const deleteAnalysis = async (id) => {
+    const request = await Analysis.findByPk(id);
+    
+    if (!request) {
+      throw new Error('El Analisis no fue encontrado');
     }
-}
+    
+    request.set({
+      is_delete: true,
+    });
+    await request.save();
+  
+    return "El Analisis fue borrado exitosamente";
+  };
 
 
 

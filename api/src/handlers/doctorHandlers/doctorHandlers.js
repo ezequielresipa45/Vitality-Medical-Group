@@ -55,6 +55,7 @@ const getDoctorIdHandler = async (req, res) => {
 const createDoctorHandler = async (req, res) => {
   try {
     const {
+      idUser,
       code,
       dni,
       full_name,
@@ -68,6 +69,7 @@ const createDoctorHandler = async (req, res) => {
       is_delivery,
     } = req.body;
     const request = await createDoctor(
+      idUser,
       code,
       dni,
       full_name,

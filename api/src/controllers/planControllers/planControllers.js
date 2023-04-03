@@ -1,10 +1,31 @@
 const { Plan } = require("../../db")
 const { Op } = require("sequelize")
 
+const getPlanDB = (item) => {
+    return{
+        id: item.id,
+        name: item.name,
+        menbers: item,
+        price: item.price,
+        description: item.description,
+        code: item.code,
+        consultations_per_patients: item.consultations_per_patients,
+        is_delete: item.is_delete,
+    }
+}
 
-const getPlanAll = async () => {
-    const plans = await Plan.findAll()
-    return plans;
+
+const getPlanAll = async () =>{
+    const request = await Plan.findAll({
+        
+    })
+    let filtered = request
+    .map((item) => getPlanDB(item))
+    .filter((item) => item.is_delete !== true)
+    .flat();
+
+
+  return filtered;   
 }
 
 const getPlanByCode = async (code) => {
@@ -57,13 +78,19 @@ const addPlan = async (name, members, price, description, code, consultations_pe
 }
 
 const deletePlan = async (id) => {
-    const plan = await Plan.findByPk(id)
-    if(!plan) return `No existe plan con el  id = ${id} , no se puede eliminar`
-
-    await plan.destroy();
-
-    return `Se elimino el plan con el id = ${id}`
-}
+    const request = await Plan.findByPk(id);
+    
+    if (!request) {
+      throw new Error('El plan no fue encontrado');
+    }
+    
+    request.set({
+      is_delete: true,
+    });
+    await request.save();
+  
+    return "El plan fue borrado exitosamente";
+  };
 
 module.exports = {
     getPlanAll,

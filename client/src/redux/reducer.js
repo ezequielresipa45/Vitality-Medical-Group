@@ -1,4 +1,4 @@
-import { GET_ANALYSIS , GET_SPECIALITIES, FILTER_ANALYSIS, GET_DOCTORS, GET_PLANS, GET_FARMACY, DELETE_DOCTOR, DELETE_PATIENT, GET_DOCTOR_BYID, GET_PATIENT_BYID, GET_REQUESTED_TICKETS , POST_REQUESTED_TICKETS , DELETE_REQUESTED_TICKETS } from "./actions";
+import { GET_ANALYSIS , GET_SPECIALITIES, FILTER_ANALYSIS, GET_DOCTORS, GET_PLANS, GET_FARMACY, DELETE_DOCTOR, DELETE_PATIENT, GET_DOCTOR_BYID, GET_PATIENT_BYID, GET_SELECTED_TICKETS , POST_SELECTED_TICKETS , DELETE_SELECTED_TICKETS, PUT_DOCTOR, GET_USER, PUT_USER, PUT_PATIENT, GET_CONFIRMED_TICKETS , POST_CONFIRMED_TICKETS , DELETE_CONFIRMED_TICKETS, LOGIN, LOGOUT_LOGIN } from "./actions";
 
 const initialState = {
     specialities: [],
@@ -9,8 +9,10 @@ const initialState = {
     farmacies: [],
     doctor: [],
     patient: [],
-    requestedTickets: [],
-    
+    selectedTickets: {},
+    confirmedTickets: [],
+    allUsers: [],
+    user: {}
   };
   
  
@@ -18,6 +20,17 @@ const initialState = {
     switch (action.type) {
 
       // cases ....
+      case LOGIN:
+        return {
+          ...state,
+          user: action.payload
+        };
+
+      case LOGOUT_LOGIN:
+        return {
+          ...state,
+          user: {}
+        }
 
       case GET_SPECIALITIES:
         return{
@@ -79,22 +92,63 @@ const initialState = {
           patient: action.payload,
         };
       
-      case GET_REQUESTED_TICKETS:
+      case GET_SELECTED_TICKETS:
         return{
           ...state,
-          requestedTickets: action.payload
+          selectedTickets: action.payload
         };
 
-      case POST_REQUESTED_TICKETS:
+      case POST_SELECTED_TICKETS:
         return{
           ...state,
-          requestedTickets: [...state.requestedTickets, action.payload]
+          selectedTickets: action.payload
         };
 
-      case DELETE_REQUESTED_TICKETS:
+      case DELETE_SELECTED_TICKETS:
         return{
           ...state,
-          requestedTickets: [...state.requestedTickets.filter((item) => item.code !== action.payload)]
+          selectedTickets: action.payload
+        };
+
+      case GET_CONFIRMED_TICKETS:
+        return{
+          ...state,
+          confirmedTickets: action.payload
+        };
+
+      case POST_CONFIRMED_TICKETS:
+        return{
+          ...state,
+          confirmedTickets: [...state.confirmedTickets, action.payload]
+        };
+
+      case DELETE_CONFIRMED_TICKETS:
+        return{
+          ...state,
+          confirmedTickets: [...state.confirmedTickets.filter((item) => item.code !== action.payload)]
+        };
+
+      case PUT_DOCTOR:
+        return{
+          ...state,
+          doctor: action.payload,
+        };
+      case GET_USER:
+        return{
+          ...state,
+          allUsers: action.payload,
+        };
+      
+      case PUT_USER:
+        return{
+          ...state,
+          allUsers: action.payload
+        };
+
+      case PUT_PATIENT:
+        return{
+          ...state,
+          patient: action.payload,
         };
   
       default:

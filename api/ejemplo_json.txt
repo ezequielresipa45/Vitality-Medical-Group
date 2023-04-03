@@ -1,90 +1,91 @@
 Json Pacientes:
 [
     {
+        "idUser": 1,
         "dni": 43183214,
         "full_name": "Jonathan Rodriguez",
         "gender": "diabolico",
         "birthday": "1983-05-04",
         "age": 40,
         "phone": 256589742541,
-        "address": "Aragua, Venezuela",
-        "consultations_available": 10
+        "address": "Aragua, Venezuela"
     },
     {
+        "idUser": 2,
         "dni": 5986487,
-        "full_name": "Gustavo Pérez",
+        "full_name": "Bernardo Brocheit",
         "gender": "masculino",
         "birthday": "1970-12-12",
         "age": 53,
         "phone": 2659749851,
-        "address": "Lima, Perú",
-        "consultations_available": 10
+        "address": "Lima, Perú"
     },
     {
+        "idUser": 3,
         "dni": 3265984,
         "full_name": "Shakira Cornuda",
         "gender": "loba",
         "birthday": "1980-06-03",
         "age": 43,
         "phone": 795486524,
-        "address": "Madrid, España",
-        "consultations_available": 10
+        "address": "Madrid, España"
     },
     {
+        "idUser": 4,
         "dni": 6598425,
         "full_name": "Gerard Pique",
         "gender": "pendejo",
         "birthday": "1980-12-23",
         "age": 43,
         "phone": 6598532458,
-        "address": "Madrid, España",
-        "consultations_available": 10
+        "address": "Madrid, España"
     },
     {
+        "idUser": 5,
         "dni": 7598462,
         "full_name": "Lady Gaga",
         "gender": "loca",
         "birthday": "1995-09-20",
         "age": 28,
         "phone": 32674985,
-        "address": "Algún lugar, Narnia",
-        "consultations_available": 10
+        "address": "Algún lugar, Narnia"
     },
     {
+        "idUser": 1,
         "dni": 2987598,
         "full_name": "Cher",
         "gender": "momia",
         "birthday": "0001-01-01",
         "age": 2022,
         "phone": 1000000001,
-        "address": "Matusalén",
-        "consultations_available": 10
+        "address": "Matusalén"
     },
     {
+        "idUser": 2,
         "dni": 23598774,
         "full_name": "Madona Josefina Trump",
         "gender": "inmortal",
         "birthday": "0001-02-01",
         "age": 2021,
         "phone": 1000000002,
-        "address": "EEUU",
-        "consultations_available": 10
+        "address": "EEUU"
     },
     {
+        "idUser": 3,
         "dni": 79563254,
         "full_name": "Maluma la del Barrio",
         "gender": "empoderada",
         "birthday": "1998-02-06",
         "age": 25,
         "phone": 859874621,
-        "address": "Colombia",
-        "consultations_available": 10
+        "address": "Colombia"
     }
 ]
 
 Json Doctores:
 [
     {
+        
         "dni": 3698754,
         "code": 236514,
         "full_name": "Paco Gerlo",
@@ -209,14 +210,137 @@ Json Doctores:
 Json TicketMedical:
 [
     {
-        "title": ,
-        "observations": ,
-        "doctorId": ,
-        "patientId": ,
-        "date": ,
-        "hour_start": ,
-        "hour_end": ,
-    }
+        "title": "Estoy loca de atar",
+        "observations": "Consulta con psiquiatría",
+        "doctorId": 2,
+        "patientId": 1,
+        "date": "2023-03-12",
+        "hour_start": "08:30",
+        "hour_end": "09:00"
+    },
+    {
+        "title": "problemas menstruales",
+        "observations": "Consulta con ginecología",
+        "doctorId": 2,
+        "patientId": 3,
+        "date": "2023-06-10",
+        "hour_start": "08:30",
+        "hour_end": "09:00"
+    },
+    {
+        "title": "hinchazon",
+        "observations": "Consulta con urología",
+        "doctorId": 2,
+        "patientId": 3,
+        "date": "2023-02-12",
+        "hour_start": "08:30",
+        "hour_end": "09:00"
+    },
+    {
+        "title": "sarna, me pique mucho",
+        "observations": "Consulta con dermatología",
+        "doctorId": 2,
+        "patientId": 3,
+        "date": "2023-05-04",
+        "hour_start": "08:30",
+        "hour_end": "09:00"
+    },
+    {
+        "title": "me estoy volviendo loca",
+        "observations": "Consulta con psiquiatría",
+        "doctorId": 2,
+        "patientId": 3,
+        "date": "2023-10-22",
+        "hour_start": "08:30",
+        "hour_end": "09:00"
+    },
+    {
+        "title": "de niña me dieron muchos golpes en la cabeza",
+        "observations": "Consulta con neuroloía",
+        "doctorId": 2,
+        "patientId": 3,
+        "date": "2023-12-30",
+        "hour_start": "08:30",
+        "hour_end": "09:00"
+    },
+    {
+        "title": "creo que estoy embarazado",
+        "observations": "Consulta con obstetricia",
+        "doctorId": 2,
+        "patientId": 3,
+        "date": "2023-08-20",
+        "hour_start": "08:30",
+        "hour_end": "09:00"
+    },
+    {
+        "title": "me siento como doña barbara",
+        "observations": "Consulta con psiquiatria",
+        "doctorId": 2,
+        "patientId": 3,
+        "date": "2023-06-01",
+        "hour_start": "08:30",
+        "hour_end": "09:00"
+    },
+]
+
+Json TicketAnalysis:
+[
+    {
+        "idAnalysis": "6",
+        "idPatient": "1",
+        "date": "2023-03-12",
+        "hour": "08:30",
+        "price": 200
+    },
+    {
+        "idAnalysis": "1",
+        "idPatient": "2",
+        "date": "2023-03-12",
+        "hour": "08:30",
+        "price": 200
+    },
+    {
+        "idAnalysis": "3",
+        "idPatient": "5",
+        "date": "2023-03-12",
+        "hour": "08:30",
+        "price": 200
+    },
+    {
+        "idAnalysis": "2",
+        "idPatient": "3",
+        "date": "2023-03-12",
+        "hour": "08:30",
+        "price": 200
+    },
+    {
+        "idAnalysis": "2",
+        "idPatient": "1",
+        "date": "2023-03-12",
+        "hour": "08:30",
+        "price": 200
+    },
+    {
+        "idAnalysis": "2",
+        "idPatient": "5",
+        "date": "2023-03-12",
+        "hour": "08:30",
+        "price": 200
+    },
+    {
+        "idAnalysis": "4",
+        "idPatient": "4",
+        "date": "2023-03-12",
+        "hour": "08:30",
+        "price": 200
+    },
+    {
+        "idAnalysis": "3",
+        "idPatient": "5",
+        "date": "2023-03-12",
+        "hour": "08:30",
+        "price": 200
+    },
 ]
 
 Json Especialidades:
@@ -265,5 +389,239 @@ Json Especialidades:
     },
     {
         "speciality": "dermatología"
+    },
+]
+
+Json Usuarios:
+[
+    {
+        "full_name": "Lionel Messi",
+        "email": "elguevodelmundo@gmail.com",
+        "password": "quetepasabobo",
+        "user_name": "Dios y yo",
+        "image": "https://www.softzone.es/app/uploads/2018/04/guest.png"
+    },
+    {
+        "full_name": "Lady Gaga",
+        "email": "locadeabola@gmail.com",
+        "password": "soypsicopata",
+        "user_name": "Tengo Problemas",
+        "image": "https://www.softzone.es/app/uploads/2018/04/guest.png"
+    },
+    {
+        "full_name": "Shakira la Loba",
+        "email": "piquemepusoloscachos@gmail.com",
+        "password": "soypaquitaladelbarrio2",
+        "user_name": "Loba y Llorona",
+        "image": "https://www.softzone.es/app/uploads/2018/04/guest.png"
+    },
+    {
+        "full_name": "Kylian Mbappé",
+        "email": "putoenlacancha@gmail.com",
+        "password": "mangueraasesina",
+        "user_name": "Negro Manguera",
+        "image": "https://www.softzone.es/app/uploads/2018/04/guest.png"
+    },
+    {
+        "full_name": "Maluma Diva",
+        "email": "divinayarrecha@gmail.com",
+        "password": "superpasiva",
+        "user_name": "Bendecida y Afortunada",
+        "image": "https://www.softzone.es/app/uploads/2018/04/guest.png"
+    },
+]
+
+Json Analysis:
+[
+    {
+        "name": "ecografía articular",
+        "speciality": "kinesiología",
+        "price": 200
+    },
+    {
+        "name": "hematología completa",
+		"speciality": "clínica médica",
+		"price": 200
+    },
+    {
+        "name": "electroencefalograma",
+        "speciality": "neurología",
+        "price": 200
+    },
+    {
+        "name": "audiometría conductual",
+        "speciality": "otorrinolaringología",
+        "price": 200
+    },
+    {
+        "name": "perfil 20",
+        "speciality": "clínica médica",
+        "price": 200
+    },
+    {
+        "name": "orina",
+        "speciality": "clínica médica",
+        "price": 200
+    },
+    {
+        "name": "rx torax",
+        "speciality": "clínica médica",
+        "price": 200
+    },
+    {
+        "name": "electrocardiograma",
+        "speciality": "cardiología",
+        "price": 200
+    },
+    {
+        "name": "rx rodilla",
+        "speciality": "traumatología",
+        "price": 200
+    },
+    {
+        "name": "prueba de embarazo",
+        "speciality": "ginecología",
+        "price": 200
+    },
+    {
+        "name": "papanicolau",
+        "speciality": "ginecología",
+        "price": 200
+    },
+    {
+        "name": "ecocardiograma",
+        "speciality": "cardiología",
+        "price": 200
+    },
+    {
+        "name": "holter de ritmo",
+        "speciality": "cardiología",
+        "price": 200
+    },
+    {
+        "name": "espirometría",
+        "speciality": "neumonología",
+        "price": 200
+    },
+    {
+        "name": "endoscopía",
+        "speciality": "gastroenterología",
+        "price": 200
+    },
+]
+
+Json Planes:
+[
+    {
+        "name": "Full Care",
+        "members": 5,
+        "price": 100.000,
+        "description": "Familiar",
+        "code": 1001,
+		"consultations_per_patients": 20
+    },
+    {
+        "name": "Joven",
+        "members": 1,
+        "price": 50.000,
+        "description": "individual",
+        "code": 1002,
+		"consultations_per_patients": 20
+    },
+    {
+        "name": "Adulto mayor",
+        "members": 2,
+        "price": 120.000,
+        "description": "Pareja de adultos mayores",
+        "code": 1003,
+		"consultations_per_patients": 20
+    },
+]
+
+Json PaymentPlan:
+[
+    {
+        "user": 1,
+        "planId": 1,
+        "description": "pago de plan joven",
+        "price": 50.000,
+        "code": 20359978,
+		"date": "2019-07-10T14:47:58.000Z"
+    },
+    {
+        "user": 2,
+        "planId": 1,
+        "description": "pago de plan full care",
+        "price": 100.000,
+        "code": 75982146,
+		"date": "2019-07-10T14:47:58.000Z"
+    },
+    {
+        "user": 3,
+        "planId": 3,
+        "description": "pago de plan adulto mayor",
+        "price": 120.000,
+        "code": 32685947,
+		"date": "2019-07-10T14:47:58.000Z"
+    },
+    {
+        "user": 5,
+        "planId": 2,
+        "description": "pago de plan joven",
+        "price": 50.000,
+        "code": 32659874,
+		"date": "2019-07-10T14:47:58.000Z"
+    },
+    {
+        "user": 4,
+        "planId": 2,
+        "description": "pago de plan joven",
+        "price": 50.000,
+        "code": 12498567,
+		"date": "2019-07-10T14:47:58.000Z"
+    },
+]
+
+Json PaymentAnalysis:
+[
+    {
+        "ticketsIds": 1,
+        "user": 1,
+        "description": "pago de análisis clínico",
+        "price": 200,
+        "code": 69754896,
+		"date": "2019-07-10T14:47:58.000Z"
+    },
+    {
+        "ticketsIds": [1,2],
+        "user": 1,
+        "description": "pago de análisis clínico",
+        "price": 400,
+        "code": 58745685,
+		"date": "2019-07-10T14:47:58.000Z"
+    },
+    {
+        "ticketsIds": 3,
+        "user": 2,
+        "description": "pago de análisis clínico",
+        "price": 200,
+        "code": 21456985,
+		"date": "2019-07-10T14:47:58.000Z"
+    },
+    {
+        "ticketsIds": [4,5,6,7],
+        "user": 1,
+        "description": "pago de análisis clínico",
+        "price": 800,
+        "code": 21036504,
+		"date": "2019-07-10T14:47:58.000Z"
+    },
+    {
+        "ticketsIds": 9,
+        "user": 3,
+        "description": "pago de análisis clínico",
+        "price": 200,
+        "code": 69754896,
+		"date": "2019-07-10T14:47:58.000Z"
     },
 ]

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { useLocation, Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { getAnalysis, getConfirmedTickets, getSpecialities, loginByEmail } from './redux/actions';
 import Home from "./components/Home/Home";
 import Institutional from "./components/Institutional/Institutional";
 import PlanCards from "./components/Plans/PlanCards"
@@ -12,13 +13,16 @@ import Footer from "./components/Footer/Footer";
 import AddMedicForm from "./components/AddMedicForm/AddMedicForm";
 import AddPatientForm from './components/AddPatient/AddPatientForm';
 import AnalysisContainer from "./components/Analysis/AnalysisContainer";
-import { getAnalysis, getSpecialities } from './redux/actions';
 import MedicalBook from './components/MedicalBook/MedicalBook';
 import Specialitys from './components/Specialitys/Specialitys';
-// import DeleteDoctor from './components/DeleteDoctor/DeleteDoctor';
+import PatientPut from './components/PatientPut/PatientPut';
 // import DeletePatient from './DeletePatient/DeletePatient';
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import TicketPicker from './components/Tickets/TicketPicker';
+import UserCard from './components/UserCard/UserCard';
+import TicketsDrawer from './components/TicketsDrawer/TicketsDrawer';
+
+import { useAuth0 } from "@auth0/auth0-react"; // Import para Auth0
 
 axios.defaults.baseURL = 'https://apiclinica.onrender.com/';
 
@@ -28,10 +32,28 @@ function App() {
   const location = useLocation();
   const isAdmin = location.pathname === "/admin";
 
+  const userTickets = useSelector((state) => state.confirmedTickets);
+
   useLayoutEffect(() => {
     dispatch(getSpecialities());
     dispatch(getAnalysis());
+    localStorage.getItem('confirmedItems') && dispatch(getConfirmedTickets());
   }, []);
+
+   // Todo sobre Auth0  
+   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+
+   useEffect( () => {
+     if(isAuthenticated){   
+       const getToken = async () => {   
+         const token = await getAccessTokenSilently();
+         dispatch(loginByEmail(token, user.email))        
+       }   
+       getToken();
+     }
+   }, [isAuthenticated])
+ 
+   // Aca termina todo sobre Auth0
 
   return (
 
@@ -63,13 +85,16 @@ function App() {
         
         <Route path='/turnos' element={<TicketPicker />} />
 
-        {/* <Route path='/adminDelete' element= {<DeleteDoctor/>}/> */}
+        <Route path='/putpatient' element= {<PatientPut/>}/>
 
+        <Route path='/administrador' element= {<UserCard/>}/>
 
         {/* <Route path='/adminDelete' element= {<DeletePatient/>}/> */}
         
 
       </Routes>
+
+      {user && <TicketsDrawer />}
 
       {!isAdmin && <Footer />}
 

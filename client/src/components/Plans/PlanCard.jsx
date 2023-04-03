@@ -23,8 +23,9 @@ const PlanCard = ({ name,description,price }) => {
                   </div>
 
           <div className={style.right_text}>
-            <ul className={style.right}>{description.map((item, index) => (
-            <ul key={index}> <CheckIcon fontSize = "medium"/> {item} </ul> ))} </ul>
+            <h3><CheckIcon/>{description}</h3>
+            {/* <ul className={style.right}>{description.map((item, index) => (
+            <ul key={index}> <CheckIcon fontSize = "medium"/> {item} </ul> ))} </ul> */}
 
           </div>
         </div>

@@ -116,8 +116,7 @@ const createPatient = async (
   age,
   birthday,
   phone,
-  address,
-  consultations_available
+  address
 ) => {
   const patient = await Patient.create({
     full_name,
@@ -127,13 +126,16 @@ const createPatient = async (
     birthday,
     phone,
     address,
-    consultations_available,
   });
 
   const user = await User.findByPk(idUser);
   await patient.setUser(user);
 
-  const plan = await Plan.findByPk(planId);
+  const plan = await Plan.findByPk(planId, {
+    // where: {
+    //   consultations_available: consultations_per_patients
+    // },
+  });
   await patient.setPlan(plan);
 
   const patient_created = await Patient.findOne({
@@ -156,7 +158,7 @@ const createPatient = async (
 
 // *Este controller permite actualizar un paciente buscándolo por id:
 const updatePatient = async (id, phone, address) => {
-  const request = await Paciente.findByPk(id);
+  const request = await Patient.findByPk(id);
   request.set({
     phone: phone,
     address: address,

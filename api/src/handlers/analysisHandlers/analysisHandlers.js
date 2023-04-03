@@ -33,7 +33,7 @@ const PUT_ANALYSIS = async (req, res) =>{
 
 const DELETE_ANALYSIS = async (req, res) =>{
     try {
-        const {id} = req.body 
+        const {id} = req.params
         const data = await deleteAnalysis(id)
         res.status(200).json(data)
     } catch (error) {

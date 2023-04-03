@@ -40,10 +40,6 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      consultations_available: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
       is_delete: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,

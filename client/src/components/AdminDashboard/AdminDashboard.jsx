@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import logo from "../../images/logo.png";
 import AddMedicForm from "../AddMedicForm/AddMedicForm";
+import DeleteDoctor from "../DeleteDoctor/DeleteDoctor";
 
 
 export default function AdminDashboard() {
@@ -101,16 +102,11 @@ export default function AdminDashboard() {
 
 
                 <div className={styles.containar__master}>
+
                     <h2>{titleName ? titleName : "Mi Perfil"}</h2>
 
-
-                    {titleName === "Agregar Médico" && (
-
-<AddMedicForm />
-
-
-
-                    )}
+                    {titleName === "Agregar Médico" && (<AddMedicForm />)}
+                    {titleName === "Eliminar Médico" && (<DeleteDoctor />)}
 
 
 

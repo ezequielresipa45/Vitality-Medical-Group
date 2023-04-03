@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+
+const { VITE_URL_HOST_DB } = import.meta.env
+const URL =  VITE_URL_HOST_DB || "http://localhost:3001"
+
+
 export const GET_SPECIALITIES = 'GET_SPECIALITIES';
 export const GET_ANALYSIS = 'GET_ANALYSIS';
 export const FILTER_ANALYSIS = 'FILTER_ANALYSIS';
@@ -10,9 +15,18 @@ export const DELETE_DOCTOR= "DELETE_DOCTOR";
 export const DELETE_PATIENT= "DELETE_PATIENT";
 export const GET_DOCTOR_BYID= "GET_DOCTOR_BYID";
 export const GET_PATIENT_BYID= "GET_PATIENT_BYID";
-export const GET_REQUESTED_TICKETS = "GET_REQUESTED_TICKETS";
-export const POST_REQUESTED_TICKETS = "POST_REQUESTED_TICKETS";
-export const DELETE_REQUESTED_TICKETS = "GET_REQUESTED_TICKETS";
+export const GET_SELECTED_TICKETS = "GET_SELECTED_TICKETS";
+export const POST_SELECTED_TICKETS = "POST_SELECTED_TICKETS";
+export const DELETE_SELECTED_TICKETS = "DELETE_SELECTED_TICKETS";
+export const GET_CONFIRMED_TICKETS = "GET_CONFIRMED_TICKETS";
+export const POST_CONFIRMED_TICKETS = "POST_CONFIRMED_TICKETS";
+export const DELETE_CONFIRMED_TICKETS = "DELETE_CONFIRMED_TICKETS";
+export const PUT_DOCTOR= "PUT_DOCTOR";
+export const PUT_PATIENT= "PUT_PATIENT";
+export const GET_USER = "GET_USER";
+export const PUT_USER = "PUT_USER";
+export const LOGIN = "LOGIN"
+export const LOGOUT_LOGIN = "LOGOUT"
 
 export function getSpecialities() {
     return {
@@ -80,11 +94,19 @@ export function getPatientsById(id){
   }
 }
 
-export function getPlan(){
-    return{
-        type: GET_PLANS,
-        payload: ["Juvenil", "Adulto", "Familiar", "Sin Plan"],
-    }
+export function getPlans(){
+  return async function(dispatch){
+    const json = await axios.get("https://apiclinica.onrender.com/plan"); 
+
+    return dispatch({
+      type: GET_PLANS,
+      payload: json.data,
+    })
+  }
+    // return{
+    //     type: GET_PLANS,
+    //     payload: ["Juvenil", "Adulto", "Familiar", "Sin Plan"],
+    // }
 };
 
 export function getFarmacy(){
@@ -142,23 +164,114 @@ export function deletePatient(id){
   }
 };
 
-export function getRequestedTickets(value) {
+export function getSelectedTickets() {
+  const value = JSON.parse(localStorage.getItem('selectedItems'));
   return {
-      type: GET_REQUESTED_TICKETS,
+      type: GET_SELECTED_TICKETS,
       payload: value
   }; 
 };
 
-export function postRequestedTickets(value) {
+export function postSelectedTickets(value) {
   return {
-      type: POST_REQUESTED_TICKETS,
+      type: POST_SELECTED_TICKETS,
       payload: value
   }; 
 };
 
-export function delRequestedTickets(value) {
+export function deleteSelectedTickets() {
   return {
-      type: DELETE_REQUESTED_TICKETS,
+      type: DELETE_SELECTED_TICKETS,
+      payload: {}
+  }; 
+};
+
+export function getConfirmedTickets() {
+  const value = JSON.parse(localStorage.getItem('confirmedItems'));
+  return {
+      type: GET_CONFIRMED_TICKETS,
       payload: value
   }; 
 };
+
+export function postConfirmedTickets(value) {
+  return {
+      type: POST_CONFIRMED_TICKETS,
+      payload: value
+  }; 
+};
+
+export function deleteConfirmedTickets(value) {
+  return {
+      type: DELETE_CONFIRMED_TICKETS,
+      payload: value
+  }; 
+};
+
+export const putDoctor = (doctorData) => async (dispatch) => {
+  
+  const res = await axios.put(`https://apiclinica.onrender.com/doctor`, doctorData);
+  
+  // Dispatch a success action with the updated doctor data
+  dispatch({
+    type: 'PUT_DOCTOR',
+    payload: res.data,
+  });
+  };
+
+  export const putPatient = (patientData) => async (dispatch)=> {
+    const res = await axios.put(`https://apiclinica.onrender.com/patient`, patientData);
+  
+    dispatch({
+      type: 'PUT_PATIENT',
+      payload: res.data,
+    });
+  };
+
+  export function getUser(){
+    return async function(dispatch){
+      const json = await axios.get(`/user`);
+  
+      return dispatch({
+        type: GET_USER,
+        payload: json.data,
+      });
+    };
+  };
+
+  export function putUser(userData){ 
+    return async function(dispatch){
+    const res = await axios.put(`/user`, userData);
+    
+    return dispatch({
+      type: 'PUT_USER',
+      payload: res.data,
+    });
+  };
+};
+
+  export function loginByEmail(token, email){
+    return async function(dispatch){
+      const config = {
+        url: `${URL}/login?email=${email}`,
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          "authorization": `Bearer ${token}`,
+        },
+      };
+      const user = await axios(config) 
+      console.log(user.data)
+      return dispatch({
+        type: LOGIN,
+        payload: user.data,
+      })
+    }
+  }
+
+  export function logoutLogin(){
+    console.log("Se cerro la sesion")
+    return {
+      type: LOGOUT_LOGIN
+    }
+  }

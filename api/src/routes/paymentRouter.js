@@ -1,20 +1,33 @@
 const { Router } = require("express");
 const {
-  allPaymentsHandler,
+  allPaymentsUserHandler,
   paymentIdHandler,
-  createPaymentAnalysisHandler,
   createPaymentPlanHandler,
+  createPaymentAnalysisHandler,
 } = require("../handlers/paymentHandlers/paymentHandlers.js");
+
+const {
+  validatorCreatePaymentPlan,
+  validatorCreatePaymentAnalysis,
+} = require("../middlewares/validators.js");
 
 // *Acá definimos las rutas de payments:
 const paymentRouter = Router();
 
-// paymentRouter.get("/", allPaymentsHandler);
+paymentRouter.get("/", allPaymentsUserHandler);
 
-// paymentRouter.get("/:id", paymentIdHandler);
+paymentRouter.get("/:id", paymentIdHandler);
 
-// paymentRouter.post("/createPaymentAnalysis", createPaymentAnalysisHandler);
+paymentRouter.post(
+  "/createPaymentPlan",
+  validatorCreatePaymentPlan,
+  createPaymentPlanHandler
+);
 
-// paymentRouter.post("/createPaymentPlan", createPaymentPlanHandler);
+paymentRouter.post(
+  "/createPaymentAnalysis",
+  validatorCreatePaymentAnalysis,
+  createPaymentAnalysisHandler
+);
 
 module.exports = paymentRouter;
