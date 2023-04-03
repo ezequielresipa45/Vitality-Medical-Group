@@ -11,11 +11,31 @@ import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 import AddMedicForm from "./components/AddMedicForm/AddMedicForm";
 import AnalysisContainer from "./components/Analysis/AnalysisContainer";
-import { getAnalysis, getSpecialities } from './redux/actions';
+import { getAnalysis, getSpecialities, loginbyEmail} from './redux/actions';
+
+
+import { useAuth0 } from "@auth0/auth0-react"; // Import para Auth0
 
 function App() {
-
+  
   const dispatch = useDispatch();
+
+  // Todo sobre Auth0  
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+
+  useEffect( () => {
+    if(isAuthenticated){   
+      const getToken = async () => {   
+        const token = await getAccessTokenSilently();
+        dispatch(loginbyEmail(token, user.email))        
+      }   
+      getToken();
+    }
+  }, [isAuthenticated])
+
+  // Aca termina todo sobre Auth0
+  
+
 
   useLayoutEffect(() => {
     dispatch(getSpecialities());

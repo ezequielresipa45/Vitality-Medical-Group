@@ -1,9 +1,10 @@
-import { GET_ANALYSIS , GET_SPECIALITIES, FILTER_ANALYSIS } from "./actions";
+import { GET_ANALYSIS , GET_SPECIALITIES, FILTER_ANALYSIS, LOGIN_BY_EMAIL, LOGOUT } from "./actions";
 
 const initialState = {
     specialities: [],
     analysis: [],
     filteredAnalysis: [],
+    user: {}
   };
   
  
@@ -11,6 +12,17 @@ const initialState = {
     switch (action.type) {
 
       // cases ....
+      case LOGIN_BY_EMAIL:
+        return{
+          ...state,
+          user: action.payload
+        };
+      
+      case LOGOUT:
+        return {
+          ...state,
+          user: {}
+        }
 
       case GET_SPECIALITIES:
         return{
