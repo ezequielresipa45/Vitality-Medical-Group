@@ -79,10 +79,11 @@ export default function NavBar() {
           </button>
           <Link to="/planes">Planes</Link>
           
-      <div>
-        {!isAuthenticated  ? <LoginButton/>
-                          : <LogoutButton/>}
-      </div>
+        <div>
+          {!isAuthenticated  ? <LoginButton/>
+                            : <LogoutButton/>}
+        </div>
+        
         </ul>
 
         {/* <Link to={"/agregarMedico"}>

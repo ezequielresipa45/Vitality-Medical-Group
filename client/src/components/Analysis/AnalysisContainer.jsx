@@ -2,6 +2,7 @@ import React from 'react';
 import { useState , useEffect , useLayoutEffect , useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react'; 
 import { getSpecialities , getAnalysis , filterAnalysis, postSelectedTickets, deleteSelectedTickets } from '../../redux/actions';
 import { Backdrop, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import Analysis from './Analysis';
@@ -23,6 +24,8 @@ export default function AnalysisContainer() {
     const sortRef = useRef(null);
     
     const filterRef = useRef(null);
+
+    const { isAuthenticated, loginWithRedirect } = useAuth0();
 
     const specialities = useSelector((state) => state.specialities);
 
@@ -161,7 +164,7 @@ export default function AnalysisContainer() {
             price: value.price
         }));
 
-        !false && setIsTrue(true); // Aca hay que validar si el usuario esta logueado
+        isAuthenticated ? navigate('/turnos') : setIsTrue(true); // Aca hay que validar si el usuario esta logueado
     };
 
     const handleCloseModal = () => {
@@ -171,8 +174,7 @@ export default function AnalysisContainer() {
     };
 
     const onClickLogin = () => {
-        //navigate('/login');
-        navigate('/turnos');
+        isAuthenticated ? navigate('/turnos') : loginWithRedirect();
         console.log(JSON.parse(localStorage.getItem('selectedItems')));
     };
 
@@ -282,12 +284,12 @@ export default function AnalysisContainer() {
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            Para continuar el proceso de selección del turno seleccionado debe inicar sesión con su cuenta de usuario. Si no tiene una cuenta aún, puede crearla haciendo click en registrarse.
+                            Para continuar el proceso de confirmación del turno debe inicar sesión con su cuenta de usuario. Si no tiene una cuenta aún, puede crearla para disfrutar de todos los beneficios que ofrecemos.
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={onClickRegister}>Registrarse</Button>
-                        <Button onClick={onClickLogin} autoFocus>Iniciar Sesión</Button>
+                        {/* <Button onClick={onClickRegister}>Registrarse</Button> */}
+                        <Button onClick={onClickLogin} autoFocus>{isAuthenticated ? 'Continuar' : 'Iniciar Sesión'}</Button>
                     </DialogActions>
                 </Dialog>
             }
