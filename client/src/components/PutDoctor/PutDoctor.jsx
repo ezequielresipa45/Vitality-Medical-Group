@@ -118,7 +118,7 @@ const PutDoctor = () => {
             />
 </div>
 
-            <button className={style.button} type="submit">Update Details</button>
+            <button className={style.button} type="submit">Actualizar Datos</button>
           </>
         )}
       </form>
