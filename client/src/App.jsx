@@ -94,7 +94,7 @@ function App() {
 
       </Routes>
 
-      <TicketsDrawer />
+      {user && <TicketsDrawer />}
 
       {!isAdmin && <Footer />}
 

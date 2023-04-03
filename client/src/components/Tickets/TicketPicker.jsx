@@ -1,15 +1,18 @@
 import React from 'react';
 import { useState , useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { postConfirmedTickets } from '../../redux/actions';
+import { useNavigate } from 'react-router-dom';
 import { LocalizationProvider , DatePicker, DateTimePicker, TimePicker } from '@mui/x-date-pickers';
 import { FormControl , InputLabel , Select , MenuItem , FormHelperText, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { format, parse } from 'date-fns';
 import { enGB, es } from 'date-fns/locale';
 import styles from './TicketPicker.module.css';
-import { postConfirmedTickets } from '../../redux/actions';
 
 export default function TicketPicker() {
+
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -91,6 +94,7 @@ export default function TicketPicker() {
 
     const onClickBackToSelect = () => {
         console.log('volver');
+        navigate('/analisis');
     }
 
     useEffect(() => {
