@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { useLocation, Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAnalysis, getConfirmedTickets, getSpecialities } from './redux/actions';
+import { getAnalysis, getConfirmedTickets, getSpecialities, loginByEmail } from './redux/actions';
 import Home from "./components/Home/Home";
 import Institutional from "./components/Institutional/Institutional";
 import PlanCards from "./components/Plans/PlanCards"
@@ -22,6 +22,8 @@ import TicketPicker from './components/Tickets/TicketPicker';
 import UserCard from './components/UserCard/UserCard';
 import TicketsDrawer from './components/TicketsDrawer/TicketsDrawer';
 
+import { useAuth0 } from "@auth0/auth0-react"; // Import para Auth0
+
 axios.defaults.baseURL = 'https://apiclinica.onrender.com/';
 
 function App() {
@@ -37,6 +39,21 @@ function App() {
     dispatch(getAnalysis());
     localStorage.getItem('confirmedItems') && dispatch(getConfirmedTickets());
   }, []);
+
+   // Todo sobre Auth0  
+   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+
+   useEffect( () => {
+     if(isAuthenticated){   
+       const getToken = async () => {   
+         const token = await getAccessTokenSilently();
+         dispatch(loginByEmail(token, user.email))        
+       }   
+       getToken();
+     }
+   }, [isAuthenticated])
+ 
+   // Aca termina todo sobre Auth0
 
   return (
 

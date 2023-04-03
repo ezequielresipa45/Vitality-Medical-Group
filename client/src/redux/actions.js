@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+
+const { VITE_URL_HOST_DB } = import.meta.env
+const URL =  VITE_URL_HOST_DB || "http://localhost:3001"
+
+
 export const GET_SPECIALITIES = 'GET_SPECIALITIES';
 export const GET_ANALYSIS = 'GET_ANALYSIS';
 export const FILTER_ANALYSIS = 'FILTER_ANALYSIS';
@@ -20,6 +25,8 @@ export const PUT_DOCTOR= "PUT_DOCTOR";
 export const PUT_PATIENT= "PUT_PATIENT";
 export const GET_USER = "GET_USER";
 export const PUT_USER = "PUT_USER";
+export const LOGIN = "LOGIN"
+export const LOGOUT_LOGIN = "LOGOUT"
 
 export function getSpecialities() {
     return {
@@ -242,3 +249,29 @@ export const putDoctor = (doctorData) => async (dispatch) => {
     });
   };
 };
+
+  export function loginByEmail(token, email){
+    return async function(dispatch){
+      const config = {
+        url: `${URL}/login?email=${email}`,
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          "authorization": `Bearer ${token}`,
+        },
+      };
+      const user = await axios(config) 
+      console.log(user.data)
+      return dispatch({
+        type: LOGIN,
+        payload: user.data,
+      })
+    }
+  }
+
+  export function logoutLogin(){
+    console.log("Se cerro la sesion")
+    return {
+      type: LOGOUT_LOGIN
+    }
+  }
