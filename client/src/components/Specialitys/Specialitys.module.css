@@ -1,0 +1,89 @@
+:root {
+  --primary: #639cc7;
+  --secondary: #787878;
+}
+
+.container__speciality {
+  width: 100%;
+  /* height: 100vh; */
+  display: flex;
+  background-color: #f1efef;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 3rem;
+}
+
+.container__speciality header {
+  padding-top: 7rem;
+  height: 27rem;
+  width: 100%;
+  /* background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), #f1efef),
+     url('../../images/especialidades-medicas.jpg'); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.container__speciality header h2 {
+  width: 100%;
+  text-align: left;
+  padding-left: 9.5rem;
+  margin-bottom: 0;
+  color: #898686;
+  box-sizing: border-box;
+}
+
+.container__speciality header hr {
+  border: 1px solid #8986861d;
+  width: 80%;
+}
+
+.container__speciality section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #ebe7e6;
+  box-sizing: border-box;
+  width: 80%;
+  margin-bottom: 7rem;
+}
+
+.cardMedic__container {
+  /* background-color: #ebe7e6; */
+  padding: 1rem;
+  width: 15rem;
+  height: 100%;
+  z-index: 1000;
+}
+
+.cardMedic__container img {
+  border-radius: 50%;
+}
+
+.cardMedic__container h4 {
+  text-transform: capitalize;
+  color: #898686;
+  margin: 0;
+  padding: 1rem;
+}
+
+.cardMedic__container h3 {
+  text-transform: capitalize;
+  margin: 0;
+  padding-top: 0.5rem;
+}
+
+.cardMedic__container button {
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+.cardMedic__container button:hover {
+  border: none;
+}

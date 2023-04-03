@@ -1,20 +1,33 @@
 const { Speciality } = require("../../db")
 const { Op } = require("sequelize");
 
+const filterSpecialityDB = (item) =>{
+    return {
+        id: item.id,
+        speciality: item.speciality,
+        is_delete: item.is_delete,
+    }
+}
+
 
 //getSpeciality devuelve todos los campos que tenga la tabla Speciality
-const getSpeciality = async () => {
+const getSpeciality = async () =>{
     const request = await Speciality.findAll({
-        order: [['speciality', 'ASC']]
+        
     })
-    return request
+    let filtered = request
+    .map((item) => filterSpecialityDB(item))
+    .filter((item) => item.is_delete !== true)
+    .flat();
+
+
+  return filtered;   
 }
 // createSpeciality permite crear mas especialidades en la tabla Speciality
 
 const createSpeciality = async (params) => {
-    //console.log(params);
+
     if (params) {
-        console.log(params);
         const nuevaSpeciality = await Speciality.create({
         speciality: params.speciality
     });
@@ -31,7 +44,6 @@ const createSpeciality = async (params) => {
 // changeSpeciality modifica el valor de la tabla Speciality
 
 const changeSpeciality = async (id, speciality) => {
-    //console.log(id, speciality,'controller');
     const request = await Speciality.findByPk(id);
     if (request) {
       request.speciality = speciality;
@@ -46,20 +58,20 @@ const changeSpeciality = async (id, speciality) => {
 
 
 // deleteSpeciality permite eliminar especialidades en la tabla Speciality
-const deleteSpeciality = async (params) => {
-    const deleteSpeci = await Speciality.destroy({
-        where: {
-            speciality: params.speciality
-        }
-    });
-    if (deleteSpeci === 1) {
-        return {
-            message: `Se ha eliminado la especialidad ${params.speciality} exitosamente`
-        };
-    } else { throw new Error (`No se ha encontrado la especialidad ${params.speciality}`)
+const deleteSpeciality = async (id) => {
+    const request = await Speciality.findByPk(id);
+    
+    if (!request) {
+      throw new Error('La Especialidad no fue encontrado');
     }
-
-}
+    
+    request.set({
+      is_delete: true,
+    });
+    await request.save();
+  
+    return "La Especialidad fue borrado exitosamente";
+  };
 module.exports = {
     getSpeciality,
     createSpeciality,

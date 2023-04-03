@@ -6,15 +6,18 @@ module.exports = (sequelize) => {
     {
       id: {
         type: DataTypes.INTEGER,
-        //allowNull: true,
         primaryKey: true,
         autoIncrement: true,
-        //unique: true,
+        unique: true,
       },
       speciality: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+      },
+      is_delete: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
     },
     { timestamps: false }

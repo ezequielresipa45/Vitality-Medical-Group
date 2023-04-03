@@ -8,6 +8,7 @@ import img3 from '../../images/pastillasAco.jpg';
 const Cards = () => {
   return (
     <div className={style.dad}>
+      <h3>Beneficios</h3>
       <div className={style.container}>
         <Card
           title="Descuentos en Farmacia"

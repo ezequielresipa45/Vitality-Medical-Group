@@ -11,8 +11,16 @@ module.exports = (sequelize) => {
         autoIncrement: true,
         unique: true,
       },
-      detail: {
+      description: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      price: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      code: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },

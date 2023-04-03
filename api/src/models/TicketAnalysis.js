@@ -11,10 +11,6 @@ module.exports = (sequelize) => {
         autoIncrement: true,
         unique: true,
       },
-      type_analysis: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       date: {
         type: DataTypes.DATEONLY,
         allowNull: false,
@@ -22,13 +18,16 @@ module.exports = (sequelize) => {
       hour: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
       },
       price: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
       is_paid: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      is_delete: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },

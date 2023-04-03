@@ -1,40 +1,59 @@
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux"
+import {getPlans} from "../../redux/actions"
 import PlanCard from "../Plans/PlanCard"
 import style from "../Plans/PlanCard.module.css"
-import PersonIcon from '@mui/icons-material/Person';
-import Diversity3Icon from '@mui/icons-material/Diversity3';
-import PeopleIcon from '@mui/icons-material/People';
+
 
 const PlanCards = () => {
-    return (
-      <div className={style.container}>
-        
-        
-          <PlanCard
 
-            name= "INDIVIDUAL"
-            icon= {<PersonIcon/>}
-            description = "Plan para una sola persona"
-            price = "1000"
-            consultations_per_patient = "25"
-            
-      />
-  
+  const plans = useSelector ((state)=> state.plans);
+
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(getPlans());
+  }, [dispatch])
+console.log(plans)
+
+  // const descriptions = ["Incluye atencion por urgencias las 24hs", "Analisis de laboratorio sin costo", "Atencion online 24hs"]
+    return (
+      <div>
+        <h1 className={style.title}> PLANES PARA VOS</h1>
+        <p>En nuestra clínica médica ofrecemos una amplia variedad de planes para cubrir todas las necesidades de nuestros pacientes. Contamos con opciones que van desde un plan básico para consultas de rutina hasta planes más completos que incluyen estudios de diagnóstico, tratamientos especializados y atención médica personalizada las 24 horas del día. Todos nuestros planes están diseñados para brindar la máxima calidad en atención médica, con un enfoque en la prevención y el cuidado integral de la salud. Además, nuestros especialistas están altamente capacitados y comprometidos con el bienestar de cada uno de nuestros pacientes, ofreciendo una atención cálida y personalizada en todo momento.</p>
+      <div className={style.container}>
+
+        {plans.map((p)=>(
           <PlanCard
-          name= "DUO"
-          icon = {< PeopleIcon/>}
-          description = "Plan para dos personas pueden ser familiares, amigxs, pareja."
-          price = "2000"
-          consultations_per_patient = "30"
+          name = {p.name}
+          description = {p.description}
+          price = {p.price}
+          />
+        ))}
+        
+          {/* <PlanCard
+            name= "PLAN JUVENIL VITAL"
+            description = {descriptions}
+            price = "1000$"    
+            
+          /> */}
+    
+          {/* <PlanCard
+          name= "PLAN FAMILIAR VITAL"
+          description = {descriptions}
+          price = "5000$"
           />
   
           <PlanCard
-            name= "FAMILIAR"
-            icon = {< Diversity3Icon/>}
-            description = "Plan para personas dentro del mismo grupo familiar"
-            price = "5000"
-            consultations_per_patient = "40"
-          /> 
+            name= "PLAN ADULTO VITAL"
+            description = {descriptions}
+            price = "3000$"
+
+          />  */}
           
+          
+
+          </div>
           </div>)
 }
 export default PlanCards

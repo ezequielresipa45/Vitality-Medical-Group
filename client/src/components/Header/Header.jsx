@@ -12,22 +12,26 @@ export default function Header() {
 <div className={styles.container__boxs}>
 
 
-<Link to='' className={styles.container__boxs__box}>
+<Link to='/cartilla' className={styles.container__boxs__box}>
+    <i className='fa-solid fa-user-doctor'></i>
     <h3>Cartilla Médica</h3>
     <p>Guía que le permite al usuario y su grupo familiar acceder a todos los servicios que le ofrece Vitality Medical Group.</p>
   </Link>
 
   <Link to='' className={styles.container__boxs__box}>
+    <i className='fa-solid fa-heart-pulse'></i>
     <h3>Turnos Clínicos</h3>
     <p>Los turnos clínicos son periodos de tiempo asignados donde un profesional de la salud atiende a los pacientes.</p>
   </Link>
 
   <Link to='/analisis' className={styles.container__boxs__box}>
+    <i className='fa-solid fa-flask-vial'></i>
     <h3>Análisis Clínicos</h3>
     <p>Los análisis clínicos son procedimientos que se realizan en laboratorios para detectar y monitorear afecciones médicas.</p>
   </Link>
 
   <Link to=''className={styles.container__boxs__box}>
+    <i className='fa-solid fa-comments'></i>
     <h3>Médico Online</h3>
     <p>Medico online es una forma de ofrecer asesoramiento médico a través del uso de internet.</p>
  </Link>

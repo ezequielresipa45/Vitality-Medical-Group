@@ -13,7 +13,6 @@ import style from "../About/AboutCard.module.css"
 const AboutCards = () => {
   return (
     <div className={style.container}>
-      
         <AboutCard
           fullName="Pamela Yael Herrera"
           city="CABA, Argentina"

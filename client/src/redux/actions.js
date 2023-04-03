@@ -6,10 +6,6 @@ const URL =  VITE_URL_HOST_DB || "http://localhost:3001"
 export const GET_SPECIALITIES = 'GET_SPECIALITIES';
 export const GET_ANALYSIS = 'GET_ANALYSIS';
 export const FILTER_ANALYSIS = 'FILTER_ANALYSIS';
-export const LOGIN_BY_EMAIL = "USER"
-export const LOGOUT = "LOGOUT"
-
-
 
 export function getSpecialities() {
     return {
@@ -43,29 +39,3 @@ export function filterAnalysis(value) {
         payload: value
     }; 
 };
-
-export function loginbyEmail(token, email) {
-    
-    return async function(dispatch){
-        const config = {
-            url: `${URL}/login?email=${email}`,
-            method: "GET",
-            headers: {
-              "content-type": "application/json",
-              "authorization": `Bearer ${token}`,
-            },
-          };
-
-        const apiData = await axios(config)
-        const user = apiData.data
-        console.log(user)
-        dispatch({type: LOGIN_BY_EMAIL, payload: user})
-    }
-}
-
-export function logoutLogin(){
-    console.log("Cerre sesion y seteo el user a {}")
-    return {
-        type: LOGOUT
-    }
-}

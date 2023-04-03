@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 import styles from "./NavBar.module.css";
-import logo from "../../images/logo.png"
-import { Link } from 'react-router-dom';
-import { useState } from 'react'
-import addMedic from "../../images/medical-doctor.png"
+import logo from "../../images/logo.png";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import addMedic from "../../images/medical-doctor.png";
 
 
 
@@ -12,10 +12,13 @@ import LoginButton from "../LoginButtons/LoginButton"
 import LogoutButton from "../LoginButtons/LogoutButton"
 
 export default function NavBar() {
+<<<<<<< HEAD
 
   
   const { isAuthenticated } = useAuth0();
 
+=======
+>>>>>>> main
   let arraySpecialists = [
     "Clínica Médica",
     "Traumatologia ",
@@ -25,34 +28,60 @@ export default function NavBar() {
     "Psiquiatría",
     "Endocrinología",
     "Cardiología",
-  ]
+  ];
 
   const [clickBoolean, setClickBoolean] = useState(false);
 
   const handlerEspeciality = () => {
-
     clickBoolean ? setClickBoolean(false) : setClickBoolean(true);
-
   };
 
+  function scrollToMiddle() {
+    const middlePosition = window.innerHeight / 0.49; // Obtiene la mitad de la altura de la ventana
+    window.scrollTo({
+      top: middlePosition,
+      behavior: "smooth", // Permite un desplazamiento suave hacia la posición especificada
+    });
+  }
+
+  const handlerClickButtonNovedades = () => {
+    scrollToMiddle();
+  };
 
   return (
     <>
       <div className={styles.container__navbar}>
-
         <div className={styles.container__logo}>
-          <Link to='/'>
+          <Link to="/">
             <img src={logo} alt="logo" />
             <p>Vitality Medical Group</p>
           </Link>
         </div>
 
         <ul>
-          <Link to='/'>Inicio</Link>
-          <Link to='/institucional'>Institucional</Link>
-          <Link to=''>Novedades</Link>
-          <button className={styles.button__ul}  style={clickBoolean ? { backgroundColor: "#639cc7", color: "#fff",height: "100%", borderRadius:"0", border:"none" } : {}} onClick={handlerEspeciality} >Especialidades</button>
-          <Link to='/planes'>Planes</Link>
+          <Link to="/">Inicio</Link>
+          <Link to="/institucional">Institucional</Link>
+          <Link to="/" onClick={handlerClickButtonNovedades}>
+            Novedades
+          </Link>
+          <button
+            className={styles.button__ul}
+            style={
+              clickBoolean
+                ? {
+                    backgroundColor: "#639cc7",
+                    color: "#fff",
+                    height: "100%",
+                    borderRadius: "0",
+                    border: "none",
+                  }
+                : {}
+            }
+            onClick={handlerEspeciality}
+          >
+            Especialidades
+          </button>
+          <Link to="/planes">Planes</Link>
         </ul>
         
         <div>
@@ -60,23 +89,22 @@ export default function NavBar() {
                                 : <LoginButton/>}
         </div>
 
-        <Link to={'/agregarMedico'}>
-        <img width={20} src={addMedic} alt="icon-addMedic"  />
-        
-        </Link>
+        {/* <Link to={"/agregarMedico"}>
+          <img width={20} src={addMedic} alt="icon-addMedic" />
+        </Link> */}
       </div>
 
-      {clickBoolean ? (<div className={styles.container__especialitys}  >
-
-        <ul>
-          {arraySpecialists.map(specialist => (
-            <Link>{specialist}</Link>
-          ))}
-        </ul>
-
-
-      </div>) : ''}
-
+      {clickBoolean ? (
+        <div className={styles.container__especialitys}>
+          <ul>
+            {arraySpecialists.map((specialist) => (
+              <Link to={`/especialidad/${specialist}`}>{specialist}</Link>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        ""
+      )}
     </>
-  )
+  );
 }

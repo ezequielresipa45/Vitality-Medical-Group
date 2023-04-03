@@ -35,7 +35,7 @@ export default function Analysis(props) {
 
             <p>{props.price}</p>
 
-            <button onClick={() => navigate('/turnos')}>Turno</button>
+            <button onClick={() => props.onClick(props)}>Turno</button>
 
         </div>
 

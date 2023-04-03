@@ -1,15 +1,25 @@
-.dad{
-    display: flex; 
-    align-items: center;
-    justify-content: center;
+.dad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dad h3 {
+  margin: 4rem 0 0 0;
+  font-size: 1.8rem;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+  color: #787878;
 }
 
 .container {
-    margin-top: 5rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    min-width: 80vw;
-    margin-left: 35px;
-    margin-right: 35px;
-  }
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-width: 80vw;
+  margin-left: 35px;
+  margin-right: 35px;
+}
