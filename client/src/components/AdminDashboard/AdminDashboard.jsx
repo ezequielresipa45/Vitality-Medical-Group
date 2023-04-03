@@ -5,6 +5,9 @@ import axios from 'axios';
 import logo from "../../images/logo.png";
 import AddMedicForm from "../AddMedicForm/AddMedicForm";
 import DeleteDoctor from "../DeleteDoctor/DeleteDoctor";
+import PutDoctor from "../PutDoctor/PutDoctor";
+import { Link } from 'react-router-dom';
+
 
 
 export default function AdminDashboard() {
@@ -42,7 +45,7 @@ export default function AdminDashboard() {
 
                     <button onClick={handleTitleName} className={styles.items__container__text} name="Mi Perfil" >
                         <i class="fas fa-user-tie" style={{ color: "#c02660" }}></i>
-                        <p>Mi Perfil</p>
+                        <p>Mi Perfil - Administrador</p>
                     </button>
 
 
@@ -63,11 +66,10 @@ export default function AdminDashboard() {
                         <p>Editar Médico</p>
                     </button>
 
-
-                    <button onClick={handleTitleName} className={styles.items__container__text} name="Salir" >
+                    <Link to='/' className={styles.items__container__text} name="Salir" >
                         <i class="fas fa-sign-out" style={{ color: "#ea9c2c" }}></i>
                         <p>Salir</p>
-                    </button>
+                    </Link>
 
 
 
@@ -103,10 +105,34 @@ export default function AdminDashboard() {
 
                 <div className={styles.containar__master}>
 
-                    <h2>{titleName ? titleName : "Mi Perfil"}</h2>
+                    <h2>{titleName ? titleName : "Mi Perfil - Administrador"}</h2>
 
                     {titleName === "Agregar Médico" && (<AddMedicForm />)}
                     {titleName === "Eliminar Médico" && (<DeleteDoctor />)}
+                    {titleName === "Editar Médico" && (<PutDoctor />)}
+                    {(titleName === "Mi Perfil - Administrador" || titleName === "" ) &&
+                        (
+                            <div className={styles.container__profile}>
+
+
+                                <header>
+                                    <img src="https://www.grupogamma.com/wp-content/uploads/2019/09/BOSIO-ALFREDO.jpg" alt="img-alfredo" />
+                                    <div className={styles.container__texto}>
+
+                                        <p>John David</p>
+                                        <p>35 años</p>
+                                        <p>Administrador</p>
+
+                                    </div>
+
+
+                                </header>
+
+
+
+                            </div>
+                        )}
+
 
 
 
