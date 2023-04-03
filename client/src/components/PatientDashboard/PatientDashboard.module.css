@@ -1,0 +1,23 @@
+@font-face {
+    font-family: "FireSans";
+    src: url("../../Fonts/FiraSans-Bold.ttf");
+}
+
+.toolbar{
+    background-color: var(--primary);
+    
+}
+
+.img_logo{
+    height: 40px;
+    width: 40px;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+.text{
+    text-align: end;
+}
+.name_patient{
+    font-family: "FireSans";
+    margin-left: 7px;
+}
