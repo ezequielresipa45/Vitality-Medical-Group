@@ -1,0 +1,11 @@
+.toolbar{
+    background-color: var(--primary);
+    
+}
+
+.img_logo{
+    height: 40px;
+    width: 40px;
+    margin-top: 10px;
+    margin-right: 10px;
+}

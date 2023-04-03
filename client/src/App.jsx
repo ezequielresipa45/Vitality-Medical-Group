@@ -21,6 +21,7 @@ import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import TicketPicker from './components/Tickets/TicketPicker';
 import UserCard from './components/UserCard/UserCard';
 import TicketsDrawer from './components/TicketsDrawer/TicketsDrawer';
+import Dashboard from './components/PatientDashoboard/PatientDashboard';
 
 axios.defaults.baseURL = 'https://apiclinica.onrender.com/';
 
@@ -73,6 +74,8 @@ function App() {
         <Route path='/administrador' element= {<UserCard/>}/>
 
         {/* <Route path='/adminDelete' element= {<DeletePatient/>}/> */}
+
+        <Route path='/paciente' element = {<Dashboard/>}/>
         
 
       </Routes>
