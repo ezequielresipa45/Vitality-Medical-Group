@@ -5,24 +5,27 @@ import { getUser } from '../../redux/actions';
 
 
 const UserCard = () => {
-
   const dispatch = useDispatch();
   const datos = useSelector((state) => state.allUsers);
 
-  const [check, setCheck] = useState(false);
   useLayoutEffect(() => {
     dispatch(getUser())
   }, []);
 
-  return(
+  const handleCheckboxChange = (e, id) => {
+    const { checked } = e.target;
+    dispatch(updateUser(id, { isAdmin: checked }));
+  };
+
+  return (
     <div className={styles.contenedor}>
-      {datos.map(dato => (
-        <div className={styles.card}>
+      {datos.map((dato) => (
+        <div className={styles.card} key={dato.id}>
           <img
             src={dato.image}
             alt={dato.full_name}
             width="250px"
-            heigth="200px"
+            height="200px"
             className="imageUser"
           />
           <h2>{dato.full_name}</h2>
@@ -32,14 +35,16 @@ const UserCard = () => {
           <p>Plan: {dato.is_plan_pay}</p>
 
           <label htmlFor={`check-card-${dato.id}`}>Es administrador</label>
-            <input
-              type="checkbox"
-              checked={check}
-              onChange={(e) => setCheck(e.target.isAdmin)}
-            />
+          <input
+            type="checkbox"
+            id={`check-card-${dato.id}`}
+            checked={dato.isAdmin}
+            onChange={(e) => handleCheckboxChange(e, dato.id)}
+          />
         </div>
       ))}
     </div>
   );
-}
+};
+
 export default UserCard;
