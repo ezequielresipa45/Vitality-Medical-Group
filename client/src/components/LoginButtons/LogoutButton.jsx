@@ -7,6 +7,7 @@ import { IconButton, Menu, MenuItem, Button, Tooltip } from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 const LogoutButton = () => {
     const { logout } = useAuth0();
@@ -55,7 +56,7 @@ const LogoutButton = () => {
                             display: 'block',
                             position: 'absolute',
                             top: 0,
-                            right: 14,
+                            right: 17,
                             width: 10,
                             height: 10,
                             bgcolor: 'background.paper',
@@ -68,6 +69,9 @@ const LogoutButton = () => {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 
             >
+                {true && <MenuItem>
+                    <Button startIcon={<AdminPanelSettingsIcon />} onClick={() => console.log('Admin')}>Admin</Button>
+                </MenuItem>}
                 <MenuItem>
                     <Button startIcon={<PersonPinIcon />} onClick={() => console.log('Perfil')}>Perfil</Button>
                 </MenuItem>
