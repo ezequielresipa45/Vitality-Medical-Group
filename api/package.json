@@ -9,7 +9,7 @@
   "author": "Moyobear",
   "license": "ISC",
   "engines": {
-    "node": ">=12.18.3",
+    "node": "^18.12.0",
     "npm": ">=6.14.6"
   },
   "dependencies": {
