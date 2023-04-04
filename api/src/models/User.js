@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
       },
       full_name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       email: {
         type: DataTypes.STRING,
@@ -28,23 +28,23 @@ module.exports = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       user_name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       image: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       is_admin: {
         type: DataTypes.BOOLEAN,
-        allowNull: true,
+        defaultValue: false,
       },
       is_plan_pay: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
+        defaultValue: false,
       },
       is_delete: {
         type: DataTypes.BOOLEAN,

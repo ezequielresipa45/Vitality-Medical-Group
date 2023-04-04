@@ -10,6 +10,8 @@ const specialityRouter = require("./specialityRouter.js")
 const ticketAnalysisRouter = require("./ticketAnalysisRouter.js")
 const userRouter = require("./userRouter.js")
 const analysisRouter = require("./analysisRouter.js")
+const loginRouter = require("./loginRouter.js")
+const commentRouter = require("./commentRouter.js")
 
 const router = Router();
 
@@ -24,5 +26,7 @@ router.use("/speciality", specialityRouter)
 router.use("/ticketAnalysis", ticketAnalysisRouter)
 router.use("/user", userRouter)
 router.use("/analysis", analysisRouter)
+router.use("/login", loginRouter)
+router.use("/comment", commentRouter)
 
 module.exports = router;

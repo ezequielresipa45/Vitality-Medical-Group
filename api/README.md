@@ -1374,3 +1374,84 @@ Devuelve:
 ```shell
 "El pago del análisis se ha realizado con éxito"
 ```
+
+## Endpoints de la ruta _/comment_:
+
+- `get => /comment/` => Este endpoint devuelve un array con todos los comentarios guardados en la base de datos.
+  Devuelve:
+
+```shell
+[
+	{
+		"id": 1,
+		"comment": "Su servicio es excelente",
+		"rating": 10,
+		"userId": 2
+	},
+	{
+		"id": 2,
+		"comment": "Muy buenos los servicios",
+		"rating": 10,
+		"userId": 2
+	},
+	{
+		"id": 3,
+		"comment": "Muy buenos los servicios",
+		"rating": 10,
+		"userId": 5
+	},
+	{
+		"id": 4,
+		"comment": "Excelente",
+		"rating": 10,
+		"userId": 5
+	}
+]
+```
+
+- `get => /comment/userComments` => Este endpoint devuelve un array con todos los comentarios que pertenecen a un usuario eb específico. Recibe el id del usuario por body:
+  Rebibe:
+
+```shell
+{
+	"userId": 2
+}
+```
+
+Devuelve:
+
+```shell
+[
+	{
+		"id": 1,
+		"comment": "Su servicio es excelente",
+		"rating": 10,
+		"userId": 2
+	},
+	{
+		"id": 2,
+		"comment": "Muy buenos los servicios",
+		"rating": 10,
+		"userId": 2
+	}
+]
+```
+
+- `post => /comment` => Este endpoint recibe por body un objeto con el id del usuario que crea el comentario, su momentario y su calificación; devuelve un mensaje.
+  Recibe:
+
+```shell
+{
+	"id": 2,
+	"comment": "Muy buenos los servicios",
+	"rating": 10,
+}
+```
+
+Devuelve:
+
+```shell
+{
+	"Comentario creado satisfactoriamente"
+}
+```

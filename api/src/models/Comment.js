@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      points: {
+      rating: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
