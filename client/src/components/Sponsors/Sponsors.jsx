@@ -20,7 +20,7 @@ export default function Sponsors() {
         
         <div className={styles.container}>
 
-            <h2>Empresas que confian en nuestra institución:</h2>
+            <h2>Laboratorios que confian en nuestra institución</h2>
 
             <div className={styles.slider}>
 
