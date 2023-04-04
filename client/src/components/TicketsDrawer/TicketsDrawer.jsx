@@ -44,9 +44,13 @@ export default function TicketsDrawer() {
                 
                 }
 
+                {userTickets.length > 0 &&
+
                 <div className={styles.badge}>
                     <p>{userTickets.length}</p>
                 </div>
+                
+                }
 
             </div>
 
