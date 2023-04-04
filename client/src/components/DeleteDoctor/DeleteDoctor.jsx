@@ -18,11 +18,12 @@ const DeleteDoctor = () => {
     setDoctorInfo(doctor[0])
   }, [doctor]);
   
-  console.log(doctor);
   
   const handleSearch = e => {
     e.preventDefault();
     dispatch(getDoctorsByID(doctorID));
+  
+
   };
   
   const handleDelete = e => {
@@ -79,7 +80,7 @@ const DeleteDoctor = () => {
       )}
 
 
-
+{doctor === "No existe Médico con ese Id" && ( <p>No existe Médico con ese Id</p>)}
 
     </div>
   );

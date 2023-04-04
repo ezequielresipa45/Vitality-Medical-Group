@@ -12,7 +12,7 @@ import LogoutButton from "../LoginButtons/LogoutButton"
 export default function NavBar() {
   let arraySpecialists = [
     "Clínica Médica",
-    "Traumatologia ",
+    "Traumatología ",
     "Neurología",
     "Otorrinolaringología",
     "Pediatría",

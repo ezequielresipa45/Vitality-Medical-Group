@@ -14,6 +14,7 @@ const PutDoctor = () => {
       phone: doctor.phone,
       address: doctor.address,
       image: doctor.image,
+      full_name: doctor.full_name
     });
   }, [doctor]);
 
@@ -27,6 +28,7 @@ const PutDoctor = () => {
     phone: '',
     address: '',
     image: '',
+    full_name: '',
   });
 
   const handleChange = (e) => {
@@ -43,22 +45,42 @@ const PutDoctor = () => {
   };
 
   return (
-    <div className={style.firstDiv}>
-      <h2>Update Doctor Details</h2>
+    <div className={style.container__putMedic}>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="id">Doctor ID</label>
+
+        <div className={style.container__search}>
+
         <input
           type="text"
           id="id"
           name="id"
           value={id}
+          placeholder='Ingrese un Id'
           onChange={(e) => setId(e.target.value)}
         />
-        <button onClick={handleSearch}>Search</button>
-        <br />
-        <br />
+        <button onClick={handleSearch}><i class="fas fa-search"></i> Buscar Médico</button>
+        
+
+
+        </div>
+
         {doctor.id && (
           <>
+
+
+<div className={style.container__input__medic__info}>
+            <label htmlFor="full_name">Name</label>
+            <input
+              type="text"
+              id="full_name"
+              name="full_name"
+              value={userDate.full_name}
+              onChange={handleChange}
+            />
+</div>
+
+<div className={style.container__input__medic__info}>
+
             <label htmlFor="phone">Phone Number</label>
             <input
               type="text"
@@ -67,8 +89,12 @@ const PutDoctor = () => {
               value={userDate.phone}
               onChange={handleChange}
             />
-            <br />
-            <br />
+</div>
+
+
+
+<div className={style.container__input__medic__info}>
+
             <label htmlFor="address">Address</label>
             <input
               type="text"
@@ -77,8 +103,11 @@ const PutDoctor = () => {
               value={userDate.address}
               onChange={handleChange}
             />
-            <br />
-            <br />
+</div>
+
+
+<div className={style.container__input__medic__info}>
+
             <label htmlFor="image">Image URL</label>
             <input
               type="text"
@@ -87,16 +116,16 @@ const PutDoctor = () => {
               value={userDate.image}
               onChange={handleChange}
             />
-            <br />
-            <br />
-            <button className={style.button} type="submit">Update Details</button>
+</div>
+
+            <button className={style.button} type="submit">Actualizar Datos</button>
           </>
         )}
       </form>
     </div>
   );
 };
-export default PutDoctor;   
+export default PutDoctor;
 
 
 

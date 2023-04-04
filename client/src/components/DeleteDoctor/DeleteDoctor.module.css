@@ -107,4 +107,5 @@ height: 4rem;
 
 .medicInfo .container__image img{
 border-radius: 50%;
+height: 100%;
 }
