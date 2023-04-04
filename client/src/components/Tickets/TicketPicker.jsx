@@ -1,7 +1,7 @@
 import React from 'react';
-import { useState , useEffect } from 'react';
+import { useState , useEffect , useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { postConfirmedTickets } from '../../redux/actions';
+import { getConfirmedTickets, postConfirmedTickets, getSelectedTickets } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import { LocalizationProvider , DatePicker, DateTimePicker, TimePicker } from '@mui/x-date-pickers';
 import { FormControl , InputLabel , Select , MenuItem , FormHelperText, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
@@ -97,8 +97,13 @@ export default function TicketPicker() {
         navigate('/analisis');
     }
 
+    useLayoutEffect(() => {
+        dispatch(getSelectedTickets());
+        dispatch(getConfirmedTickets());
+    }, []);
+
     useEffect(() => {
-        localStorage.setItem('confirmedItems', JSON.stringify(confirmedTickets));
+        confirmedTickets.length && localStorage.setItem('confirmedItems', JSON.stringify(confirmedTickets));
     }, [confirmedTickets]);
     
     console.log(JSON.parse(localStorage.getItem('confirmedItems')));
