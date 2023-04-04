@@ -174,7 +174,7 @@ export default function AnalysisContainer() {
     };
 
     const onClickLogin = () => {
-        isAuthenticated ? navigate('/turnos') : loginWithRedirect();
+        isAuthenticated ? navigate('/turnos') : loginWithRedirect({ authorizationParams: { redirect_uri: `${window.location.origin}/turnos` } });
         console.log(JSON.parse(localStorage.getItem('selectedItems')));
     };
 
