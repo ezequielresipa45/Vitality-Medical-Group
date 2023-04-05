@@ -100,16 +100,18 @@ const createUser = async (full_name, email, password, user_name, image) => {
   }
 };
 
+
 const isAdmin = async (id, is_Admin) => {
-  // esto hace que la app nunca se quede sin admin, siempre tiene que existir uno almenos
   let allUser = await getAllUser();
+  let user = await User.findByPk(id)
 
-  const countAdmins = allUser.reduce(
-    (count, item) => count + (item.is_admin === true ? 1 : 0),
-    0
-  );
 
-  if (countAdmins > 1 && is_Admin === false) {
+  if(user.email === "infovitalitymedical@gmail.com"){
+    user.is_admin = true;
+    await user.save();
+    return{message1:"No se pueden realizar modificaciones a este usuario"}
+
+ }else if (is_Admin === false) {
     const result = await User.update(
       {
         is_admin: false,
@@ -135,7 +137,7 @@ const isAdmin = async (id, is_Admin) => {
     return { message: "El usuario ahora es administrador" };
   } else {
     throw new Error(
-      "No se puede dejar a la aplicación sin al menos un administrador"
+      "No se encontro al usuario"
     );
   }
 };
