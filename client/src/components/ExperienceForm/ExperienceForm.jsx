@@ -9,17 +9,21 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import { Box } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
-import style from "../ExperienceForm/ExperienceForm.module.css"
+import { useState, useEffect } from 'react';
+import style from "../ExperienceForm/ExperienceForm.module.css";
+import {postComment} from "../../redux/actions"
+
+
+// aca me falta darle valor a cada carita y que se renderize o que ese valor llegue a algun lugar. 
+
 
 function validate(experienceForm){
     let error = {};
-    if(!experienceForm.rating){
-        error.rating = "Deja tu puntuacion!"
+    
+    if(!experienceForm.comment){
+        error.comment = "Deja tu comentario!"
     }
-    if(!experienceForm.comments){
-        error.comments = "Dejanos tu comentario!"
-    }
+   return error 
 }
 
 
@@ -77,24 +81,27 @@ const labels = {
 
 export default function ExperienceForm() {
 
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
 const [experienceForm, setExperienceForm] = useState({
 
     rating : "",
-    comments : ""
+    comment : ""
 })
 
 const [errors, setErrors] = useState({  // este es el estado de errores
     rating: "",
-   comments: ""
+   comment: ""
 })     
+useEffect(() => {
+  setErrors(validate(experienceForm));
+}, [experienceForm]);
+
 const [value, setValue] = useState(2);
-    const [hover, setHover] = useState(-1);
+const [hover, setHover] = useState(-1);
 
 const handleInputChange = (e) =>{
-   
-
+  
     setErrors(                  // primero le paso los errores para que primer vea si hay error y frene antes.
     validate({
         ...experienceForm,
@@ -117,13 +124,22 @@ const submitHandler = (e) =>{ // aca quiero mandar una request al backend. Manej
         })
     )
     if (Object.keys(errors).length === 0) {  // si el form no maneja errores, 
-        console.log(form)
+      const data = {
+        rating: experienceForm.rating,
+        comment: experienceForm.comment
+      };  
+      
+      
+      
+      // console.log(experienceForm)
                 // hay que despachar el formulario a algun lado
+        dispatch(postComment(data))
         
         alert("Gracias por confiar en nosotros");
+        
         setExperienceForm({                         // vuelvo a setear  los valores del formulario en string vacio, cero, etc.
          rating : "",
-         comments: ""
+         comment: ""
           
         });
       } else {
@@ -131,7 +147,7 @@ const submitHandler = (e) =>{ // aca quiero mandar una request al backend. Manej
         return;
       }
     //   history.push("/home")
-      console.log(form)
+      console.log(experienceForm)
     }    
 
 
@@ -145,29 +161,39 @@ const submitHandler = (e) =>{ // aca quiero mandar una request al backend. Manej
     <br />
     <StyledRating
       name="rating"
-      defaultValue={2}
+      value={experienceForm.rating}
       IconContainerComponent={IconContainer}
       getLabelText={getLabelText}
       highlightSelectedOnly
       className={style.face_area}
-      onChange = {(event, newValue) => {setValue(newValue);
-    }}
+      onChange = {(event, newValue) => {
+        setExperienceForm({
+          ...experienceForm,
+          rating: newValue.toString()
+        })
+        setValue(newValue);
+      }}
+    
       onChangeActive= {(event, newHover) => {setHover(newHover);
     }}
+    
     />
+   
     {value !== null && (
         <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
       )}
+    
         
         <div>
           <textarea className={style.text_area} 
-          type="text" name= "comments" autoComplete= "nop" 
+          type="text" name= "comment" autoComplete= "nop" 
           placeholder= "Comentarios..." onChange={(e)=> handleInputChange(e)}
-          value={experienceForm.comments} />
+          value={experienceForm.comment} />
          
           <p>Tus comentarios nos ayudan a mejorar</p>
         </div>
         <button type='submit'>ENVIAR</button>
+
         </form>  
     </div>
   );

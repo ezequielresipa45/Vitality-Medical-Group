@@ -1,4 +1,4 @@
-import { GET_ANALYSIS , GET_SPECIALITIES, FILTER_ANALYSIS, GET_DOCTORS, GET_PLANS, GET_FARMACY, DELETE_DOCTOR, DELETE_PATIENT, GET_DOCTOR_BYID, GET_PATIENT_BYID, GET_SELECTED_TICKETS , POST_SELECTED_TICKETS , DELETE_SELECTED_TICKETS, PUT_DOCTOR, GET_USER, PUT_USER, PUT_PATIENT, GET_CONFIRMED_TICKETS , POST_CONFIRMED_TICKETS , DELETE_CONFIRMED_TICKETS, LOGIN, LOGOUT_LOGIN } from "./actions";
+import { GET_ANALYSIS , GET_SPECIALITIES, FILTER_ANALYSIS, GET_DOCTORS, GET_PLANS, GET_FARMACY, DELETE_DOCTOR, DELETE_PATIENT, GET_DOCTOR_BYID, GET_PATIENT_BYID, GET_SELECTED_TICKETS , POST_SELECTED_TICKETS , DELETE_SELECTED_TICKETS, PUT_DOCTOR, GET_USER, PUT_USER, PUT_PATIENT, GET_CONFIRMED_TICKETS , POST_CONFIRMED_TICKETS , DELETE_CONFIRMED_TICKETS, LOGIN, LOGOUT_LOGIN, POST_COMMENT } from "./actions";
 
 const initialState = {
     specialities: [],
@@ -11,8 +11,9 @@ const initialState = {
     patient: [],
     selectedTickets: {},
     confirmedTickets: [],
+    comment: [],
     allUsers: [],
-    user: {}
+    user: {},
   };
   
  
@@ -150,6 +151,12 @@ const initialState = {
           ...state,
           patient: action.payload,
         };
+
+      case POST_COMMENT:
+        return{
+          ...state,
+          comment: action.payload
+        }
   
       default:
         return {
