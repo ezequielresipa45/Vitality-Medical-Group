@@ -27,6 +27,8 @@ export const GET_USER = "GET_USER";
 export const PUT_USER = "PUT_USER";
 export const LOGIN = "LOGIN"
 export const LOGOUT_LOGIN = "LOGOUT"
+export const POST_COMMENT = "POST_COMMENT"
+export const GET_COMMENTS = "GET_COMMENTS"
 
 export function getSpecialities() {
     return {
@@ -274,4 +276,22 @@ export const putDoctor = (doctorData) => async (dispatch) => {
     return {
       type: LOGOUT_LOGIN
     }
+  }
+
+  export function postComment(value) {
+    return {
+        type: POST_COMMENT,
+        payload: value
+    }; 
+  };
+
+  export function getComments(){
+    return async function(dispatch){
+      const json = await axios.get(`/comment`);
+  
+      return dispatch({
+        type: GET_COMMENTS,
+        payload: json.data,
+      });
+    };
   }
