@@ -1,8 +1,6 @@
 .container {
-    position: absolute;
-    top: 12px;
-    right: 50px;
-    z-index: 1001;
+    position: relative;
+    
 
     /* display: flex;
     flex-direction: column;

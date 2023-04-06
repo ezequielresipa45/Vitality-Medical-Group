@@ -37,7 +37,7 @@ export default function AnalysisContainer() {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [isTrue, setIsTrue] = useState(false);
+    const [isUser, setIsUser] = useState(false);
     
     const [analysis, setAnalysis] = useState([...allAnalysis].map((item, index) => {
         item.code = index;
@@ -67,18 +67,12 @@ export default function AnalysisContainer() {
     }, [allAnalysis]);
     
     useEffect(() => {
-
         setItemsPage(INITIAL_ITEMS);
-        setCurrentPage(INITIAL_PAGE);
-        
+        setCurrentPage(INITIAL_PAGE);   
     }, [ analysis ]);    
     
     useEffect(() => {
-
-        filteredAnalysis.length ? setAnalysis(filteredAnalysis) : setAnalysis(allAnalysis);
-        //setItemsPage(INITIAL_ITEMS);
-        //setCurrentPage(INITIAL_PAGE);
-        
+        filteredAnalysis.length ? setAnalysis(filteredAnalysis) : setAnalysis(allAnalysis);    
     }, [ filteredAnalysis ]);
     
     const nextHandler = () => {
@@ -89,7 +83,7 @@ export default function AnalysisContainer() {
         if(indexNextPage >= totalElements) {
             setItemsPage(INITIAL_ITEMS);
             setCurrentPage(INITIAL_PAGE);
-            //ref.current.scrollIntoView();
+            ref.current.scrollIntoView();
             return;
         };
         //console.log(nextPage);
@@ -98,7 +92,7 @@ export default function AnalysisContainer() {
 
         setItemsPage([...analysis].splice(indexNextPage, ITEMS));
         setCurrentPage(nextPage);
-        //ref.current.scrollIntoView();
+        ref.current.scrollIntoView();
     };
     const prevHandler = () => {
         const prevPage = currentPage -1;
@@ -106,7 +100,7 @@ export default function AnalysisContainer() {
         
         setItemsPage([...analysis].splice(indexPrevPage, ITEMS));
         setCurrentPage(prevPage);
-        //ref.current.scrollIntoView();
+        ref.current.scrollIntoView();
     };
 
     const onClickPageHandler = (item) => {
@@ -115,35 +109,30 @@ export default function AnalysisContainer() {
         
         setItemsPage([...analysis].slice(firstIndex, lastIndex));
         setCurrentPage(item-1);
+        ref.current.scrollIntoView();
     };
 
     const handleFilter = (value) => {
-
         dispatch(filterAnalysis(value));
 
         sortRef.current.options.selectedIndex = 0;
-
         //console.log(value);
     };
 
     const handleOrder = (e) => {
-
         if(e.target.name === 'orderByTitle') {
             e.target.value === 'upward' 
                 ? orderedAnalysis = [...analysis].sort((itemA, itemB) => itemB.title.localeCompare(itemA.title))
                 : orderedAnalysis = [...analysis].sort((itemA, itemB) => itemA.title.localeCompare(itemB.title))
-            /* sortRef.current.options.selectedIndex = 0; */
             return setAnalysis([...orderedAnalysis]);
-        
         };
 
-        /* if(e.target.name === 'orderByScore') {
+        /* if(e.target.name === 'orderByPrice') {
             e.target.value === 'upward' 
                 ? orderedRecipes = [...recipes].sort((itemA, itemB) => itemA.health_score - itemB.health_score)
                 : orderedRecipes = [...recipes].sort((itemA, itemB) => itemB.health_score - itemA.health_score)
             sortTitleRef.current.options.selectedIndex = 0;
             return setRecipes([...orderedRecipes]);
-            
         }; */
     };
 
@@ -164,29 +153,25 @@ export default function AnalysisContainer() {
             price: value.price
         }));
 
-        isAuthenticated ? navigate('/turnos') : setIsTrue(true); // Aca hay que validar si el usuario esta logueado
+        isAuthenticated ? navigate('/turnos') : setIsUser(true); // Aca hay que validar si el usuario esta logueado
     };
 
     const handleCloseModal = () => {
-        setIsTrue(false);
+        setIsUser(false);
         dispatch(deleteSelectedTickets());
         localStorage.removeItem('selectedItems');
     };
 
-    const onClickLogin = () => {
+    const onClickContinue = () => {
         isAuthenticated ? navigate('/turnos') : loginWithRedirect({ authorizationParams: { redirect_uri: `${window.location.origin}/turnos` } });
-        console.log(JSON.parse(localStorage.getItem('selectedItems')));
-    };
-
-    const onClickRegister = () => {
-        navigate('/register');
+        //console.log(JSON.parse(localStorage.getItem('selectedItems')));
     };
 
     return (
         <>
             <div className={styles.container}>
 
-                <div className={styles.div_container}>
+                <div ref={ref} className={styles.div_container}>
 
                     <div className={styles.description}>
                         <h1>Servicios analíticos y de diagnostico</h1>
@@ -218,9 +203,9 @@ export default function AnalysisContainer() {
                             
                         </select>
 
-                        {/* <h3> Order by score </h3>
+                        {/* <h3>Ordenar por precio</h3>
 
-                        <select ref={sortScoreRef} name='orderByScore' onChange={(e) => handleOrder(e)}>
+                        <select ref={sortScoreRef} name='orderByPrice' onChange={(e) => handleOrder(e)}>
 
                             <option defaultValue={null} >Order...</option>
                             <option value={'upward'} >Upward</option>
@@ -231,9 +216,7 @@ export default function AnalysisContainer() {
                     </div>
 
                     <div className={styles.analysis_container}>
-                        {/* <button className= { currentPage !== INITIAL_PAGE ? style.pageButton : style.noButton } onClick={currentPage !== INITIAL_PAGE ? () => prevHandler() : null } >
-                            <i className='fas fa-chevron-left'></i>
-                        </button> */}
+                        
                         {itemsPage.map((item, index) => (
                             <Analysis
                                 key={index}
@@ -241,15 +224,12 @@ export default function AnalysisContainer() {
                                 description={item.description}
                                 speciality={item.speciality}
                                 image= {item.image}
-                                price={'$5000'}
+                                price={index % 2 === 0 ? '$2000' : '$3000'}
                                 code={item.code}
                                 onClick={handleClickTicket}
                             />
                         ))}
                         
-                        {/* <button className= {style.pageButton} onClick={() => nextHandler()}>
-                            <i className='fas fa-chevron-right'></i>
-                        </button> */}
                     </div>
 
                     <div className={styles.div_controllers}>
@@ -257,8 +237,6 @@ export default function AnalysisContainer() {
                         <button className= { currentPage !== INITIAL_PAGE ? styles.pageButton : styles.noButton } onClick={currentPage !== INITIAL_PAGE ? () => prevHandler() : null } >
                             <i className='fas fa-chevron-left'></i>
                         </button>
-
-                        {/* <button className= {style.pageButton} >{currentPage + 1}</button> */}
 
                         {PAGES.map((item, index) => <button key={index} className= {currentPage+1 === item ? styles.pageActive : styles.pageButton} onClick={() => onClickPageHandler(item)}> {item} </button>)}
 
@@ -272,24 +250,23 @@ export default function AnalysisContainer() {
 
             </div>
 
-            {isTrue &&  
+            {isUser &&  
                 <Dialog
-                open={isTrue}
-                onClose={handleCloseModal}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
+                    open={isUser}
+                    onClose={handleCloseModal}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
                 >
                     <DialogTitle id="alert-dialog-title">
-                        {'Antes de continuar debe iniciar sesión'}
+                        {'Debe iniciar sesión'}
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            Para continuar el proceso de confirmación del turno debe inicar sesión con su cuenta de usuario. Si no tiene una cuenta aún, puede crearla para disfrutar de todos los beneficios que ofrecemos.
+                            Para continuar el proceso de confirmación del turno debe iniciar sesión con su cuenta de usuario. Si no tiene, puede crearla para disfrutar de todos los beneficios que ofrecemos.
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        {/* <Button onClick={onClickRegister}>Registrarse</Button> */}
-                        <Button onClick={onClickLogin} autoFocus>{isAuthenticated ? 'Continuar' : 'Iniciar Sesión'}</Button>
+                        <Button onClick={onClickContinue} autoFocus>Continuar</Button>
                     </DialogActions>
                 </Dialog>
             }
