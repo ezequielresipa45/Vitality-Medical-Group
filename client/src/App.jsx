@@ -43,16 +43,16 @@ function App() {
   // Todo sobre Auth0  
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
-  useEffect( () => {
-    if(isAuthenticated){   
-      const getToken = async () => {   
+  useEffect(() => {
+    if (isAuthenticated) {
+      const getToken = async () => {
         const token = await getAccessTokenSilently();
-        dispatch(loginByEmail(token, user.email))        
-      }   
+        dispatch(loginByEmail(token, user.email))
+      }
       getToken();
     }
   }, [isAuthenticated])
- 
+
   // Aca termina todo sobre Auth0
 
   // Este useEffect es para que cuando se cree una nueva cuenta con auth0 se almacene la información basica del usuario
@@ -92,16 +92,21 @@ function App() {
 
         <Route path="/especialidad/:speciality" element={<Specialitys />} />
 
-        <Route path='/admin' element={<AdminDashboard />} />
-        
+        {
+          userInfo.is_admin &&
+          <Route path='/admin' element={<AdminDashboard />} />
+
+        }
+
+
         <Route path='/turnos' element={<TicketPicker />} />
 
-        <Route path='/putpatient' element= {<PatientPut/>}/>
+        <Route path='/putpatient' element={<PatientPut />} />
 
-        <Route path='/administrador' element= {<UserCard/>}/>
+        <Route path='/administrador' element={<UserCard />} />
 
         {/* <Route path='/adminDelete' element= {<DeletePatient/>}/> */}
-        
+
 
       </Routes>
 
