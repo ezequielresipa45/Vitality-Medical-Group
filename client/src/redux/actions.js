@@ -278,12 +278,17 @@ export const putDoctor = (doctorData) => async (dispatch) => {
     }
   }
 
-  export function postComment(value) {
-    return {
-        type: POST_COMMENT,
-        payload: value
-    }; 
+
+  export const postComment= (commentData) => async (dispatch) => {
+  
+  const res = await axios.post(`https://apiclinica.onrender.com/comment`, commentData);  // El post y le put son funciones asincronicas siempre
+  dispatch({
+    type: 'POST_COMMENT',
+    payload: res.data,
+  });
   };
+
+
 
   export function getComments(){
     return async function(dispatch){

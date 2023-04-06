@@ -80,7 +80,7 @@ export default function ExperienceForm() {
 
     const dispatch = useDispatch()
 
-const user = useSelector(state=>state.user.id)
+const user = useSelector(state=>state.user.id) // me traigo del esto global el user.id
 
  
 const [experienceForm, setExperienceForm] = useState({
@@ -131,18 +131,19 @@ const submitHandler = (e) =>{ // aca quiero mandar una request al backend. Manej
         userId: user,
         
       };  
-      console.log(data)
+      // console.log(data)
       
       // console.log(experienceForm)
                 // hay que despachar el formulario a algun lado
         dispatch(postComment(data))
-        
+
+        console.log(postComment(data))
         alert("Gracias por confiar en nosotros");
         
         setExperienceForm({                         // vuelvo a setear  los valores del formulario en string vacio, cero, etc.
          rating : 0,
          comment: "",
-         userId: ""
+         
           
         });
       } else {
@@ -192,6 +193,8 @@ const submitHandler = (e) =>{ // aca quiero mandar una request al backend. Manej
           type="text" name= "comment" autoComplete= "nop" 
           placeholder= "Comentarios..." onChange={(e)=> handleInputChange(e)}
           value={experienceForm.comment} />
+
+         
          
           <p>Tus comentarios nos ayudan a mejorar</p>
         </div>
