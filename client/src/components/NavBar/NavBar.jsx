@@ -8,6 +8,7 @@ import addMedic from "../../images/medical-doctor.png";
 import { useAuth0 } from "@auth0/auth0-react"; // Import para Auth0
 import LoginButton from "../LoginButtons/LoginButton"
 import LogoutButton from "../LoginButtons/LogoutButton"
+import TicketsDrawer from "../TicketsDrawer/TicketsDrawer";
 
 export default function NavBar() {
   let arraySpecialists = [
@@ -22,9 +23,8 @@ export default function NavBar() {
   ];
 
   
-   // Todo sobre Auth0  
-   const { isAuthenticated } = useAuth0();
-
+  // Auth0  
+  const { user , isAuthenticated } = useAuth0();
 
   const [clickBoolean, setClickBoolean] = useState(false);
 
@@ -79,10 +79,9 @@ export default function NavBar() {
           </button>
           <Link to="/planes">Planes</Link>
           
-        <div>
-          {!isAuthenticated  ? <LoginButton/>
-                            : <LogoutButton/>}
-        </div>
+        {!isAuthenticated  ? <LoginButton/> : <LogoutButton/>}
+
+        {user && <TicketsDrawer />}
         
         </ul>
 

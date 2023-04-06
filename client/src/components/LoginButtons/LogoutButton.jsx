@@ -49,6 +49,7 @@ const LogoutButton = () => {
         open={open}
         onClose={handleClick}
         onClick={handleClick}
+        disableScrollLock={true}
         PaperProps={{
           elevation: 0,
           sx: {

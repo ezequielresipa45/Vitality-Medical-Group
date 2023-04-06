@@ -58,6 +58,7 @@ export default function TicketsDrawer() {
                 anchor='right'
                 open={toggle}
                 onClose={toggleDrawer}
+                disableScrollLock={true}
             >
                 
                 
@@ -66,7 +67,7 @@ export default function TicketsDrawer() {
                     role="presentation"
                     onKeyDown={toggleDrawer}
                 >
-                    <Typography variant="subtitle1" align='center' marginTop={3} marginBottom={3}>Turnos pendientes de pago</Typography>
+                    <Typography variant="subtitle1" align='center' marginTop={3} marginBottom={3}><strong>Turnos pendientes de pago</strong></Typography>
                     <List sx={{ minHeight: 500 , marginBottom: 2}}>
                     {userTickets.map((item, index) => (
                         <ListItem key={index} disablePadding>
