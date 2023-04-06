@@ -73,7 +73,7 @@ const LogoutButton = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        {!user.is_admin && (
+        {user.is_admin && (
           <MenuItem>
             <Button
               startIcon={<AdminPanelSettingsIcon />}
