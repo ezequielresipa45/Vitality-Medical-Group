@@ -8,13 +8,11 @@ import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import { Box } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {useParams} from "react-router-dom";
 import { useState, useEffect } from 'react';
 import style from "../ExperienceForm/ExperienceForm.module.css";
 import {postComment} from "../../redux/actions"
-
-
-// aca me falta darle valor a cada carita y que se renderize o que ese valor llegue a algun lugar. 
 
 
 function validate(experienceForm){
@@ -22,11 +20,11 @@ function validate(experienceForm){
     
     if(!experienceForm.comment){
         error.comment = "Deja tu comentario!"
+    }if(!experienceForm.rating){
+      error.rating = "Deja tu puntuación!"
     }
    return error 
 }
-
-
 
 const StyledRating = styled(Rating)(({ theme }) => ({
   '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
@@ -78,21 +76,27 @@ const labels = {
     return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
   }
   
-
 export default function ExperienceForm() {
 
     const dispatch = useDispatch()
 
+const user = useSelector(state=>state.user.id)
+
+ 
 const [experienceForm, setExperienceForm] = useState({
 
-    rating : "",
-    comment : ""
+    rating : 0,
+    comment : "",
+    userId: user
+    
 })
 
 const [errors, setErrors] = useState({  // este es el estado de errores
-    rating: "",
+    rating: 0,
    comment: ""
 })     
+
+
 useEffect(() => {
   setErrors(validate(experienceForm));
 }, [experienceForm]);
@@ -101,20 +105,17 @@ const [value, setValue] = useState(2);
 const [hover, setHover] = useState(-1);
 
 const handleInputChange = (e) =>{
-  
     setErrors(                  // primero le paso los errores para que primer vea si hay error y frene antes.
     validate({
         ...experienceForm,
         [e.target.name] : e.target.value
-    })
-    
+    }) 
 )
 setExperienceForm ({  // si no hay errores que me setee el form
     ...experienceForm,
     [e.target.name]: e.target.value }) 
 }
    
-
 const submitHandler = (e) =>{ // aca quiero mandar una request al backend. Maneja el boton de SUBMIT
     e.preventDefault()
     setErrors(
@@ -126,10 +127,11 @@ const submitHandler = (e) =>{ // aca quiero mandar una request al backend. Manej
     if (Object.keys(errors).length === 0) {  // si el form no maneja errores, 
       const data = {
         rating: experienceForm.rating,
-        comment: experienceForm.comment
+        comment: experienceForm.comment,
+        userId: user,
+        
       };  
-      
-      
+      console.log(data)
       
       // console.log(experienceForm)
                 // hay que despachar el formulario a algun lado
@@ -138,15 +140,16 @@ const submitHandler = (e) =>{ // aca quiero mandar una request al backend. Manej
         alert("Gracias por confiar en nosotros");
         
         setExperienceForm({                         // vuelvo a setear  los valores del formulario en string vacio, cero, etc.
-         rating : "",
-         comment: ""
+         rating : 0,
+         comment: "",
+         userId: ""
           
         });
       } else {
         alert("ERROR! No pudimos enviar el formulario");
         return;
       }
-    //   history.push("/home")
+    
       console.log(experienceForm)
     }    
 
@@ -169,7 +172,7 @@ const submitHandler = (e) =>{ // aca quiero mandar una request al backend. Manej
       onChange = {(event, newValue) => {
         setExperienceForm({
           ...experienceForm,
-          rating: newValue.toString()
+          rating: newValue
         })
         setValue(newValue);
       }}
