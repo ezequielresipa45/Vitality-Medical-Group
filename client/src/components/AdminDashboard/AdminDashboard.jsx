@@ -8,6 +8,8 @@ import DeleteDoctor from "../DeleteDoctor/DeleteDoctor";
 import PutDoctor from "../PutDoctor/PutDoctor";
 import GetDoctorsAdmin from "../GetDoctorsAdmin/GetDoctorsAdmin";
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+
 
 
 
@@ -15,6 +17,8 @@ export default function AdminDashboard() {
 
 
     const [titleName, setTitleName] = useState("");
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user);
 
 
     const handleTitleName = (e) => setTitleName(e.target.textContent);
@@ -123,7 +127,6 @@ export default function AdminDashboard() {
 
 
                                 <header>
-                                    <img src="https://www.grupogamma.com/wp-content/uploads/2019/09/BOSIO-ALFREDO.jpg" alt="img-alfredo" />
                                     <div className={styles.container__texto}>
 
                                         <p> <span>Nombre:</span>  John David</p>

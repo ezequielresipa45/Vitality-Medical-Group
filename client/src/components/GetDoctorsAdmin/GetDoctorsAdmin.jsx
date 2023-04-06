@@ -15,6 +15,8 @@ export default function GetDoctorsAdmin() {
   return (
     <div className={styles.container__getDoctors}>
       <div className={styles.tablesName}>
+
+        <p>Id</p>
         <p>Perfíl</p>
         <p>Nombre</p>
         <p>Dirección</p>
@@ -28,6 +30,7 @@ export default function GetDoctorsAdmin() {
       {doctors &&
         doctors.map((doctor) => (
           <div className={styles.container__cardDoctor}>
+            <p>{doctor.id}</p>
             <div className={styles.container__image}>
               <img src={doctor.image} alt={doctor.full_name} />
             </div>
