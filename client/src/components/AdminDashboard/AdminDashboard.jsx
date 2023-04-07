@@ -24,6 +24,8 @@ export default function AdminDashboard() {
     const handleTitleName = (e) => setTitleName(e.target.textContent);
 
 
+    console.log(user)
+
     return (
         <div className={styles.container__adminDashboard}>
 
@@ -33,7 +35,7 @@ export default function AdminDashboard() {
                     <img src="https://www.grupogamma.com/wp-content/uploads/2019/09/BOSIO-ALFREDO.jpg" alt="img-alfredo" />
 
                     <div className={styles.perfil__container__data}>
-                        <h2>John David</h2>
+                        <h2>{user.full_name ? user.full_name : 'John David'}</h2>
 
                         <div className={styles.perfil__container__data__status}>
 
@@ -103,8 +105,8 @@ export default function AdminDashboard() {
                     <i className="fas fa-question-circle fa-xl" style={{ color: "#fff" }}></i>
 
                     <div className={styles.container__perfil}>
-                        <img src="https://www.grupogamma.com/wp-content/uploads/2019/09/BOSIO-ALFREDO.jpg" alt="img-alfredo" />
-                        <h2>John David</h2>
+                        <img src={user.image ? user.image : "https://www.grupogamma.com/wp-content/uploads/2019/09/BOSIO-ALFREDO.jpg"} alt="img-alfredo" />
+                        <h2>{user.full_name ? user.full_name : 'John David'}</h2>
 
                     </div>
 
