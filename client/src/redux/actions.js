@@ -288,8 +288,6 @@ export const putDoctor = (doctorData) => async (dispatch) => {
   });
   };
 
-
-
   export function getComments(){
     return async function(dispatch){
       const json = await axios.get(`/comment`);

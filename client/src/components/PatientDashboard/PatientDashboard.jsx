@@ -1,5 +1,4 @@
-import style from "../PatientDashoboard/PatientDashboard.module.css"
-
+import style from "../PatientDashboard/PatientDashboard.module.css"
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -25,6 +24,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import HistorySharpIcon from '@mui/icons-material/HistorySharp';
 import Avatar from '@mui/material/Avatar';
 import img from "../../images/logo.png"
+import {useSelector} from "react-redux"
 
 
 function Copyright(props) {
@@ -88,7 +88,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
+
+
 function DashboardContent() {
+  const user = useSelector((state)=> state.user)
+
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -148,7 +152,7 @@ function DashboardContent() {
             }}
           >
               <Avatar sx={{ width: 56, height: 56}}>H</Avatar>
-              <p className={style.name_patient}> NAME PATIENT</p>
+              <p className={style.name_patient}> {user.email}</p>
              
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
@@ -223,6 +227,6 @@ function DashboardContent() {
   );
 }
 
-export default function Dashboard() {
+export default function PatientDashboard() {
   return <DashboardContent />;
 }
