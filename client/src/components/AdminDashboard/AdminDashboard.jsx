@@ -17,7 +17,6 @@ export default function AdminDashboard() {
 
 
     const [titleName, setTitleName] = useState("");
-    const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
 
 
@@ -32,7 +31,8 @@ export default function AdminDashboard() {
 
             <section className={styles.container__lateral}>
                 <div className={styles.perfil__container} >
-                    <img src="https://www.grupogamma.com/wp-content/uploads/2019/09/BOSIO-ALFREDO.jpg" alt="img-alfredo" />
+                <img src={user.image ? user.image : "https://www.grupogamma.com/wp-content/uploads/2019/09/BOSIO-ALFREDO.jpg"} alt="img-alfredo" />
+
 
                     <div className={styles.perfil__container__data}>
                         <h2>{user.full_name ? user.full_name : 'John David'}</h2>
@@ -131,10 +131,10 @@ export default function AdminDashboard() {
                                 <header>
                                     <div className={styles.container__texto}>
 
-                                        <p> <span>Nombre:</span>  John David</p>
+                                        <p> <span>Nombre:</span>  {user.full_name ? user.full_name : 'John David'}</p>
                                         <p><span>Edad:</span>  35 años</p>
                                         <p><span>Departamento:</span>  Departamento: Administrador</p>
-                                        <p><span>Correo electronico:</span>  jDavid@gmail.com</p>
+                                        <p><span>Correo electronico:</span>  {user.email ? user.email : 'jDavid@gmail.com'}</p>
                                         <p><span>Teléfono:</span>  11-38519846</p>
                                         <p><span>Título:</span>  Crative Assistant Manager</p>
 

@@ -1,4 +1,4 @@
-import { GET_ANALYSIS , GET_SPECIALITIES, FILTER_ANALYSIS, GET_DOCTORS, GET_PLANS, GET_FARMACY, DELETE_DOCTOR, DELETE_PATIENT, GET_DOCTOR_BYID, GET_PATIENT_BYID, GET_SELECTED_TICKETS , POST_SELECTED_TICKETS , DELETE_SELECTED_TICKETS, PUT_DOCTOR, GET_USER, PUT_USER, PUT_PATIENT, GET_CONFIRMED_TICKETS , POST_CONFIRMED_TICKETS , DELETE_CONFIRMED_TICKETS, LOGIN, LOGOUT_LOGIN, POST_COMMENT, GET_COMMENTS } from "./actions";
+import { GET_ANALYSIS , GET_SPECIALITIES, FILTER_ANALYSIS, GET_DOCTORS, GET_PLANS, GET_FARMACY, DELETE_DOCTOR, DELETE_PATIENT, GET_DOCTOR_BYID, GET_PATIENT_BYID, GET_SELECTED_TICKETS , POST_SELECTED_TICKETS , DELETE_SELECTED_TICKETS, PUT_DOCTOR, GET_USER, PUT_USER, PUT_PATIENT, GET_CONFIRMED_TICKETS , POST_CONFIRMED_TICKETS , DELETE_CONFIRMED_TICKETS, LOGIN, LOGOUT_LOGIN, POST_COMMENT, GET_COMMENTS,SORT_DOCTORS,SORT_DOCTORS_BY_ID,SORT_DOCTORS_BY_SPECIALTY} from "./actions";
 
 const initialState = {
     specialities: [],
@@ -163,6 +163,66 @@ const initialState = {
           ...state,
           comment: action.payload,
         }; 
+
+        case SORT_DOCTORS:
+          const order = action.payload;
+          const sortedDoctors = [...state.doctors]; // Crear una copia del estado actual de los doctores
+          // Realizar la clasificación según el orden
+          sortedDoctors.sort((a, b) => {
+            const nombreA = a.full_name.toLowerCase();
+            const nombreB = b.full_name.toLowerCase();
+            if (nombreA < nombreB) {
+              return order === "asc" ? -1 : 1;
+            }
+            if (nombreA > nombreB) {
+              return order === "asc" ? 1 : -1;
+            }
+            return 0;
+          });
+    
+          return {
+            ...state,
+            doctors: sortedDoctors
+          };
+
+          case SORT_DOCTORS_BY_ID: {
+            const { payload: order } = action;
+      
+            // Copiar el array de doctores del estado actual
+            const sortedDoctors = [...state.doctors];
+      
+            // Ordenar los doctores por ID según el orden especificado
+            sortedDoctors.sort((a, b) => {
+              if (order === "asc") {
+                return a.id - b.id;
+              } else if (order === "desc") {
+                return b.id - a.id;
+              }
+            });
+      
+            // Retornar el nuevo estado con los doctores ordenados
+            return { ...state, doctors: sortedDoctors };
+          };
+
+          case "SORT_DOCTORS_BY_SPECIALTY":
+            // Obtener la especialidad ordenada
+            const sortedSpecialties = [...state.doctors].sort((a, b) => {
+              // Ordenar por la propiedad de especialidad en orden alfabético
+              const specialtyA = a.specialities[0].speciality.toUpperCase();
+              const specialtyB = b.specialities[0].speciality.toUpperCase();
+              if (specialtyA < specialtyB) {
+                return action.payload === "asc" ? -1 : 1;
+              }
+              if (specialtyA > specialtyB) {
+                return action.payload === "asc" ? 1 : -1;
+              }
+              return 0;
+            });
+      
+            return {
+              ...state,
+              doctors: sortedSpecialties,
+            };
   
       default:
         return {

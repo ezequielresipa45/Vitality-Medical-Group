@@ -143,7 +143,7 @@ export default function AddMedicForm() {
       icon: 'success',
       title: 'Su médico ah sido creado.',
       showConfirmButton: false,
-      timer: 1500
+      timer: 800
     })
 
     console.log(userDate)
