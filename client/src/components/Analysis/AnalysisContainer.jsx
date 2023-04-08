@@ -60,7 +60,7 @@ export default function AnalysisContainer() {
     useLayoutEffect(() => {
         dispatch(getSpecialities());
         dispatch(getAnalysis());
-      }, []);
+    }, []);
 
     useEffect(() => {
         setAnalysis(allAnalysis);
