@@ -39,16 +39,11 @@ export default function TicketsDrawer() {
                 <Tooltip placement="right-start">
                     <IconButton onClick={toggleDrawer}>
                         <MonitorHeartIcon sx={{ fontSize: 30 }} />
+                        <div className={styles.badge}>
+                            <p>{userTickets.length}</p>
+                        </div>
                     </IconButton>
                 </Tooltip>
-                
-                }
-
-                {userTickets.length > 0 &&
-
-                <div className={styles.badge}>
-                    <p>{userTickets.length}</p>
-                </div>
                 
                 }
 

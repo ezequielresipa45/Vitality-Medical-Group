@@ -4,9 +4,11 @@ import Header from '../Header/Header';
 import Cards from '../HomeCards/Cards'
 import ContainerNews from '../News/ContainerNews2';
 import Sponsors from '../Sponsors/Sponsors';
-import styles from "./Home.module.css";
 import Popup from '../PopUp/PopUp';
 import ExperienceForm from "../ExperienceForm/ExperienceForm.jsx"
+import SearchContainer from '../Search/SearchContainer';
+
+import styles from "./Home.module.css";
 
 
 export default function Home() {
@@ -24,11 +26,11 @@ export default function Home() {
 
     <br /><br /><br />
     <button onClick={()=>setButtonPopup(true)}>Contanos tu experiencia</button>
-    <Popup trigger = {buttonPopup} setTrigger = {setButtonPopup}>
-        
+    <Popup trigger = {buttonPopup} setTrigger = {setButtonPopup}>   
         <ExperienceForm/>
     </Popup>
-    
+
+    <SearchContainer />    
 
     <Cards/>
 
