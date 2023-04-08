@@ -1,6 +1,11 @@
-const { Patient, TicketMedical, User, Plan } = require("../../db");
+const {
+  Patient,
+  TicketMedical,
+  TicketAnalysis,
+  User,
+  Plan,
+} = require("../../db");
 const { Op } = require("sequelize");
-const TicketAnalysis = require("../../models/TicketAnalysis");
 
 // *Este helper nos permite traer los Pacientes de la base de datos e implementarlo en las rutas que lo requieran:
 const getPatients = async () => {
@@ -9,9 +14,9 @@ const getPatients = async () => {
       {
         model: TicketMedical,
       },
-      // {
-      //   model: TicketAnalysis,
-      // },
+      {
+        model: TicketAnalysis,
+      },
       {
         model: User,
       },
@@ -32,9 +37,9 @@ const searchPatientByName = async (name) => {
       {
         model: TicketMedical,
       },
-      // {
-      //   model: TicketAnalysis,
-      // },
+      {
+        model: TicketAnalysis,
+      },
       {
         model: User,
       },
@@ -64,9 +69,9 @@ const findDniPatient = async (dni) => {
       {
         model: TicketMedical,
       },
-      // {
-      //   model: TicketAnalysis,
-      // },
+      {
+        model: TicketAnalysis,
+      },
       {
         model: User,
       },
@@ -89,6 +94,9 @@ const getPatientById = async (id) => {
     include: [
       {
         model: TicketMedical,
+      },
+      {
+        model: TicketAnalysis,
       },
       {
         model: User,

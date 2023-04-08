@@ -12,7 +12,6 @@ const {
 const getPatientsHandler = async (req, res) => {
   try {
     const { name } = req.query;
-    console.log(name);
     const request = name
       ? await searchPatientByName(name)
       : await getAllPatients();
@@ -68,7 +67,7 @@ const createPatientHandler = async (req, res) => {
       age,
       birthday,
       phone,
-      address,
+      address
     );
     return res.status(201).json(request);
   } catch (error) {
