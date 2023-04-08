@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDoctorsByID, putDoctor } from '../../redux/actions';
 import style from './PutDoctor.module.css';
+import Swal from 'sweetalert2';
+
 
 const PutDoctor = () => {
   const [id, setId] = useState('');
@@ -28,7 +30,6 @@ const PutDoctor = () => {
     phone: '',
     address: '',
     image: '',
-    full_name: '',
   });
 
   const handleChange = (e) => {
@@ -37,10 +38,20 @@ const PutDoctor = () => {
       ...prevState,
       [name]: value,
     }));
+
+
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Su médico ah sido actualizado.',
+      showConfirmButton: false,
+      timer: 800
+    })
+    
     dispatch(putDoctor(userDate));
   };
 
@@ -75,7 +86,7 @@ const PutDoctor = () => {
               id="full_name"
               name="full_name"
               value={userDate.full_name}
-              onChange={handleChange}
+              disabled
             />
 </div>
 

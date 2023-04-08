@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDoctorsByID, deleteDoctor } from '../../redux/actions';
 import style from './DeleteDoctor.module.css';
+import Swal from 'sweetalert2';
 
 const DeleteDoctor = () => {
 
@@ -22,14 +23,29 @@ const DeleteDoctor = () => {
   const handleSearch = e => {
     e.preventDefault();
     dispatch(getDoctorsByID(doctorID));
-  
-
   };
   
   const handleDelete = e => {
     e.preventDefault();
-    dispatch(deleteDoctor(doctorID));
-    setDoctorID('');
+    Swal.fire({
+      title: 'Está seguro?',
+      text: "No podrá revertir los cambios!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteDoctor(doctorID));
+        setDoctorID('');
+        Swal.fire(
+          'Eliminado!',
+          'El médico ah sido eliminado.',
+          'Exitosamente'
+        )
+      }
+    })
     
   }
   

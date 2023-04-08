@@ -1,30 +1,77 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDoctors } from "../../redux/actions";
+import { getDoctors, sortDoctors,sortDoctorsById,sortDoctorsBySpecialty } from "../../redux/actions";
 import styles from "./GetDoctorsAdmin.module.css";
 
 export default function GetDoctorsAdmin() {
   const dispatch = useDispatch();
   const doctors = useSelector((state) => state.doctors);
+  const [orderBy, setOrderBy] = useState(null); // Estado para el ordenamiento
 
   useEffect(() => {
     dispatch(getDoctors());
-    console.log(doctors);
   }, []);
+
+
+
+  // Función para manejar el clic en el botón de Nombre
+  const orderbyName = () => {
+    if (orderBy === "asc") {
+      // Si ya está ordenado ascendentemente, cambiar a descendente
+      setOrderBy("desc");
+      dispatch(sortDoctors("desc")); // Llamar a la acción sortDoctors con el orden "desc"
+    } else {
+      // Si no está ordenado o está ordenado descendente, cambiar a ascendente
+      setOrderBy("asc");
+      dispatch(sortDoctors("asc")); // Llamar a la acción sortDoctors con el orden "asc"
+    }
+  };
+
+  // Función para manejar el clic en el botón de ordenar por ID ascendente
+  const handleSortByIdAsc = () => {
+    dispatch(sortDoctorsById("asc"));
+  };
+
+  // Función para manejar el clic en el botón de ordenar por ID descendente
+  const handleSortByIdDesc = () => {
+    dispatch(sortDoctorsById("desc"));
+  };
+
+  // Función para manejar el clic en el botón de ordenar por especialidad
+  const handleSortBySpecialty = () => {
+    const newOrder = orderBy === "asc" ? "desc" : "asc"; // Obtener el nuevo orden
+    dispatch(sortDoctorsBySpecialty(newOrder)); // Llamar a la acción sortDoctorsBySpecialty con el nuevo orden
+    setOrderBy(newOrder); // Actualizar el estado de orderBy con el nuevo orden
+  };
+
+
 
   return (
     <div className={styles.container__getDoctors}>
       <div className={styles.tablesName}>
 
-        <p>Id</p>
+<div>
+
+        <button onClick={handleSortByIdDesc} className={styles.parrap}>Asc</button>
+        <button onClick={handleSortByIdAsc} className={styles.parrap}>Desc</ button>
+
+</div>
+
+
         <p>Perfíl</p>
-        <p>Nombre</p>
+        <button onClick={orderbyName} className={styles.parrap}>Nombre</button>
         <p>Dirección</p>
         <p>Género</p>
         <p>Edad</p>
         <p>Matrícula</p>
-        <p>Especialidad</p>
-        
+
+        <button onClick={handleSortBySpecialty} className={styles.parrap}>
+
+        Especialidad
+
+        </button>
+  
+
       </div>
 
       {doctors &&

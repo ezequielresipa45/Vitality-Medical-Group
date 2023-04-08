@@ -29,6 +29,9 @@ export const LOGIN = "LOGIN"
 export const LOGOUT_LOGIN = "LOGOUT"
 export const POST_COMMENT = "POST_COMMENT"
 export const GET_COMMENTS = "GET_COMMENTS"
+export const SORT_DOCTORS = "SORT_DOCTORS"
+export const SORT_DOCTORS_BY_ID = "SORT_DOCTORS_BY_ID"
+export const SORT_DOCTORS_BY_SPECIALTY = "SORT_DOCTORS_BY_SPECIALTY"
 
 export function getSpecialities() {
     return {
@@ -300,3 +303,27 @@ export const putDoctor = (doctorData) => async (dispatch) => {
       });
     };
   }
+
+
+  export const sortDoctors = (orderBy) => {
+    return {
+      type: "SORT_DOCTORS",
+      payload: orderBy
+    };
+  };
+  
+
+  export const sortDoctorsById = (order) => {
+    return {
+      type: "SORT_DOCTORS_BY_ID",
+      payload: order,
+    };
+  };
+
+
+  export const sortDoctorsBySpecialty = (order) => {
+    return {
+      type: "SORT_DOCTORS_BY_SPECIALTY",
+      payload: order,
+    };
+  };
