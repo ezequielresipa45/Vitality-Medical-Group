@@ -1,4 +1,4 @@
-const {User,Plan,Paids} = require("../../db.js")
+const {User,Plan,Paids,Comment} = require("../../db.js")
 const {Op}= require("sequelize")
 
 /* 
@@ -12,7 +12,6 @@ falta
 
 put para setear la contraseña en "Password1234"(debatir con santi)
 
-hace falta un put para modificar el usuario ? que parametros ???????
 
     id,
     full_name,
@@ -42,6 +41,7 @@ const filterUserDB = (item) => {
 
 // este controler trae los users
 
+
 const getAllUser = async () =>{
     const request = await User.findAll({
         include:[ 
@@ -50,14 +50,16 @@ const getAllUser = async () =>{
             },
             {
             model: Paids,
+            },
+            {
+            model: Comment,
             }
+
         ],
 
     })
-    let filtered = request
-    .map((item) => filterUserDB(item))
-    .filter((item) => item.is_delete !== true)
-    .flat();
+      let filtered = request
+      .filter((item) => item.is_delete !== true)
 
   return filtered;
 };
@@ -72,11 +74,15 @@ const getUserById = async (id) => {
         {
           model: Paids,
         },
+        {
+          model: Comment,
+        },
       ],
     });
   
     if (request && request.is_delete === false) {
       return request;
+
     } else {
       return "No existe el Usuario con ese Id";
     }
@@ -85,8 +91,9 @@ const getUserById = async (id) => {
 // aca se crea un usuario nuevo 
 
 const createUser = async (full_name, email, password, user_name, image) => {
-  if (full_name && email && password && user_name && image) {
-    const request = await User.create({
+
+
+    const newUser = await User.create({
       full_name: full_name,
       email: email,
       password: password,
@@ -95,10 +102,39 @@ const createUser = async (full_name, email, password, user_name, image) => {
       is_plan_pay: false,
     });
     return { message: "El Usuario a sido creado con exito" };
+  }
+
+
+
+const setUser = async ( id,
+                        full_name,
+                        email,
+                        password,
+                        user_name,
+                        image,
+                        is_plan_pay,
+                        is_delete,
+                         ) =>{
+                        
+ const changeUser = await User.findByPk(id);
+  if (changeUser) {
+    await changeUser.set({
+      full_name: full_name,
+      email: email,
+      password: password,
+      user_name: user_name,
+      image: image,
+      is_plan_pay: is_plan_pay,
+      is_delete: is_delete,
+    });
+    
+    await changeUser.save();
+    return [changeUser];
   } else {
-    throw new Error("Faltan datos para crear el registro de usuario");
+    return "No existe el Usuario";
   }
 };
+                          
 
 
 const isAdmin = async (id, is_Admin) => {
@@ -161,6 +197,7 @@ module.exports = {
     getAllUser,
     getUserById,
     createUser,
+    setUser,
     isAdmin,
     deleteUser,
 }
