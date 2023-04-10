@@ -4,7 +4,7 @@ import axios from 'axios';
 const { VITE_URL_HOST_DB } = import.meta.env
 const URL =  VITE_URL_HOST_DB || "http://localhost:3001"
 
-
+export const GET_PATIENTS = "GET_PATIENTS";
 export const GET_SPECIALITIES = 'GET_SPECIALITIES';
 export const GET_ANALYSIS = 'GET_ANALYSIS';
 export const FILTER_ANALYSIS = 'FILTER_ANALYSIS';
@@ -87,6 +87,17 @@ export function getDoctorsByID(id){
     })
   }
 }
+export function getPatients(){
+  return async function(dispatch){
+    const json= await axios.get(`https://apiclinica.onrender.com/patient`);
+
+    return dispatch({
+      type: GET_PATIENTS,
+      payload: json.data,
+    })
+  }
+}
+
 
 export function getPatientsById(id){
   return async function(dispatch){
