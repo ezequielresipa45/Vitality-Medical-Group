@@ -1,0 +1,19 @@
+@font-face {
+    font-family: "FireSans";
+    src: url("../../Fonts/FiraSans-Bold.ttf");
+}
+
+.container{
+   justify-content: center;
+   margin-left: 150px;
+   align-items: center;
+   font-family: "FireSans";
+   
+   border-radius: 28px;
+  
+}
+.btn{
+    background-color: grey;
+   border-radius: 28px ;
+ 
+}

@@ -7,6 +7,7 @@ import Sponsors from '../Sponsors/Sponsors';
 import styles from "./Home.module.css";
 import Popup from '../PopUp/PopUp';
 import ExperienceForm from "../ExperienceForm/ExperienceForm.jsx"
+import CommentsCard from '../CommentsCard/CommentsCard';
 
 
 export default function Home() {
@@ -33,6 +34,8 @@ export default function Home() {
     <Cards/>
 
     <ContainerNews />
+
+    <CommentsCard/>
 
     <Sponsors />
 
