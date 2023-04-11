@@ -18,91 +18,49 @@ Este archivo recopila todos los endpoints de la Api e indica lo que requiere cad
 - `get => /doctor || /doctor?name=` => Devuelve un array con todos los doctores de la clínica. Cada elemento del array (objeto), incluye la información asociada sobre, su usuario, especialidades, horarios seteados por los turnos. Este endpoint también puede recibir un nombre para devolver el resultado de la búsqueda de un doctor por nombre en un array.
 
 ```shell
-[
-	{
-		"id": 2,
-		"dni": 3698754,
-		"code": 236514,
-		"full_name": "Paco Gerlo",
-		"gender": "masculino",
-		"age": 25,
-		"birthday": "1998-02-06",
-		"phone": "631498745",
-		"address": "CABA, Argentina",
+{
+		"id": 4,
+		"dni": 26589874,
+		"code": 687498,
+		"full_name": "Maxima Poronga",
+		"gender": "femenino",
+		"age": 43,
+		"birthday": "1980-12-09",
+		"phone": "46859731",
+		"address": "Tierra de Fuego, Argentina",
 		"image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
 		"is_delete": false,
 		"is_delivery": false,
-		"userId": null,
+		"is_morning": false,
+		"is_evening": true,
+		"userId": 5,
 		"specialities": [
 			{
-				"id": 2,
-				"speciality": "neurología"
-			},
-			{
-				"id": 3,
-				"speciality": "psiquiatría"
+				"speciality": "cardiología"
 			}
 		],
 		"schedules": [],
-		"user": null
-	},
-	{
-		"id": 1,
-		"dni": 8596745,
-		"code": 326475,
-		"full_name": "Devora Poronga",
-		"gender": "masculino",
-		"age": 48,
-		"birthday": "1975-12-25",
-		"phone": "36958745",
-		"address": "San Isidro, Argentina",
-		"image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
-		"is_delete": false,
-		"is_delivery": false,
-		"userId": null,
-		"specialities": [
+		"user": {
+			"id": 5,
+			"full_name": "Maluma Diva",
+			"email": "divinayarrecha@gmail.com",
+			"password": "superpasiva",
+			"user_name": "Bendecida y Afortunada",
+			"image": "https://www.softzone.es/app/uploads/2018/04/guest.png",
+			"is_admin": false,
+			"is_plan_pay": true,
+			"is_delete": false,
+			"planId": 2
+		},
+		"days": [
 			{
-				"id": 1,
-				"speciality": "dermatología"
+				"day": "Martes"
+			},
+			{
+				"day": "Lunes"
 			}
-		],
-		"schedules": [
-			{
-				"id": 1,
-				"date": "2023-06-10",
-				"hour_start": "08:00",
-				"hour_end": "08:30",
-				"is_delete": true,
-				"ticketMedicalId": 1
-			},
-			{
-				"id": 2,
-				"date": "2023-06-10",
-				"hour_start": "08:30",
-				"hour_end": "09:00",
-				"is_delete": true,
-				"ticketMedicalId": 2
-			},
-			{
-				"id": 3,
-				"date": "2023-06-10",
-				"hour_start": "08:30",
-				"hour_end": "09:00",
-				"is_delete": true,
-				"ticketMedicalId": 3
-			},
-			{
-				"id": 4,
-				"date": "2023-06-10",
-				"hour_start": "08:30",
-				"hour_end": "09:00",
-				"is_delete": true,
-				"ticketMedicalId": 4
-			}
-		],
-		"user": null
+		]
 	}
-]
 ```
 
 - `get => /doctor/dni` => A este endpoint se envía por body un objeto con el dni del doctor para realizar una búsqueda por DNI y envía un objeto con la info del doctor. Recibe:
@@ -117,8 +75,7 @@ Devuelve:
 
 ```shell
 {
-    {
-	"id": 2,
+	"id": 1,
 	"dni": 3698754,
 	"code": 236514,
 	"full_name": "Paco Gerlo",
@@ -130,84 +87,182 @@ Devuelve:
 	"image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
 	"is_delete": false,
 	"is_delivery": false,
-	"userId": null,
+	"is_morning": true,
+	"is_evening": false,
+	"userId": 3,
 	"specialities": [
 		{
-			"id": 2,
 			"speciality": "neurología"
-		},
-		{
-			"id": 3,
-			"speciality": "psiquiatría"
 		}
 	],
-	"schedules": [],
-	"user": null
-    }
+	"schedules": [
+		{
+			"id": 34,
+			"date": "2023-04-10",
+			"hour": "08:00",
+			"is_delete": true,
+			"doctorId": 1,
+			"dayId": 1
+		},
+		{
+			"id": 37,
+			"date": "2023-04-10",
+			"hour": "08:30",
+			"is_delete": true,
+			"doctorId": 1,
+			"dayId": 1
+		},
+		{
+			"id": 39,
+			"date": "2023-04-10",
+			"hour": "08:30",
+			"is_delete": true,
+			"doctorId": 1,
+			"dayId": 1
+		},
+		{
+			"id": 36,
+			"date": "2023-04-10",
+			"hour": "08:30",
+			"is_delete": true,
+			"doctorId": 1,
+			"dayId": 1
+		},
+		{
+			"id": 38,
+			"date": "2023-04-10",
+			"hour": "08:30",
+			"is_delete": true,
+			"doctorId": 1,
+			"dayId": 1
+		}
+	],
+	"user": {
+		"id": 3,
+		"full_name": "Shakira la Loba",
+		"email": "piquemepusoloscachos@gmail.com",
+		"password": "soypaquitaladelbarrio2",
+		"user_name": "Loba y Llorona",
+		"image": "https://www.softzone.es/app/uploads/2018/04/guest.png",
+		"is_admin": false,
+		"is_plan_pay": true,
+		"is_delete": false,
+		"planId": 3
+	},
+	"days": [
+		{
+			"day": "Lunes"
+		},
+		{
+			"day": "Martes"
+		}
+	]
 }
 ```
 
 - `get => /doctor/:id` => Este endpoint recibe por params un id y devuelve un objeto que contiene el doctor con su información.
 
 ```shell
-[
-	{
-		"id": 1,
-		"dni": 8596745,
-		"code": 326475,
-		"full_name": "Devora Poronga",
-		"gender": "masculino",
-		"age": 48,
-		"birthday": "1975-12-25",
-		"phone": "36958745",
-		"address": "San Isidro, Argentina",
-		"image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+{
+	"id": 1,
+	"dni": 3698754,
+	"code": 236514,
+	"full_name": "Paco Gerlo",
+	"gender": "masculino",
+	"age": 25,
+	"birthday": "1998-02-06",
+	"phone": "631498745",
+	"address": "CABA, Argentina",
+	"image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+	"is_delete": false,
+	"is_delivery": false,
+	"is_morning": true,
+	"is_evening": false,
+	"userId": 3,
+	"specialities": [
+		{
+			"speciality": "neurología"
+		}
+	],
+	"schedules": [
+		{
+			"id": 35,
+			"date": "2023-04-10",
+			"hour": "08:30",
+			"is_delete": true,
+			"doctorId": 1,
+			"dayId": 1
+		},
+		{
+			"id": 36,
+			"date": "2023-04-10",
+			"hour": "08:30",
+			"is_delete": true,
+			"doctorId": 1,
+			"dayId": 1
+		},
+		{
+			"id": 38,
+			"date": "2023-04-10",
+			"hour": "08:30",
+			"is_delete": true,
+			"doctorId": 1,
+			"dayId": 1
+		},
+		{
+			"id": 39,
+			"date": "2023-04-10",
+			"hour": "08:30",
+			"is_delete": true,
+			"doctorId": 1,
+			"dayId": 1
+		},
+		{
+			"id": 40,
+			"date": "2023-04-10",
+			"hour": "08:30",
+			"is_delete": true,
+			"doctorId": 1,
+			"dayId": 1
+		},
+		{
+			"id": 34,
+			"date": "2023-04-10",
+			"hour": "08:00",
+			"is_delete": true,
+			"doctorId": 1,
+			"dayId": 1
+		},
+		{
+			"id": 37,
+			"date": "2023-04-10",
+			"hour": "08:30",
+			"is_delete": true,
+			"doctorId": 1,
+			"dayId": 1
+		}
+	],
+	"user": {
+		"id": 3,
+		"full_name": "Shakira la Loba",
+		"email": "piquemepusoloscachos@gmail.com",
+		"password": "soypaquitaladelbarrio2",
+		"user_name": "Loba y Llorona",
+		"image": "https://www.softzone.es/app/uploads/2018/04/guest.png",
+		"is_admin": false,
+		"is_plan_pay": true,
 		"is_delete": false,
-		"is_delivery": false,
-		"userId": null,
-		"specialities": [
-			{
-				"id": 1,
-				"speciality": "dermatología"
-			}
-		],
-		"schedules": [
-			{
-				"id": 2,
-				"date": "2023-06-10",
-				"hour_start": "08:30",
-				"hour_end": "09:00",
-				"is_delete": true,
-				"ticketMedicalId": 2
-			},
-			{
-				"id": 4,
-				"date": "2023-06-10",
-				"hour_start": "08:30",
-				"hour_end": "09:00",
-				"is_delete": true,
-				"ticketMedicalId": 4
-			},
-			{
-				"id": 1,
-				"date": "2023-06-10",
-				"hour_start": "08:00",
-				"hour_end": "08:30",
-				"is_delete": true,
-				"ticketMedicalId": 1
-			},
-			{
-				"id": 3,
-				"date": "2023-06-10",
-				"hour_start": "08:30",
-				"hour_end": "09:00",
-				"is_delete": true,
-				"ticketMedicalId": 3
-			}
-		],
-		"user": null
-	}
-]
+		"planId": 3
+	},
+	"days": [
+		{
+			"day": "Lunes"
+		},
+		{
+			"day": "Martes"
+		}
+	]
+}
 ```
 
 - `post => /doctor` => A este endpoint se envía por body un `objeto` con la info necesaria para crear al doctor. Es necesario que se envíe el `Id del usuario` para poder enlazarlo.
@@ -238,20 +293,28 @@ En este caso recibe:
 
 `especialities`: se refiere a las especialidades del doctor; si es una sola especialidad recibe un `string`, sin embargo si son más de una, puede recibir un array de `strings`.
 
+`is_morning`: atributo booleano que hace referencia a si trabaja en el turno de la mañana.
+
+`is_evening`: atributo booleano que hace referencia a si trabaja en el turno de la tarde.
+
+`day`: puede ser un array con varios strings indicando los días en lo que presta servicio, o un solo string indicando el día.
+
 ```shell
 {
 	"idUser": 1,
-    "dni": 3698754,
-    "code": 236514,
-    "full_name": "Paco Gerlo",
+    "dni": 65749138,
+    "code": 2146852,
+    "full_name": "Pedro Nitales",
     "gender": "masculino",
     "birthday": "1998-02-06",
     "age": 25,
-    "phone": 631498745,
-    "address": "CABA, Argentina",
-    "is_delivery": true,
+    "phone": 69854784,
+    "address": "Banfield, Argentina",
     "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
-    "specialities": ["neurología", "psiquiatría"]
+    "specialities": "neumonología",
+    "is_morning": false,
+	"is_evening": true,
+	"day": ["Miércoles", "Jueves"]
 }
 ```
 
@@ -259,29 +322,39 @@ Devuelve un objeto con la siguiente información:
 
 ```shell
 {
-	"message": "El registro del médico se ha creado exitosamente",
-	"doctor_created": {
-	"id": 2,
-	"dni": 3698754,
-	"code": 236514,
-	"full_name": "Paco Gerlo",
-	"gender": "masculino",
-	"age": 25,
-	"birthday": "1998-02-06",
-	"phone": "631498745",
-	"address": "CABA, Argentina",
-	"image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
-	"is_delete": false,
-	"userId": null,
-	"specialities": [
-		{
-			"speciality": "neurología"
-		},
-		{
-			"speciality": "psiquiatría"
-		}
-	]
+		"message": "El registro del médico se ha creado exitosamente",
+		"doctor_created": {
+		"id": 6,
+		"dni": 65749138,
+		"code": 2146852,
+		"full_name": "Pedro Nitales",
+		"gender": "masculino",
+		"age": 25,
+		"birthday": "1998-02-06",
+		"phone": "69854784",
+		"address": "Banfield, Argentina",
+		"image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+		"is_delete": false,
+		"is_delivery": false,
+		"is_morning": false,
+		"is_evening": true,
+		"userId": null,
+		"specialities": [
+			{
+				"speciality": "neumonología"
+			}
+		],
+		"days": [
+			{
+				"day": "Jueves"
+			},
+			{
+				"day": "Miércoles"
+			}
+		],
+		"user": null
 }
+
 ```
 
 - `put => /doctor` => A este endpoint se envía por body un objeto con `id, phone, address, image` para actualizar el doctor. Es importante que si es un dato específico de alguno de estos el que se va a modificar, enviar la info que tenía del resto para que no quede null en la base de datos algún campo.
@@ -303,10 +376,124 @@ Devuelve un objeto con la siguiente información:
 }
 ```
 
-- `delete => /doctor/:id/delSchedule` => A este endpoint se envía por params un `id` para buscar el doctor y a través de él setear el atributo `is_delete` de cada `schedule` asociado como true. de Esta manera desde el front se pueden filtrar los horarios de los doctores y sólo se muestren los que tienen ese atributo en false (borrado lógico). Retorna el siguiente mensaje:
+- `delete => /doctor/delSchedule` => A este endpoint se envía por body `id` y `date` para buscar el doctor y a través de `date` buscar los horarios asociados y setear el atributo `is_delete` de cada `schedule` como true. De esta manera desde el front se pueden filtrar los horarios de los doctores y sólo se muestren los que tienen ese atributo en false (borrado lógico). Retorna el siguiente mensaje:
+  Recibe:
+
+```shell
+{
+	"id": 1,
+	"date": "2023-04-10"
+}
+```
+
+Devuelve:
 
 ```shell
 "Se han borrado los horarios exitosamente"
+```
+
+- `get => /doctor/doctorsDeleted` => Este endpoint devuelve en un array a todos los doctores que han sido borrados.
+
+```shell
+[
+	{
+		"id": 1,
+		"dni": 3698754,
+		"code": 236514,
+		"full_name": "Paco Gerlo",
+		"gender": "masculino",
+		"age": 25,
+		"birthday": "1998-02-06",
+		"phone": "631498745",
+		"address": "CABA, Argentina",
+		"image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+		"is_delete": true,
+		"is_delivery": false,
+		"is_morning": true,
+		"is_evening": false,
+		"userId": 3
+	}
+]
+```
+
+- `put => /doctor/recoverDoctor` => Este endpoint recibe por body el `id` del médico que se quiere dar de alta nuevamente, reestableciendo su ptopiedad `is_delete` en `false`. Devuelve un objeto con la información del médico recuperado.
+
+```shell
+{
+	"id": 1,
+	"dni": 3698754,
+	"code": 236514,
+	"full_name": "Paco Gerlo",
+	"gender": "masculino",
+	"age": 25,
+	"birthday": "1998-02-06",
+	"phone": "631498745",
+	"address": "CABA, Argentina",
+	"image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+	"is_delete": false,
+	"is_delivery": false,
+	"is_morning": true,
+	"is_evening": false,
+	"userId": 3
+}
+```
+
+- `put => /doctor/medicalGuard` => Este endpoint recibe por body `doctorId`, `is_morning`, `is_evening` del médico al que se le quiere modificar el horario del su turno.
+  Recibe:
+
+```shell
+{
+	"doctorId": 2,
+	"is_morning": false,
+	"is_evening": true
+}
+```
+
+Devuelve:
+
+```shell
+{
+	"id": 2,
+	"dni": 5469854,
+	"code": 148796,
+	"full_name": "Devora Testa",
+	"gender": "femenino",
+	"age": 35,
+	"birthday": "1988-12-03",
+	"phone": "79632548",
+	"address": "Lanus, Argentina",
+	"image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+	"is_delete": false,
+	"is_delivery": false,
+	"is_morning": false,
+	"is_evening": true,
+	"userId": 4,
+	"specialities": [
+		{
+			"speciality": "obstetricia"
+		}
+	],
+	"days": [
+		{
+			"day": "Jueves"
+		},
+		{
+			"day": "Viernes"
+		}
+	],
+	"user": {
+		"id": 4,
+		"full_name": "Kylian Mbappé",
+		"email": "putoenlacancha@gmail.com",
+		"password": "mangueraasesina",
+		"user_name": "Negro Manguera",
+		"image": "https://www.softzone.es/app/uploads/2018/04/guest.png",
+		"is_admin": false,
+		"is_plan_pay": true,
+		"is_delete": false,
+		"planId": 3
+	}
+}
 ```
 
 ## Endpoints de la ruta _/patient_:
@@ -316,53 +503,42 @@ Devuelve un objeto con la siguiente información:
 ```shell
 [
 	{
-		"id": 2,
-		"dni": 5986487,
-		"full_name": "Bernardo Brocheit",
-		"gender": "masculino",
-		"age": 53,
-		"birthday": "1970-12-12",
-		"phone": "2659749851",
-		"address": "Lima, Perú",
+		"id": 1,
+		"dni": 43183214,
+		"full_name": "Jonathan Rodriguez",
+		"gender": "diabolico",
+		"age": 40,
+		"birthday": "1983-05-04",
+		"phone": "256589742541",
+		"address": "Aragua, Venezuela",
 		"is_delete": false,
 		"planId": null,
-		"userId": 2,
-		"ticketMedicals": [],
+		"userId": 1,
+		"ticketMedicals": [
+			{
+				"id": 34,
+				"title": "disritmia cerebral",
+				"observations": "Consulta con Neurología",
+				"date": "2023-04-10",
+				"hour": "08:00",
+				"is_confirmed": false,
+				"is_delete": true,
+				"is_canceled": false,
+				"scheduleId": 34,
+				"patientId": 1,
+				"doctorId": 1,
+				"dayId": 1
+			}
+		],
+		"ticketAnalyses": [],
 		"user": {
-			"id": 2,
+			"id": 1,
 			"full_name": "Lionel Messi",
 			"email": "elguevodelmundo@gmail.com",
 			"password": "quetepasabobo",
 			"user_name": "Dios y yo",
 			"image": "https://www.softzone.es/app/uploads/2018/04/guest.png",
-			"is_admin": null,
-			"is_plan_pay": true,
-			"is_delete": false,
-			"planId": 2
-		},
-		"plan": null
-	},
-	{
-		"id": 1,
-		"dni": 79563254,
-		"full_name": "Maluma la del Barrio",
-		"gender": "empoderada",
-		"age": 25,
-		"birthday": "1998-02-06",
-		"phone": "859874621",
-		"address": "Colombia",
-		"is_delete": false,
-		"planId": null,
-		"userId": 1,
-		"ticketMedicals": [],
-		"user": {
-			"id": 1,
-			"full_name": "Maluma Diva",
-			"email": "divinayarrecha@gmail.com",
-			"password": "superpasiva",
-			"user_name": "Bendecida y Afortunada",
-			"image": "https://www.softzone.es/app/uploads/2018/04/guest.png",
-			"is_admin": null,
+			"is_admin": false,
 			"is_plan_pay": true,
 			"is_delete": false,
 			"planId": 1
@@ -520,105 +696,109 @@ Devuelve:
 }
 ```
 
-## Endpoints de la ruta _/ticketMedical_:
-
-- `get => /ticketMedical` => Este endpoint permite devolver todos los ticketsMedicals en un array de objetos. Cada objeto representa un ticket médico son su información asociada: horario, doctor, paciente.
+- `get => /patient/patientsDeleted` => Este endpoint devuelve en un array a todos los pacientes que han sido borrados, es decir, los que tienen seteado `is_delete` como `true`.
+  Devuelve:
 
 ```shell
 [
 	{
-		"id": 5,
-		"title": "piel delicadita",
-		"observations": "Consulta con dermatología",
-		"date": "2023-06-10",
-		"hour_start": "08:30",
-		"is_confirmed": false,
-		"is_delete": false,
-		"patientId": 3,
-		"schedule": {
-			"id": 5,
-			"date": "2023-06-10",
-			"hour_start": "08:30",
-			"hour_end": "09:00",
-			"is_delete": false,
-			"ticketMedicalId": 5
-		},
-		"patient": {
-			"id": 3,
-			"dni": 79563245,
-			"full_name": "Maluma la del Barrio",
-			"gender": "empoderada",
-			"age": 25,
-			"birthday": "1998-02-06",
-			"phone": "859874621",
-			"address": "Colombia",
-			"is_delete": false,
-			"planId": null,
-			"userId": null
-		},
-		"doctors": [
-			{
-				"id": 2,
-				"dni": 3698754,
-				"code": 236514,
-				"full_name": "Paco Gerlo",
-				"gender": "masculino",
-				"age": 25,
-				"birthday": "1998-02-06",
-				"phone": "631498745",
-				"address": "CABA, Argentina",
-				"image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
-				"is_delete": false,
-				"is_delivery": false,
-				"userId": null,
-				"DoctorTM": {
-					"createdAt": "2023-03-30T02:11:06.338Z",
-					"updatedAt": "2023-03-30T02:11:06.338Z",
-					"doctorId": 2,
-					"ticketMedicalId": 5
-				}
-			}
-		]
+		"id": 1,
+		"dni": 43183214,
+		"full_name": "Jonathan Rodriguez",
+		"gender": "diabolico",
+		"age": 40,
+		"birthday": "1983-05-04",
+		"phone": "256589742541",
+		"address": "Aragua, Venezuela",
+		"is_delete": true,
+		"planId": null,
+		"userId": 1
+	},
+	{
+		"id": 2,
+		"dni": 5986487,
+		"full_name": "Bernardo Brocheit",
+		"gender": "masculino",
+		"age": 53,
+		"birthday": "1970-12-12",
+		"phone": "2659749851",
+		"address": "Lima, Perú",
+		"is_delete": true,
+		"planId": null,
+		"userId": 2
 	}
 ]
 ```
 
-- `get => /ticketMedical/:id` => Este endpoint recibe por params un id correspondiente al ticket médico a buscar y devuelve un objeto con toda la información asociada a ese turno:
+- `put => /patient/recoverPatient` => Este endpoint recibe por body el `id` del paciente que se quiere dar de alta nuevamente, reestableciendo su ptopiedad `is_delete` en `false`. Devuelve un objeto con la información del paciente recuperado.
+  Recibe:
 
 ```shell
 {
-	"id": 5,
-	"title": "piel delicadita",
-	"observations": "Consulta con dermatología",
-	"date": "2023-06-10",
-	"hour_start": "08:30",
-	"is_confirmed": false,
+	"id": 1
+}
+```
+
+Devuelve:
+
+```shell
+{
+	"id": 1,
+	"dni": 43183214,
+	"full_name": "Jonathan Rodriguez",
+	"gender": "diabolico",
+	"age": 40,
+	"birthday": "1983-05-04",
+	"phone": "256589742541",
+	"address": "Aragua, Venezuela",
 	"is_delete": false,
-	"patientId": 3,
-	"schedule": {
-		"id": 5,
-		"date": "2023-06-10",
-		"hour_start": "08:30",
-		"hour_end": "09:00",
+	"planId": null,
+	"userId": 1
+}
+```
+
+## Endpoints de la ruta _/ticketMedical_:
+
+- `get => /ticketMedical` => Este endpoint permite devolver todos los ticketsMedicals en un array de objetos. Cada objeto representa un ticket médico son su información asociada: horario, doctor, paciente, día.
+
+```shell
+[
+	{
+		"id": 36,
+		"title": "cefaleas",
+		"observations": "Consulta con Neurología",
+		"date": "2023-04-10",
+		"hour": "08:30",
+		"is_confirmed": false,
 		"is_delete": false,
-		"ticketMedicalId": 5
-	},
-	"patient": {
-		"id": 3,
-		"dni": 79563245,
-		"full_name": "Maluma la del Barrio",
-		"gender": "empoderada",
-		"age": 25,
-		"birthday": "1998-02-06",
-		"phone": "859874621",
-		"address": "Colombia",
-		"is_delete": false,
-		"planId": null,
-		"userId": null
-	},
-	"doctors": [
-		{
+		"is_canceled": false,
+		"scheduleId": 36,
+		"patientId": 2,
+		"doctorId": 1,
+		"dayId": 1,
+		"schedule": {
+			"id": 36,
+			"date": "2023-04-10",
+			"hour": "08:30",
+			"is_delete": true,
+			"doctorId": 1,
+			"dayId": 1
+		},
+		"patient": {
 			"id": 2,
+			"dni": 5986487,
+			"full_name": "Bernardo Brocheit",
+			"gender": "masculino",
+			"age": 53,
+			"birthday": "1970-12-12",
+			"phone": "2659749851",
+			"address": "Lima, Perú",
+			"is_delete": true,
+			"planId": null,
+			"userId": 2
+		},
+		"doctor": {
+			"id": 1,
 			"dni": 3698754,
 			"code": 236514,
 			"full_name": "Paco Gerlo",
@@ -630,15 +810,188 @@ Devuelve:
 			"image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
 			"is_delete": false,
 			"is_delivery": false,
-			"userId": null,
-			"DoctorTM": {
-				"createdAt": "2023-03-30T02:11:06.338Z",
-				"updatedAt": "2023-03-30T02:11:06.338Z",
-				"doctorId": 2,
-				"ticketMedicalId": 5
-			}
+			"is_morning": false,
+			"is_evening": false,
+			"userId": 3
+		},
+		"day": {
+			"id": 1,
+			"day": "Lunes"
 		}
-	]
+	},
+	{
+		"id": 38,
+		"title": "cefaleas",
+		"observations": "Consulta con Neurología",
+		"date": "2023-04-10",
+		"hour": "08:30",
+		"is_confirmed": false,
+		"is_delete": false,
+		"is_canceled": false,
+		"scheduleId": 38,
+		"patientId": 2,
+		"doctorId": 1,
+		"dayId": 1,
+		"schedule": {
+			"id": 38,
+			"date": "2023-04-10",
+			"hour": "08:30",
+			"is_delete": true,
+			"doctorId": 1,
+			"dayId": 1
+		},
+		"patient": {
+			"id": 2,
+			"dni": 5986487,
+			"full_name": "Bernardo Brocheit",
+			"gender": "masculino",
+			"age": 53,
+			"birthday": "1970-12-12",
+			"phone": "2659749851",
+			"address": "Lima, Perú",
+			"is_delete": true,
+			"planId": null,
+			"userId": 2
+		},
+		"doctor": {
+			"id": 1,
+			"dni": 3698754,
+			"code": 236514,
+			"full_name": "Paco Gerlo",
+			"gender": "masculino",
+			"age": 25,
+			"birthday": "1998-02-06",
+			"phone": "631498745",
+			"address": "CABA, Argentina",
+			"image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+			"is_delete": false,
+			"is_delivery": false,
+			"is_morning": false,
+			"is_evening": false,
+			"userId": 3
+		},
+		"day": {
+			"id": 1,
+			"day": "Lunes"
+		}
+	},
+	{
+		"id": 39,
+		"title": "cefaleas",
+		"observations": "Consulta con Neurología",
+		"date": "2023-04-10",
+		"hour": "08:30",
+		"is_confirmed": false,
+		"is_delete": false,
+		"is_canceled": false,
+		"scheduleId": 39,
+		"patientId": 2,
+		"doctorId": 1,
+		"dayId": 1,
+		"schedule": {
+			"id": 39,
+			"date": "2023-04-10",
+			"hour": "08:30",
+			"is_delete": true,
+			"doctorId": 1,
+			"dayId": 1
+		},
+		"patient": {
+			"id": 2,
+			"dni": 5986487,
+			"full_name": "Bernardo Brocheit",
+			"gender": "masculino",
+			"age": 53,
+			"birthday": "1970-12-12",
+			"phone": "2659749851",
+			"address": "Lima, Perú",
+			"is_delete": true,
+			"planId": null,
+			"userId": 2
+		},
+		"doctor": {
+			"id": 1,
+			"dni": 3698754,
+			"code": 236514,
+			"full_name": "Paco Gerlo",
+			"gender": "masculino",
+			"age": 25,
+			"birthday": "1998-02-06",
+			"phone": "631498745",
+			"address": "CABA, Argentina",
+			"image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+			"is_delete": false,
+			"is_delivery": false,
+			"is_morning": false,
+			"is_evening": false,
+			"userId": 3
+		},
+		"day": {
+			"id": 1,
+			"day": "Lunes"
+		}
+	}
+]
+```
+
+- `get => /ticketMedical/:id` => Este endpoint recibe por params un id correspondiente al ticket médico a buscar y devuelve un objeto con toda la información asociada a ese turno:
+
+```shell
+{
+	"id": 39,
+	"title": "cefaleas",
+	"observations": "Consulta con Neurología",
+	"date": "2023-04-10",
+	"hour": "08:30",
+	"is_confirmed": false,
+	"is_delete": false,
+	"is_canceled": false,
+	"scheduleId": 39,
+	"patientId": 2,
+	"doctorId": 1,
+	"dayId": 1,
+	"schedule": {
+		"id": 39,
+		"date": "2023-04-10",
+		"hour": "08:30",
+		"is_delete": true,
+		"doctorId": 1,
+		"dayId": 1
+	},
+	"patient": {
+		"id": 2,
+		"dni": 5986487,
+		"full_name": "Bernardo Brocheit",
+		"gender": "masculino",
+		"age": 53,
+		"birthday": "1970-12-12",
+		"phone": "2659749851",
+		"address": "Lima, Perú",
+		"is_delete": true,
+		"planId": null,
+		"userId": 2
+	},
+	"doctor": {
+		"id": 1,
+		"dni": 3698754,
+		"code": 236514,
+		"full_name": "Paco Gerlo",
+		"gender": "masculino",
+		"age": 25,
+		"birthday": "1998-02-06",
+		"phone": "631498745",
+		"address": "CABA, Argentina",
+		"image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
+		"is_delete": false,
+		"is_delivery": false,
+		"is_morning": false,
+		"is_evening": false,
+		"userId": 3
+	},
+	"day": {
+		"id": 1,
+		"day": "Lunes"
+	}
 }
 ```
 
@@ -656,19 +1009,19 @@ Recibe:
 
 `date`: fecha del turno (en este formato: año, mes, día).
 
-`hour_start`: hora de comienzo del turno.
+`hour`: hora del turno.
 
-`hour_end`: hora de finalización del turno
+`day`: día de la semana del turno.
 
 ```shell
 {
-    "title": "piel delicadita",
-    "observations": "Consulta con dermatología",
-    "doctorId": 2,
-    "patientId": 3,
-    "date": "2023-06-10",
-    "hour_start": "08:30",
-    "hour_end": "09:00"
+    "title": "cefaleas",
+    "observations": "Consulta con Neurología",
+    "day": "Lunes",
+    "doctorId": 1,
+    "patientId": 2,
+    "date": "2023-04-10",
+    "hour": "08:30"
 }
 ```
 
@@ -678,7 +1031,7 @@ Devuelve:
 "Turno creado exitosamente"
 ```
 
-- `put => /ticketMedical/confirmTicket` => Este endpoint permite confirmar un turno médico. Recibe un `id` por body. Al confirmarse el turno, deja de aparecer en la lista de turnos y los horarios relacionados a ese turno se modifican a `is_delete: true`.
+- `put => /ticketMedical/confirmTicket` => Este endpoint permite confirmar un turno médico. Recibe un `id` por body. Al confirmarse el turno, deja de aparecer en la lista de turnos.
   Devuelve el siguiente mensaje:
 
 ```shell
@@ -691,23 +1044,72 @@ Devuelve:
 "El Turno médico fue borrado exitosamente"
 ```
 
+- `delete => /ticketMedical/destroyTicket` => A este endpoint se envía por body `idTicket` para buscar el turno médico a borrar; destruye el registro de la base de datos, así también con el horario asociado. Retorna el siguiente mensaje:
+  Recibe:
+
+```shell
+{
+	"idTicket": 35
+}
+```
+
+```shell
+""El Turno médico fue cancelado exitosamente""
+```
+
 ## Endpoints de la ruta _/speciality_:
 
-- `get => /speciality` => Este endpoint devuelve un array con todas las especialidades de la clínica.
+- `get => /speciality` => Este endpoint devuelve un array con todas las especialidades de la clínica y los nombres y ids de los médicos asociados a esas especialidades.
 
 ```shell
 [
 	{
-		"id": 1,
-		"speciality": "dermatología"
-	},
-	{
-		"id": 2,
-		"speciality": "neurología"
-	},
-	{
 		"id": 3,
-		"speciality": "psiquiatría"
+		"speciality": "neurología",
+		"doctors": [
+			{
+				"id": 1,
+				"full_name": "Paco Gerlo"
+			}
+		],
+		"is_delete": false
+	},
+	{
+		"id": 11,
+		"speciality": "obstetricia",
+		"doctors": [
+			{
+				"id": 2,
+				"full_name": "Devora Testa"
+			}
+		],
+		"is_delete": false
+	},
+	{
+		"id": 8,
+		"speciality": "cardiología",
+		"doctors": [
+			{
+				"id": 4,
+				"full_name": "Maxima Poronga"
+			}
+		],
+		"is_delete": false
+	},
+	{
+		"id": 14,
+		"speciality": "neumonología",
+		"doctors": [
+			{
+				"id": 5,
+				"full_name": "Jorge Nitales"
+			},
+			{
+				"id": 6,
+				"full_name": "Pedro Nitales"
+			}
+		],
+		"is_delete": false
 	}
 ]
 ```
@@ -760,24 +1162,174 @@ Devuelve:
 ```shell
 [
 	{
-		"id": 1,
-		"full_name": "Maluma Diva",
-		"email": "divinayarrecha@gmail.com",
-		"user_name": "Bendecida y Afortunada",
+		"id": 2,
+		"full_name": "Lady Gaga",
+		"email": "locadeabola@gmail.com",
+		"password": "soypsicopata",
+		"user_name": "Tengo Problemas",
 		"image": "https://www.softzone.es/app/uploads/2018/04/guest.png",
-		"is_admin": null,
+		"is_admin": false,
 		"is_plan_pay": true,
-		"is_delete": false
+		"is_delete": false,
+		"planId": 1,
+		"plan": {
+			"id": 1,
+			"name": "Maximun care",
+			"members": 8,
+			"price": 300,
+			"description": "Familiar",
+			"code": 1005,
+			"consultations_per_patients": 50,
+			"is_delete": false
+		},
+		"paids": [
+			{
+				"id": 2,
+				"date": "2019-07-10T14:47:58.000Z",
+				"description": "pago de plan Maximun care",
+				"price": 300,
+				"paymentId": 2,
+				"userId": 2,
+				"planId": 1
+			}
+		],
+		"comments": []
 	},
 	{
-		"id": 2,
+		"id": 5,
+		"full_name": "Maluma Diva",
+		"email": "divinayarrecha@gmail.com",
+		"password": "superpasiva",
+		"user_name": "Bendecida y Afortunada",
+		"image": "https://www.softzone.es/app/uploads/2018/04/guest.png",
+		"is_admin": false,
+		"is_plan_pay": true,
+		"is_delete": false,
+		"planId": 2,
+		"plan": {
+			"id": 2,
+			"name": "Full Care",
+			"members": 5,
+			"price": 100,
+			"description": "Familiar",
+			"code": 1001,
+			"consultations_per_patients": 20,
+			"is_delete": false
+		},
+		"paids": [
+			{
+				"id": 4,
+				"date": "2019-07-10T14:47:58.000Z",
+				"description": "pago de plan Full care",
+				"price": 100,
+				"paymentId": 4,
+				"userId": 5,
+				"planId": 2
+			}
+		],
+		"comments": []
+	},
+	{
+		"id": 4,
+		"full_name": "Kylian Mbappé",
+		"email": "putoenlacancha@gmail.com",
+		"password": "mangueraasesina",
+		"user_name": "Negro Manguera",
+		"image": "https://www.softzone.es/app/uploads/2018/04/guest.png",
+		"is_admin": false,
+		"is_plan_pay": true,
+		"is_delete": false,
+		"planId": 3,
+		"plan": {
+			"id": 3,
+			"name": "Joven",
+			"members": 1,
+			"price": 50,
+			"description": "individual",
+			"code": 1002,
+			"consultations_per_patients": 20,
+			"is_delete": false
+		},
+		"paids": [
+			{
+				"id": 5,
+				"date": "2019-07-10T14:47:58.000Z",
+				"description": "pago de plan joven",
+				"price": 50,
+				"paymentId": 5,
+				"userId": 4,
+				"planId": 3
+			}
+		],
+		"comments": []
+	},
+	{
+		"id": 1,
 		"full_name": "Lionel Messi",
 		"email": "elguevodelmundo@gmail.com",
+		"password": "quetepasabobo",
 		"user_name": "Dios y yo",
 		"image": "https://www.softzone.es/app/uploads/2018/04/guest.png",
-		"is_admin": null,
+		"is_admin": false,
 		"is_plan_pay": true,
-		"is_delete": false
+		"is_delete": false,
+		"planId": 1,
+		"plan": {
+			"id": 1,
+			"name": "Maximun care",
+			"members": 8,
+			"price": 300,
+			"description": "Familiar",
+			"code": 1005,
+			"consultations_per_patients": 50,
+			"is_delete": false
+		},
+		"paids": [
+			{
+				"id": 1,
+				"date": "2019-07-10T14:47:58.000Z",
+				"description": "pago de plan Maximun Care",
+				"price": 300,
+				"paymentId": 1,
+				"userId": 1,
+				"planId": 1
+			}
+		],
+		"comments": []
+	},
+	{
+		"id": 3,
+		"full_name": "Shakira la Loba",
+		"email": "piquemepusoloscachos@gmail.com",
+		"password": "soypaquitaladelbarrio2",
+		"user_name": "Loba y Llorona",
+		"image": "https://www.softzone.es/app/uploads/2018/04/guest.png",
+		"is_admin": false,
+		"is_plan_pay": true,
+		"is_delete": false,
+		"planId": 3,
+		"plan": {
+			"id": 3,
+			"name": "Joven",
+			"members": 1,
+			"price": 50,
+			"description": "individual",
+			"code": 1002,
+			"consultations_per_patients": 20,
+			"is_delete": false
+		},
+		"paids": [
+			{
+				"id": 3,
+				"date": "2019-07-10T14:47:58.000Z",
+				"description": "pago de plan Joven",
+				"price": 50,
+				"paymentId": 3,
+				"userId": 3,
+				"planId": 3
+			}
+		],
+		"comments": []
 	}
 ]
 ```
@@ -787,35 +1339,37 @@ Devuelve:
 ```shell
 {
 	"id": 1,
-	"full_name": "Maluma Diva",
-	"email": "divinayarrecha@gmail.com",
-	"password": "superpasiva",
-	"user_name": "Bendecida y Afortunada",
+	"full_name": "Lionel Messi",
+	"email": "elguevodelmundo@gmail.com",
+	"password": "quetepasabobo",
+	"user_name": "Dios y yo",
 	"image": "https://www.softzone.es/app/uploads/2018/04/guest.png",
-	"is_admin": null,
+	"is_admin": false,
 	"is_plan_pay": true,
 	"is_delete": false,
 	"planId": 1,
 	"plan": {
 		"id": 1,
-		"name": "Adulto mayor",
-		"members": 2,
-		"price": 120,
-		"description": "Pareja de adultos mayores",
-		"code": 1003,
-		"consultations_per_patients": 20
+		"name": "Maximun care",
+		"members": 8,
+		"price": 300,
+		"description": "Familiar",
+		"code": 1005,
+		"consultations_per_patients": 50,
+		"is_delete": false
 	},
 	"paids": [
 		{
 			"id": 1,
 			"date": "2019-07-10T14:47:58.000Z",
-			"description": "pago de plan adulto mayor",
-			"price": 50000,
+			"description": "pago de plan Maximun Care",
+			"price": 300,
 			"paymentId": 1,
 			"userId": 1,
-			"planId": null
+			"planId": 1
 		}
-	]
+	],
+	"comments": []
 }
 ```
 
@@ -1454,4 +2008,182 @@ Devuelve:
 {
 	"Comentario creado satisfactoriamente"
 }
+```
+
+## Endpoints de la ruta _/day_:
+
+- `get => /day` => Este endpoint devuelve un array con los días de la semana creados, junto con la información de los turnos, horarios y doctores asociados a ese día.
+
+```shell
+[
+	{
+		"id": 1,
+		"day": "Lunes",
+		"ticketMedicals": [
+			{
+				"id": 35,
+				"title": "cefaleas",
+				"observations": "Consulta con Neurología",
+				"date": "2023-04-10",
+				"hour": "08:30",
+				"is_confirmed": false,
+				"is_delete": false,
+				"is_canceled": false,
+				"scheduleId": 35,
+				"patientId": null,
+				"doctorId": 1,
+				"dayId": 1
+			},
+			{
+				"id": 36,
+				"title": "cefaleas",
+				"observations": "Consulta con Neurología",
+				"date": "2023-04-10",
+				"hour": "08:30",
+				"is_confirmed": false,
+				"is_delete": false,
+				"is_canceled": false,
+				"scheduleId": 36,
+				"patientId": 2,
+				"doctorId": 1,
+				"dayId": 1
+			},
+			{
+				"id": 38,
+				"title": "cefaleas",
+				"observations": "Consulta con Neurología",
+				"date": "2023-04-10",
+				"hour": "08:30",
+				"is_confirmed": false,
+				"is_delete": false,
+				"is_canceled": false,
+				"scheduleId": 38,
+				"patientId": 2,
+				"doctorId": 1,
+				"dayId": 1
+			},
+			{
+				"id": 39,
+				"title": "cefaleas",
+				"observations": "Consulta con Neurología",
+				"date": "2023-04-10",
+				"hour": "08:30",
+				"is_confirmed": false,
+				"is_delete": false,
+				"is_canceled": false,
+				"scheduleId": 39,
+				"patientId": 2,
+				"doctorId": 1,
+				"dayId": 1
+			},
+			{
+				"id": 40,
+				"title": "cefaleas",
+				"observations": "Consulta con Neurología",
+				"date": "2023-04-10",
+				"hour": "08:30",
+				"is_confirmed": false,
+				"is_delete": false,
+				"is_canceled": false,
+				"scheduleId": 40,
+				"patientId": 2,
+				"doctorId": 1,
+				"dayId": 1
+			}
+		],
+		"schedules": [
+			{
+				"id": 37,
+				"date": "2023-04-10",
+				"hour": "08:30",
+				"is_delete": true,
+				"doctorId": 1,
+				"dayId": 1
+			},
+			{
+				"id": 34,
+				"date": "2023-04-10",
+				"hour": "08:00",
+				"is_delete": true,
+				"doctorId": 1,
+				"dayId": 1
+			},
+			{
+				"id": 40,
+				"date": "2023-04-10",
+				"hour": "08:30",
+				"is_delete": true,
+				"doctorId": 1,
+				"dayId": 1
+			},
+			{
+				"id": 39,
+				"date": "2023-04-10",
+				"hour": "08:30",
+				"is_delete": true,
+				"doctorId": 1,
+				"dayId": 1
+			},
+			{
+				"id": 38,
+				"date": "2023-04-10",
+				"hour": "08:30",
+				"is_delete": true,
+				"doctorId": 1,
+				"dayId": 1
+			},
+			{
+				"id": 36,
+				"date": "2023-04-10",
+				"hour": "08:30",
+				"is_delete": true,
+				"doctorId": 1,
+				"dayId": 1
+			},
+			{
+				"id": 35,
+				"date": "2023-04-10",
+				"hour": "08:30",
+				"is_delete": true,
+				"doctorId": 1,
+				"dayId": 1
+			}
+		],
+		"doctors": [
+			{
+				"id": 1,
+				"full_name": "Paco Gerlo",
+				"specialities": [
+					{
+						"speciality": "neurología"
+					}
+				]
+			},
+			{
+				"id": 4,
+				"full_name": "Maxima Poronga",
+				"specialities": [
+					{
+						"speciality": "cardiología"
+					}
+				]
+			}
+		]
+	}
+]
+```
+
+- `post => /day` => Este endpoint recibe por body `day` con el día de la semana a crear.
+  Recibe:
+
+```shell
+{
+	"day": "Viernes"
+}
+```
+
+Devuelve:
+
+```shell
+"Se ha creado el día exitosamente"
 ```

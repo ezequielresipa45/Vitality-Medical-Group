@@ -12,6 +12,7 @@ const validatorCreateDoctor = (req, res, next) => {
     address,
     image,
     specialities,
+    day,
   } = req.body;
   if (
     ![
@@ -25,6 +26,7 @@ const validatorCreateDoctor = (req, res, next) => {
       address,
       image,
       specialities,
+      day,
     ].every(Boolean)
   )
     return res.status(404).json({ error: "Falta enviar datos obligatorios" });
@@ -63,26 +65,11 @@ const validatorUpdatePatient = (req, res, next) => {
 
 // *Validador para crear a un turno médico:
 const validatorCreateTicketMedical = (req, res, next) => {
-  const {
-    title,
-    observations,
-    doctorId,
-    patientId,
-    date,
-    hour_start,
-    hour_end,
-  } = req.body;
+  const { title, observations, doctorId, patientId, date, hour, day } =
+    req.body;
 
   if (
-    ![
-      title,
-      observations,
-      doctorId,
-      patientId,
-      date,
-      hour_start,
-      hour_end,
-    ].every(Boolean)
+    ![title, observations, doctorId, patientId, date, hour, day].every(Boolean)
   )
     return res.status(404).json({ error: "Falta enviar datos obligatorios" });
 

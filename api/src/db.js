@@ -13,6 +13,7 @@ const TicketAnalysislModel = require("./models/TicketAnalysis");
 const UserModel = require("./models/User");
 const AnalysisModel = require("./models/Analysis");
 const CommentModel = require("./models/Comment");
+const DayModel = require("./models/Day");
 
 require("dotenv").config();
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT, DB_DEPLOY } =
@@ -40,6 +41,7 @@ TicketAnalysislModel(sequelize);
 UserModel(sequelize);
 AnalysisModel(sequelize);
 CommentModel(sequelize);
+DayModel(sequelize);
 
 const basename = path.basename(__filename);
 
@@ -79,13 +81,14 @@ const {
   User,
   Analysis,
   Comment,
+  Day,
 } = sequelize.models;
 
-/// *Aca vendrian las relaciones:
+// *Aca vendrian las relaciones:
 // *Relaciones 1 a 1:
 // ?Schedule vs TicketMedical = 1 : 1
-TicketMedical.hasOne(Schedule, { onDelete: "cascade" });
-Schedule.belongsTo(TicketMedical, { onDelete: "cascade" });
+Schedule.hasOne(TicketMedical);
+TicketMedical.belongsTo(Schedule);
 
 // *Relaciones 1 a N:
 // ?User vs Comment = 1 : N
@@ -141,18 +144,30 @@ Paids.belongsTo(Plan);
 User.hasMany(Doctor);
 Doctor.belongsTo(User);
 
+// ?Doctor vs TicketMedical = 1 : N
+Doctor.hasMany(TicketMedical);
+TicketMedical.belongsTo(Doctor);
+
+// ?Doctor vs Schedule = 1 : N
+Doctor.hasMany(Schedule);
+Schedule.belongsTo(Doctor);
+
+// ?Day vs Schedule = 1 : N
+Day.hasMany(Schedule);
+Schedule.belongsTo(Day);
+
+// ?Day vs TicketMedical = 1 : N
+Day.hasMany(TicketMedical);
+TicketMedical.belongsTo(Day);
+
 // *Relaciones N a N:
+// ?Doctor vs Day = N : N
+Doctor.belongsToMany(Day, { through: "DoctorDay" });
+Day.belongsToMany(Doctor, { through: "DoctorDay" });
+
 // ?Doctor vs Speciality = N : N
 Doctor.belongsToMany(Speciality, { through: "DoctorSpeciality" });
 Speciality.belongsToMany(Doctor, { through: "DoctorSpeciality" });
-
-// ?Doctor vs Schedule = N : N
-Doctor.belongsToMany(Schedule, { through: "DoctorSchedule" });
-Schedule.belongsToMany(Doctor, { through: "DoctorSchedule" });
-
-// ?Doctor vs TicketMedical = N : N
-Doctor.belongsToMany(TicketMedical, { through: "DoctorTM" });
-TicketMedical.belongsToMany(Doctor, { through: "DoctorTM" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

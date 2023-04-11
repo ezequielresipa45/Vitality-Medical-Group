@@ -8,6 +8,9 @@ const {
   updateDoctor,
   deleteDoctor,
   deleteSchedule,
+  updateMedicalGuard,
+  getDoctorsDeleted,
+  recoverDoctor,
 } = require("../../controllers/doctorControllers/doctorControllers.js");
 
 const getNamesHandler = async (req, res) => {
@@ -67,6 +70,9 @@ const createDoctorHandler = async (req, res) => {
       image,
       specialities,
       is_delivery,
+      day,
+      is_morning,
+      is_evening,
     } = req.body;
     const request = await createDoctor(
       idUser,
@@ -80,7 +86,10 @@ const createDoctorHandler = async (req, res) => {
       address,
       image,
       specialities,
-      is_delivery
+      is_delivery,
+      day,
+      is_morning,
+      is_evening
     );
     return res.status(201).json(request);
   } catch (error) {
@@ -110,8 +119,41 @@ const deleteDoctorHandler = async (req, res) => {
 
 const deleteScheduleHandler = async (req, res) => {
   try {
-    const { id } = req.params;
-    const request = await deleteSchedule(id);
+    const { id, date } = req.body;
+    const request = await deleteSchedule(id, date);
+    return res.status(200).json(request);
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};
+
+const updateMedicalGuardHandler = async (req, res) => {
+  try {
+    const { doctorId, is_morning, is_evening } = req.body;
+    const request = await updateMedicalGuard(
+      doctorId,
+      is_morning,
+      is_evening
+    );
+    return res.status(201).json(request);
+  } catch (error) {
+    return res.status(404).json({ error: error.message });
+  }
+};
+
+const getDoctorsDeletedHandler = async (req, res) => {
+  try {
+    const request = await getDoctorsDeleted();
+    return res.status(200).json(request);
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};
+
+const recoverDoctorHandler = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const request = await recoverDoctor(id);
     return res.status(200).json(request);
   } catch (error) {
     return res.status(400).json({ error: error.message });
@@ -121,10 +163,13 @@ const deleteScheduleHandler = async (req, res) => {
 module.exports = {
   getNamesHandler,
   getDoctorsHandler,
+  getDoctorsDeletedHandler,
   getDniHandler,
   getDoctorIdHandler,
   createDoctorHandler,
   updateDoctorHandler,
   deleteDoctorHandler,
   deleteScheduleHandler,
+  updateMedicalGuardHandler,
+  recoverDoctorHandler,
 };

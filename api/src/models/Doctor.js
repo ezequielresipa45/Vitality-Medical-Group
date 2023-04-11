@@ -58,6 +58,14 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
+      is_morning: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      is_evening: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
     },
     { timestamps: false }
   );

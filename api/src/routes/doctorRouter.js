@@ -5,6 +5,7 @@ const {
 } = require("../middlewares/validators.js");
 const {
   getNamesHandler,
+  getDoctorsDeletedHandler,
   getDoctorsHandler,
   getDniHandler,
   getDoctorIdHandler,
@@ -12,10 +13,14 @@ const {
   updateDoctorHandler,
   deleteDoctorHandler,
   deleteScheduleHandler,
+  updateMedicalGuardHandler,
+  recoverDoctorHandler,
 } = require("../handlers/doctorHandlers/doctorHandlers.js");
 
 // *Acá definimos las rutas de medicos:
 const doctorRouter = Router();
+
+doctorRouter.get("/doctorsDeleted", getDoctorsDeletedHandler);
 
 doctorRouter.get("/names", getNamesHandler);
 
@@ -29,7 +34,11 @@ doctorRouter.post("/", validatorCreateDoctor, createDoctorHandler);
 
 doctorRouter.put("/", validatorUpdateDoctor, updateDoctorHandler);
 
-doctorRouter.delete("/:id/delSchedule", deleteScheduleHandler);
+doctorRouter.put("/recoverDoctor", recoverDoctorHandler);
+
+doctorRouter.put("/medicalGuard", updateMedicalGuardHandler);
+
+doctorRouter.delete("/delSchedule", deleteScheduleHandler);
 
 doctorRouter.delete("/:id/delete", deleteDoctorHandler);
 

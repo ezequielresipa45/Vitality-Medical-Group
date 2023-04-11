@@ -6,6 +6,8 @@ const {
   createPatient,
   updatePatient,
   deletePatient,
+  getPatientsDeleted,
+  recoverPatient,
 } = require("../../controllers/patientControllers/patientControllers.js");
 
 // *Handler para buscar un paciente por nombre o para traerlos todos:
@@ -98,6 +100,25 @@ const deletePatientHandler = async (req, res) => {
   }
 };
 
+const getPatientsDeletedHandler = async (req, res) => {
+  try {
+    const request = await getPatientsDeleted();
+    return res.status(200).json(request);
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};
+
+const recoverPatientHandler = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const request = await recoverPatient(id);
+    return res.status(200).json(request);
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   getPatientsHandler,
   getDniPatientHandler,
@@ -105,4 +126,6 @@ module.exports = {
   createPatientHandler,
   updatePatientHandler,
   deletePatientHandler,
+  getPatientsDeletedHandler,
+  recoverPatientHandler,
 };

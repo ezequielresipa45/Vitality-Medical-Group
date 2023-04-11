@@ -1,8 +1,8 @@
-const { DataTypes, DATEONLY } = require("sequelize");
+const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    "schedule",
+    "day",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -11,17 +11,9 @@ module.exports = (sequelize) => {
         autoIncrement: true,
         unique: true,
       },
-      date: {
-        type: DataTypes.DATEONLY,
-        allowNull: false,
-      },
-      hour: {
+      day: {
         type: DataTypes.STRING,
         allowNull: false,
-      },
-      is_delete: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
       },
     },
     { timestamps: false }

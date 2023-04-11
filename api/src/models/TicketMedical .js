@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
         type: DataTypes.DATEONLY,
         allowNull: false,
       },
-      hour_start: {
+      hour: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -32,6 +32,10 @@ module.exports = (sequelize) => {
         defaultValue: false,
       },
       is_delete: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      is_canceled: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
