@@ -102,7 +102,7 @@ function App() {
         <Route path='/administrador' element= {<UserCard/>}/>
 
         {/* <Route path='/adminDelete' element= {<DeletePatient/>}/> */}
-        <Route path = "/paciente" element= {<PatientDashboard/>}/>
+       
         
 
       </Routes>
