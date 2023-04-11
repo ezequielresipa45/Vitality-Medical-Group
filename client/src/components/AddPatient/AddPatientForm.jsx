@@ -110,14 +110,13 @@ export default function AddPatientForm() {
     <div className={style.container__patient}>
 
         <img src={patientPic} alt="" />
-        <h2 className={style.text_img}></h2>
 
       <div className={style.container__patient_form}>
 
         <h2>Formulario de paciente </h2>
         
 
-        <form onSubmit={handleSubmit}>
+        <form  onSubmit={handleSubmit}>
 
           <input type="text" name='full_name' placeholder='Nombre Completo' autoComplete='nop' required onChange={handleInputChange} value={newPatient.full_name} />
 

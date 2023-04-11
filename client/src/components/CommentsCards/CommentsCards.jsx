@@ -51,7 +51,7 @@ export default function CommentsCard() {
   useEffect(()=>{
     dispatch(getComments());
   }, [dispatch])
-console.log(comment)
+// console.log(comment)
 
 
     
@@ -86,9 +86,9 @@ console.log(comment)
       > Nuestros pacientes: <br />
         
       </Paper>
-      <Box sx={{ height: 80, maxWidth: 400, width: '100%', p: 2 }}>{customIcons[comment[activeStep].rating].icon} <br /> 
+      {/* <Box sx={{ height: 80, maxWidth: 400, width: '100%', p: 2 }}>{customIcons[comment[activeStep].rating].icon} <br /> 
         "{comment[activeStep].comment}""
-      </Box>
+      </Box> */}
       <MobileStepper  className={style.btn}
         variant="dots"
         steps={5}
