@@ -21,6 +21,7 @@ import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import TicketPicker from './components/Tickets/TicketPicker';
 import UserCard from './components/UserCard/UserCard';
 import TicketsDrawer from './components/TicketsDrawer/TicketsDrawer';
+import PatientDashboard from './components/PatientDashboard/PatientDashboard';
 
 import { useAuth0 } from "@auth0/auth0-react"; // Import para Auth0
 
@@ -106,6 +107,7 @@ function App() {
         <Route path='/administrador' element={<UserCard />} />
 
         {/* <Route path='/adminDelete' element= {<DeletePatient/>}/> */}
+        <Route path = '/paciente' element= {<PatientDashboard/>}/>
 
 
       </Routes>

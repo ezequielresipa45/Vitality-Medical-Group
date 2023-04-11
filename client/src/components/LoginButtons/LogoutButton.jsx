@@ -86,7 +86,7 @@ const LogoutButton = () => {
         <MenuItem>
           <Button
             startIcon={<PersonPinIcon />}
-            onClick={() => console.log("Perfil")}
+            onClick={() => navigate("/paciente")}
           >
             Perfil
           </Button>
