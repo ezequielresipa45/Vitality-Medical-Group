@@ -21,6 +21,8 @@ export default function SearchContainer() {
 
     const navigate = useNavigate();
 
+    const orderRef = useRef();
+
     const specialities = useSelector((state) => state.specialities);
 
     const analysis = useSelector((state) => state.analysis);
@@ -35,12 +37,9 @@ export default function SearchContainer() {
 
     const [filterSpeciality, setFilterSpeciality] = useState('');
 
+    const [orderValue, setOrderValue] = useState('');
+
     const [results, setResults] = useState([...searchResults]);
-
-    const [filteredTypeResults, setFilteredTypeResults] = useState([]);
-
-    const [filteredSpecialityResults, setFilteredSpecialityResults] = useState([]);
-
 
     const INITIAL_ITEMS = [...results].splice(INITIAL_PAGE, ITEMS);
     const [itemsPage, setItemsPage] = useState(INITIAL_ITEMS);
@@ -63,52 +62,56 @@ export default function SearchContainer() {
 
         let analysisResults = [...analysis.filter((item) => item.title.toLowerCase().includes(value.toLowerCase()))];
         let doctorsResults = [...doctors.filter((item) => item.full_name.toLowerCase().includes(value.toLowerCase()))];
-        
-        if(analysisResults.length && doctorsResults.length) setSearchResults(analysisResults.concat(doctorsResults));
-        else if (analysisResults.length || doctorsResults.length) analysisResults.length 
-            ? setSearchResults(analysisResults) 
-            : setSearchResults(doctorsResults);
-        else setSearchResults([]);
 
+        const results = analysisResults.concat(doctorsResults);
+
+        results.length && handleFilter([...results]);
+        orderRef.current.options.selectedIndex = 0;
+        console.log(results);
     };
 
-    console.log(results);
+    const handleFilter = (array) => {
+        let results = [...array];
 
-    useEffect(() => {
-        handleSearch(search);
-    }, [search]);
-
-    useEffect(() => {
-        setResults([...searchResults]);
-    }, [searchResults]);
-
-    const handleFilter = (results) => {
-
-        if(filterType === 'Todos') {
-            results;
-        };
-
-        if(filterType === 'Médico') {
-            results = results.filter((item) => item.full_name);
-        };
-        
-        if(filterType === 'Análisis') {
-            results = results.filter((item) => item.title);
-        };
-
-        if(filterSpeciality !== 'Todos') {
-            results = results.filter((item) => item.speciality?.toLowerCase() === filterSpeciality.toLowerCase() || item.specialities && item.specialities[0].speciality?.toLowerCase() === filterSpeciality.toLowerCase());
+        if(filterType === 'Médicos') {
+            results = array.filter((item) => item.full_name);
+            setSearchResults([...results]);
+        }
+        else if(filterType === 'Análisis') {
+            results = array.filter((item) => item.title);
+            setSearchResults([...results]);
         }
         else {
-            results;
+            setSearchResults([...results]);
         };
-
-        return setResults(results);
+        
+        if(filterSpeciality.length) {
+            if(filterType === 'Médicos') {
+                results = array.filter((item) => item.specialities && item.specialities[0].speciality?.toLowerCase() === filterSpeciality.toLowerCase());
+                setSearchResults([...results]);
+            }
+            else if(filterType === 'Análisis') {
+                results = array.filter((item) => item.speciality?.toLowerCase() === filterSpeciality.toLowerCase());
+                setSearchResults([...results]);
+            }
+            else {
+                results = array.filter((item) => item.speciality?.toLowerCase() === filterSpeciality.toLowerCase() || item.specialities && item.specialities[0].speciality?.toLowerCase() === filterSpeciality.toLowerCase());
+                setSearchResults([...results]);
+            };
+        }
+        else {
+            setSearchResults([...results]);
+        };
+        //console.log(results);
     };
 
-    useEffect(() => {
-        searchResults.length && handleFilter([...searchResults]);
-    }, [filterType , filterSpeciality]);
+    const handleOrder = (array) => {
+        let orderedResults = [...array];
+        orderValue === 'upward' 
+            ? orderedResults = [...array].sort((itemA, itemB) => itemB.title.localeCompare(itemA.title) || itemB.full_name.localeCompare(itemA.full_name))
+            : orderedResults = [...array].sort((itemA, itemB) => itemA.title.localeCompare(itemB.title) || itemA.full_name.localeCompare(itemB.full_name));
+        return setSearchResults([...orderedResults]);
+    };
 
     const nextHandler = () => {
         const totalElements = results.length;
@@ -137,6 +140,18 @@ export default function SearchContainer() {
     };
 
     useEffect(() => {
+        handleSearch(search);
+    }, [ search, filterType , filterSpeciality ]);
+    
+    useEffect(() => {
+        handleOrder(searchResults);
+    }, [ orderValue ]);
+    
+    useEffect(() => {
+        setResults([...searchResults]);
+    }, [searchResults]);
+
+    useEffect(() => {
         setItemsPage(INITIAL_ITEMS);
         setCurrentPage(INITIAL_PAGE);   
     }, [ results ]);
@@ -156,8 +171,8 @@ export default function SearchContainer() {
 
                 <select name='type' onChange={(e) => setFilterType(e.target.value)}>
 
-                    <option defaultValue={null} >Todos</option>
-                    <option value='Médico'>Médicos</option>
+                    <option value={''}>Todos</option>
+                    <option value='Médicos'>Médicos</option>
                     <option value='Análisis'>Análisis</option>
 
                 </select>
@@ -166,12 +181,21 @@ export default function SearchContainer() {
 
                 <select name='specilities' onChange={(e) => setFilterSpeciality(e.target.value)}>
 
-                    <option defaultValue={null} >Todos</option>
-
+                    <option value={''}>Todos</option>
                     {specialities?.map((item, index) => (
                         <option key={index} value={item}>{item}</option>
                     ))}
 
+                </select>
+
+                <p>Orden alfabetico</p>
+
+                <select ref={orderRef} name='order' onChange={(e) => setOrderValue(e.target.value)}>
+
+                    <option value={''}>Orden...</option>
+                    <option value={'upward'} >Ascendente</option>
+                    <option value={'downward'} >Descendente</option>
+                    
                 </select>
             
             </div>

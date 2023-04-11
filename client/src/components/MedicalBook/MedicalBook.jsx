@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDoctors, getFarmacy  } from '../../redux/actions';
+import SearchContainer from '../Search/SearchContainer';
 import style from './MedicalBook.module.css';
 
 const itemsPerPage = 4; // number of items to show per page
@@ -30,6 +31,9 @@ const MedicalBook = () => {
 
   return (
     <div className={style.firstDiv}>
+
+      <SearchContainer />
+
       <h2 className={style.h2}>Farmacias</h2>
       { currentPharmacies.map((pharmacy, index) => (
         <div className={style.divCard} key={index}>

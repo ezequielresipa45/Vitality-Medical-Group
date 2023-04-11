@@ -86,8 +86,8 @@ console.log(comment)
       > Nuestros pacientes: <br />
         
       </Paper>
-      <Box sx={{ height: 80, maxWidth: 400, width: '100%', p: 2 }}>{customIcons[comment[activeStep].rating].icon} <br /> 
-        "{comment[activeStep].comment}""
+      <Box sx={{ height: 80, maxWidth: 400, width: '100%', p: 2 }}>{customIcons[comment[activeStep]?.rating]?.icon} <br /> 
+        "{comment[activeStep]?.comment}""
       </Box>
       <MobileStepper  className={style.btn}
         variant="dots"
