@@ -1,5 +1,4 @@
-import style from "../PatientDashoboard/PatientDashboard.module.css"
-
+import style from "../PatientDashboard/PatientDashboard.module.css"
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -147,7 +146,7 @@ function DashboardContent() {
               px: [1],
             }}
           >
-              <Avatar sx={{ width: 56, height: 56}}>H</Avatar>
+              <Avatar sx={{ width: 56, height: 56}}></Avatar>
               <p className={style.name_patient}> NAME PATIENT</p>
              
             <IconButton onClick={toggleDrawer}>
@@ -183,20 +182,23 @@ function DashboardContent() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
+              <Grid item xs={4} >
                 <Paper
                   sx={{
                     p: 2,
                     display: 'flex',
+                    justifyContent: 'flex-start',
                     flexDirection: 'column',
-                    height: 240,
+                    alignItems: 'flex-start',
+                    height: 450,
                   }}
                 >
+                  <Avatar sx={{ width: 150, height: 150}}></Avatar>
                  
                 </Paper>
               </Grid>
             
-              <Grid item xs={12} md={4} lg={3}>
+              <Grid item xs={6} >
                 <Paper
                   sx={{
                     p: 2,
@@ -223,6 +225,6 @@ function DashboardContent() {
   );
 }
 
-export default function Dashboard() {
+export default function PatientDashboard() {
   return <DashboardContent />;
 }
