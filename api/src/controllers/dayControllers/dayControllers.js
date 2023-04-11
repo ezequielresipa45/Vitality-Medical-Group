@@ -12,7 +12,7 @@ const getDays = async () => {
   const request = await Day.findAll({
     include: [
       {
-        model:  TicketMedical, where: { is_delete: false },
+        model:  TicketMedical,
       },
       {
         model: Schedule,
