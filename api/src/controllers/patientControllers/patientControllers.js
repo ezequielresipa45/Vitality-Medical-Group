@@ -138,13 +138,11 @@ const createPatient = async (
 
   const user = await User.findByPk(idUser);
   await patient.setUser(user);
+  await patient.save();
 
-  const plan = await Plan.findByPk(planId, {
-    // where: {
-    //   consultations_available: consultations_per_patients
-    // },
-  });
+  const plan = await Plan.findByPk(planId);
   await patient.setPlan(plan);
+  await patient.save();
 
   const patient_created = await Patient.findOne({
     where: { full_name: { [Op.iLike]: `%${full_name}%` } },
@@ -188,6 +186,26 @@ const deletePatient = async (id) => {
   return "El Paciente fue borrado exitosamente";
 };
 
+const getPatientsDeleted = async () => {
+  const request = await Patient.findAll({
+    where: {
+      is_delete: true,
+    },
+  });
+
+  return request;
+};
+
+const recoverPatient = async (id) => {
+  const request = await Patient.findByPk(id);
+  await request.set({
+    is_delete: false,
+  });
+  await request.save();
+
+  return request;
+};
+
 module.exports = {
   searchPatientByName,
   getAllPatients,
@@ -196,4 +214,6 @@ module.exports = {
   createPatient,
   updatePatient,
   deletePatient,
+  getPatientsDeleted,
+  recoverPatient,
 };

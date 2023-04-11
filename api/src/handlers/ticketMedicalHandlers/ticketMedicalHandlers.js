@@ -4,28 +4,21 @@ const {
   allTicketMedicals,
   getTicketId,
   deleteTicket,
+  destroyTicket
 } = require("../../controllers/ticketMedicalControllers/ticketMedicalControllers.js");
 
 const ticketMedicalHandler = async (req, res) => {
-  console.log(req.body);
   try {
-    const {
-      title,
-      observations,
-      doctorId,
-      patientId,
-      date,
-      hour_start,
-      hour_end,
-    } = req.body;
+    const { title, observations, day, doctorId, patientId, date, hour } =
+      req.body;
     const request = await createTicket(
       title,
       observations,
+      day,
       doctorId,
       patientId,
       date,
-      hour_start,
-      hour_end
+      hour
     );
     return res.status(201).json(request);
   } catch (error) {
@@ -72,10 +65,21 @@ const deleteTicketHandler = async (req, res) => {
   }
 };
 
+const destroyTicketHandler = async (req, res) => {
+  try {
+    const { idTicket } = req.body;
+    const request = await destroyTicket(idTicket);
+    return res.status(200).json(request);
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   ticketMedicalHandler,
   confirmTicketHandler,
   allTicketHandler,
   ticketIdHandler,
   deleteTicketHandler,
+  destroyTicketHandler
 };

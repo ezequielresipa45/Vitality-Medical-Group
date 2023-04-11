@@ -85,7 +85,7 @@ Json Pacientes:
 Json Doctores:
 [
     {
-        
+        "idUser": 3,
         "dni": 3698754,
         "code": 236514,
         "full_name": "Paco Gerlo",
@@ -95,9 +95,13 @@ Json Doctores:
         "phone": 631498745,
         "address": "CABA, Argentina",
         "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
-        "specialities": "neurología"
+        "specialities": "neurología",
+        "is_morning": true,
+		"is_evening": false,
+		"day": ["Lunes", "Martes"]
     },
     {
+        "idUser": 4,
         "dni": 5469854,
         "code": 148796,
         "full_name": "Devora Testa",
@@ -107,9 +111,13 @@ Json Doctores:
         "phone": 79632548,
         "address": "Lanus, Argentina",
         "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
-        "specialities": "obstetricia"
+        "specialities": "obstetricia",
+        "is_morning": true,
+		"is_evening": false,
+		"day": ["Jueves", "Viernes"]
     },
     {
+        "idUser": 5,
         "dni": 26589874,
         "code": 687498,
         "full_name": "Maxima Poronga",
@@ -119,9 +127,13 @@ Json Doctores:
         "phone": 46859731,
         "address": "Tierra de Fuego, Argentina",
         "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
-        "specialities": "cardiología"
+        "specialities": "cardiología",
+        "is_morning": false,
+		"is_evening": true,
+		"day": ["Lunes", "Martes"]
     },
     {
+        "idUser": 1,
         "dni": 65749137,
         "code": 214685,
         "full_name": "Jorge Nitales",
@@ -131,7 +143,10 @@ Json Doctores:
         "phone": 69854784,
         "address": "Banfield, Argentina",
         "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
-        "specialities": "neumonología"
+        "specialities": "neumonología",
+        "is_morning": false,
+		"is_evening": true,
+		"day": ["Miércoles", "Jueves"]
     },
     {
         "dni": 5784986,
@@ -143,7 +158,10 @@ Json Doctores:
         "phone": 74895684,
         "address": "El Rosario, Argentina",
         "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
-        "specialities": "oftalmología"
+        "specialities": "oftalmología",
+        "is_morning": true,
+		"is_evening": false,
+		"day": ["Martes", "Viernes"]
     },
     {
         "dni": 3698754,
@@ -155,7 +173,10 @@ Json Doctores:
         "phone": 13655987,
         "address": "Almirante Brown, Argentina",
         "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
-        "specialities": "pediatría"
+        "specialities": "pediatría",
+        "is_morning": false,
+		"is_evening": true,
+		"day": ["Lunes", "Viernes"]
     },
     {
         "dni": 4785965,
@@ -167,7 +188,10 @@ Json Doctores:
         "phone": 58749685,
         "address": "Lanus, Argentina",
         "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
-        "specialities": "otorrinolaringología"
+        "specialities": "otorrinolaringología",
+        "is_morning": true,
+		"is_evening": false,
+		"day": ["Martes", "Jueves"]
     },
     {
         "dni": 63528795,
@@ -179,7 +203,10 @@ Json Doctores:
         "phone": 87965487,
         "address": "San Justo, Argentina",
         "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
-        "specialities": "clínica médica"
+        "specialities": "clínica médica",
+        "is_morning": true,
+		"is_evening": false,
+		"day": ["Lunes", "Martes", Miércoles]
     },
     {
         "dni": 9896587,
@@ -191,7 +218,10 @@ Json Doctores:
         "phone": 124785946,
         "address": "Quilmes, Argentina",
         "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
-        "specialities": "psiquiatría"
+        "specialities": "psiquiatría",
+        "is_morning": false,
+		"is_evening": true,
+		"day": "Viernes"
     },
     {
         "dni": 2569854,
@@ -203,38 +233,41 @@ Json Doctores:
         "phone": 32659854,
         "address": "San Isidro, Argentina",
         "image": "https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png",
-        "specialities": "neurología"
+        "specialities": "neurología",
+        "is_morning": false,
+		"is_evening": true,
+		"day": ["Lunes", "Jueves"]
     },
 ]
 
 Json TicketMedical:
 [
     {
-        "title": "Estoy loca de atar",
-        "observations": "Consulta con psiquiatría",
-        "doctorId": 2,
+        "title": "disritmia cerebral",
+        "observations": "Consulta con Neurología",
+		"day": "Lunes",
+        "doctorId": 1,
         "patientId": 1,
-        "date": "2023-03-12",
-        "hour_start": "08:30",
-        "hour_end": "09:00"
+        "date": "2023-04-10",
+        "hour": "08:00"
     },
     {
-        "title": "problemas menstruales",
-        "observations": "Consulta con ginecología",
-        "doctorId": 2,
+        "title": "cefaleas",
+        "observations": "Consulta con Neurología",
+        "day": "Lunes",
+        "doctorId": 1,
         "patientId": 3,
-        "date": "2023-06-10",
-        "hour_start": "08:30",
-        "hour_end": "09:00"
+        "date": "2023-04-10",
+        "hour": "08:30",
     },
     {
-        "title": "hinchazon",
-        "observations": "Consulta con urología",
-        "doctorId": 2,
-        "patientId": 3,
-        "date": "2023-02-12",
-        "hour_start": "08:30",
-        "hour_end": "09:00"
+        "title": "migrañas",
+        "observations": "Consulta con Neurología",
+        "day": "Lunes"
+        "doctorId": 1,
+        "patientId": 4,
+        "date": "2023-04-10",
+        "hour": "09:00",
     },
     {
         "title": "sarna, me pique mucho",
@@ -543,40 +576,40 @@ Json PaymentPlan:
     {
         "user": 1,
         "planId": 1,
-        "description": "pago de plan joven",
-        "price": 50.000,
+        "description": "pago de plan Maximun Care",
+        "price": 300,
         "code": 20359978,
 		"date": "2019-07-10T14:47:58.000Z"
     },
     {
         "user": 2,
         "planId": 1,
-        "description": "pago de plan full care",
-        "price": 100.000,
+        "description": "pago de plan Maximun care",
+        "price": 300,
         "code": 75982146,
 		"date": "2019-07-10T14:47:58.000Z"
     },
     {
         "user": 3,
         "planId": 3,
-        "description": "pago de plan adulto mayor",
-        "price": 120.000,
+        "description": "pago de plan Joven",
+        "price": 50,
         "code": 32685947,
 		"date": "2019-07-10T14:47:58.000Z"
     },
     {
         "user": 5,
         "planId": 2,
-        "description": "pago de plan joven",
-        "price": 50.000,
+        "description": "pago de plan Full care",
+        "price": 100,
         "code": 32659874,
 		"date": "2019-07-10T14:47:58.000Z"
     },
     {
         "user": 4,
-        "planId": 2,
+        "planId": 3,
         "description": "pago de plan joven",
-        "price": 50.000,
+        "price": 50,
         "code": 12498567,
 		"date": "2019-07-10T14:47:58.000Z"
     },

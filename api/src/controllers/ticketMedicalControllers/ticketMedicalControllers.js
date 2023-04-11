@@ -1,37 +1,43 @@
-const { Doctor, Patient, Schedule, TicketMedical } = require("../../db");
+const { Doctor, Patient, Schedule, TicketMedical, Day } = require("../../db");
 
 // *Este controller permite crear el TicketMedical, crear el Schedule asociado a ese ticket y realizar la asociación de doctor a schedule y paciente a ticketMedical:
 const createTicket = async (
   title,
   observations,
+  day,
   doctorId,
   patientId,
   date,
-  hour_start,
-  hour_end
+  hour
 ) => {
-  const requestTicket = await TicketMedical.create({
+  const ticketMedical = await TicketMedical.create({
     title,
     observations,
     date,
-    hour_start,
+    hour,
   });
 
-  const requestSchedule = await Schedule.create({ date, hour_start, hour_end }); // ?correcto
+  const schedule = await Schedule.create({ date, hour }); // ?correcto
+  await schedule.setTicketMedical(ticketMedical);
+  await schedule.save();
 
-  await requestTicket.setSchedule(requestSchedule); // ?correcto
-  await requestTicket.save();
+  const requestDay = await Day.findOne({ where: { day: day } });
+  await requestDay.addTicketMedical(ticketMedical); // ?correcto
+  await requestDay.save();
 
-  const doctor = await Doctor.findByPk(doctorId); // ?correcto
-  await doctor.addSchedule(requestSchedule); // ?correcto
+  await requestDay.addSchedule(schedule); // ?correcto
+  await requestDay.save();
+
+  const doctor = await Doctor.findByPk(doctorId);
+  await doctor.addSchedules(schedule); // ?correcto
   await doctor.save();
 
-  await doctor.addTicketMedical(requestTicket); // ?correcto
+  await doctor.addTicketMedicals(ticketMedical); // ?correcto
   await doctor.save();
 
-  const patient = await Patient.findByPk(patientId); // ?correcto
-  await patient.addTicketMedical(requestTicket); // ?correcto
-  await requestTicket.save(); /// ?correcto
+  const patient = await Patient.findByPk(patientId);
+  await patient.addTicketMedical(ticketMedical); // ?correcto
+  await patient.save();
 
   return "Turno creado exitosamente";
 };
@@ -41,17 +47,8 @@ const confirmTicket = async (id) => {
   const request = await TicketMedical.findByPk(id, { include: { all: true } });
   await request.set({
     is_confirmed: true,
-    is_delete: true,
   });
   await request.save();
-
-  const idSchedule = request.schedule.id;
-
-  const requestSchedule = await Schedule.findByPk(idSchedule);
-  await requestSchedule.set({
-    is_delete: true,
-  });
-  await requestSchedule.save();
 
   return "El turno ha sido confirmado exitosamente";
 };
@@ -73,12 +70,11 @@ const getTicketId = async (id) => {
   }
 };
 
-// *Este controller permite borrar un ticketsMedicals por id.
+// *Este controller permite borrar(borrado lógico) un ticketsMedicals por id.
 const deleteTicket = async (id) => {
   const request = await TicketMedical.findByPk(id, { include: { all: true } });
   const idSchedule = request.schedule.id;
   const requestSchedule = await Schedule.findByPk(idSchedule);
-
   await request.set({
     is_delete: true,
   });
@@ -92,10 +88,25 @@ const deleteTicket = async (id) => {
   return "El Turno médico fue borrado exitosamente";
 };
 
+// *Este controller permite borrar/destruir(borrado fisico) el registro de un ticketsMedicals por id.
+const destroyTicket = async (idTicket) => {
+  const request = await TicketMedical.findByPk(idTicket, {
+    include: { all: true },
+  });
+  const idSchedule = request.schedule.id;
+  const requestSchedule = await Schedule.findByPk(idSchedule);
+
+  await requestSchedule.destroy();
+  await request.destroy();
+
+  return "El Turno médico fue cancelado exitosamente";
+};
+
 module.exports = {
   createTicket,
   confirmTicket,
   allTicketMedicals,
   getTicketId,
   deleteTicket,
+  destroyTicket,
 };

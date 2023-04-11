@@ -5,6 +5,7 @@ const {
   allTicketHandler,
   ticketIdHandler,
   deleteTicketHandler,
+  destroyTicketHandler
 } = require("../handlers/ticketMedicalHandlers/ticketMedicalHandlers.js");
 const {
   validatorCreateTicketMedical,
@@ -24,6 +25,8 @@ ticketMedicalRouter.post(
 );
 
 ticketMedicalRouter.put("/confirmTicket", confirmTicketHandler);
+
+ticketMedicalRouter.delete("/destroyTicket", destroyTicketHandler);
 
 ticketMedicalRouter.delete("/:id/delete", deleteTicketHandler);
 
