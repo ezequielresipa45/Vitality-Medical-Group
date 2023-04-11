@@ -69,6 +69,40 @@ export default function AddMedicForm() {
   const [userSpecialities, setUserSpecialities] = useState([]);
 
 
+
+const [image, setImage] = useState("");
+const [Loading, setLoading] = useState(false);
+
+const uploadImage = async (e) => {
+  const files = e.target.files;
+  const data = new FormData();
+  data.append("file", files[0]);
+  data.append("upload_preset", "images");
+  data.append("cloud_name", "dmpzc4arr");
+  setLoading(true);
+  const res = await fetch(
+    "https://api.cloudinary.com/v1_1/dmpzc4arr/image/upload",
+    {
+      method: "POST",
+      body: data,
+
+    }
+  )
+
+const file = await res.json();
+
+setImage(file.url);
+setLoading(false)
+
+if(e.target.name === "image"){
+
+  setUserDate({ ...userDate, ["image"]: file.url });
+
+}
+
+}
+
+
   const handleChangeSpecialities = (e)=>{
     const { name, value } = e.target;
 
@@ -128,6 +162,7 @@ export default function AddMedicForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     try {
       // Enviar la solicitud POST a la API
       const response = await axios.post(
@@ -158,7 +193,8 @@ export default function AddMedicForm() {
   return (
     <div className={styles.container__medic}>
 
-      <img src={medicForm} alt="" />
+{!image ? ( <img src={medicForm} alt="" />) : (<img src={image} style={{width: "17rem", height: "25rem"}}></img>) }
+     
 
       <div className={styles.container__medicForm}>
 
@@ -176,8 +212,9 @@ export default function AddMedicForm() {
 
           <input type="tel" name='phone' placeholder='Cel. Ej: (123) 456-7890' autoComplete='nop' min={10} required onChange={handleInputChange} value={userDate.phone} />
           <input type="text" name='address' placeholder='Dirección' autoComplete='nop' required onChange={handleInputChange} value={userDate.address} />
-          <input type="text" name='image' placeholder='URL de la imagen' autoComplete='nop' required onChange={handleInputChange} value={userDate.image} />
 
+
+          <input type="file" name='image'   required onChange={uploadImage} />
 
           <div className={styles.container__selects}>
 
