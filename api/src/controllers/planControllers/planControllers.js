@@ -5,7 +5,7 @@ const getPlanDB = (item) => {
     return{
         id: item.id,
         name: item.name,
-        menbers: item,
+        members: item.members,
         price: item.price,
         description: item.description,
         code: item.code,

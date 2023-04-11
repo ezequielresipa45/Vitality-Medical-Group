@@ -12,7 +12,6 @@ const getDoctors = async () => {
       },
       {
         model: Schedule,
-        // where: { is_delete: false },
       },
       {
         model: User,
@@ -82,7 +81,6 @@ const findDni = async (dni) => {
       },
       {
         model: Schedule,
-        // where: { is_delete: false },
       },
       {
         model: User,
