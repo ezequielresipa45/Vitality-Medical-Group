@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { useLocation, Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAnalysis, getConfirmedTickets, getSpecialities, loginByEmail, putUser } from './redux/actions';
+import { getAnalysis, getConfirmedTickets, getSpecialities, loginByEmail, putUser, signUp } from './redux/actions';
 import Home from "./components/Home/Home";
 import Institutional from "./components/Institutional/Institutional";
 import PlanCards from "./components/Plans/PlanCards"
@@ -56,16 +56,22 @@ function App() {
 
   // Aca termina todo sobre Auth0
 
-  // Este useEffect es para que cuando se cree una nueva cuenta con auth0 se almacene la información basica del usuario
-  // Descomentar cunado se haya manejado la action y que la bdd permita modificar la info del user
-  /* useEffect(() => {
-    !userInfo.full_name && dispatch(putUser({
-      id: userInfo.id,
-      full_name: user.name,
-      user_name: user.nickname,
-      image: user.picture
-    }))
-  }, [userInfo]); */
+ 
+useEffect(() => {
+  if(isAuthenticated && !userInfo.full_name){      
+    const getToken = async () => {
+      const token = await getAccessTokenSilently();
+      dispatch(signUp(token, {
+        email: user.email,
+        full_name: `${user.name}`,
+        user_name: user.nickname,
+        image: user.picture ?  user.picture : ""
+      }))
+    }
+    getToken()
+  }
+
+}, [userInfo]);
 
   return (
 
