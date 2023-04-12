@@ -22,6 +22,8 @@ import Button from "@mui/material/Button"
 import LocalHospitalSharpIcon from '@mui/icons-material/LocalHospitalSharp';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import HistorySharpIcon from '@mui/icons-material/HistorySharp';
+import CakeIcon from '@mui/icons-material/Cake';
+
 import Avatar from '@mui/material/Avatar';
 import img from "../../images/logo.png"
 
@@ -146,7 +148,7 @@ function DashboardContent() {
               px: [1],
             }}
           >
-              <Avatar sx={{ width: 56, height: 56}}></Avatar>
+             
               <p className={style.name_patient}> NAME PATIENT</p>
              
             <IconButton onClick={toggleDrawer}>
@@ -182,7 +184,9 @@ function DashboardContent() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Chart */}
+              
               <Grid item xs={4} >
+
                 <Paper
                   sx={{
                     p: 2,
@@ -192,9 +196,15 @@ function DashboardContent() {
                     alignItems: 'flex-start',
                     height: 450,
                   }}
+                  elevation={24}
                 >
                   <Avatar sx={{ width: 150, height: 150}}></Avatar>
-                 
+                  <Typography variant="body2" sx={{justifyContent: 'flex-start', display: 'flex', alignItems: 'center', fontSize:25}}> FULL NAME</Typography>
+            
+
+                 <Divider variant="middle" flexItem></Divider> 
+                 <br /><br /><br />
+                 <Typography><CakeIcon fontSize = "large"/></Typography>
                 </Paper>
               </Grid>
             
@@ -204,8 +214,10 @@ function DashboardContent() {
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
+                    height: 450,
                   }}
+                  elevation={24}
+
                 >
                
                 </Paper>
