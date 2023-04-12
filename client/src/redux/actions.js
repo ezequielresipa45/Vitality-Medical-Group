@@ -26,6 +26,7 @@ export const PUT_PATIENT= "PUT_PATIENT";
 export const GET_USER = "GET_USER";
 export const PUT_USER = "PUT_USER";
 export const LOGIN = "LOGIN"
+export const SIGNUP = "SIGNUP"
 export const LOGOUT_LOGIN = "LOGOUT"
 export const POST_COMMENT = "POST_COMMENT"
 export const GET_COMMENTS = "GET_COMMENTS"
@@ -277,10 +278,29 @@ export const putDoctor = (doctorData) => async (dispatch) => {
         },
       };
       const user = await axios(config) 
-      console.log(user.data)
       return dispatch({
         type: LOGIN,
         payload: user.data,
+      })
+    }
+  }
+
+  export function signUp(token, data) {
+    return async function (dispatch) {
+      const config = {
+        url: `${URL}/login`,
+        method: "PUT",
+        data: data,
+        headers: {
+          "content-type": "application/json",
+          "authorization": `Bearer ${token}`,
+        },
+      }
+
+      const user = await axios(config)
+      return dispatch({
+        type: SIGNUP,
+        payload: user.data
       })
     }
   }
