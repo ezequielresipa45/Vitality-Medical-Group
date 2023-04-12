@@ -6,19 +6,19 @@
   align-items: center;
 flex-direction: row-reverse;
   box-sizing: border-box;
-}
+gap: 2rem;}
 
 .container__medic img {
   pointer-events: none;
   height: 99%;
   margin: 0;
   padding: 0;
-  width: 35%;
+  width: 30%;
 }
 
 .container__medicForm {
   padding-top: 2rem;
-  width: 50%;
+  width: 60%;
   color: #787878;
   display: flex;
   flex-direction: column;
@@ -56,7 +56,7 @@ flex-direction: row-reverse;
   padding: 0.5rem;
   outline: none;
   color: #aaaaaa;
-  width: 10rem;
+  width: 7rem;
   text-align: left;
 }
 
@@ -79,9 +79,24 @@ flex-direction: row-reverse;
 
 .container__selects {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 80%;
   gap: 2rem;
+  
+}
+
+.container__days{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+
+.container__radioButton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
