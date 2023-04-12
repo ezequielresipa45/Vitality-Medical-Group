@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const {
   validatorCreateDoctor,
-  validatorUpdateDoctor,
+  /*validatorUpdateDoctor,*/
 } = require("../middlewares/validators.js");
 const {
   getNamesHandler,
@@ -32,7 +32,7 @@ doctorRouter.get("/:id", getDoctorIdHandler);
 
 doctorRouter.post("/", validatorCreateDoctor, createDoctorHandler);
 
-doctorRouter.put("/", validatorUpdateDoctor, updateDoctorHandler);
+doctorRouter.put("/", /*validatorUpdateDoctor,*/ updateDoctorHandler);
 
 doctorRouter.put("/recoverDoctor", recoverDoctorHandler);
 
