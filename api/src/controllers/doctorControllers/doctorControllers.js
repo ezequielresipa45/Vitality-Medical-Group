@@ -178,6 +178,7 @@ const createDoctor = async (
   await newDoctor.addSpeciality(specialitys);
 
   const user = await User.findByPk(idUser);
+  await user.addDoctor(newDoctor);
 
   const doctor_created = await Doctor.findOne({
     where: { full_name: { [Op.iLike]: `%${full_name}%` } },
