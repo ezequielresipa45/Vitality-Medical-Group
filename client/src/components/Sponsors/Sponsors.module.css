@@ -3,9 +3,17 @@
         transform: translateX(0); 
         -webkit-transform: translateX(0);
     }
-	100% { 
-        transform: translateX(calc(-150px * 5));
-        -webkit-transform: translateX(calc(-150px * 5));
+	50% { 
+        transform: translateX(calc(-150px * 10));
+        -webkit-transform: translateX(calc(-150px * 10));
+    }
+    50.00001% { 
+        transform: translateX(calc(150px * 10)); 
+        -webkit-transform: translateX(calc(150px * 10));
+    }
+    100% { 
+        transform: translateX(0); 
+        -webkit-transform: translateX(0);
     }
 }
 
@@ -57,9 +65,9 @@
 	
 .slider .slide_track {
     display: flex;
-    width: calc(150px * 7);
+    width: calc(150px * 10);
     animation: scroll 10s linear infinite;
-    -webkit-animation: scroll 10s linear infinite;
+    -webkit-animation: scroll 20s linear infinite;
     
 }
 
