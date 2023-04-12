@@ -27,9 +27,23 @@ const login = async (email) => {
     return user;
 }
 
-const signUp = async (email) => {
-    const user = await User.create({email});
-    return user;
+const signUp = async (full_name, email, user_name, image) => {
+    const newUser = await User.findOne({
+        where: {
+            email: email
+        }
+    })
+
+    if(!newUser) throw Error("No se puede crear al usuario porque no existe")
+    newUser.set({
+        full_name,
+        email,
+        user_name,
+        image
+    })
+
+    await newUser.save();
+    return newUser
 }
 
 module.exports = {
