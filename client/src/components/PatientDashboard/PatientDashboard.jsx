@@ -22,8 +22,16 @@ import Button from "@mui/material/Button"
 import LocalHospitalSharpIcon from '@mui/icons-material/LocalHospitalSharp';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import HistorySharpIcon from '@mui/icons-material/HistorySharp';
+import CakeIcon from '@mui/icons-material/Cake';
+import FeedIcon from '@mui/icons-material/Feed';
 import Avatar from '@mui/material/Avatar';
 import img from "../../images/logo.png"
+import ExperienceForm from "../ExperienceForm/ExperienceForm";
+import Popup from "../PopUp/PopUp";
+import Input from '@mui/material/Input';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import {useState} from 'react'
+// import {Link} from 'react-router-dom'
 
 
 function Copyright(props) {
@@ -93,6 +101,23 @@ function DashboardContent() {
     setOpen(!open);
   };
 
+  const [buttonPopup, setButtonPopup] = useState(false) 
+
+  // function AvatarWithUpload() {
+  //   const [imageUrl, setImageUrl] = useState('');
+  
+  //   const handleImageUpload = (event) => {
+  //     const file = event.target.files[0];
+  //     const reader = new FileReader();
+  
+  //     reader.onload = () => {
+  //       setImageUrl(reader.result);
+  //     }
+  
+  //     reader.readAsDataURL(file);
+  //   };
+  // }
+
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -130,9 +155,9 @@ function DashboardContent() {
 
             </Typography>
             <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
+              {/* <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
-              </Badge>
+              </Badge> */}
             </IconButton>
           </Toolbar>
         </AppBar>
@@ -146,7 +171,7 @@ function DashboardContent() {
               px: [1],
             }}
           >
-              <Avatar sx={{ width: 56, height: 56}}></Avatar>
+             
               <p className={style.name_patient}> NAME PATIENT</p>
              
             <IconButton onClick={toggleDrawer}>
@@ -154,14 +179,26 @@ function DashboardContent() {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav">
+          <List component="nav" className={style.text}>
             
             <Divider sx={{ my: 1 }} />
-            <Button size ="large" color = "primary" > <LocalHospitalSharpIcon fontSize = "large" className={style.text}/> TU PLAN</Button>
+            <Button size ="large" color = "primary" className={style.text} > <LocalHospitalSharpIcon fontSize = "large" className={style.text}/> TU PLAN</Button>
             <br /><br />
-            <Button> <CalendarMonthIcon fontSize = "large"  className={style.text}/> TUS TURNOS</Button>
+            <Button className={style.text}> <CalendarMonthIcon fontSize = "large"  className={style.text}/> TUS TURNOS</Button>
             <br /><br />
-            <Button> <HistorySharpIcon fontSize = "large"  className={style.text}/> TU HISTORIAL</Button>
+            <Button className={style.text}> <HistorySharpIcon fontSize = "large"  className={style.text}/> TU HISTORIAL</Button>
+            <br /><br />
+            <Link href ='/cartilla' underline="none">
+            <Button> 
+              <MenuBookIcon fontSize = "large"  className={style.text}/> 
+              TU CARTILLA
+              </Button>
+              </Link>
+            <br /><br />
+            <Button onClick={()=>setButtonPopup(true)}className={style.text} ><FeedIcon fontSize= "large" className={style.text}/>TU EXPERIENCIA </Button>
+                <Popup trigger = {buttonPopup} setTrigger = {setButtonPopup}>   
+                    <ExperienceForm/>
+                </Popup>
             
           </List>
          
@@ -182,7 +219,9 @@ function DashboardContent() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Chart */}
+              
               <Grid item xs={4} >
+
                 <Paper
                   sx={{
                     p: 2,
@@ -192,9 +231,16 @@ function DashboardContent() {
                     alignItems: 'flex-start',
                     height: 450,
                   }}
+                  elevation={24}
                 >
-                  <Avatar sx={{ width: 150, height: 150}}></Avatar>
-                 
+                  <Avatar sx={{ width: 150, height: 150}} ></Avatar>
+                  {/* <Input type="file" onChange={handleImageUpload}></Input> falta agregar src al avatar */ }
+                  <Typography variant="body2" sx={{justifyContent: 'flex-start', display: 'flex', alignItems: 'center', fontSize:25}}> FULL NAME</Typography>
+            
+
+                 <Divider variant="middle" flexItem></Divider> 
+                 <br /><br /><br />
+                 <Typography><CakeIcon fontSize = "large"/></Typography>
                 </Paper>
               </Grid>
             
@@ -204,8 +250,10 @@ function DashboardContent() {
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
+                    height: 450,
                   }}
+                  elevation={24}
+
                 >
                
                 </Paper>
@@ -217,7 +265,7 @@ function DashboardContent() {
                 </Paper>
               </Grid>
             </Grid>
-            <Copyright sx={{ pt: 4 }} />
+            
           </Container>
         </Box>
       </Box>
