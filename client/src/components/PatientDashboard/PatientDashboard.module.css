@@ -5,6 +5,7 @@
 
 .toolbar{
     background-color: var(--primary);
+
     
 }
 
@@ -15,9 +16,13 @@
     margin-right: 10px;
 }
 .text{
-    text-align: end;
+    font-family: "FireSans";
+    text-align:center;
+    text-decoration: none;
+   
+   
 }
 .name_patient{
     font-family: "FireSans";
-    margin-left: 7px;
+    text-align: center;
 }
