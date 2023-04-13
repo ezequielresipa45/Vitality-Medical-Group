@@ -87,12 +87,12 @@ console.log(comment)
         
       </Paper>
       <Box sx={{ height: 80, maxWidth: 400, width: '100%', p: 2 }}>{customIcons[comment[activeStep]?.rating]?.icon} <br /> 
-        "{comment[activeStep]?.comment}""
+        "{comment[activeStep]?.comment}"
       </Box>
       <MobileStepper  className={style.btn}
         variant="dots"
         steps={5}
-        position="flex"
+        position="static"
         activeStep={activeStep}
         nextButton={
           <Button 
