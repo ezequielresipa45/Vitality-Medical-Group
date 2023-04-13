@@ -1,19 +1,21 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPatients } from '../../redux/actions';
+import { getPatients, getDoctors } from '../../redux/actions';
 import style from './PatientTickets.module.css';
 
 const PatientTickets = () => {
   const user = useSelector((state) => state.user);
   const patients = useSelector((state) => state.patients);
+  const doctors = useSelector((state) => state.doctors);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPatients());
+    dispatch(getDoctors());
   }, []);
 
   const patientsByLogin = patients.filter((p) => p.userId === user.id);
-
+ 
   return (
     <div className={style.div}>
       <p>Turnos Tomados:</p>
@@ -24,9 +26,10 @@ const PatientTickets = () => {
               <li key={t.id}>
                 <div className={style['ticket-info']}>
                   <div>Condición: {t.title}</div>
-                  <div>Observaciones: {t.observations}</div>
+                  <div>Doctor/a: {doctors.find((d) => d.id === t.doctorId)?.full_name}</div>
+
                   <div>Fecha: {t.date}</div>
-                  <div>Hora: {t.hour_start}</div>
+                  <div>Hora: {t.hour}</div>
                 </div>
                 <br />
                 <br />
