@@ -205,9 +205,10 @@ export function deleteSelectedTickets() {
 
 export function getConfirmedTickets() {
   const value = JSON.parse(localStorage.getItem('confirmedItems'));
+  const tickets = value ? value : [];
   return {
       type: GET_CONFIRMED_TICKETS,
-      payload: value
+      payload: tickets
   }; 
 };
 
