@@ -164,6 +164,7 @@ const createDoctor = async (
     address,
     image,
     is_delivery,
+    day,
     is_morning,
     is_evening,
   });

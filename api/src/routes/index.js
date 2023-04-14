@@ -13,6 +13,7 @@ const analysisRouter = require("./analysisRouter.js");
 const loginRouter = require("./loginRouter.js");
 const commentRouter = require("./commentRouter.js");
 const dayRouter = require("./dayRouter.js");
+const mercadoPagoRouter = require("./mercadoPagoRouter.js")
 
 const router = Router();
 
@@ -30,5 +31,6 @@ router.use("/analysis", analysisRouter);
 router.use("/login", loginRouter);
 router.use("/comment", commentRouter);
 router.use("/day", dayRouter);
+router.use("/mercadoPago", mercadoPagoRouter)
 
 module.exports = router;
