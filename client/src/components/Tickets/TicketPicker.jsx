@@ -103,7 +103,7 @@ const TicketPicker = () => {
     }, []);
 
     useEffect(() => {
-        confirmedTickets.length && localStorage.setItem('confirmedItems', JSON.stringify(confirmedTickets));
+        confirmedTickets?.length && localStorage.setItem('confirmedItems', JSON.stringify(confirmedTickets));
     }, [confirmedTickets]);
     
     console.log(JSON.parse(localStorage.getItem('confirmedItems')));
