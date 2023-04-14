@@ -33,6 +33,9 @@ export const GET_COMMENTS = "GET_COMMENTS"
 export const SORT_DOCTORS = "SORT_DOCTORS"
 export const SORT_DOCTORS_BY_ID = "SORT_DOCTORS_BY_ID"
 export const SORT_DOCTORS_BY_SPECIALTY = "SORT_DOCTORS_BY_SPECIALTY"
+export const GET_TICKETS = "GET_TICKETS"
+export const DELETE_TICKET = "DELETE_TICKET"
+
 
 export function getSpecialities() {
     return {
@@ -120,10 +123,7 @@ export function getPlans(){
       payload: json.data,
     })
   }
-    // return{
-    //     type: GET_PLANS,
-    //     payload: ["Juvenil", "Adulto", "Familiar", "Sin Plan"],
-    // }
+
 };
 
 export function getFarmacy(){
@@ -358,3 +358,19 @@ export const putDoctor = (doctorData) => async (dispatch) => {
       payload: order,
     };
   };
+
+
+
+  export function getTickets(){
+    return async function(dispatch){
+      const json = await axios.get("https://apiclinica.onrender.com/ticketMedical"); 
+  
+      return dispatch({
+        type: GET_TICKETS,
+        payload: json.data,
+      })
+    }
+  
+  };
+
+
