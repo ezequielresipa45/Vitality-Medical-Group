@@ -10,7 +10,7 @@ import { format, parse } from 'date-fns';
 import { enGB, es } from 'date-fns/locale';
 import styles from './TicketPicker.module.css';
 
-export default function TicketPicker() {
+const TicketPicker = () => {
 
     const navigate = useNavigate();
 
@@ -176,3 +176,5 @@ export default function TicketPicker() {
         </LocalizationProvider>
     )
 };
+
+export default TicketPicker;
