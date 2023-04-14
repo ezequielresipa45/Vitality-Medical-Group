@@ -114,7 +114,7 @@ const TicketPicker = () => {
                 
                 <h2>Selector de fecha y horario para el turno</h2>
                 <p>Tipo de turno: {typeOfTicket}</p>
-                <p>{selectedTickets.title}</p>
+                <p>{selectedTickets?.title}</p>
                 <DatePicker 
                     sx={{ m: 1, minWidth: 320 }}
                     label='Seleccione la fecha'
