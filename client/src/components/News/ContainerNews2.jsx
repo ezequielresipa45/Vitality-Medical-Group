@@ -3,9 +3,9 @@ import axios from 'axios';
 import { useState , useEffect , useLayoutEffect , useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import News from './News2';
 import styles from './News2.module.css';
+import data from '../../services/news.json';
 
 const DEFAULT_IMAGE = 'https://cdn.pixabay.com/photo/2015/05/24/06/13/medical-781422_1280.jpg';
 const INITIAL_PAGE = 0;
@@ -15,10 +15,13 @@ export default function ContainerNews() {
 
     const [news, setNews] = useState([]);
 
-    const getNews = async () => {
-        const results = await axios.get('https://newsapi.org/v2/top-headlines?country=us&category=health&pageSize=100&apiKey=7ffa9b40912247c3b28531550fd10087')
+    const getNews = () => {
+
+        /* const results = await axios.get('https://newsapi.org/v2/top-headlines?country=us&category=health&pageSize=100&apiKey=7ffa9b40912247c3b28531550fd10087')
             .then((res) => res.data.articles)
-            .catch((err) => window.alert('Error: Get News'));
+            .catch((err) => window.alert('Error: Get News')); */
+
+        const results = data.articles;
 
         results && setNews(results);
     };
