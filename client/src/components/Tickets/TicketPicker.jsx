@@ -28,7 +28,7 @@ const TicketPicker = () => {
     const schedules = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
 
     let typeOfTicket;
-    if (selectedTickets.from === '/analisis') typeOfTicket = 'Análisis / Estudio';
+    if (selectedTickets?.from === '/analisis') typeOfTicket = 'Análisis / Estudio';
     else typeOfTicket = 'Consulta Médica';
     
     //const dateFormat = format(date, 'dd/MM/yyyy');
@@ -103,7 +103,7 @@ const TicketPicker = () => {
     }, []);
 
     useEffect(() => {
-        confirmedTickets?.length && localStorage.setItem('confirmedItems', JSON.stringify(confirmedTickets));
+        localStorage.setItem('confirmedItems', JSON.stringify(confirmedTickets));
     }, [confirmedTickets]);
     
     console.log(JSON.parse(localStorage.getItem('confirmedItems')));
@@ -114,7 +114,7 @@ const TicketPicker = () => {
                 
                 <h2>Selector de fecha y horario para el turno</h2>
                 <p>Tipo de turno: {typeOfTicket}</p>
-                <p>{selectedTickets.title}</p>
+                <p>{selectedTickets?.title}</p>
                 <DatePicker 
                     sx={{ m: 1, minWidth: 320 }}
                     label='Seleccione la fecha'
