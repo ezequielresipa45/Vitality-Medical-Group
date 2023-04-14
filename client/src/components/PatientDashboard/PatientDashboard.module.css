@@ -12,8 +12,8 @@
 .img_logo{
     height: 35px;
     width: 35px;
-    margin-top: 10px;
-    margin-left:1500px;
+   
+    
 }
 .text{
    
@@ -26,6 +26,7 @@
     font-family: "FireSans";
     text-align: center;
     margin-right: 10px;
+    text-decoration: none;
 }
 .patient{
     margin-bottom: 30px;

@@ -41,6 +41,8 @@ import {useState} from 'react'
 import {useSelector, useDispatch} from "react-redux"
 import {getPatients, getDoctors} from "../../redux/actions"
 import FrequentDoctors from '../FrequentDoctors/FrequentDoctors';
+import { Pagination } from '@mui/material';
+
 
 // import {Link} from 'react-router-dom'
 
@@ -84,21 +86,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       position: 'relative',
       whiteSpace: 'nowrap',
       width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
+     
       boxSizing: 'border-box',
-      ...(!open && {
         overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
+        ...(!open && {
           width: theme.spacing(9),
-        },
+        
       }),
     },
   }),
@@ -116,14 +109,17 @@ function DashboardContent() {
   const dispatch = useDispatch();
 
   const [buttonPopup, setButtonPopup] = useState(false) 
+  const [pageSize, setPageSize] = useState(1);
+  const[page, setPage] = useState(1)
+  
 
-  const[editMode, setEditMode]= useState(false);
-  const selectPatient = useSelector((state)=> state.patient)
- 
+  const startIndex = (page - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
 
   const [patientsName, setPatientsName] = useState("")
   const [selectedPatient, setSelectedPatient] = useState(null)
   const [frequentDoctors, setFrequentDoctors] = useState([])
+  const [selectedUser, setSelectedUser] = useState(null)
 
   useEffect(()=>{
     dispatch(getPatients());
@@ -131,6 +127,8 @@ function DashboardContent() {
 
 
 const patientsByLogin = patients.filter((p)=>p.userId === user.id)
+
+
 
  const initials = user.full_name
     .split(" ")
@@ -164,11 +162,6 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
       setFrequentDoctors(doctors)
     };
 
-    const handleEditClick = () => {
-      setEditMode(true)
-    }
-
-
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -187,14 +180,14 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
           >
              
             <Typography
-              component="h1"
+              component="div"
               variant="h6"
               color="inherit"
-              noWrap
+            
               sx={{ flexGrow: 1 }}
              
             >
-              <Link href="/" underline="none"><img src={img} alt="" className={style.img_logo}/>Vitality Medical Group </Link>     
+              <Link href="/" underline="none"> <img src={img} alt="" className={style.img_logo}/> Vitality Medical Group </Link>     
               
 
             </Typography>
@@ -253,27 +246,30 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={5} justifyContent = "flex-start">
-            <Grid item xs={10} sm={6} justifyContent= "flex-start">
-    <Paper elevation ={24} sx={{ p: 2 }} >
+            <Grid container spacing={5} justifyContent = "center" alignItems="center">
+              
+            <Grid item xs={12} sm={6} >
+            
+              
+    <Paper elevation ={24} sx={{ p: 2}} >
 
     {selectedPatient && (
           <>
+           <Grid justifyContent="center" alignItems="center">
             <Avatar sx={{ width: 100, height: 100}}></Avatar>
+            </Grid>
             <div className={style.patient}>   
-            {/* {editMode? (
-              <PatientPut/>
-            ): ( */}
+            
               <>
             <h2 className = {style.font}>{selectedPatient.full_name}</h2>
             <p className = {style.font}>{`Edad: ${selectedPatient.age} años`}</p>
             <p className = {style.font}>{`Cumpleaños: ${selectedPatient.birthday}`}</p>
             <p className = {style.font}>{`Direccion: ${selectedPatient.address}`}</p>
             <p className = {style.font}>{`Teléfono: ${selectedPatient.phone}`}</p>
-            <p className = {style.font}>{`Plan: ${selectedPatient.plan}`}</p>
-            <button className = {style.font} onClick={handleEditClick} >Actualizar Perfil</button>
+            {/* <p className = {style.font}>{`Plan: ${selectedPatient.plan}`}</p> */}
+            <Link href="/putpatient" underline="none" >Actualizar Perfil</Link>
             </>
-            {/* )} */}
+           
             </div>   
       
           </>
@@ -282,19 +278,30 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
     </Paper>
   </Grid>
  
-<Grid item xs={6}>
-    <Paper elevation={24} sx={{ p: 2 , height : 475}}>
+<Grid item xs={12} md={6}>
+    <Paper elevation={24} sx={{ p: 2 , height : 477, textAlign: "center"}}>
           <CalendarMonthIcon fontSize ="large"  color = "secondary"/>
         {selectedPatient && (
           <>
-      <Typography><PatientTickets patient ={selectedPatient}/></Typography>
+      <Typography>
+        <PatientTickets patient ={selectedPatient}/>
+        <Pagination
+         count={Math.ceil(selectedPatient.ticketMedicals.length / pageSize)}
+          page={page}
+          onChange={(event, value) => setPage(value)}
+          color="primary"
+          size="small"
+        />
+        
+        
+        </Typography>
       </>
         )}
     
     </Paper>
   </Grid>
 
-  <Grid item xs={6}>
+  <Grid item xs={12} md={6}>
     <Paper elevation={24} sx={{ p: 2 , height : 447, textAlign: "center"}}>
           <AccessTimeIcon fontSize ="large"  color = "secondary"/>
        {selectedPatient && (
@@ -309,7 +316,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
     </Paper>
   </Grid>
 
-  <Grid item xs={6}>
+  <Grid item xs={12} md={6}>
     <Paper elevation={24} sx={{ p: 2 , height : 447, textAlign: "center"}}>
           <Diversity3Icon fontSize ="large"  color = "secondary"/>
 
