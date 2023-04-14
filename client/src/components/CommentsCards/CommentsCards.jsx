@@ -51,7 +51,7 @@ export default function CommentsCard() {
   useEffect(()=>{
     dispatch(getComments());
   }, [dispatch])
-console.log(comment)
+// console.log(comment)
 
 
     

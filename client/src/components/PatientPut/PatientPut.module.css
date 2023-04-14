@@ -11,7 +11,7 @@
     height: 100vh;
     display: flex;
     padding-top: 6rem;
-    flex-direction: row;
+    flex-direction: row-reverse;
     background-color: #f1efef;
   }
   
