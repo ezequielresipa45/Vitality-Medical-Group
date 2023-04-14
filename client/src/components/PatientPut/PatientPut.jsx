@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import axios from "axios"
 import { useDispatch, useSelector } from 'react-redux';
 import { getPatientsById, putPatient } from '../../redux/actions';
-import style from './PatientPut.module.css';
+import patientPic from "../../images/patientForm-img.jpeg"
+import style from "../PatientPut/PatientPut.module.css"
 
 const PatientPut = () => {
   const [id, setId] = useState('');
@@ -20,10 +22,10 @@ const PatientPut = () => {
 
   console.log(patient);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    dispatch(getPatientsById(id));
-  };
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   dispatch(getPatientsById(id));
+  // };
 
   const [userDate, setUserDate] = useState({
     id: '',
@@ -46,20 +48,15 @@ const PatientPut = () => {
   };
 
   return (
-    <div className={style.firstDiv}>
+    <div className={style.container__patient}>
+      <img src={patientPic} alt="" />
+
+      <div className={style.container__patient_form}>
+
       <h2>Actualiza tu información:</h2>
+     
       <form onSubmit={handleSubmit}>
-        <label htmlFor="id">Paciente ID</label>
-        <input
-          type="text"
-          id="id"
-          name="id"
-          value={id}
-          onChange={(e) => setId(e.target.value)}
-          />
-        <button onClick={handleSearch}>Search</button>
-        <br />
-        <br />
+       
         {patient.id && (
             <>
             <h2>{patient.full_name}</h2>
@@ -84,11 +81,14 @@ const PatientPut = () => {
             <br />
             <br />
            
-            <button className={style.button} type="submit">Actualizar</button>
+            <button className={style.btn__form} type="submit">Actualizar</button>
+            
           </>
         )}
       </form>
     </div>
+    </div>
   );
 };
+
 export default PatientPut; 

@@ -1,5 +1,11 @@
-import style from "../PatientDashboard/PatientDashboard.module.css"
 import * as React from 'react';
+import {useEffect} from "react";
+import style from "../PatientDashboard/PatientDashboard.module.css"
+import img from "../../images/logo.png"
+import PatientPut from "../PatientPut/PatientPut";
+import PatientTickets from '../PatientTickets/PatientTickets';
+import ExperienceForm from "../ExperienceForm/ExperienceForm";
+import Popup from "../PopUp/PopUp";
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -11,6 +17,9 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
+import Diversity3Icon from "@mui/icons-material/Diversity3"
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import PersonIcon from '@mui/icons-material/Person';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -25,12 +34,14 @@ import HistorySharpIcon from '@mui/icons-material/HistorySharp';
 import CakeIcon from '@mui/icons-material/Cake';
 import FeedIcon from '@mui/icons-material/Feed';
 import Avatar from '@mui/material/Avatar';
-import img from "../../images/logo.png"
-import ExperienceForm from "../ExperienceForm/ExperienceForm";
-import Popup from "../PopUp/PopUp";
-import Input from '@mui/material/Input';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
 import {useState} from 'react'
+import {useSelector, useDispatch} from "react-redux"
+import {getPatients, getDoctors} from "../../redux/actions"
+import FrequentDoctors from '../FrequentDoctors/FrequentDoctors';
+
 // import {Link} from 'react-router-dom'
 
 
@@ -96,52 +107,85 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 function DashboardContent() {
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+  
+  const user = useSelector((state)=>state.user);
+  const patients = useSelector((state)=>state.patients);
+  const doctors = useSelector((state)=>state.doctors)
+ 
+
+  const dispatch = useDispatch();
 
   const [buttonPopup, setButtonPopup] = useState(false) 
 
-  // function AvatarWithUpload() {
-  //   const [imageUrl, setImageUrl] = useState('');
-  
-  //   const handleImageUpload = (event) => {
-  //     const file = event.target.files[0];
-  //     const reader = new FileReader();
-  
-  //     reader.onload = () => {
-  //       setImageUrl(reader.result);
-  //     }
-  
-  //     reader.readAsDataURL(file);
-  //   };
-  // }
+  const[editMode, setEditMode]= useState(false);
+  const selectPatient = useSelector((state)=> state.patient)
+ 
+
+  const [patientsName, setPatientsName] = useState("")
+  const [selectedPatient, setSelectedPatient] = useState(null)
+  const [frequentDoctors, setFrequentDoctors] = useState([])
+
+  useEffect(()=>{
+    dispatch(getPatients());
+  }, []);
+
+
+const patientsByLogin = patients.filter((p)=>p.userId === user.id)
+
+ const initials = user.full_name
+    .split(" ")
+    .map((name) => name.charAt(0))
+    .join("");
+    
+    const countDoctors = (tickets) => {
+      const doctorCounts = {};
+      tickets.forEach((ticket) => {
+        if (!doctorCounts[ticket.doctorId]) {
+          doctorCounts[ticket.doctorId] = 1;
+        } else {
+          doctorCounts[ticket.doctorId]++;
+        }
+      });
+      return doctorCounts;
+      
+    };
+
+    useEffect(()=> {
+      if (selectedPatient) {
+        const doctors = countDoctors(selectedPatient.ticketMedicals);
+        setFrequentDoctors(doctors);
+      }
+    }, [selectedPatient])
+
+    const handlePatientClick = (patient) => {
+      setPatientsName(patient.full_name);
+      setSelectedPatient(patient);
+      const doctors = countDoctors(patient.ticketMedicals);
+      setFrequentDoctors(doctors)
+    };
+
+    const handleEditClick = () => {
+      setEditMode(true)
+    }
+
+
 
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
+        <AppBar position="absolute" open={open} >
           <Toolbar
           className={style.toolbar}
           
             sx={{
-              pr: '24px', // keep right padding when drawer closed
+              pr: '24px',
+              flexDirection:"row",
+              alignItems:"center"
+             // keep right padding when drawer closed
             }}
           >
-            <IconButton
-              edge="start"
-              color="primary"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
+             
             <Typography
               component="h1"
               variant="h6"
@@ -150,8 +194,8 @@ function DashboardContent() {
               sx={{ flexGrow: 1 }}
              
             >
-              <img src={img} alt="" className={style.img_logo}/>      
-                   Vitality Medical Group
+              <Link href="/" underline="none"><img src={img} alt="" className={style.img_logo}/>Vitality Medical Group </Link>     
+              
 
             </Typography>
             <IconButton color="inherit">
@@ -161,7 +205,7 @@ function DashboardContent() {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
+        <Drawer variant="permanent" open={open} sx={{width: 240}} >
             
           <Toolbar
             sx={{
@@ -169,40 +213,32 @@ function DashboardContent() {
               alignItems: 'center',
               justifyContent: 'flex-end',
               px: [1],
+              width: 240,
+              height: 63
             }}
           >
+             <Avatar sx={{ width: 56, height: 56, position: "absolute", left: 90}} > {initials}
+             </Avatar>
              
-              <p className={style.name_patient}> NAME PATIENT</p>
-             
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav" className={style.text}>
+          <List component="nav" >
+         
+        {patientsByLogin.map((patient) => (
+          <ListItemButton key={patient.id} onClick={() => handlePatientClick(patient)}>
             
-            <Divider sx={{ my: 1 }} />
-            <Button size ="large" color = "primary" className={style.text} > <LocalHospitalSharpIcon fontSize = "large" className={style.text}/> TU PLAN</Button>
-            <br /><br />
-            <Button className={style.text}> <CalendarMonthIcon fontSize = "large"  className={style.text}/> TUS TURNOS</Button>
-            <br /><br />
-            <Button className={style.text}> <HistorySharpIcon fontSize = "large"  className={style.text}/> TU HISTORIAL</Button>
-            <br /><br />
-            <Link href ='/cartilla' underline="none">
-            <Button> 
-              <MenuBookIcon fontSize = "large"  className={style.text}/> 
-              TU CARTILLA
-              </Button>
-              </Link>
-            <br /><br />
-            <Button onClick={()=>setButtonPopup(true)}className={style.text} ><FeedIcon fontSize= "large" className={style.text}/>TU EXPERIENCIA </Button>
-                <Popup trigger = {buttonPopup} setTrigger = {setButtonPopup}>   
-                    <ExperienceForm/>
-                </Popup>
-            
+            <ListItemText sx={{fontFamily: "FireSans", display: "flex", alignItems: "center", fontSize: 15}} ><PersonIcon color="primary" fontSize="large"/><p className={style.name_patient}>{patient.full_name}</p></ListItemText>
+          </ListItemButton>
+        ))}
+        <ListItemButton> <Link href ='/cartilla' underline="none">
+          <ListItemText> <MenuBookIcon fontSize = "large"  className={style.text}/><p className={style.name_patient}>Tu cartilla</p> </ListItemText>
+          </Link></ListItemButton>
+        
+               
           </List>
          
         </Drawer>
+        
         <Box
           component="main"
           sx={{
@@ -217,55 +253,79 @@ function DashboardContent() {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Chart */}
-              
-              <Grid item xs={4} >
+            <Grid container spacing={5} justifyContent = "flex-start">
+            <Grid item xs={10} sm={6} justifyContent= "flex-start">
+    <Paper elevation ={24} sx={{ p: 2 }} >
 
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    justifyContent: 'flex-start',
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    height: 450,
-                  }}
-                  elevation={24}
-                >
-                  <Avatar sx={{ width: 150, height: 150}} ></Avatar>
-                  {/* <Input type="file" onChange={handleImageUpload}></Input> falta agregar src al avatar */ }
-                  <Typography variant="body2" sx={{justifyContent: 'flex-start', display: 'flex', alignItems: 'center', fontSize:25}}> FULL NAME</Typography>
-            
+    {selectedPatient && (
+          <>
+            <Avatar sx={{ width: 100, height: 100}}></Avatar>
+            <div className={style.patient}>   
+            {/* {editMode? (
+              <PatientPut/>
+            ): ( */}
+              <>
+            <h2 className = {style.font}>{selectedPatient.full_name}</h2>
+            <p className = {style.font}>{`Edad: ${selectedPatient.age} años`}</p>
+            <p className = {style.font}>{`Cumpleaños: ${selectedPatient.birthday}`}</p>
+            <p className = {style.font}>{`Direccion: ${selectedPatient.address}`}</p>
+            <p className = {style.font}>{`Teléfono: ${selectedPatient.phone}`}</p>
+            <p className = {style.font}>{`Plan: ${selectedPatient.plan}`}</p>
+            <button className = {style.font} onClick={handleEditClick} >Actualizar Perfil</button>
+            </>
+            {/* )} */}
+            </div>   
+      
+          </>
+        )}
+      
+    </Paper>
+  </Grid>
+ 
+<Grid item xs={6}>
+    <Paper elevation={24} sx={{ p: 2 , height : 475}}>
+          <CalendarMonthIcon fontSize ="large"  color = "secondary"/>
+        {selectedPatient && (
+          <>
+      <Typography><PatientTickets patient ={selectedPatient}/></Typography>
+      </>
+        )}
+    
+    </Paper>
+  </Grid>
 
-                 <Divider variant="middle" flexItem></Divider> 
-                 <br /><br /><br />
-                 <Typography><CakeIcon fontSize = "large"/></Typography>
-                </Paper>
-              </Grid>
-            
-              <Grid item xs={6} >
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 450,
-                  }}
-                  elevation={24}
+  <Grid item xs={6}>
+    <Paper elevation={24} sx={{ p: 2 , height : 447, textAlign: "center"}}>
+          <AccessTimeIcon fontSize ="large"  color = "secondary"/>
+       {selectedPatient && (
+         <>
+         <Typography>
+           <FrequentDoctors frequent = {frequentDoctors} doc={doctors}/>
+           </Typography>
 
-                >
-               
-                </Paper>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                 
-                </Paper>
-              </Grid>
+         </>
+       )}
+    
+    </Paper>
+  </Grid>
+
+  <Grid item xs={6}>
+    <Paper elevation={24} sx={{ p: 2 , height : 447, textAlign: "center"}}>
+          <Diversity3Icon fontSize ="large"  color = "secondary"/>
+
+         <>
+         <Typography><h2 className={style.font}>TU EXPERIENCIA NOS IMPORTA</h2>
+         <br /><p  className={style.font}>En nuestro centro de atención médica nos esforzamos por brindarle la mejor atención posible a nuestros pacientes. Es por eso que nos gustaría conocer su opinión y experiencia con nosotros. Si puede tomarse unos minutos para completar nuestra breve encuesta, nos ayudará a mejorar nuestros servicios y a brindarle una mejor atención en el futuro. Agradecemos de antemano su colaboración y compromiso con su salud.</p></Typography>
+
+         <Button onClick={()=>setButtonPopup(true)}><button className={style.font}>Encuesta</button></Button>
+                <Popup trigger = {buttonPopup} setTrigger = {setButtonPopup}>   
+                    <ExperienceForm/>
+                </Popup>
+         </>
+    </Paper>
+  </Grid>
+
             </Grid>
-            
           </Container>
         </Box>
       </Box>

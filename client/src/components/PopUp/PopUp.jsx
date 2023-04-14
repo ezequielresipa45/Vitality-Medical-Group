@@ -4,6 +4,8 @@ import img from "../../images/logo.png";
 import ExperienceForm from "../ExperienceForm/ExperienceForm";
 
 function Popup(props){
+    const handleOpen = props.handleOpen
+    
     return (props.trigger) ? (
         <div className={style.popup}>
             <div className={style.popup_inner}>
