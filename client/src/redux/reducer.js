@@ -1,4 +1,4 @@
-import { GET_ANALYSIS , GET_SPECIALITIES, FILTER_ANALYSIS, GET_DOCTORS, GET_PLANS, GET_FARMACY, DELETE_DOCTOR, DELETE_PATIENT, GET_DOCTOR_BYID, GET_PATIENT_BYID, GET_SELECTED_TICKETS , POST_SELECTED_TICKETS , DELETE_SELECTED_TICKETS, PUT_DOCTOR, GET_USER, PUT_USER, PUT_PATIENT, GET_CONFIRMED_TICKETS , POST_CONFIRMED_TICKETS , DELETE_CONFIRMED_TICKETS, LOGIN, LOGOUT_LOGIN, POST_COMMENT, GET_COMMENTS,SORT_DOCTORS,SORT_DOCTORS_BY_ID,SORT_DOCTORS_BY_SPECIALTY, GET_PATIENTS, SIGNUP} from "./actions";
+import { GET_ANALYSIS ,GET_TICKETS, GET_SPECIALITIES, FILTER_ANALYSIS, GET_DOCTORS, GET_PLANS, GET_FARMACY, DELETE_DOCTOR, DELETE_PATIENT, GET_DOCTOR_BYID, GET_PATIENT_BYID, GET_SELECTED_TICKETS , POST_SELECTED_TICKETS , DELETE_SELECTED_TICKETS, PUT_DOCTOR, GET_USER, PUT_USER, PUT_PATIENT, GET_CONFIRMED_TICKETS , POST_CONFIRMED_TICKETS , DELETE_CONFIRMED_TICKETS, LOGIN, LOGOUT_LOGIN, POST_COMMENT, GET_COMMENTS,SORT_DOCTORS,SORT_DOCTORS_BY_ID,SORT_DOCTORS_BY_SPECIALTY, GET_PATIENTS, SIGNUP} from "./actions";
 
 const initialState = {
     specialities: [],
@@ -15,6 +15,7 @@ const initialState = {
     comment: [],
     allUsers: [],
     user: {},
+    tickets: []
   };
   
  
@@ -124,6 +125,7 @@ const initialState = {
           selectedTickets: action.payload
         };
 
+
       case GET_CONFIRMED_TICKETS:
         return{
           ...state,
@@ -231,11 +233,19 @@ const initialState = {
               }
               return 0;
             });
-      
+
             return {
               ...state,
               doctors: sortedSpecialties,
             };
+
+
+            case "GET_TICKETS":
+
+            return{
+              ...state,
+              tickets: action.payload,
+            }; 
   
       default:
         return {
