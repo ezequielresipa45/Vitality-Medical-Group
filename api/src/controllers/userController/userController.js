@@ -1,5 +1,5 @@
-const {User,Plan,Paids,Comment} = require("../../db.js")
-const {Op}= require("sequelize")
+const { User, Plan, Paids, Comment, Patient } = require("../../db.js");
+const { Op } = require("sequelize");
 
 /* 
 hecho 
@@ -41,82 +41,79 @@ const filterUserDB = (item) => {
 
 // este controler trae los users
 
-
-const getAllUser = async () =>{
-    const request = await User.findAll({
-        include:[ 
-            {
-            model: Plan
-            },
-            {
-            model: Paids,
-            },
-            {
-            model: Comment,
-            }
-
-        ],
-
-    })
-      let filtered = request
-      .filter((item) => item.is_delete !== true)
+const getAllUser = async () => {
+  const request = await User.findAll({
+    include: [
+      {
+        model: Plan,
+      },
+      {
+        model: Paids,
+      },
+      {
+        model: Comment,
+      },
+      {
+        model: Patient,
+      },
+    ],
+  });
+  let filtered = request.filter((item) => item.is_delete !== true);
 
   return filtered;
 };
 
 // *Este controller busca a un usuario por id:
 const getUserById = async (id) => {
-    const request = await User.findByPk(id, {
-      include: [
-        {
-          model: Plan,
-        },
-        {
-          model: Paids,
-        },
-        {
-          model: Comment,
-        },
-      ],
-    });
-  
-    if (request && request.is_delete === false) {
-      return request;
+  const request = await User.findByPk(id, {
+    include: [
+      {
+        model: Plan,
+      },
+      {
+        model: Paids,
+      },
+      {
+        model: Comment,
+      },
+      {
+        model: Patient,
+      },
+    ],
+  });
 
-    } else {
-      return "No existe el Usuario con ese Id";
-    }
-  };
+  if (request && request.is_delete === false) {
+    return request;
+  } else {
+    return "No existe el Usuario con ese Id";
+  }
+};
 
-// aca se crea un usuario nuevo 
+// aca se crea un usuario nuevo
 
 const createUser = async (full_name, email, password, user_name, image) => {
+  const newUser = await User.create({
+    full_name: full_name,
+    email: email,
+    password: password,
+    user_name: user_name,
+    image: image,
+    is_plan_pay: false,
+  });
+  return { message: "El Usuario a sido creado con exito" };
+};
 
-
-    const newUser = await User.create({
-      full_name: full_name,
-      email: email,
-      password: password,
-      user_name: user_name,
-      image: image,
-      is_plan_pay: false,
-    });
-    return { message: "El Usuario a sido creado con exito" };
-  }
-
-
-
-const setUser = async ( id,
-                        full_name,
-                        email,
-                        password,
-                        user_name,
-                        image,
-                        is_plan_pay,
-                        is_delete,
-                         ) =>{
-                        
- const changeUser = await User.findByPk(id);
+const setUser = async (
+  id,
+  full_name,
+  email,
+  password,
+  user_name,
+  image,
+  is_plan_pay,
+  is_delete
+) => {
+  const changeUser = await User.findByPk(id);
   if (changeUser) {
     await changeUser.set({
       full_name: full_name,
@@ -127,27 +124,23 @@ const setUser = async ( id,
       is_plan_pay: is_plan_pay,
       is_delete: is_delete,
     });
-    
+
     await changeUser.save();
     return [changeUser];
   } else {
     return "No existe el Usuario";
   }
 };
-                          
-
 
 const isAdmin = async (id, is_Admin) => {
   let allUser = await getAllUser();
-  let user = await User.findByPk(id)
+  let user = await User.findByPk(id);
 
-
-  if(user.email === "infovitalitymedical@gmail.com"){
+  if (user.email === "infovitalitymedical@gmail.com") {
     user.is_admin = true;
     await user.save();
-    return{message1:"No se pueden realizar modificaciones a este usuario"}
-
- }else if (is_Admin === false) {
+    return { message1: "No se pueden realizar modificaciones a este usuario" };
+  } else if (is_Admin === false) {
     const result = await User.update(
       {
         is_admin: false,
@@ -172,9 +165,7 @@ const isAdmin = async (id, is_Admin) => {
     );
     return { message: "El usuario ahora es administrador" };
   } else {
-    throw new Error(
-      "No se encontro al usuario"
-    );
+    throw new Error("No se encontro al usuario");
   }
 };
 
@@ -194,13 +185,10 @@ const deleteUser = async (id) => {
 };
 
 module.exports = {
-    getAllUser,
-    getUserById,
-    createUser,
-    setUser,
-    isAdmin,
-    deleteUser,
-}
-
-
-
+  getAllUser,
+  getUserById,
+  createUser,
+  setUser,
+  isAdmin,
+  deleteUser,
+};

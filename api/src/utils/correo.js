@@ -5,6 +5,8 @@ dotenv.config();
 
 const { EMAIL } = process.env;
 
+const welcomeHtml = require("./plantillasHtml/bienvenido.js")
+
 
 const options = {
     from: EMAIL,
@@ -43,13 +45,22 @@ const sendMail = async (mailOptions) => {
 }
 
 
+const mailWelcome = async(user, link) => {
+    options.to = user.email;
+    options.subject = "Bienvenido";
+    options.text = ""
+    options.html = welcomeHtml(user, link)
+    const res = await sendMail(options);
+    return res;
+}
+
 
 const mailResetPass = async(email, pass) => {
     options.to = email;
     options.subject = "Reset password";
     options.text = "Please, reset su password"
     options.html = `<b>Your temporary password is ${pass}</b>`
-    const res = sendMail(mailOptions);
+    const res = sendMail(options);
     return res;
 }
 
@@ -90,7 +101,8 @@ const mailConfirmedTicketAnalysis = async (email, ticket) => {
 }
 
 module.exports = {
+    mailWelcome,
     mailResetPass,
     mailConfirmedTicketMedical,
-    mailConfirmedTicketAnalysis
+    mailConfirmedTicketAnalysis,
 }

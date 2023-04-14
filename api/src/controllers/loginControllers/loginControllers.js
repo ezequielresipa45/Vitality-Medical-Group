@@ -1,4 +1,5 @@
 const { User, Plan, Paids } = require("../../db.js")
+const {mailWelcome} = require("../../utils/correo.js")
 
 const attr = [
     "id",
@@ -43,6 +44,8 @@ const signUp = async (full_name, email, user_name, image) => {
     })
 
     await newUser.save();
+    const link = "http://localhost:5173/planes"
+    await mailWelcome(newUser, link)
     return newUser
 }
 
