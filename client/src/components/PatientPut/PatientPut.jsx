@@ -4,37 +4,45 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPatientsById, putPatient } from '../../redux/actions';
 import patientPic from "../../images/patientForm-img.jpeg"
 import style from "../PatientPut/PatientPut.module.css"
+import { useLocation } from 'react-router-dom';
 
 const PatientPut = () => {
   
-  const [id, setId] = useState('');
+ 
   const dispatch = useDispatch();
   const patient = useSelector((state) => state.patient);
-
-
-  useEffect(() => {
-    setUserDate({
-      id: patient.id,
-      name: patient.full_name,
-      phone: patient.phone,
-      address: patient.address,
-      
-    });
-  }, [patient]);
-
-  console.log(patient);
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    dispatch(getPatientsById(id));
-  };
-
+  const location = useLocation();
   const [userDate, setUserDate] = useState({
     id: '',
     phone: '',
     address: '',
     
   });
+
+  useEffect(() => {
+    setUserDate({
+     
+      name: patient.full_name,
+      phone: patient.phone,
+      address: patient.address,
+      
+    });
+    
+  }, [patient]);
+
+  useEffect(()=>{
+    const id = location.pathname.split('/')[2]
+    dispatch(getPatientsById(id));
+    
+  },[location])
+
+ 
+
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   dispatch(getPatientsById(id));
+  // };
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,7 +68,7 @@ const PatientPut = () => {
      
       <form onSubmit={handleSubmit}>
       <div>
-      <input
+      {/* <input
           type="text"
           id="id"
           name="id"
@@ -68,7 +76,7 @@ const PatientPut = () => {
           placeholder='Ingrese un Id'
           onChange={(e) => setId(e.target.value)}
         />
-        <button onClick={handleSearch}><i class="fas fa-search"></i> Buscar</button>
+        <button onClick={handleSearch}><i class="fas fa-search"></i> Buscar</button> */}
 
         </div>
        

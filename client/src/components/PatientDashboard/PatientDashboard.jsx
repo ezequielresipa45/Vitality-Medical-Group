@@ -244,7 +244,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
             <p className = {style.font}>{`Direccion: ${selectedPatient.address}`}</p>
             <p className = {style.font}>{`Teléfono: ${selectedPatient.phone}`}</p>
             {/* <p className = {style.font}>{`Plan: ${selectedPatient.plan}`}</p> */}
-            <Link href="/putpatient" underline="none" >Actualizar Perfil</Link>
+            <Link href={`/putpatient/${selectedPatient.id}`} underline="none" >Actualizar Perfil</Link>
             </>
             </div>   
           </>
