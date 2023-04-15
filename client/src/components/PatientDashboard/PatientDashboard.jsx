@@ -27,6 +27,7 @@ import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from "@mui/material/Button"
+import LocalHospitalSharpIcon from '@mui/icons-material/LocalHospitalSharp';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import HistorySharpIcon from '@mui/icons-material/HistorySharp';
 import CakeIcon from '@mui/icons-material/Cake';
@@ -201,13 +202,9 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
                 <ListItemText sx={{fontFamily: "FireSans", display: "flex", alignItems: "center", fontSize: 15}} ><PersonIcon color="primary" fontSize="large"/><p className={style.name_patient}>{patient.full_name}</p></ListItemText>
           </ListItemButton>
         ))}
-        <ListItemButton>
-        <Link href ='/cartilla' underline="none">
-        <ListItemText>
-          <MenuBookIcon fontSize = "large"  className={style.text}/><p className={style.name_patient}>Tu cartilla</p> 
-        </ListItemText>
-        </Link>
-          </ListItemButton>
+        <ListItemButton><Link href ='/cartilla' underline="none">
+        <ListItemText><MenuBookIcon fontSize = "large"  className={style.text}/><p className={style.name_patient}>Tu cartilla</p> </ListItemText>
+        </Link></ListItemButton>
         </List>
          
         </Drawer>
@@ -227,8 +224,10 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={5} justifyContent = "center" alignItems="center">
+              
             <Grid item xs={12} sm={6} >
-               
+            
+              
     <Paper elevation ={24} sx={{ p: 2}} >
 
     {selectedPatient && (
@@ -237,6 +236,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
             <Avatar sx={{ width: 100, height: 100}}></Avatar>
             </Grid>
             <div className={style.patient}>   
+            
               <>
             <h2 className = {style.font}>{selectedPatient.full_name}</h2>
             <p className = {style.font}>{`Edad: ${selectedPatient.age} años`}</p>
@@ -273,8 +273,9 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
        {selectedPatient && (
          <>
          <Typography>
-            <FrequentDoctors frequent = {frequentDoctors} doc={doctors}/>
-          </Typography>
+           <FrequentDoctors patient = {selected.patient}/>
+           </Typography>
+
          </>
        )}
     
@@ -287,7 +288,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
 
          <>
          <Typography><h2 className={style.font}>TU EXPERIENCIA NOS IMPORTA</h2>
-         <br/><p  className={style.font}>En nuestro centro de atención médica nos esforzamos por brindarle la mejor atención posible a nuestros pacientes. Es por eso que nos gustaría conocer su opinión y experiencia con nosotros. Si puede tomarse unos minutos para completar nuestra breve encuesta, nos ayudará a mejorar nuestros servicios y a brindarle una mejor atención en el futuro. Agradecemos de antemano su colaboración y compromiso con su salud.</p></Typography>
+         <br /><p  className={style.font}>En nuestro centro de atención médica nos esforzamos por brindarle la mejor atención posible a nuestros pacientes. Es por eso que nos gustaría conocer su opinión y experiencia con nosotros. Si puede tomarse unos minutos para completar nuestra breve encuesta, nos ayudará a mejorar nuestros servicios y a brindarle una mejor atención en el futuro. Agradecemos de antemano su colaboración y compromiso con su salud.</p></Typography>
 
          <Button onClick={()=>setButtonPopup(true)}><button className={style.font}>Encuesta</button></Button>
                 <Popup trigger = {buttonPopup} setTrigger = {setButtonPopup}>   

@@ -79,6 +79,7 @@ useEffect(() => {
     <>
 
       {!isAdmin && <NavBar />}
+      {isAdmin && location.pathname !== '/paciente' && <NavBar />}
 
       <Routes>
 
@@ -114,7 +115,9 @@ useEffect(() => {
         <Route path='/administrador' element={<UserCard />} />
 
         {/* <Route path='/adminDelete' element= {<DeletePatient/>}/> */}
+        
         <Route path = '/paciente' element= {<PatientDashboard/>}/>
+        
 
         <Route path= '/jitsimeet' element= {<JitsiMeet />} />
 

@@ -17,7 +17,7 @@ const FrequentDoctors = ({frequent}) => {
 
   useEffect(() => {
    dispatch(getDoctors());
-  }, []);
+  }, [dispatch]);
 
 
   const countDoctors = (tickets) => {
