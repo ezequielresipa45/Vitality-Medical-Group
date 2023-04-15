@@ -22,6 +22,7 @@ import TicketPicker from './components/Tickets/TicketPicker';
 import UserCard from './components/UserCard/UserCard';
 import TicketsDrawer from './components/TicketsDrawer/TicketsDrawer';
 import PatientDashboard from './components/PatientDashboard/PatientDashboard';
+import JitsiMeet from './components/JitsiMeet/JitsiMeet';
 
 import { useAuth0 } from "@auth0/auth0-react"; // Import para Auth0
 
@@ -114,6 +115,8 @@ useEffect(() => {
 
         {/* <Route path='/adminDelete' element= {<DeletePatient/>}/> */}
         <Route path = '/paciente' element= {<PatientDashboard/>}/>
+
+        <Route path= '/jitsimeet' element= {<JitsiMeet />} />
 
 
       </Routes>
