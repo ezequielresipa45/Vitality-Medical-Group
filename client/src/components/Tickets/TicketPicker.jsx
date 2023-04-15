@@ -35,15 +35,15 @@ const TicketPicker = () => {
         patient_name: ''
     });
 
-    //Fechas 
+    //Fechas y Horarios
     const date = new Date();
     //const dateFormat = format(date, 'dd/MM/yyyy');
+    const days = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
     const [selectedDate, setSelectedDate] = useState(date);
+    const [availableDays, setAvailableDays] = useState(selectedTickets.days ? selectedTickets.days : days);
     const [isAvailable, setIsAvailable] = useState(false);
     const [error, setError] = useState(null);
-    
-    //Horarios
-    const availableDays = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
+
     const schedules = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
     const [availableSchedules, setAvailableSchedules] = useState(selectedTickets.schedules ? selectedTickets.schedules : schedules);
     const [selectedSchedule, setSelectedSchedule] = useState('');
@@ -89,7 +89,7 @@ const TicketPicker = () => {
             patient_name: selectedPatient.patient_name,
             ticket:{
                 type: ticket_type,
-                title: selectedTickets.title,
+                title: selectedTickets.title || `Consulta Médica: ${selectedTickets.name}`,
                 date: format(selectedDate, 'dd/MM/yyyy'),
                 schedule: selectedSchedule,
                 code: selectedTickets.code
@@ -132,7 +132,10 @@ const TicketPicker = () => {
                 
                 <h2>Selector de fecha y horario para el turno</h2>
                 <p>Tipo de turno: {ticket_type}</p>
-                <p>{selectedTickets?.title}</p>
+
+                {selectedTickets?.title && <p>{selectedTickets?.title}</p>}
+                
+                {selectedTickets?.name && <p>Profesional: {selectedTickets?.name} - {selectedTickets?.speciality[0].toUpperCase() + selectedTickets?.speciality.slice(1)}</p>}
 
                 <FormControl sx={{ m: 1, minWidth: 320 }} error={error && true}>
                     <InputLabel id='select_patient'>{'Seleccione un paciente'}</InputLabel>
