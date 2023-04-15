@@ -62,11 +62,14 @@ const createPaymentAnalysis = async (
     price,
     date,
   });
-  const requestTickets = await TicketAnalysis.findByPk(ticketsIds);
-  await requestTickets.set({
-    is_paid: true,
+
+  const requestTickets = await TicketAnalysis.findAll({
+    where: { id: ticketsIds },
   });
-  await requestTickets.save();
+  await requestTickets.forEach(function (item) {
+    item.is_paid = true;
+    item.save();
+  });
 
   await requestPayment.addTicketAnalysis(requestTickets); //?Correcto
   await requestPayment.save();

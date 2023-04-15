@@ -239,6 +239,9 @@ const deleteSchedule = async (id, date) => {
   const request = await Doctor.findByPk(id, {
     include: {
       model: Schedule,
+      where: {
+        date: date,
+      },
     },
   });
   await request.schedules.forEach((item) => {
