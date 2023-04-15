@@ -3,6 +3,11 @@
     src: url("../../Fonts/FiraSans-Bold.ttf");
 }
 
+.background {
+    margin-top: 150px;
+    margin-bottom: 50px;
+}
+
 .title {
     font-family: "FireSans";
     margin-top: 100px;
@@ -17,11 +22,11 @@
     margin: 5px;
 }
 
-blockquote {
+.paragraph blockquote {
     text-indent: 30px;
 }
 
-button {
+.meetbutton {
     border-radius: 3rem;
     box-shadow: 0 1rem 1rem rgba(0,0,0, 0.2);
     color: white;
