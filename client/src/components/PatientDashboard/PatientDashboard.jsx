@@ -273,7 +273,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
        {selectedPatient && (
          <>
          <Typography>
-           <FrequentDoctors frequent = {frequentDoctors} doc={doctors}/>
+           <FrequentDoctors patient = {selected.patient}/>
            </Typography>
 
          </>
