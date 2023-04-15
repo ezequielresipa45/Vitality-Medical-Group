@@ -36,6 +36,7 @@ const startIndex = (page - 1) * pageSize;
                 <h3>Fecha: {ticket.date}</h3>
                 <h3>Hora: {ticket.hour}</h3>
               </div>
+              
             
           ))}
         </ul>
