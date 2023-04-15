@@ -1,22 +1,24 @@
 .container__putMedic{
     width: 100%;
     height: 94%;
+    display: flex;
+
 }
 
 .container__putMedic form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+width: 100%;
     height: 100%;
     gap: 3rem;
+overflow-y: scroll;
+
 }
 
 
 .container__search{
     display: flex;
     gap: 1rem;
-    padding-bottom: 2rem;
+    padding: 2rem;
+    border-bottom: 1px solid #00000054;
 }
 
 .container__search input, .container__input__medic__info input{
@@ -40,17 +42,100 @@
     background-color: #16283c;
 }
 
-
+.containerForm{
+    display: flex;
+    flex-direction: column;
+    top: 10rem;
+    left: 35rem;
+    position: absolute;
+    background-color: #fff;
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    border: 2px solid #000;
+    border-radius: .3rem;
+}
 .container__input__medic__info{
     display: flex;
+    justify-content: flex-start;
     gap: 1rem;
     width: 19rem;
     text-align: left;
-    justify-content: space-between;
+
 }
+
+.container__input__medic__info label{
+
+    width: 8rem;
+}
+
+
 
 .container__putMedic form button:hover{
 
     color: #fff;
 
 }
+
+.medicInfo{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+box-sizing: border-box;
+padding: 1rem 0;
+}
+
+.medicInfo p{
+    width: 8rem;
+    height: 100%;
+    text-align: center;
+    font-size: 12px;
+    padding: 0;
+}
+
+.container__image{
+    width: 8rem;
+    height: 100%;
+    
+}
+
+.medicInfo .container__image img{
+border-radius: 50%;
+height: 100%;
+}
+
+.tablesName {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 0;
+    border-bottom: 1px solid #00000054;
+    color: #00000082;
+  }
+  
+  .tablesName p{
+    width: 8rem;
+      height: 100%;
+      text-align: center;
+      font-size: 12px;
+      padding: 0;
+  }
+
+  .h2Container{
+    display: flex;
+justify-content: space-between;
+align-items: center;
+
+}
+
+
+  .btnExit{
+    background-color: rgb(124, 8, 8);
+    padding: .3rem;
+ border-radius: 0;
+  }

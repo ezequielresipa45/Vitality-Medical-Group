@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDoctorsByID, putDoctor } from '../../redux/actions';
+import { getDoctorsByID,getDoctors, putDoctor } from '../../redux/actions';
 import style from './PutDoctor.module.css';
 import Swal from 'sweetalert2';
 
@@ -9,8 +9,12 @@ const PutDoctor = () => {
   const [id, setId] = useState('');
   const dispatch = useDispatch();
   const doctor = useSelector((state) => state.doctor);
+  const doctors = useSelector((state) => state.doctors);
+
+  const [cerrar, setCerrar] = useState(false);
 
   useEffect(() => {
+    dispatch(getDoctors())  
     setUserDate({
       id: doctor.id,
       phone: doctor.phone,
@@ -55,30 +59,64 @@ const PutDoctor = () => {
     dispatch(putDoctor(userDate));
   };
 
+
+
+  const handleCerrar = (e)=>{
+    e.stopPropagation();
+    setCerrar(true)
+  }
   return (
     <div className={style.container__putMedic}>
       <form onSubmit={handleSubmit}>
 
-        <div className={style.container__search}>
 
+        <div className={style.container__search}>
         <input
           type="text"
           id="id"
           name="id"
           value={id}
-          placeholder='Ingrese un Id'
+          placeholder='Ingrese ID'
           onChange={(e) => setId(e.target.value)}
         />
-        <button onClick={handleSearch}><i class="fas fa-search"></i> Buscar Médico</button>
-        
-
-
+        <button onClick={handleSearch}><i class="fas fa-search"></i> Editar Médico</button>
+      
         </div>
 
+        <div className={style.tablesName}>
+        <p>ID</p>
+        <p>Perfíl</p>
+        <p>Nombre</p>
+        <p>Dirección</p>
+        <p>Género</p>
+        <p>Edad</p>
+        <p>Matrícula</p>
+      </div>
+
+
+
+
+{doctors && doctors.map((doctor) => (
+          <div className={style.medicInfo}>
+            <p>{doctor.id}</p>
+            <div className={style.container__image}>
+              <img src={doctor.image} alt={doctor.full_name} />
+            </div>
+            <p>{doctor.full_name}</p>
+            <p>{doctor.address}</p>
+            <p>{doctor.gender}</p>
+            <p>{doctor.age}</p>
+            <p>{doctor.code}</p>
+
+          </div>
+        ))}
+    60432382
+
         {doctor.id && (
-          <>
+          <div className={style.containerForm} >
+           
 
-
+<h2 className={style.h2Container}>Editar Medico </h2>
 <div className={style.container__input__medic__info}>
             <label htmlFor="full_name">Name</label>
             <input
@@ -130,7 +168,7 @@ const PutDoctor = () => {
 </div>
 
             <button className={style.button} type="submit">Actualizar Datos</button>
-          </>
+          </div>
         )}
       </form>
     </div>
