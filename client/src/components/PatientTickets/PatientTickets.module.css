@@ -6,3 +6,8 @@
 .div{
     font-family: "FireSans";
 }
+.button{
+    display: center;
+    justify-content: space-between;
+    margin: 50px;
+}
