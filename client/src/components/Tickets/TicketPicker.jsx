@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState , useEffect , useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getConfirmedTickets, postConfirmedTickets, getSelectedTickets } from '../../redux/actions';
+import { getConfirmedTickets, postConfirmedTickets, getSelectedTickets, getPatients } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import { LocalizationProvider , DatePicker, DateTimePicker, TimePicker } from '@mui/x-date-pickers';
 import { FormControl , InputLabel , Select , MenuItem , FormHelperText, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
@@ -16,30 +16,44 @@ const TicketPicker = () => {
 
     const dispatch = useDispatch();
 
-    const user = useSelector((state) => state.user); // Aca hay que traer la info del usaurio logueado
+    const user = useSelector((state) => state.user);
+
+    const patients = useSelector((state) => state.patients.filter((item) => item.userId === user.id));
 
     const confirmedTickets = useSelector((state) => state.confirmedTickets);
 
     const selectedTickets = useSelector((state) => state.selectedTickets);
-
-    const date = new Date();
-    const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-    const availableDays = ['Lunes', 'Miercoles', 'Viernes'];
-    const schedules = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
-
-    let typeOfTicket;
-    if (selectedTickets?.from === '/analisis') typeOfTicket = 'Análisis / Estudio';
-    else typeOfTicket = 'Consulta Médica';
     
-    //const dateFormat = format(date, 'dd/MM/yyyy');
-
     const [isTrue, setIsTrue] = useState(false);
+    
+    //Tipo de turno
+    const ticket_type = selectedTickets?.origin === '/analisis' ? 'Análisis / Estudio' : 'Consulta Médica';
+    
+    //Info del paciente
+    const [selectedPatient, setSelectedPatient] = useState({
+        patient: '',
+        patient_name: ''
+    });
 
-    const [availableSchedules, setAvailableSchedules] = useState(schedules);
+    //Fechas 
+    const date = new Date();
+    //const dateFormat = format(date, 'dd/MM/yyyy');
     const [selectedDate, setSelectedDate] = useState(date);
-    const [selectedSchedule, setSelectedSchedule] = useState('');
     const [isAvailable, setIsAvailable] = useState(false);
     const [error, setError] = useState(null);
+    
+    //Horarios
+    const availableDays = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
+    const schedules = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
+    const [availableSchedules, setAvailableSchedules] = useState(selectedTickets.schedules ? selectedTickets.schedules : schedules);
+    const [selectedSchedule, setSelectedSchedule] = useState('');
+
+    const handlePatientChange = (value) => {
+        setSelectedPatient({
+            patient: value.id,
+            patient_name: value.full_name
+        });
+    };
 
     const availabilityValidator = (value) => {
         let days = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado']
@@ -61,12 +75,8 @@ const TicketPicker = () => {
         setSelectedDate(value);
     };
 
-    console.log(selectedDate);
-    console.log(format(selectedDate, 'dd/MM/yyyy'));
-
     const handleSchedulesChange = (e) => {
-        setSelectedSchedule(e.target.value);
-        
+        setSelectedSchedule(e.target.value);   
     };
 
     const onClickConfirm = () => {
@@ -75,8 +85,10 @@ const TicketPicker = () => {
             user: user.id,
             user_name: user.full_name,
             user_email: user.email,
+            patient: selectedPatient.patient,
+            patient_name: selectedPatient.patient_name,
             ticket:{
-                type: typeOfTicket,
+                type: ticket_type,
                 title: selectedTickets.title,
                 date: format(selectedDate, 'dd/MM/yyyy'),
                 schedule: selectedSchedule,
@@ -85,7 +97,6 @@ const TicketPicker = () => {
         };
 
         dispatch(postConfirmedTickets(ticketInfo));
-        console.log('Confirmaste el turno');
         setIsTrue(true);
         setSelectedSchedule('');
         setAvailableSchedules(availableSchedules.filter((item) => item !== selectedSchedule));
@@ -100,13 +111,13 @@ const TicketPicker = () => {
     };
 
     const onClickBackToSelect = () => {
-        console.log('volver');
         navigate('/analisis');
     }
 
     useLayoutEffect(() => {
         dispatch(getSelectedTickets());
         dispatch(getConfirmedTickets());
+        dispatch(getPatients());
     }, []);
 
     useEffect(() => {
@@ -114,16 +125,31 @@ const TicketPicker = () => {
             localStorage.setItem('confirmedItems', JSON.stringify(confirmedTickets));
         }
     }, [confirmedTickets]);
-    
-    console.log(JSON.parse(localStorage.getItem('confirmedItems')));
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={es}>
             <div className={styles.container}>
                 
                 <h2>Selector de fecha y horario para el turno</h2>
-                <p>Tipo de turno: {typeOfTicket}</p>
+                <p>Tipo de turno: {ticket_type}</p>
                 <p>{selectedTickets?.title}</p>
+
+                <FormControl sx={{ m: 1, minWidth: 320 }} error={error && true}>
+                    <InputLabel id='select_patient'>{'Seleccione un paciente'}</InputLabel>
+                    <Select
+                        labelId='select_patient'
+                        id='select'
+                        label='Seleccione un paciente'
+                        defaultValue={selectedPatient.patient_name}
+                        onChange={(e) => handlePatientChange(e.target.value)}
+                    >
+                        {patients.map((item, index) => (
+                            <MenuItem key={index} value={item}>{item.full_name}</MenuItem>
+                        ))}
+                    </Select>
+                    {error && <FormHelperText>Error</FormHelperText>}
+                </FormControl>
+
                 <DatePicker 
                     sx={{ m: 1, minWidth: 320 }}
                     label='Seleccione la fecha'
