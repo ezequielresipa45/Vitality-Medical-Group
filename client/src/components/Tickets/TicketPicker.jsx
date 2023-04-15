@@ -16,7 +16,7 @@ const TicketPicker = () => {
 
     const dispatch = useDispatch();
 
-    const user = {name: 'Emanuel Marquez', id: '1' }; // Aca hay que traer la info del usaurio logueado
+    const user = useSelector((state) => state.user); // Aca hay que traer la info del usaurio logueado
 
     const confirmedTickets = useSelector((state) => state.confirmedTickets);
 
@@ -70,14 +70,21 @@ const TicketPicker = () => {
     };
 
     const onClickConfirm = () => {
-        dispatch(postConfirmedTickets({
-            user: user,
-            type: typeOfTicket,
-            title: selectedTickets.title,
-            date: format(selectedDate, 'dd/MM/yyyy'),
-            schedule: selectedSchedule,
-            code: selectedTickets.code
-        }));
+
+        const ticketInfo = {
+            user: user.id,
+            user_name: user.full_name,
+            user_email: user.email,
+            ticket:{
+                type: typeOfTicket,
+                title: selectedTickets.title,
+                date: format(selectedDate, 'dd/MM/yyyy'),
+                schedule: selectedSchedule,
+                code: selectedTickets.code
+            }
+        };
+
+        dispatch(postConfirmedTickets(ticketInfo));
         console.log('Confirmaste el turno');
         setIsTrue(true);
         setSelectedSchedule('');
@@ -103,7 +110,9 @@ const TicketPicker = () => {
     }, []);
 
     useEffect(() => {
-        localStorage.setItem('confirmedItems', JSON.stringify(confirmedTickets));
+        if(confirmedTickets.length > 0) {
+            localStorage.setItem('confirmedItems', JSON.stringify(confirmedTickets));
+        }
     }, [confirmedTickets]);
     
     console.log(JSON.parse(localStorage.getItem('confirmedItems')));

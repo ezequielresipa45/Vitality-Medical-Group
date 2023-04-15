@@ -220,6 +220,7 @@ export function postConfirmedTickets(value) {
 };
 
 export function deleteConfirmedTickets(value) {
+  console.log(value);
   return {
       type: DELETE_CONFIRMED_TICKETS,
       payload: value
