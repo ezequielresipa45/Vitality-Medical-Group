@@ -39,10 +39,7 @@ export default function AnalysisContainer() {
 
     const [isUser, setIsUser] = useState(false);
     
-    const [analysis, setAnalysis] = useState([...allAnalysis].map((item, index) => {
-        item.code = index;
-        return item
-    }));
+    const [analysis, setAnalysis] = useState(allAnalysis);
     
     const INITIAL_ITEMS = [...analysis].splice(INITIAL_PAGE, ITEMS);
     const [itemsPage, setItemsPage] = useState(INITIAL_ITEMS);
@@ -138,7 +135,7 @@ export default function AnalysisContainer() {
 
     const handleClickTicket = (value) => {
         dispatch(postSelectedTickets({
-            from: location.pathname,
+            origin: location.pathname,
             title: value.title,
             speciality: value.speciality,
             code: value.code,
@@ -146,7 +143,7 @@ export default function AnalysisContainer() {
         }));
         
         localStorage.setItem('selectedItems' , JSON.stringify({
-            from: location.pathname,
+            origin: location.pathname,
             title: value.title,
             speciality: value.speciality,
             code: value.code,
@@ -220,12 +217,12 @@ export default function AnalysisContainer() {
                         {itemsPage.map((item, index) => (
                             <Analysis
                                 key={index}
-                                title={item.title}
+                                title={item.name}
                                 description={item.description}
                                 speciality={item.speciality}
                                 image= {item.image}
-                                price={index % 2 === 0 ? '$2000' : '$3000'}
-                                code={item.code}
+                                price={item.price}
+                                code={item.id}
                                 onClick={handleClickTicket}
                             />
                         ))}
