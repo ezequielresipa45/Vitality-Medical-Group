@@ -6,6 +6,7 @@ import PatientPut from "../PatientPut/PatientPut";
 import PatientTickets from '../PatientTickets/PatientTickets';
 import ExperienceForm from "../ExperienceForm/ExperienceForm";
 import Popup from "../PopUp/PopUp";
+
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -25,8 +26,6 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import Button from "@mui/material/Button"
 import LocalHospitalSharpIcon from '@mui/icons-material/LocalHospitalSharp';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -41,10 +40,7 @@ import {useState} from 'react'
 import {useSelector, useDispatch} from "react-redux"
 import {getPatients, getDoctors} from "../../redux/actions"
 import FrequentDoctors from '../FrequentDoctors/FrequentDoctors';
-import { Pagination } from '@mui/material';
 
-
-// import {Link} from 'react-router-dom'
 
 
 function Copyright(props) {
@@ -128,18 +124,18 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
     .map((name) => name.charAt(0))
     .join("");
     
-    // const countDoctors = (tickets) => {
-    //   const doctorCounts = {};
-    //   tickets.forEach((ticket) => {
-    //     if (!doctorCounts[ticket.doctorId]) {
-    //       doctorCounts[ticket.doctorId] = 1;
-    //     } else {
-    //       doctorCounts[ticket.doctorId]++;
-    //     }
-    //   });
-    //   return doctorCounts;
+    const countDoctors = (tickets) => {
+      const doctorCounts = {};
+      tickets.forEach((ticket) => {
+        if (!doctorCounts[ticket.doctorId]) {
+          doctorCounts[ticket.doctorId] = 1;
+        } else {
+          doctorCounts[ticket.doctorId]++;
+        }
+      });
+      return doctorCounts;
       
-    // };
+    };
 
     useEffect(()=> {
       if (selectedPatient) {
@@ -206,9 +202,13 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
                 <ListItemText sx={{fontFamily: "FireSans", display: "flex", alignItems: "center", fontSize: 15}} ><PersonIcon color="primary" fontSize="large"/><p className={style.name_patient}>{patient.full_name}</p></ListItemText>
           </ListItemButton>
         ))}
-        <ListItemButton><Link href ='/cartilla' underline="none">
-        <ListItemText><MenuBookIcon fontSize = "large"  className={style.text}/><p className={style.name_patient}>Tu cartilla</p> </ListItemText>
-        </Link></ListItemButton>
+        <ListItemButton>
+        <Link href ='/cartilla' underline="none">
+        <ListItemText>
+          <MenuBookIcon fontSize = "large"  className={style.text}/><p className={style.name_patient}>Tu cartilla</p> 
+        </ListItemText>
+        </Link>
+          </ListItemButton>
         </List>
          
         </Drawer>
@@ -228,10 +228,8 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={5} justifyContent = "center" alignItems="center">
-              
             <Grid item xs={12} sm={6} >
-            
-              
+               
     <Paper elevation ={24} sx={{ p: 2}} >
 
     {selectedPatient && (
@@ -240,7 +238,6 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
             <Avatar sx={{ width: 100, height: 100}}></Avatar>
             </Grid>
             <div className={style.patient}>   
-            
               <>
             <h2 className = {style.font}>{selectedPatient.full_name}</h2>
             <p className = {style.font}>{`Edad: ${selectedPatient.age} años`}</p>
@@ -250,9 +247,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
             {/* <p className = {style.font}>{`Plan: ${selectedPatient.plan}`}</p> */}
             <Link href="/putpatient" underline="none" >Actualizar Perfil</Link>
             </>
-           
             </div>   
-      
           </>
         )}
       
@@ -266,7 +261,6 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
           <>
       <Typography>
         <PatientTickets patient ={selectedPatient}/>
-   
         </Typography>
       </>
       )}
@@ -280,9 +274,8 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
        {selectedPatient && (
          <>
          <Typography>
-           <FrequentDoctors frequent = {frequentDoctors} doc={doctors}/>
-           </Typography>
-
+            <FrequentDoctors frequent = {frequentDoctors} doc={doctors}/>
+          </Typography>
          </>
        )}
     
@@ -295,7 +288,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
 
          <>
          <Typography><h2 className={style.font}>TU EXPERIENCIA NOS IMPORTA</h2>
-         <br /><p  className={style.font}>En nuestro centro de atención médica nos esforzamos por brindarle la mejor atención posible a nuestros pacientes. Es por eso que nos gustaría conocer su opinión y experiencia con nosotros. Si puede tomarse unos minutos para completar nuestra breve encuesta, nos ayudará a mejorar nuestros servicios y a brindarle una mejor atención en el futuro. Agradecemos de antemano su colaboración y compromiso con su salud.</p></Typography>
+         <br/><p  className={style.font}>En nuestro centro de atención médica nos esforzamos por brindarle la mejor atención posible a nuestros pacientes. Es por eso que nos gustaría conocer su opinión y experiencia con nosotros. Si puede tomarse unos minutos para completar nuestra breve encuesta, nos ayudará a mejorar nuestros servicios y a brindarle una mejor atención en el futuro. Agradecemos de antemano su colaboración y compromiso con su salud.</p></Typography>
 
          <Button onClick={()=>setButtonPopup(true)}><button className={style.font}>Encuesta</button></Button>
                 <Popup trigger = {buttonPopup} setTrigger = {setButtonPopup}>   

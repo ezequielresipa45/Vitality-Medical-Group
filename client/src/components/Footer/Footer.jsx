@@ -6,7 +6,6 @@ import {Link} from "react-router-dom"
 import style from "../Footer/Footer.module.css";
 
 
-
 const Footer = ()=>{
 
     return (
@@ -14,14 +13,11 @@ const Footer = ()=>{
         <Grid container direction = "row" justifyContent="space-between" alignItems="flex-start">
   <Grid item xs={6} alignItems = "flex-start" >
    
-      
         
         <h4>SOBRE NOSOTROS </h4> 
            <Link className={style.link} to = "/institucional">Institucional</Link>
            <a className={style.link} href="mailto:infovitalitymedical@gmail.com">Contactanos</a>
            <Link className={style.link} to = "/conocenos">Conocenos</Link>
-       
-       
         </Grid>
   <Grid item xs={6}>
       
@@ -37,7 +33,7 @@ const Footer = ()=>{
         
   </Grid>
   <Grid className={style.subFooter} item xs={12}>
-   <span>©Vitality Medical Group 2020 - Todos los derechos reservados -</span>
+   <span>©Vitality Medical Group 2023 - Todos los derechos reservados -</span>
   </Grid>
 </Grid>
 </div>
