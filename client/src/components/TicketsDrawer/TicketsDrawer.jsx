@@ -12,7 +12,9 @@ export default function TicketsDrawer() {
 
     const dispatch = useDispatch();
 
-    const userTickets = useSelector((state) => state.confirmedTickets);
+    const userId = useSelector((state) => state.user.id);
+
+    const userTickets = useSelector((state) => state.confirmedTickets.filter((item) => item.user === userId));
     
     const [toggle, setToggle] = useState(false);
 
@@ -21,7 +23,7 @@ export default function TicketsDrawer() {
     };
     
     const deleteHandler = (value) => {
-        dispatch(deleteConfirmedTickets(value));
+        dispatch(deleteConfirmedTickets({user: userId, code: value}));
         localStorage.setItem('confirmedItems', JSON.stringify(userTickets));
     };
     
@@ -66,9 +68,9 @@ export default function TicketsDrawer() {
                     <List sx={{ minHeight: 500 , marginBottom: 2}}>
                     {userTickets.map((item, index) => (
                         <ListItem key={index} disablePadding>
-                            <ListItemButton target={item.code}>
-                                <ListItemText primary={item.title} />
-                                <IconButton onClick={() => deleteHandler(item.code)} >
+                            <ListItemButton target={item.ticket.code}>
+                                <ListItemText primary={item.ticket.title} />
+                                <IconButton onClick={() => deleteHandler(item.ticket.code)} >
                                     <DeleteForeverIcon/>
                                 </IconButton>
                             </ListItemButton>
