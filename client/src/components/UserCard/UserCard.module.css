@@ -1,8 +1,9 @@
 .contenedor {
-    margin-top: 100px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    overflow-y: scroll;
+    height: 94%;
   }
   
   .card {
@@ -11,4 +12,9 @@
     background-color: #f1f1f1;
     padding: 20px;
     box-sizing: border-box;
+  }
+
+  .card img{
+    width: 10rem;
+    height: 10rem;
   }

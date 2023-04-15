@@ -1,3 +1,7 @@
+
+
+
+
 .container__putMedic{
     width: 100%;
     height: 94%;
@@ -134,8 +138,17 @@ align-items: center;
 }
 
 
-  .btnExit{
+  .btnClose{
     background-color: rgb(124, 8, 8);
     padding: .3rem;
  border-radius: 0;
   }
+
+  .container__btns{
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    
+    
+    }

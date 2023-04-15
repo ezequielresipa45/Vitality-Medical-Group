@@ -7,6 +7,7 @@ import AddMedicForm from "../AddMedicForm/AddMedicForm";
 import DeleteDoctor from "../DeleteDoctor/DeleteDoctor";
 import PutDoctor from "../PutDoctor/PutDoctor";
 import GetDoctorsAdmin from "../GetDoctorsAdmin/GetDoctorsAdmin";
+import UserCard from "../UserCard/UserCard";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getTickets } from "../../redux/actions";
@@ -131,11 +132,25 @@ export default function AdminDashboard() {
           <button
             onClick={handleTitleName}
             className={styles.items__container__text}
-            name="Editar Médico"
+            name="Turnos Médicos"
           >
             <i className="fas fa-file-medical"></i>
             <p>Turnos Médicos</p>
           </button>
+
+
+          <button
+            onClick={handleTitleName}
+            className={styles.items__container__text}
+            name="Modificar Admin"
+          >
+            <i className="fas fa-file-medical"></i>
+            <p>Modificar Admin</p>
+          </button>
+
+
+
+
 
           <Link to="/" className={styles.items__container__text} name="Salir">
             <i className="fas fa-sign-out" style={{ color: "#ea9c2c" }}></i>
@@ -175,6 +190,7 @@ export default function AdminDashboard() {
           {titleName === "Eliminar Médico" && <DeleteDoctor />}
           {titleName === "Editar Médico" && <PutDoctor />}
           {titleName === "Médicos" && <GetDoctorsAdmin />}
+          {titleName === "Modificar Admin" && <UserCard />}
           {(titleName === "Mi Perfil - Administrador" || titleName === "") && (
             <div className={styles.container__profile}>
               <header>
