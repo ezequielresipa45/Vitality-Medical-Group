@@ -14,6 +14,7 @@ const FrequentDoctors = ({frequent}) => {
   const doctors = useSelector((state)=>state.doctors)
  
 
+
   useEffect(() => {
    dispatch(getDoctors());
   }, []);
@@ -41,28 +42,10 @@ const FrequentDoctors = ({frequent}) => {
       const frequentDoctorId = frequent[0]
       const doctor = doctors.find((doctor) => doctor.id === frequentDoctorId);
       setFrequentDoctors([doctor]);
+      console.log(doctor)
 
     }
   },[]) 
-  //   if (frequent && frequent.ticketMedicals) {
-  //     console.log("Entro")
-  //     const doctorsIds = frequent.ticketMedicals.map((ticket) => ticket.doctorId);
-  //     const doctorCounts = countDoctors(frequent.ticketMedicals);
-  //     const frequentDoctors = Object.keys(doctorCounts).sort((a, b) => doctorCounts[b] - doctorCounts[a]).slice(0, 3);
-  //     console.log("frecDoc:", frequentDoctors)
-
-  //     const doctorsList = frequentDoctors.map((doctorId) => {
-  //     // console.log("doctorID: ", doctorId)
-  //     // console.log("doctors: ", doctors)
-  //     return doctors.find((doctor) => doctor.id === doctorId)
-  //   });
-  //     console.log("doctorsList:", doctorsList)
-  //     setFrequentDoctors(doctorsList);
-  //   }
-  // }, [frequent, doctors]);
-    
-  
-
  
   return (
     <>
