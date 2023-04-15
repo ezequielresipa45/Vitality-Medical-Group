@@ -4,6 +4,8 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  overflow-y: scroll;
+
 }
 
 .container__deleteMedic form {
@@ -51,7 +53,6 @@
   border-bottom: 1px solid #00000054;
   color: #00000082;
   box-sizing: border-box;
- 
 }
 
 .tablesName p{
