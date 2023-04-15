@@ -109,17 +109,11 @@ function DashboardContent() {
   const dispatch = useDispatch();
 
   const [buttonPopup, setButtonPopup] = useState(false) 
-  const [pageSize, setPageSize] = useState(1);
-  const[page, setPage] = useState(1)
-  
-
-  const startIndex = (page - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-
+ 
   const [patientsName, setPatientsName] = useState("")
   const [selectedPatient, setSelectedPatient] = useState(null)
   const [frequentDoctors, setFrequentDoctors] = useState([])
-  const [selectedUser, setSelectedUser] = useState(null)
+
 
   useEffect(()=>{
     dispatch(getPatients());
@@ -129,24 +123,23 @@ function DashboardContent() {
 const patientsByLogin = patients.filter((p)=>p.userId === user.id)
 
 
-
  const initials = user.full_name
     .split(" ")
     .map((name) => name.charAt(0))
     .join("");
     
-    const countDoctors = (tickets) => {
-      const doctorCounts = {};
-      tickets.forEach((ticket) => {
-        if (!doctorCounts[ticket.doctorId]) {
-          doctorCounts[ticket.doctorId] = 1;
-        } else {
-          doctorCounts[ticket.doctorId]++;
-        }
-      });
-      return doctorCounts;
+    // const countDoctors = (tickets) => {
+    //   const doctorCounts = {};
+    //   tickets.forEach((ticket) => {
+    //     if (!doctorCounts[ticket.doctorId]) {
+    //       doctorCounts[ticket.doctorId] = 1;
+    //     } else {
+    //       doctorCounts[ticket.doctorId]++;
+    //     }
+    //   });
+    //   return doctorCounts;
       
-    };
+    // };
 
     useEffect(()=> {
       if (selectedPatient) {
@@ -175,7 +168,6 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
               pr: '24px',
               flexDirection:"row",
               alignItems:"center"
-             // keep right padding when drawer closed
             }}
           >
              
@@ -183,19 +175,12 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
               component="div"
               variant="h6"
               color="inherit"
-            
               sx={{ flexGrow: 1 }}
              
             >
               <Link href="/" underline="none"> <img src={img} alt="" className={style.img_logo}/> Vitality Medical Group </Link>     
-              
-
             </Typography>
-            <IconButton color="inherit">
-              {/* <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge> */}
-            </IconButton>
+            
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open} sx={{width: 240}} >
@@ -210,25 +195,21 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
               height: 63
             }}
           >
-             <Avatar sx={{ width: 56, height: 56, position: "absolute", left: 90}} > {initials}
-             </Avatar>
+             <Avatar sx={{ width: 56, height: 56, position: "absolute", left: 90}} > {initials}</Avatar>
              
-          </Toolbar>
-          <Divider />
-          <List component="nav" >
+        </Toolbar>
+        <Divider />
+        <List component="nav" >
          
-        {patientsByLogin.map((patient) => (
+          {patientsByLogin.map((patient) => (
           <ListItemButton key={patient.id} onClick={() => handlePatientClick(patient)}>
-            
-            <ListItemText sx={{fontFamily: "FireSans", display: "flex", alignItems: "center", fontSize: 15}} ><PersonIcon color="primary" fontSize="large"/><p className={style.name_patient}>{patient.full_name}</p></ListItemText>
+                <ListItemText sx={{fontFamily: "FireSans", display: "flex", alignItems: "center", fontSize: 15}} ><PersonIcon color="primary" fontSize="large"/><p className={style.name_patient}>{patient.full_name}</p></ListItemText>
           </ListItemButton>
         ))}
-        <ListItemButton> <Link href ='/cartilla' underline="none">
-          <ListItemText> <MenuBookIcon fontSize = "large"  className={style.text}/><p className={style.name_patient}>Tu cartilla</p> </ListItemText>
-          </Link></ListItemButton>
-        
-               
-          </List>
+        <ListItemButton><Link href ='/cartilla' underline="none">
+        <ListItemText><MenuBookIcon fontSize = "large"  className={style.text}/><p className={style.name_patient}>Tu cartilla</p> </ListItemText>
+        </Link></ListItemButton>
+        </List>
          
         </Drawer>
         
@@ -285,18 +266,10 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
           <>
       <Typography>
         <PatientTickets patient ={selectedPatient}/>
-        <Pagination
-         count={Math.ceil(selectedPatient.ticketMedicals.length / pageSize)}
-          page={page}
-          onChange={(event, value) => setPage(value)}
-          color="primary"
-          size="small"
-        />
-        
-        
+   
         </Typography>
       </>
-        )}
+      )}
     
     </Paper>
   </Grid>
