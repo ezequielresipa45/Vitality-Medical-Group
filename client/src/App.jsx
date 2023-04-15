@@ -109,7 +109,7 @@ useEffect(() => {
 
         <Route path='/turnos' element={<TicketPicker />} />
 
-        <Route path='/putpatient' element={<PatientPut />} />
+        <Route path='/putpatient/:id' element={<PatientPut />} />
 
         <Route path='/administrador' element={<UserCard />} />
 
