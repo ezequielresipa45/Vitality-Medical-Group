@@ -32,3 +32,10 @@
 .patient{
     margin-bottom: 30px;
 }
+.form_text{
+    font-family: "FireSans";
+    text-align: center;
+    margin-right: 10px;
+    text-decoration: none;
+    margin-top: -20px;
+}

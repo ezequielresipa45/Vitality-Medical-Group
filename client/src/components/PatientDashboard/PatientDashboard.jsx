@@ -4,6 +4,7 @@ import style from "../PatientDashboard/PatientDashboard.module.css"
 import img from "../../images/logo.png"
 import PatientPut from "../PatientPut/PatientPut";
 import PatientTickets from '../PatientTickets/PatientTickets';
+import TicketsAnalisys from "../TicketsAnalisys/TicketsAnalisys"
 import ExperienceForm from "../ExperienceForm/ExperienceForm";
 import Popup from "../PopUp/PopUp";
 
@@ -200,15 +201,23 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
         <Divider />
         <List component="nav" >
          
-          {patientsByLogin.map((patient) => (
-          <ListItemButton key={patient.id} onClick={() => handlePatientClick(patient)}>
-                <ListItemText sx={{fontFamily: "FireSans", display: "flex", alignItems: "center", fontSize: 15}} ><PersonIcon color="primary" fontSize="large"/><p className={style.name_patient}>{patient.full_name}</p></ListItemText>
-          </ListItemButton>
-        ))}
-        <ListItemButton><Link href ='/cartilla' underline="none">
-        <ListItemText><MenuBookIcon fontSize = "large"  className={style.text}/><p className={style.name_patient}>Tu cartilla</p> </ListItemText>
-        </Link></ListItemButton>
-        </List>
+         {patientsByLogin.map((patient) => (
+         <ListItemButton key={patient.id} onClick={() => handlePatientClick(patient)}>
+               <ListItemText sx={{fontFamily: "FireSans", display: "flex", alignItems: "center", fontSize: 15}} ><PersonIcon color="primary" fontSize="large"/><p className={style.name_patient}>{patient.full_name}</p></ListItemText>
+         </ListItemButton>
+       ))}
+       <ListItemButton><Link href ='/cartilla' underline="none">
+       <ListItemText><MenuBookIcon fontSize = "large"  className={style.text}/><p className={style.name_patient}>Tu cartilla</p> </ListItemText>
+       </Link></ListItemButton>
+       
+       <ListItemButton onClick={()=>setButtonPopup(true)}>
+               <Popup trigger = {buttonPopup} setTrigger = {setButtonPopup}>   
+                   <ExperienceForm/>
+               </Popup>
+       <ListItemText><Diversity3Icon color="primary" fontSize = "large"  className={style.text}/><p className={style.name_patient}> Tu experiencia</p> </ListItemText>
+       
+       </ListItemButton>
+       </List>
          
         </Drawer>
         
@@ -302,6 +311,20 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
                     <ExperienceForm/>
                 </Popup>
          </>
+    </Paper>
+  </Grid>
+
+  <Grid item xs={12} md={6}>
+    <Paper elevation={24} sx={{ p: 2 , height : 477, textAlign: "center"}}>
+          <CalendarMonthIcon sx={{ fontSize: '70px' }} color = "primary"/>
+        {selectedPatient && (
+          <>
+      <Typography>
+        <TicketsAnalisys patient ={selectedPatient}/>
+        </Typography>
+      </>
+      )}
+    
     </Paper>
   </Grid>
 
