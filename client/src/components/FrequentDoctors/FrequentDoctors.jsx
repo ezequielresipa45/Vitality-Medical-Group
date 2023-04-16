@@ -6,6 +6,7 @@ import  { useEffect } from 'react';
 import { getDoctors, getPatients } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import style from './FrequentDoctors.module.css';
 
 
 const FrequentDoctors = ({patient}) => {
