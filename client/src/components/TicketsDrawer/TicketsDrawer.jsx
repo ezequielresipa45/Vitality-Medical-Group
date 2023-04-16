@@ -23,7 +23,7 @@ export default function TicketsDrawer() {
     };
     
     const deleteHandler = (value) => {
-        dispatch(deleteConfirmedTickets({user: userId, code: value}));
+        dispatch(deleteConfirmedTickets({user: userId, id: value}));
         localStorage.setItem('confirmedItems', JSON.stringify(userTickets));
     };
     
@@ -68,9 +68,9 @@ export default function TicketsDrawer() {
                     <List sx={{ minHeight: 500 , marginBottom: 2}}>
                     {userTickets.map((item, index) => (
                         <ListItem key={index} disablePadding>
-                            <ListItemButton target={item.ticket.code}>
+                            <ListItemButton >
                                 <ListItemText primary={item.ticket.title} />
-                                <IconButton onClick={() => deleteHandler(item.ticket.code)} >
+                                <IconButton onClick={() => deleteHandler(item.id)} >
                                     <DeleteForeverIcon/>
                                 </IconButton>
                             </ListItemButton>

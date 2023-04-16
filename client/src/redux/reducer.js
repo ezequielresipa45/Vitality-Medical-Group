@@ -141,7 +141,7 @@ const initialState = {
       case DELETE_CONFIRMED_TICKETS:
         return{
           ...state,
-          confirmedTickets: [...state.confirmedTickets.filter((item) => (item.user === action.payload.user && item.ticket.code !== action.payload.code))]
+          confirmedTickets: [...state.confirmedTickets.filter((item) => (item.user === action.payload.user && item.id !== action.payload.id))]
         };
 
       case PUT_DOCTOR:
