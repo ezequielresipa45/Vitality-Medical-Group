@@ -25,16 +25,17 @@ export const PUT_DOCTOR= "PUT_DOCTOR";
 export const PUT_PATIENT= "PUT_PATIENT";
 export const GET_USER = "GET_USER";
 export const PUT_USER = "PUT_USER";
-export const LOGIN = "LOGIN"
-export const SIGNUP = "SIGNUP"
-export const LOGOUT_LOGIN = "LOGOUT"
-export const POST_COMMENT = "POST_COMMENT"
-export const GET_COMMENTS = "GET_COMMENTS"
-export const SORT_DOCTORS = "SORT_DOCTORS"
-export const SORT_DOCTORS_BY_ID = "SORT_DOCTORS_BY_ID"
-export const SORT_DOCTORS_BY_SPECIALTY = "SORT_DOCTORS_BY_SPECIALTY"
-export const GET_TICKETS = "GET_TICKETS"
-export const DELETE_TICKET = "DELETE_TICKET"
+export const LOGIN = "LOGIN";
+export const SIGNUP = "SIGNUP";
+export const LOGOUT_LOGIN = "LOGOUT";
+export const POST_COMMENT = "POST_COMMENT";
+export const GET_COMMENTS = "GET_COMMENTS";
+export const SORT_DOCTORS = "SORT_DOCTORS";
+export const SORT_DOCTORS_BY_ID = "SORT_DOCTORS_BY_ID";
+export const SORT_DOCTORS_BY_SPECIALTY = "SORT_DOCTORS_BY_SPECIALTY";
+export const GET_TICKETS = "GET_TICKETS";
+export const DELETE_TICKET = "DELETE_TICKET";
+export const GET_TICKETS_ANALISYS = "GET_TICKETS_ANALISYS";
 
 
 export function getSpecialities() {
@@ -364,6 +365,18 @@ export const putDoctor = (doctorData) => async (dispatch) => {
   
       return dispatch({
         type: GET_TICKETS,
+        payload: json.data,
+      })
+    }
+  
+  };
+
+  export function getTicketsAnalisys(){
+    return async function(dispatch){
+      const json = await axios.get("https://apiclinica.onrender.com/ticketAnalysis"); 
+  
+      return dispatch({
+        type: GET_TICKETS_ANALISYS,
         payload: json.data,
       })
     }
