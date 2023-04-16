@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { useState , useEffect , useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getConfirmedTickets, postConfirmedTickets, getSelectedTickets, getPatients, getPatientsById } from '../../redux/actions';
@@ -29,6 +30,8 @@ const TicketPicker = () => {
     const selectedTickets = useSelector((state) => state.selectedTickets);
     
     const [isTrue, setIsTrue] = useState(false);
+    const [error, setError] = useState(null);
+    const [message, setMessage] = useState('');
     
     //Tipo de turno
     const ticket_type = selectedTickets?.origin === '/analisis' ? 'Análisis / Estudio' : 'Consulta Médica';
@@ -47,12 +50,11 @@ const TicketPicker = () => {
     const [selectedDate, setSelectedDate] = useState(date);
     const [availableDays, setAvailableDays] = useState(selectedTickets.days ? selectedTickets.days : days);
     const [isAvailable, setIsAvailable] = useState(false);
-    const [error, setError] = useState(null);
 
     const schedules = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
     const [availableSchedules, setAvailableSchedules] = useState(selectedTickets.schedules ? selectedTickets.schedules : schedules);
     const [selectedSchedule, setSelectedSchedule] = useState('');
-
+    
     const [observations, setOvservations] = useState('');
 
     const handlePatientChange = (value) => {
@@ -99,7 +101,7 @@ const TicketPicker = () => {
         });
     };
 
-    const onClickConfirm = () => {
+    const onClickConfirm = async () => {
 
         if (!user.id || !selectedPatient.patient || !selectedDate || !selectedSchedule || !selectedTickets.code) {
             setError('Faltan datos obligatorios');
@@ -119,23 +121,63 @@ const TicketPicker = () => {
             ticket:{
                 type: ticket_type,
                 title: selectedTickets.title || `Consulta Médica: ${selectedTickets.name}`,
-                date: format(selectedDate, 'dd/MM/yyyy'),
+                date: format(selectedDate, 'yyyy-MM-dd'),
                 schedule: selectedSchedule,
                 code: selectedTickets.code,
+                price: selectedTickets.price,
                 observations
             }
         };
 
-        if(ticketInfo.ticket.type === 'Consulta Médica' && ticketInfo.plan) {
+        if(ticketInfo.plan) {
             //Verificar si tiene disponibilidad de turnos 
-            console.log('El usuario tiene un plan valido - Turno confirmado');
-            console.log(ticketInfo);
+            console.log('El usuario tiene un plan valido');
+            
+            ticketInfo.ticket.type === 'Consulta Médica' && await axios.post('/ticketMedical/createTicketMedical', {
+                title: ticketInfo.ticket.title,
+                observations: ticketInfo.ticket.observations,
+                day:selectedTickets.days,
+                doctorId: ticketInfo.ticket.code,
+                patientId: ticketInfo.patient,
+                date: ticketInfo.ticket.date,
+                hour: ticketInfo.ticket.schedule
+            })
+            .then((res) => {
+                setMessage(res.data);
+                setIsTrue(true);
+            })
+            .catch((err) => {
+                console.log(err);
+                setMessage('Ha ocurrido un error. Intentelo más tarde.');
+                setIsTrue(true);
+            });
+
+            ticketInfo.ticket.type === 'Análisis / Estudio' && await axios.post('/ticketAnalysis/createTicketAnalisys', {
+                title: ticketInfo.ticket.title,
+                observations: ticketInfo.ticket.observations,
+                idAnalysis: ticketInfo.ticket.code,
+                idPatient: ticketInfo.patient,
+                date: ticketInfo.ticket.date,
+                hour: ticketInfo.ticket.schedule,
+                price: ticketInfo.ticket.price
+            })
+            .then((res) => {
+                setMessage(res.data);
+                setIsTrue(true);
+            })
+            .catch((err) => {
+                console.log(err);
+                setMessage('Ha ocurrido un error. Intentelo más tarde.');
+                setIsTrue(true);
+            });
+            
             setSelectedSchedule('');
             setAvailableSchedules(availableSchedules.filter((item) => item !== selectedSchedule));
             return ticketInfo;
         };
 
         dispatch(postConfirmedTickets(ticketInfo));
+        setMessage('¿Quiere seguir agregando items o finalizar el proceso de confirmación del turno?');
         setIsTrue(true);
         setSelectedSchedule('');
         setAvailableSchedules(availableSchedules.filter((item) => item !== selectedSchedule));
@@ -146,11 +188,12 @@ const TicketPicker = () => {
     };
 
     const onClickGoToPaid = () => {
-        console.log('continuar');
+        if(message === 'Turno creado exitosamente') navigate('/paciente');
+        else console.log('continuar al pago');
     };
 
     const onClickBackToSelect = () => {
-        navigate('/analisis');
+        navigate(-1);
     }
 
     useLayoutEffect(() => {
@@ -230,7 +273,7 @@ const TicketPicker = () => {
 
                 }
 
-                {ticket_type === 'Consulta Médica' && selectedSchedule && 
+                {selectedSchedule && 
                 
                 <FormControl sx={{ m: 1, minWidth: 320, textAlign: 'left' }}>
                     <InputLabel id='select_plan'>{'Seleccione un plan'}</InputLabel>
@@ -271,11 +314,11 @@ const TicketPicker = () => {
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            Quiere seguir agregando items o finalizar el proceso de confirmación del turno?
+                            {message}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={onClickBackToSelect}>Seleccionar Items</Button>
+                        <Button onClick={onClickBackToSelect}>Volver</Button>
                         <Button onClick={onClickGoToPaid} autoFocus>Finalizar</Button>
                     </DialogActions>
                 </Dialog>
