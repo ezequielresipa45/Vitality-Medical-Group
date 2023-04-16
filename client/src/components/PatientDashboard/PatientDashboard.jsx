@@ -26,12 +26,15 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
+import RecentActorsIcon from '@mui/icons-material/RecentActors';
 import Button from "@mui/material/Button"
 import LocalHospitalSharpIcon from '@mui/icons-material/LocalHospitalSharp';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import HistorySharpIcon from '@mui/icons-material/HistorySharp';
 import CakeIcon from '@mui/icons-material/Cake';
 import FeedIcon from '@mui/icons-material/Feed';
+
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Avatar from '@mui/material/Avatar';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import ListItemButton from '@mui/material/ListItemButton'
@@ -93,7 +96,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const mdTheme = createTheme();
+// const mdTheme = createTheme();
 
 function DashboardContent() {
   
@@ -153,7 +156,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
 
 
   return (
-    <ThemeProvider theme={mdTheme}>
+    // <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar position="absolute" open={open} >
@@ -223,19 +226,24 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={5} justifyContent = "center" alignItems="center">
+            <Grid container spacing={10} justifyContent = "center" alignItems="center" style = {{height : "450px"}}>
               
             <Grid item xs={12} sm={6} >
             
               
-    <Paper elevation ={24} sx={{ p: 2}} >
+    <Paper elevation ={24} sx={{ p: 2}} style = {{height : "477px"}} >
+      <PersonIcon sx={{ fontSize: '70px' }}color="primary"/>
 
-    {selectedPatient && (
+    {!selectedPatient ? (
+          <div>
+            <h2>{user.full_name}</h2>
+            <h3>{user.email}</h3>
+          </div>) : (
           <>
-           <Grid justifyContent="center" alignItems="center">
+           <Grid sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Avatar sx={{ width: 100, height: 100}}></Avatar>
             </Grid>
-            <div className={style.patient}>   
+            <div style = {{textAlign: "center"}}>    
             
               <>
             <h2 className = {style.font}>{selectedPatient.full_name}</h2>
@@ -244,7 +252,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
             <p className = {style.font}>{`Direccion: ${selectedPatient.address}`}</p>
             <p className = {style.font}>{`Teléfono: ${selectedPatient.phone}`}</p>
             {/* <p className = {style.font}>{`Plan: ${selectedPatient.plan}`}</p> */}
-            <Link href="/putpatient" underline="none" >Actualizar Perfil</Link>
+            <Link href={`/putpatient/${selectedPatient.id}`} underline="none" >Actualizar Perfil</Link>
             </>
             </div>   
           </>
@@ -255,7 +263,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
  
 <Grid item xs={12} md={6}>
     <Paper elevation={24} sx={{ p: 2 , height : 477, textAlign: "center"}}>
-          <CalendarMonthIcon fontSize ="large"  color = "secondary"/>
+          <CalendarMonthIcon sx={{ fontSize: '70px' }} color = "primary"/>
         {selectedPatient && (
           <>
       <Typography>
@@ -269,7 +277,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
 
   <Grid item xs={12} md={6}>
     <Paper elevation={24} sx={{ p: 2 , height : 447, textAlign: "center"}}>
-          <AccessTimeIcon fontSize ="large"  color = "secondary"/>
+          <RecentActorsIcon  sx={{ fontSize: '70px' }} color = "primary"/>
        {selectedPatient && (
          <>
          <Typography>
@@ -284,8 +292,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
 
   <Grid item xs={12} md={6}>
     <Paper elevation={24} sx={{ p: 2 , height : 447, textAlign: "center"}}>
-          <Diversity3Icon fontSize ="large"  color = "secondary"/>
-
+          <Diversity3Icon sx={{ fontSize: '70px' }} color = "primary"/>
          <>
          <Typography><h2 className={style.font}>TU EXPERIENCIA NOS IMPORTA</h2>
          <br /><p  className={style.font}>En nuestro centro de atención médica nos esforzamos por brindarle la mejor atención posible a nuestros pacientes. Es por eso que nos gustaría conocer su opinión y experiencia con nosotros. Si puede tomarse unos minutos para completar nuestra breve encuesta, nos ayudará a mejorar nuestros servicios y a brindarle una mejor atención en el futuro. Agradecemos de antemano su colaboración y compromiso con su salud.</p></Typography>
@@ -302,7 +309,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
           </Container>
         </Box>
       </Box>
-    </ThemeProvider>
+    // </ThemeProvider>
   );
 }
 

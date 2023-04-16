@@ -25,7 +25,7 @@ const startIndex = (page - 1) * pageSize;
 
   return (
     <div className={style.div}>
-      <h2>Tus turnos</h2>
+      <h2>TUS TURNOS</h2>
       {patient.ticketMedicals.length > 0 && (
         <ul className={style.list}>
           {patient.ticketMedicals.slice(startIndex, endIndex).map((ticket) => (
