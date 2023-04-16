@@ -22,6 +22,7 @@ const getPatients = async () => {
       },
       {
         model: Plan,
+        attributes: ["name"],
       },
     ],
   });
@@ -45,6 +46,7 @@ const searchPatientByName = async (name) => {
       },
       {
         model: Plan,
+        attributes: ["name"],
       },
     ],
   });
@@ -77,6 +79,7 @@ const findDniPatient = async (dni) => {
       },
       {
         model: Plan,
+        attributes: ["name"],
       },
     ],
   });
@@ -103,6 +106,7 @@ const getPatientById = async (id) => {
       },
       {
         model: Plan,
+        attributes: ["name"],
       },
     ],
   });
@@ -152,6 +156,7 @@ const createPatient = async (
       },
       {
         model: Plan,
+        attributes: ["name"],
       },
     ],
   });
