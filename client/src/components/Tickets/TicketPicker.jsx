@@ -241,7 +241,7 @@ const TicketPicker = () => {
                         value={selectedPatient.patient_plan ? selectedPatient.patient_plan : 'Particular - Sin Plan'}
                         onChange={(e) => handlePlanChange(e.target.value)}
                     >
-                        {patientInfo.plan && <MenuItem value={patientInfo.plan}>{patientInfo.plan}</MenuItem>}
+                        {patientInfo.plan && <MenuItem value={patientInfo.plan.name}>{patientInfo.plan.name}</MenuItem>}
                         <MenuItem value={'Particular - Sin Plan'}>Particular - Sin Plan</MenuItem>
                     </Select>
                 </FormControl>
