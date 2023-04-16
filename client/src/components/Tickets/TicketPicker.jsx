@@ -1,10 +1,10 @@
 import React from 'react';
 import { useState , useEffect , useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getConfirmedTickets, postConfirmedTickets, getSelectedTickets, getPatients } from '../../redux/actions';
+import { getConfirmedTickets, postConfirmedTickets, getSelectedTickets, getPatients, getPatientsById } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import { LocalizationProvider , DatePicker, DateTimePicker, TimePicker } from '@mui/x-date-pickers';
-import { FormControl , InputLabel , Select , MenuItem , FormHelperText, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
+import { FormControl , InputLabel , Select , MenuItem , FormHelperText, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { format, parse } from 'date-fns';
 import { enGB, es } from 'date-fns/locale';
@@ -20,6 +20,10 @@ const TicketPicker = () => {
 
     const patients = useSelector((state) => state.patients.filter((item) => item.userId === user.id));
 
+    const patientInfo = useSelector((state) => state.patient);
+
+    console.log(patientInfo);
+
     const confirmedTickets = useSelector((state) => state.confirmedTickets);
 
     const selectedTickets = useSelector((state) => state.selectedTickets);
@@ -32,7 +36,8 @@ const TicketPicker = () => {
     //Info del paciente
     const [selectedPatient, setSelectedPatient] = useState({
         patient: '',
-        patient_name: ''
+        patient_name: '',
+        patient_plan: null
     });
 
     //Fechas y Horarios
@@ -48,11 +53,15 @@ const TicketPicker = () => {
     const [availableSchedules, setAvailableSchedules] = useState(selectedTickets.schedules ? selectedTickets.schedules : schedules);
     const [selectedSchedule, setSelectedSchedule] = useState('');
 
+    const [observations, setOvservations] = useState('');
+
     const handlePatientChange = (value) => {
         setSelectedPatient({
             patient: value.id,
-            patient_name: value.full_name
+            patient_name: value.full_name,
+            patient_plan: null
         });
+        setError(null);
     };
 
     const availabilityValidator = (value) => {
@@ -79,21 +88,51 @@ const TicketPicker = () => {
         setSelectedSchedule(e.target.value);   
     };
 
+    const handlePlanChange = (value) => {
+        if(value === 'Particular - Sin Plan') setSelectedPatient({
+            ...selectedPatient,
+            patient_plan: null
+        })
+        else setSelectedPatient({
+            ...selectedPatient,
+            patient_plan: value
+        });
+    };
+
     const onClickConfirm = () => {
 
+        if (!user.id || !selectedPatient.patient || !selectedDate || !selectedSchedule || !selectedTickets.code) {
+            setError('Faltan datos obligatorios');
+            return;
+        };
+
+        const ID = format(date, 'ddMMyyyyhhmmss');
+
         const ticketInfo = {
+            id: ID,
             user: user.id,
             user_name: user.full_name,
             user_email: user.email,
             patient: selectedPatient.patient,
             patient_name: selectedPatient.patient_name,
+            plan: selectedPatient.patient_plan,
             ticket:{
                 type: ticket_type,
                 title: selectedTickets.title || `Consulta Médica: ${selectedTickets.name}`,
                 date: format(selectedDate, 'dd/MM/yyyy'),
                 schedule: selectedSchedule,
-                code: selectedTickets.code
+                code: selectedTickets.code,
+                observations
             }
+        };
+
+        if(ticketInfo.ticket.type === 'Consulta Médica' && ticketInfo.plan) {
+            //Verificar si tiene disponibilidad de turnos 
+            console.log('El usuario tiene un plan valido - Turno confirmado');
+            console.log(ticketInfo);
+            setSelectedSchedule('');
+            setAvailableSchedules(availableSchedules.filter((item) => item !== selectedSchedule));
+            return ticketInfo;
         };
 
         dispatch(postConfirmedTickets(ticketInfo));
@@ -121,6 +160,10 @@ const TicketPicker = () => {
     }, []);
 
     useEffect(() => {
+        dispatch(getPatientsById(selectedPatient.patient));
+    }, [selectedPatient.patient]);
+
+    useEffect(() => {
         if(confirmedTickets.length > 0) {
             localStorage.setItem('confirmedItems', JSON.stringify(confirmedTickets));
         }
@@ -137,7 +180,9 @@ const TicketPicker = () => {
                 
                 {selectedTickets?.name && <p>Profesional: {selectedTickets?.name} - {selectedTickets?.speciality[0].toUpperCase() + selectedTickets?.speciality.slice(1)}</p>}
 
-                <FormControl sx={{ m: 1, minWidth: 320 }} error={error && true}>
+                <p>Días:  {selectedTickets?.days?.join(' - ') || days?.join(' - ')}</p>
+
+                <FormControl sx={{ m: 1, minWidth: 320 , textAlign: 'left' }} error={error === 'Faltan datos obligatorios'}>
                     <InputLabel id='select_patient'>{'Seleccione un paciente'}</InputLabel>
                     <Select
                         labelId='select_patient'
@@ -150,7 +195,7 @@ const TicketPicker = () => {
                             <MenuItem key={index} value={item}>{item.full_name}</MenuItem>
                         ))}
                     </Select>
-                    {error && <FormHelperText>Error</FormHelperText>}
+                    {error === 'Faltan datos obligatorios' && <FormHelperText>{error}</FormHelperText>}
                 </FormControl>
 
                 <DatePicker 
@@ -159,8 +204,8 @@ const TicketPicker = () => {
                     value={selectedDate}
                     slotProps={{
                         textField: {
-                            error: error && true,
-                            helperText: error && error
+                            error: error === 'El dia seleccionado no esta disponible',
+                            helperText: error === 'El dia seleccionado no esta disponible' && error
                         }
                     }}
                     onChange={(value) => handleDateChange(value)}
@@ -168,7 +213,7 @@ const TicketPicker = () => {
                 />
                 {isAvailable && 
 
-                <FormControl sx={{ m: 1, minWidth: 320 }} error={error && true}>
+                <FormControl sx={{ m: 1, minWidth: 320, textAlign: 'left' }} >
                     <InputLabel id='select_schedules'>Horarios</InputLabel>
                     <Select
                         labelId='select_schedules'
@@ -181,10 +226,36 @@ const TicketPicker = () => {
                             <MenuItem key={index} value={item}>{item}</MenuItem>
                         ))}
                     </Select>
-                    {error && <FormHelperText>Error</FormHelperText>}
                 </FormControl>
 
                 }
+
+                {ticket_type === 'Consulta Médica' && selectedSchedule && 
+                
+                <FormControl sx={{ m: 1, minWidth: 320, textAlign: 'left' }}>
+                    <InputLabel id='select_plan'>{'Seleccione un plan'}</InputLabel>
+                    <Select
+                        labelId='select_plan'
+                        id='select'
+                        label='Seleccione un plan'
+                        value={selectedPatient.patient_plan ? selectedPatient.patient_plan : 'Particular - Sin Plan'}
+                        onChange={(e) => handlePlanChange(e.target.value)}
+                    >
+                        {patientInfo.plan && <MenuItem value={patientInfo.plan}>{patientInfo.plan}</MenuItem>}
+                        <MenuItem value={'Particular - Sin Plan'}>Particular - Sin Plan</MenuItem>
+                    </Select>
+                </FormControl>
+
+                }
+
+                {selectedSchedule && <TextField
+                        sx={{ m: 1, minWidth: 320, textAlign: 'left' }}
+                        id='observations'
+                        label='Observaciones'
+                        placeholder=''
+                        multiline
+                        onChange={(e) => setOvservations(e.target.value)}
+                />}
 
                 {selectedSchedule && <Button variant='outlined' onClick={onClickConfirm} >Confirmar turno</Button>}
 
