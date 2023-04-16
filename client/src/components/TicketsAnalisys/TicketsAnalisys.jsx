@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPatients, getTicketsAnalisys } from '../../redux/actions';
+import { getPatients, getTicketsAnalisys, getAnalysis } from '../../redux/actions';
 import style from './TicketsAnalisys.module.css';
 import { useState } from 'react';
 
 const TicketsAnalisys = ({ patient }) => {
-  const ticketsAnalisys = useSelector((state) => state.ticketsAnalisys);
-  const user = useSelector((state) => state.user);
-  const patients = useSelector((state) => state.patients);
+//   const ticketsAnalisys = useSelector((state) => state.ticketsAnalisys);
+//   const user = useSelector((state) => state.user);
+//   const patients = useSelector((state) => state.patients);
+  const tickets = useSelector((state) => state.analysis);
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(1);
@@ -15,7 +16,8 @@ const TicketsAnalisys = ({ patient }) => {
 
   useEffect(() => {
     dispatch(getPatients());
-    dispatch(getTicketsAnalisys());
+    // dispatch(getTicketsAnalisys());
+    dispatch(getAnalysis())
   }, []);
 
   const handleNextPage = () => {
@@ -37,7 +39,7 @@ const TicketsAnalisys = ({ patient }) => {
             
             <h3>
               Nombre:{' '}
-              {ticketsAnalisys.find((d) => d.id === ticketToShow.analysisId)?.name}
+              {tickets.find((d) => d.id === ticketToShow.analysisId)?.name}
             </h3>
             <h3>Fecha: {ticketToShow.date}</h3>
             <h3>Hora: {ticketToShow.hour}</h3>
@@ -47,7 +49,7 @@ const TicketsAnalisys = ({ patient }) => {
           </button>
           
           <button className={style.button}
-            disabled={page === patient.ticketMedicals.length}
+            disabled={page === patient.ticketAnalyses.length}
             onClick={handleNextPage}
           >
             Siguiente
