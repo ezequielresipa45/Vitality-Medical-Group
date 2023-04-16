@@ -31,7 +31,7 @@ console.log(frequentDoctors)
     <>
        {frequentDoctors.length > 0 ? (
     <div>
-      <h2>Médicos más frecuentes</h2>
+      <h2 className={style.text}>MÉDICOS FRECUENTES</h2>
       <ul>
         {frequentDoctors.map((doctor) => (
           <li key={doctor.id}>{doctor.full_name}</li>

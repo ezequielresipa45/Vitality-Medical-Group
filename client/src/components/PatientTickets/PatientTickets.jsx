@@ -30,7 +30,7 @@ const PatientTickets = ({ patient }) => {
 
   return (
     <div className={style.div}>
-      <h2>Tus turnos</h2>
+      <h2>TUS TURNOS</h2>
       {patient.ticketMedicals.length > 0 && (
         <div>
           <div className={style["ticket-info"]} key={ticketToShow.id}>
