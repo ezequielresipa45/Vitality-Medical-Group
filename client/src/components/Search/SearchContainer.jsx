@@ -60,7 +60,7 @@ export default function SearchContainer() {
     const handleSearch = (value) => {
         if(!value) return setSearchResults([]);
 
-        let analysisResults = [...analysis.filter((item) => item.title.toLowerCase().includes(value.toLowerCase()))];
+        let analysisResults = [...analysis.filter((item) => item.name.toLowerCase().includes(value.toLowerCase()))];
         let doctorsResults = [...doctors.filter((item) => item.full_name.toLowerCase().includes(value.toLowerCase()))];
 
         const results = analysisResults.concat(doctorsResults);
@@ -78,7 +78,7 @@ export default function SearchContainer() {
             setSearchResults([...results]);
         }
         else if(filterType === 'Análisis') {
-            results = array.filter((item) => item.title);
+            results = array.filter((item) => item.name);
             setSearchResults([...results]);
         }
         else {
@@ -108,8 +108,8 @@ export default function SearchContainer() {
     const handleOrder = (array) => {
         let orderedResults = [...array];
         orderValue === 'upward' 
-            ? orderedResults = [...array].sort((itemA, itemB) => itemB.title.localeCompare(itemA.title) || itemB.full_name.localeCompare(itemA.full_name))
-            : orderedResults = [...array].sort((itemA, itemB) => itemA.title.localeCompare(itemB.title) || itemA.full_name.localeCompare(itemB.full_name));
+            ? orderedResults = [...array].sort((itemA, itemB) => itemB.name?.localeCompare(itemA.name || itemA.full_name) || itemB.full_name?.localeCompare(itemA.full_name || itemA.name))
+            : orderedResults = [...array].sort((itemA, itemB) => itemA.name?.localeCompare(itemB.name || itemB.full_name) || itemA.full_name?.localeCompare(itemB.full_name || itemB.name));
         return setSearchResults([...orderedResults]);
     };
 
@@ -218,7 +218,7 @@ export default function SearchContainer() {
                         <SearchResults
                             key = {index}
                             speciality = {item.speciality || item.specialities[0].speciality[0].toUpperCase() + item.specialities[0].speciality.slice(1)}
-                            title = {item.title || item.full_name}
+                            title = {item.name || item.full_name}
                             type = {item.full_name ? 'Médico' : 'Análisis'}
                         />
                     ))}
