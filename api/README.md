@@ -615,6 +615,8 @@ En este caso:
 
 `IdUser`: id del usuario al que pertenece.
 
+`planId`: id del plan que tiene asociado ese usuario.
+
 `dni`: hace referencia al Documento de Nacional de Identificación.
 
 `full_name`: nombre completo.
@@ -634,13 +636,14 @@ Debe recibir:
 ```shell
 {
 	"idUser": 1,
-    "dni": 43183214,
-    "full_name": "Jonathan Rodriguez",
-    "gender": "masculino",
-    "birthday": "1983-05-04",
-    "age": 40,
-    "phone": 256589742541,
-    "address": "Aragua, Venezuela"
+	"planId": 1,
+    "dni": 79563254,
+    "full_name": "Maluma la del Barrio",
+    "gender": "empoderada",
+    "birthday": "1998-02-06",
+    "age": 25,
+    "phone": 859874621,
+    "address": "Colombia"
 }
 ```
 
@@ -650,30 +653,39 @@ Devuelve:
 {
 	"message": "El registro del paciente se ha creado exitosamente",
 	"patient_created": {
-		"id": 1,
-		"dni": 43183214,
-		"full_name": "Jonathan Rodriguez",
-		"gender": "masculino",
-		"age": 40,
-		"birthday": "1983-05-04",
-		"phone": "256589742541",
-		"address": "Aragua, Venezuela",
+		"id": 6,
+		"dni": 79563254,
+		"full_name": "Maluma la del Barrio",
+		"gender": "empoderada",
+		"age": 25,
+		"birthday": "1998-02-06",
+		"phone": "859874621",
+		"address": "Colombia",
 		"is_delete": false,
-		"planId": null,
+		"planId": 1,
 		"userId": 1,
 		"user": {
 			"id": 1,
-			"full_name": "Lionel Messi",
-			"email": "elguevodelmundo@gmail.com",
-			"password": "quetepasabobo",
-			"user_name": "Dios y yo",
+			"full_name": "Maluma Diva",
+			"email": "divinayarrecha@gmail.com",
+			"password": "superpasiva",
+			"user_name": "Bendecida y Afortunada",
 			"image": "https://www.softzone.es/app/uploads/2018/04/guest.png",
-			"is_admin": null,
-			"is_plan_pay": false,
+			"is_admin": false,
+			"is_plan_pay": true,
 			"is_delete": false,
-			"planId": null
+			"planId": 1
 		},
-		"plan": null
+		"plan": {
+			"id": 1,
+			"name": "Joven",
+			"members": 1,
+			"price": 50,
+			"description": "individual",
+			"code": 1002,
+			"consultations_per_patients": 20,
+			"is_delete": false
+		}
 	}
 }
 ```
