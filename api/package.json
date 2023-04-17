@@ -9,7 +9,7 @@
   "author": "Moyobear",
   "license": "ISC",
   "engines": {
-    "node": ">=12.18.3",
+    "node": "^18.12.0",
     "npm": ">=6.14.6"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
     "googleapis": "^114.0.0",
     "mercadopago": "^1.5.15",
     "morgan": "^1.10.0",
+    "node": "^18.12.0",
     "nodemailer": "^6.9.1",
     "pg": "^8.5.1",
     "sequelize": "^6.3.5"
