@@ -33,6 +33,7 @@ export const GET_COMMENTS = "GET_COMMENTS"
 export const SORT_DOCTORS = "SORT_DOCTORS"
 export const SORT_DOCTORS_BY_ID = "SORT_DOCTORS_BY_ID"
 export const SORT_DOCTORS_BY_SPECIALTY = "SORT_DOCTORS_BY_SPECIALTY"
+export const USER_UPDATE = "USER_UPDATE"
 
 export function getSpecialities() {
     return {
@@ -266,6 +267,11 @@ export const putDoctor = (doctorData) => async (dispatch) => {
     });
   };
 };
+
+export const userUpdate = (id, data) => ({
+  type: 'USER_UPDATE',
+  payload: { id, data },
+}); 
 
   export function loginByEmail(token, email){
     return async function(dispatch){
