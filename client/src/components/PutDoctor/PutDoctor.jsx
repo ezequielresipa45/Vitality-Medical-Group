@@ -97,7 +97,6 @@ const PutDoctor = () => {
               <p>{doctor.code}</p>
             </div>
           ))}
-        60432382
         {showForm && (
           <div className={style.containerForm}>
             <h2 className={style.h2Container}>Editar Medico </h2>
