@@ -104,14 +104,18 @@ function DashboardContent() {
   const user = useSelector((state)=>state.user);
   const patients = useSelector((state)=>state.patients);
   const doctors = useSelector((state)=>state.doctors)
- 
+
+
+ const navigate = useNavigate()
 
   const dispatch = useDispatch();
 
   const [buttonPopup, setButtonPopup] = useState(false) 
  
   const [patientsName, setPatientsName] = useState("")
+
   const [selectedPatient, setSelectedPatient] = useState(null)
+
   const [frequentDoctors, setFrequentDoctors] = useState([])
 
 
@@ -123,8 +127,7 @@ function DashboardContent() {
 const patientsByLogin = patients.filter((p)=>p.userId === user.id)
 
 
- const initials = user.full_name
-    .split(" ")
+ const initials = user.full_name?.split(" ")
     .map((name) => name.charAt(0))
     .join("");
     
@@ -140,6 +143,12 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
       return doctorCounts;
       
     };
+
+    const openPopup = () => {
+      setButtonPopup(true)
+      console.log("hola")
+    }
+
 
     useEffect(()=> {
       if (selectedPatient) {
@@ -160,7 +169,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
     // <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open} >
+        <AppBar position="absolute" open={open} onClick = {()=> navigate("/")} >
           <Toolbar
           className={style.toolbar}
           
@@ -178,7 +187,8 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
               sx={{ flexGrow: 1 }}
              
             >
-              <Link href="/" underline="none"> <img src={img} alt="" className={style.img_logo}/> Vitality Medical Group </Link>     
+              <img src={img} alt="" className={style.img_logo}/> Vitality Medical Group      
+              
             </Typography>
             
           </Toolbar>
@@ -209,14 +219,18 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
        <ListItemButton><Link href ='/cartilla' underline="none">
        <ListItemText><MenuBookIcon fontSize = "large"  className={style.text}/><p className={style.name_patient}>Tu cartilla</p> </ListItemText>
        </Link></ListItemButton>
-       
-       <ListItemButton onClick={()=>setButtonPopup(true)}>
-               <Popup trigger = {buttonPopup} setTrigger = {setButtonPopup}>   
-                   <ExperienceForm/>
-               </Popup>
+       {/* <button onClick={()=>setButtonPopup(true)}>enviar</button> */}
+       <ListItemButton onClick={openPopup}>
+           
        <ListItemText><Diversity3Icon color="primary" fontSize = "large"  className={style.text}/><p className={style.name_patient}> Tu experiencia</p> </ListItemText>
        
        </ListItemButton>
+        <Popup trigger = {buttonPopup} setTrigger = {setButtonPopup}> 
+               <IconButton className={style.close_button} onClick={() => setButtonPopup(false)}>
+      <CloseIcon fontSize="large" />
+    </IconButton>  
+                   <ExperienceForm/>
+               </Popup>
        </List>
          
         </Drawer>
@@ -304,7 +318,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
           <Diversity3Icon sx={{ fontSize: '70px' }} color = "primary"/>
          <>
          <Typography><h2 className={style.font}>TU EXPERIENCIA NOS IMPORTA</h2>
-         <br /><p  className={style.font}>En nuestro centro de atención médica nos esforzamos por brindarle la mejor atención posible a nuestros pacientes. Es por eso que nos gustaría conocer su opinión y experiencia con nosotros. Si puede tomarse unos minutos para completar nuestra breve encuesta, nos ayudará a mejorar nuestros servicios y a brindarle una mejor atención en el futuro. Agradecemos de antemano su colaboración y compromiso con su salud.</p></Typography>
+         <br /><p  className={style.form_text}>En nuestro centro de atención médica nos esforzamos por brindarle la mejor atención posible a nuestros pacientes. Es por eso que nos gustaría conocer su opinión y experiencia con nosotros. Si puede tomarse unos minutos para completar nuestra breve encuesta, nos ayudará a mejorar nuestros servicios y a brindarle una mejor atención en el futuro. Agradecemos de antemano su colaboración y compromiso con su salud.</p></Typography>
 
          <Button onClick={()=>setButtonPopup(true)}><button className={style.font}>Encuesta</button></Button>
                 <Popup trigger = {buttonPopup} setTrigger = {setButtonPopup}>   
