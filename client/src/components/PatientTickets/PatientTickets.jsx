@@ -15,7 +15,7 @@ const PatientTickets = ({ patient }) => {
 
   
   const [page, setPage] = useState(1);
-  //const [pageSize, setPageSize] = useState(1);
+  const [pageSize, setPageSize] = useState(1);
   const [deletedTicket, setDeletedTicket] = useState(false)
 
 
@@ -101,11 +101,11 @@ const PatientTickets = ({ patient }) => {
       <h2>TUS TURNOS</h2>
       {patient.ticketMedicals.length > 0 &&  (
         <div>
-           {patient.ticketMedicals.map((ticketToShow) => {
-      if (!ticketToShow.is_delete) {
-        return (
-          <div className={style["ticket-info"]} key={ticketToShow.id}>
+           {patient.ticketMedicals.filter((ticket) => !ticket.is_delete).map((ticketToShow)=> (
+            <div className={style["ticket-info"]} key={ticketToShow.id}>
+            
             <h3>Condición: {ticketToShow.title}</h3>
+
             <h3>
               Doctor/a:{' '}
               {doctors.find((d) => d.id === ticketToShow.doctorId)?.full_name}
@@ -129,9 +129,7 @@ const PatientTickets = ({ patient }) => {
                           </form>
           
           </div>
-        );
-       };
-      })}
+        ))}
           
           <button className={style.button} disabled={page === 1} onClick={handlePrevPage}>
             Anterior
@@ -143,12 +141,11 @@ const PatientTickets = ({ patient }) => {
           >
             Siguiente
           </button>
-        </div>
-      )}
+      
     </div>
-  );
-};
-
+  )}
+</div>
+)}
 export default PatientTickets;
 
 

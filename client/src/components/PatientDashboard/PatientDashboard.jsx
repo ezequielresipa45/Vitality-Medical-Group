@@ -147,9 +147,8 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
 
     const openPopup = () => {
       setButtonPopup(true)
-      console.log("hola")
+     
     }
-
 
     useEffect(()=> {
       if (selectedPatient) {
