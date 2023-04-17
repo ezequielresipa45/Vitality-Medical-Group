@@ -119,8 +119,8 @@ export default function AnalysisContainer() {
     const handleOrder = (e) => {
         if(e.target.name === 'orderByTitle') {
             e.target.value === 'upward' 
-                ? orderedAnalysis = [...analysis].sort((itemA, itemB) => itemB.title.localeCompare(itemA.title))
-                : orderedAnalysis = [...analysis].sort((itemA, itemB) => itemA.title.localeCompare(itemB.title))
+                ? orderedAnalysis = [...analysis].sort((itemA, itemB) => itemB.name.localeCompare(itemA.name))
+                : orderedAnalysis = [...analysis].sort((itemA, itemB) => itemA.name.localeCompare(itemB.name))
             return setAnalysis([...orderedAnalysis]);
         };
 
@@ -178,7 +178,7 @@ export default function AnalysisContainer() {
 
                     <div className={styles.filter}>
 
-                        <h3>Especialidades </h3>
+                        <p>Especialidades </p>
 
                         <select name='specilities' onChange={(e) => handleFilter(e.target.value)}>
 
@@ -190,7 +190,7 @@ export default function AnalysisContainer() {
 
                         </select>
 
-                        <h3>Ordenar por nombre</h3>
+                        <p>Ordenar por nombre</p>
 
                         <select ref={sortRef} name='orderByTitle' onChange={(e) => handleOrder(e)}>
 
