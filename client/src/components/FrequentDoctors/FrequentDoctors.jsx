@@ -27,7 +27,7 @@ const FrequentDoctors = ({patient}) => {
   const doctorIds = patient.ticketMedicals.map((ticket) => ticket.doctorId);  // busco en los ticketMedical los id de los doctores
   const frequentDoctors = doctors.filter((doctor) => doctorIds.includes(doctor.id));  // filtro los doctores que tengan mismo id que doctorIds 
 
-console.log(frequentDoctors)
+
   return (
     <>
        {frequentDoctors.length > 0 ? (
