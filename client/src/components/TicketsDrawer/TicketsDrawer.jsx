@@ -40,7 +40,7 @@ export default function TicketsDrawer() {
                 quantity: 1,
                 price: item.ticket.price
             };
-        });
+        })
     };
 
     console.log(paymentItems);
