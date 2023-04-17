@@ -33,6 +33,7 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const isAdmin = location.pathname === "/admin";
+ const isPaciente = location.pathname !== '/paciente' 
 
   const userInfo = useSelector((state) => state.user);
 
@@ -78,8 +79,7 @@ useEffect(() => {
 
     <>
 
-      {!isAdmin && <NavBar />}
-      {isAdmin && location.pathname !== '/paciente' && <NavBar />}
+      {(!isAdmin || !isPaciente) && <NavBar />}
 
       <Routes>
 
