@@ -228,7 +228,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
        </ListItemButton>
         <Popup trigger = {buttonPopup} setTrigger = {setButtonPopup}> 
                <IconButton className={style.close_button} onClick={() => setButtonPopup(false)}>
-      <CloseIcon fontSize="large" />
+     
     </IconButton>  
                    <ExperienceForm/>
                </Popup>
