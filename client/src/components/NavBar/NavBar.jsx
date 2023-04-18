@@ -2,12 +2,12 @@ import React from "react";
 import styles from "./NavBar.module.css";
 import logo from "../../images/logo.png";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import addMedic from "../../images/medical-doctor.png";
 
 import { useAuth0 } from "@auth0/auth0-react"; // Import para Auth0
-import LoginButton from "../LoginButtons/LoginButton"
-import LogoutButton from "../LoginButtons/LogoutButton"
+import LoginButton from "../LoginButtons/LoginButton";
+import LogoutButton from "../LoginButtons/LogoutButton";
 import TicketsDrawer from "../TicketsDrawer/TicketsDrawer";
 
 export default function NavBar() {
@@ -22,14 +22,16 @@ export default function NavBar() {
     "Cardiología",
   ];
 
-  
-  // Auth0  
-  const { user , isAuthenticated } = useAuth0();
+  const [isMenuOpen, setMenuOpen] = useState(false); // Estado para controlar si el menú de especialidades está abierto o cerrado
+  // Auth0
+  const { user, isAuthenticated } = useAuth0();
 
   const [clickBoolean, setClickBoolean] = useState(false);
 
+  const menuRef = useRef(null);
+
   const handlerEspeciality = () => {
-    clickBoolean ? setClickBoolean(false) : setClickBoolean(true);
+    setMenuOpen(!isMenuOpen);
   };
 
   function scrollToMiddle() {
@@ -43,6 +45,20 @@ export default function NavBar() {
   const handlerClickButtonNovedades = () => {
     scrollToMiddle();
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setMenuOpen(false); // Cierra el menú de especialidades cuando se hace clic fuera de él
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
@@ -61,9 +77,10 @@ export default function NavBar() {
             Novedades
           </Link>
           <button
+            ref={menuRef}
             className={styles.button__ul}
             style={
-              clickBoolean
+              isMenuOpen
                 ? {
                     backgroundColor: "#639cc7",
                     color: "#fff",
@@ -78,11 +95,10 @@ export default function NavBar() {
             Especialidades
           </button>
           <Link to="/planes">Planes</Link>
-          
-        {!isAuthenticated  ? <LoginButton/> : <LogoutButton/>}
 
-        {user && <TicketsDrawer />}
-        
+          {!isAuthenticated ? <LoginButton /> : <LogoutButton />}
+
+          {user && <TicketsDrawer />}
         </ul>
 
         {/* <Link to={"/agregarMedico"}>
@@ -90,16 +106,16 @@ export default function NavBar() {
         </Link> */}
       </div>
 
-      {clickBoolean ? (
-        <div className={styles.container__especialitys}>
+      {isMenuOpen && (
+        <div className={styles.container__especialitys} ref={menuRef}>
           <ul>
             {arraySpecialists.map((specialist) => (
-              <Link to={`/especialidad/${specialist}`}>{specialist}</Link>
+              <li key={specialist} style={{ listStyleType: "none" }}>
+                <Link to={`/especialidad/${specialist}`}>{specialist}</Link>
+              </li>
             ))}
           </ul>
         </div>
-      ) : (
-        ""
       )}
     </>
   );
