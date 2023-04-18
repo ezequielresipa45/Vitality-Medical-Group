@@ -161,6 +161,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
         <AppBar position="absolute" open={open} onClick = {()=> navigate("/")} >
           <Toolbar
           className={style.toolbar}
+
             sx={{
               pr: '24px',
               flexDirection:"row",
@@ -175,14 +176,14 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
               sx={{ flexGrow: 1 }}
              
             >
-              <img src={img} alt="" className={style.img_logo}/>Vitality Medical Group      
+              <img src={img} alt="" className={style.img_logo}/> Vitality Medical Group      
               
             </Typography>
             
           </Toolbar>
         </AppBar>
-
         <Drawer variant="permanent" open={open} sx={{width: 240}} >
+            
           <Toolbar
             sx={{
               display: 'flex',
@@ -193,10 +194,6 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
               height: 63
             }}
           >
-        {/* <Avatar sx={{ width: 56, height: 56, position: "absolute", left: 90}} src={user.image || null}>
-        {user.image ? null : initials}
-        </Avatar> */  // importante REVISAR PARA QUE LA IMAGEN SE RENDERIZE}
-
              <Avatar sx={{ width: 56, height: 56, position: "absolute", left: 90}} > {initials}</Avatar>
              
         </Toolbar>
@@ -257,9 +254,6 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
           <>
            <Grid sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Avatar sx={{ width: 100, height: 100}}></Avatar>
-            {/* <Avatar sx={{ width: 100, height: 100}} src={user.image || null}>
-        {user.image ? null : user.full_name.charAt(0)}
-      </Avatar> */}
             </Grid>
             <div style = {{textAlign: "center"}}>    
             
