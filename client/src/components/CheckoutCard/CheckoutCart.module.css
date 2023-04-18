@@ -4,6 +4,14 @@
 }
 
 
-.CheckoutSuccessfullContainer {
-    margin-top: 100px;
-}
+.container_succesfull {
+    width: 100%;
+    min-height: 40vh;
+    padding-top: 150px;
+    padding-bottom: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 30px
+};
