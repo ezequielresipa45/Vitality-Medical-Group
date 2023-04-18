@@ -3,15 +3,7 @@ import axios from "axios";
 import { useState, useEffect, useLayoutEffect } from "react";
 import { useLocation, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getAnalysis,
-  getConfirmedTickets,
-  getSpecialities,
-  loginByEmail,
-  getUserById,
-  putUser,
-  signUp,
-} from "./redux/actions";
+import { getAnalysis, getConfirmedTickets, getSpecialities, loginByEmail, getUserById, putUser, signUp } from "./redux/actions";
 import Home from "./components/Home/Home";
 import Institutional from "./components/Institutional/Institutional";
 import PlanCards from "./components/Plans/PlanCards";
@@ -31,6 +23,7 @@ import UserCard from "./components/UserCard/UserCard";
 import TicketsDrawer from "./components/TicketsDrawer/TicketsDrawer";
 import PatientDashboard from "./components/PatientDashboard/PatientDashboard";
 import JitsiMeet from "./components/JitsiMeet/JitsiMeet";
+import CheckoutSuccessfull from "./components/CheckoutCard/CheckoutSuccesfull";
 
 import { useAuth0 } from "@auth0/auth0-react"; // Import para Auth0
 
@@ -60,7 +53,7 @@ function App() {
         dispatch(loginByEmail(token, user.email));
       };
       getToken();
-    }
+    };
   }, [isAuthenticated]);
 
   // Aca termina todo sobre Auth0
@@ -97,6 +90,7 @@ function App() {
       {user && userPatients?.length === 0 && <AddPatientForm />}
 
       <Routes>
+
         <Route path="/" element={<Home />} />
 
         <Route path="/institucional" element={<Institutional />} />
@@ -122,6 +116,9 @@ function App() {
         <Route path="/paciente" element={<PatientDashboard />} />
 
         <Route path="/jitsimeet" element={<JitsiMeet />} />
+
+        <Route path='/checkout/feedback' element={<CheckoutSuccessfull/>} />
+
       </Routes>
 
       {!isAdmin && <Footer />}

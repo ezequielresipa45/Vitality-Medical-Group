@@ -32,7 +32,7 @@ const LogoutButton = () => {
 
   return (
     <>
-      <Tooltip>
+      <Tooltip title={user.full_name}>
         <IconButton
           id="icon-button"
           onClick={handleClick}

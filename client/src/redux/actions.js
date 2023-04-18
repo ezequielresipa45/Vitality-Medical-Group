@@ -21,6 +21,7 @@ export const DELETE_SELECTED_TICKETS = "DELETE_SELECTED_TICKETS";
 export const GET_CONFIRMED_TICKETS = "GET_CONFIRMED_TICKETS";
 export const POST_CONFIRMED_TICKETS = "POST_CONFIRMED_TICKETS";
 export const DELETE_CONFIRMED_TICKETS = "DELETE_CONFIRMED_TICKETS";
+export const RESET_CONFIRMED_TICKETS = "RESET_CONFIRMED_TICKETS";
 export const PUT_DOCTOR= "PUT_DOCTOR";
 export const PUT_PATIENT= "PUT_PATIENT";
 export const GET_USER = "GET_USER";
@@ -220,6 +221,13 @@ export function postConfirmedTickets(value) {
 export function deleteConfirmedTickets(value) {
   return {
       type: DELETE_CONFIRMED_TICKETS,
+      payload: value
+  }; 
+};
+
+export function resetConfirmedTickets(value) {
+  return {
+      type: RESET_CONFIRMED_TICKETS,
       payload: value
   }; 
 };

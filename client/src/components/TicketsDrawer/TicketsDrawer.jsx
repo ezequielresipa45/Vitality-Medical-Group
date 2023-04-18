@@ -19,6 +19,8 @@ export default function TicketsDrawer() {
 
     const userId = useSelector((state) => state.user.id);
 
+    const tickets = useSelector((state) => state.confirmedTickets);
+
     const userTickets = useSelector((state) => state.confirmedTickets.filter((item) => item.user === userId));
     
     const [toggle, setToggle] = useState(false);
@@ -53,8 +55,8 @@ export default function TicketsDrawer() {
     };
     
     useEffect(() => {
-        toggle && localStorage.setItem('confirmedItems', JSON.stringify(userTickets));
-    }, [userTickets]);
+        toggle && localStorage.setItem('confirmedItems', JSON.stringify(tickets));
+    }, [tickets]);
 
     return (
         <>
@@ -63,7 +65,7 @@ export default function TicketsDrawer() {
 
                 {userTickets.length > 0 &&
                 
-                <Tooltip placement="right-start">
+                <Tooltip title='Lista de turnos'>
                     <IconButton onClick={toggleDrawer}>
                         <MonitorHeartIcon sx={{ fontSize: 30 }} />
                         <div className={styles.badge}>
