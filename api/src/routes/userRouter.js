@@ -5,7 +5,7 @@ const {
   POST_USER,
   PUT_ISADMIN,
   DELETE_USER,
-  PUT_USER
+  PUT_USER,
 } = require("../handlers/userHandlers/userHandlers");
 
 const { validatorCreateUser } = require("../middlewares/validators.js");
@@ -20,11 +20,10 @@ userRouter.get("/:id", GET_USER_ID);
 
 userRouter.post("/", validatorCreateUser, POST_USER);
 
-userRouter.put("/", PUT_USER)
+userRouter.put("/", PUT_USER);
 
-userRouter.put("/isAdmin", PUT_ISADMIN)
+userRouter.put("/isAdmin", PUT_ISADMIN);
 
-userRouter.delete("/:id", DELETE_USER)
-
+userRouter.delete("/:id", DELETE_USER);
 
 module.exports = userRouter;

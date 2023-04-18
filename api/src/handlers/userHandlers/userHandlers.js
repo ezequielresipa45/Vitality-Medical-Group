@@ -39,8 +39,8 @@ const PUT_USER  = async (req, res) => {
 
 const PUT_ISADMIN = async (req, res) => {
     try {
-        const {id, is_Admin} = req.body
-    const data = await isAdmin(id, is_Admin)
+        const {id, is_admin} = req.body
+    const data = await isAdmin(id, is_admin)
     res.status(200).json(data)
     } catch (error) {
     res.status(400).json({error: error.message})
