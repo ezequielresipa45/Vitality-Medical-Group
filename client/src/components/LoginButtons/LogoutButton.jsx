@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutLogin } from "../../redux/actions";
-import { IconButton, Menu, MenuItem, Button, Tooltip } from "@mui/material";
+import { IconButton, Menu, MenuItem, Button, Tooltip , Avatar } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
@@ -40,7 +40,13 @@ const LogoutButton = () => {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <AccountCircleIcon sx={{ fontSize: 30 }} />
+          <Avatar 
+            alt='user_avatar' 
+            src={user.image} 
+            sx={{ width: 32, height: 32 }}
+          >
+            <AccountCircleIcon sx={{ fontSize: 30 }} />
+          </Avatar>
         </IconButton>
       </Tooltip>
       <Menu
