@@ -21,9 +21,8 @@ const TicketsAnalisys = ({ patient }) => {
 
   useEffect(() => {
     dispatch(getPatients());
-    dispatch(getDoctors())
-    // dispatch(getTicketsAnalisys());
-    dispatch(getAnalysis())
+    dispatch(getDoctors());
+    dispatch(getAnalysis());
   }, [dispatch]);
 
   useEffect(() => {
