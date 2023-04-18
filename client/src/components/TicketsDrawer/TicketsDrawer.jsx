@@ -9,18 +9,19 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import PaymentIcon from '@mui/icons-material/Payment';
 import styles from './TicketsDrawer.module.css';
 import MPButton from '../MPButton/MPButton';
+import { useNavigate } from 'react-router-dom';
 
 export default function TicketsDrawer() {
 
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     const userId = useSelector((state) => state.user.id);
 
     const userTickets = useSelector((state) => state.confirmedTickets.filter((item) => item.user === userId));
     
     const [toggle, setToggle] = useState(false);
-
-    const [preferenceId, setPreferenceId] = useState(null);
 
     const toggleDrawer = () => {
         setToggle(!toggle);
@@ -32,23 +33,23 @@ export default function TicketsDrawer() {
     };
 
     const paymentItems = {
-        tickets: userTickets.map((item) => {
+        medical: userTickets.map((item) => {
             return { 
                 id: item.id,
                 title: item.ticket.title,
-                description: item.ticket.observation,
+                description: item.ticket.observations,
                 quantity: 1,
                 price: item.ticket.price
             };
         })
     };
 
-    console.log(paymentItems);
+    //console.log(paymentItems);
 
     const onClickContinue = async () => {
         await axios.post('/mercadoPago/v2', paymentItems)
-            .then((res) => setPreferenceId(res.data?.mpresult?.body.id))
-            .catch((err) => console.log(err));
+            .then((res) => window.location.replace(res.data?.mpresult?.body.init_point))
+            .catch((err) => console.log(err)); 
     };
     
     useEffect(() => {
@@ -70,7 +71,6 @@ export default function TicketsDrawer() {
                         </div>
                     </IconButton>
                 </Tooltip>
-                
                 }
 
             </div>
@@ -106,7 +106,6 @@ export default function TicketsDrawer() {
                         <ListItem>
                             <Button sx={{ minWidth: 268 }} variant="outlined" endIcon={<PaymentIcon />} onClick={onClickContinue}>Finalizar</Button>
                         </ListItem>
-                        {preferenceId && <MPButton preferenceId={preferenceId}/>}
                     </List>
                 </Box>
 

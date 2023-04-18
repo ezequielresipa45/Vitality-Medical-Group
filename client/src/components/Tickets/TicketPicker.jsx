@@ -129,29 +129,8 @@ const TicketPicker = () => {
             }
         };
 
-        if(ticketInfo.plan) {
-            //Verificar si tiene disponibilidad de turnos 
+        if(ticketInfo.plan) { 
             console.log('El usuario tiene un plan valido');
-            
-            ticketInfo.ticket.type === 'Consulta Médica' && await axios.post('/ticketMedical/createTicketMedical', {
-                title: ticketInfo.ticket.title,
-                observations: ticketInfo.ticket.observations,
-                day:selectedTickets.days,
-                doctorId: ticketInfo.ticket.code,
-                patientId: ticketInfo.patient,
-                date: ticketInfo.ticket.date,
-                hour: ticketInfo.ticket.schedule
-            })
-            .then((res) => {
-                setMessage(res.data);
-                setIsTrue(true);
-            })
-            .catch((err) => {
-                console.log(err);
-                setMessage('Ha ocurrido un error. Intentelo más tarde.');
-                setIsTrue(true);
-            });
-
             ticketInfo.ticket.type === 'Análisis / Estudio' && await axios.post('/ticketAnalysis/createTicketAnalisys', {
                 title: ticketInfo.ticket.title,
                 observations: ticketInfo.ticket.observations,
@@ -171,6 +150,31 @@ const TicketPicker = () => {
                 setIsTrue(true);
             });
             
+            setSelectedSchedule('');
+            setAvailableSchedules(availableSchedules.filter((item) => item !== selectedSchedule));
+            return ticketInfo;
+        };
+
+        if(ticketInfo.ticket.type === 'Consulta Médica') {
+            await axios.post('/ticketMedical/createTicketMedical', {
+                title: ticketInfo.ticket.title,
+                observations: ticketInfo.ticket.observations,
+                day:selectedTickets.days,
+                doctorId: ticketInfo.ticket.code,
+                patientId: ticketInfo.patient,
+                date: ticketInfo.ticket.date,
+                hour: ticketInfo.ticket.schedule,
+                paid: ticketInfo.plan ? ticketInfo.plan : null
+            })
+            .then((res) => {
+                setMessage(res.data);
+                setIsTrue(true);
+            })
+            .catch((err) => {
+                console.log(err);
+                setMessage('Ha ocurrido un error. Intentelo más tarde.');
+                setIsTrue(true);
+            });
             setSelectedSchedule('');
             setAvailableSchedules(availableSchedules.filter((item) => item !== selectedSchedule));
             return ticketInfo;
