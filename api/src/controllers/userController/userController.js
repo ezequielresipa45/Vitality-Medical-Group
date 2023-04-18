@@ -106,7 +106,7 @@ const createUser = async (full_name, email, password, user_name, image) => {
 const setUser = async (
   id,
   full_name,
-  email,
+
   password,
   user_name,
   image,
@@ -117,7 +117,7 @@ const setUser = async (
   if (changeUser) {
     await changeUser.set({
       full_name: full_name,
-      email: email,
+
       password: password,
       user_name: user_name,
       image: image,
@@ -132,7 +132,7 @@ const setUser = async (
   }
 };
 
-const isAdmin = async (id, is_Admin) => {
+const isAdmin = async (id, is_admin) => {
   let allUser = await getAllUser();
   let user = await User.findByPk(id);
 
@@ -140,7 +140,7 @@ const isAdmin = async (id, is_Admin) => {
     user.is_admin = true;
     await user.save();
     return { message1: "No se pueden realizar modificaciones a este usuario" };
-  } else if (is_Admin === false) {
+  } else if (is_admin === false) {
     const result = await User.update(
       {
         is_admin: false,
@@ -152,7 +152,7 @@ const isAdmin = async (id, is_Admin) => {
       }
     );
     return { message: "El usuario ya no es Administador" };
-  } else if (is_Admin === true) {
+  } else if (is_admin === true) {
     const result = await User.update(
       {
         is_admin: true,

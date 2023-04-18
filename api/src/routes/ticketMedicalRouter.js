@@ -5,7 +5,7 @@ const {
   allTicketHandler,
   ticketIdHandler,
   deleteTicketHandler,
-  destroyTicketHandler
+  destroyTicketHandler,
 } = require("../handlers/ticketMedicalHandlers/ticketMedicalHandlers.js");
 const {
   validatorCreateTicketMedical,
