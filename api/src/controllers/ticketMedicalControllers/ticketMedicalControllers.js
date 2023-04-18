@@ -102,6 +102,24 @@ const destroyTicket = async (idTicket) => {
   return "El Turno médico fue cancelado exitosamente";
 };
 
+// *Este controller permite borrar/destruir(borrado fisico) todos ticketsMedicals con sus Schedules asociados.
+const destroyAllTicket = async () => {
+  const request = await TicketMedical.findAll({
+    include: { all: true },
+  });
+  const idSchedule = request.map((item) => item.schedule.id);
+  const requestSchedule = await Schedule.findAll({ where: { id: idSchedule } });
+
+  await requestSchedule.forEach(function (item) {
+    item.destroy();
+  });
+  await request.forEach(function (item) {
+    item.destroy();
+  });
+
+  return "Todos los registros de los turnos médicos fueron exitosamente destruidos";
+};
+
 module.exports = {
   createTicket,
   confirmTicket,
@@ -109,4 +127,5 @@ module.exports = {
   getTicketId,
   deleteTicket,
   destroyTicket,
+  destroyAllTicket,
 };

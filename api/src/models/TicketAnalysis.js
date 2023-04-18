@@ -11,6 +11,14 @@ module.exports = (sequelize) => {
         autoIncrement: true,
         unique: true,
       },
+      title: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      observations: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       date: {
         type: DataTypes.DATEONLY,
         allowNull: false,
