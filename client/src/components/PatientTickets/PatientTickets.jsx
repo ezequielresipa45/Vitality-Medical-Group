@@ -1,22 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPatients, getDoctors, getTickets} from '../../redux/actions';
-import style from './PatientTickets.module.css';
-import { useState } from 'react';
-import Swal from "sweetalert2";
 import axios from 'axios';
-import TicketsAnalisys from '../TicketsAnalisys/TicketsAnalisys';
+import style from './PatientTickets.module.css';
+import Swal from "sweetalert2";
+
+
 
 const PatientTickets = ({ patient }) => {
   const doctors = useSelector((state) => state.doctors);
-  const tickets = useSelector((state) => state.tickets);
+  // const tickets = useSelector((state) => state.tickets);
   // const user = useSelector((state) => state.user);
   // const patients = useSelector((state) => state.patients);
   const dispatch = useDispatch();
 
   
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(1);
+  // const [pageSize, setPageSize] = useState(1);
   const [deletedTicket, setDeletedTicket] = useState(false)
 
   const page_size = 1
@@ -79,6 +79,7 @@ const PatientTickets = ({ patient }) => {
             },
           });
             setDeletedTicket(true);
+            // window.location.reload();
         
           console.log(response.data);
 
@@ -102,7 +103,7 @@ const PatientTickets = ({ patient }) => {
 
   return (
     <div className={style.div}>
-      <h2>TUS TURNOS</h2>
+      <h2>TUS TURNOS MEDICOS</h2>
       {ticketToShow &&  (
         <div>
            {ticketToShow.map((ticket) => (
@@ -118,14 +119,10 @@ const PatientTickets = ({ patient }) => {
             <form onSubmit={(e) => handleDelete(ticket.id, e)}>
                <button
                  type="submit"
-                  style={{            
-                  padding: ".2rem",
-                  backgroundColor: "red",
-                   border: "none",
-                   }}
+                  className={style.button_delete}
                       >
-                              <i className="fas fa-trash" style={{ color: "white", paddingTop: ".4rem" }}
-                              >eliminar
+                              <i className={style.button_delete}
+                              >Cancelar
                               </i>
                             </button>
                           </form>

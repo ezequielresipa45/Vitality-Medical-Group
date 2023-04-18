@@ -1,12 +1,17 @@
 import * as React from 'react';
-import {useEffect} from "react";
-import style from "../PatientDashboard/PatientDashboard.module.css"
-import img from "../../images/logo.png"
-import PatientPut from "../PatientPut/PatientPut";
+import {useEffect, useState} from "react";
+import { useNavigate } from 'react-router-dom';
+import {useSelector, useDispatch} from "react-redux"
+import {getPatients, getDoctors} from "../../redux/actions"
+
+import FrequentDoctors from '../FrequentDoctors/FrequentDoctors';
 import PatientTickets from '../PatientTickets/PatientTickets';
 import TicketsAnalisys from "../TicketsAnalisys/TicketsAnalisys"
 import ExperienceForm from "../ExperienceForm/ExperienceForm";
 import Popup from "../PopUp/PopUp";
+
+import style from "../PatientDashboard/PatientDashboard.module.css"
+import img from "../../images/logo.png"
 
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,34 +23,18 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Diversity3Icon from "@mui/icons-material/Diversity3"
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PersonIcon from '@mui/icons-material/Person';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
-import MenuIcon from '@mui/icons-material/Menu';
 import RecentActorsIcon from '@mui/icons-material/RecentActors';
-import Button from "@mui/material/Button"
-import LocalHospitalSharpIcon from '@mui/icons-material/LocalHospitalSharp';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import HistorySharpIcon from '@mui/icons-material/HistorySharp';
-import CakeIcon from '@mui/icons-material/Cake';
-import FeedIcon from '@mui/icons-material/Feed';
-
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Avatar from '@mui/material/Avatar';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
-import {useState} from 'react'
-import { useNavigate } from 'react-router-dom';
-import {useSelector, useDispatch} from "react-redux"
-import {getPatients, getDoctors} from "../../redux/actions"
-import FrequentDoctors from '../FrequentDoctors/FrequentDoctors';
-
 
 
 function Copyright(props) {
@@ -104,7 +93,7 @@ function DashboardContent() {
   
   const user = useSelector((state)=>state.user);
   const patients = useSelector((state)=>state.patients);
-  const doctors = useSelector((state)=>state.doctors)
+  // const doctors = useSelector((state)=>state.doctors)
 
 
  const navigate = useNavigate()
@@ -172,7 +161,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
         <AppBar position="absolute" open={open} onClick = {()=> navigate("/")} >
           <Toolbar
           className={style.toolbar}
-          
+
             sx={{
               pr: '24px',
               flexDirection:"row",
@@ -300,6 +289,19 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
 
   <Grid item xs={12} md={6}>
     <Paper elevation={24} sx={{ p: 2 , height : 447, textAlign: "center"}}>
+    <CalendarMonthIcon sx={{ fontSize: '70px' }} color = "primary"/>
+        {selectedPatient && (
+          <>
+      <Typography>
+        <TicketsAnalisys patient ={selectedPatient}/>
+        </Typography>
+      </>
+      )}
+    
+    </Paper>
+  </Grid>
+  <Grid item xs={12} md={6}>
+    <Paper elevation={24} sx={{ p: 2 , height : 447, textAlign: "center"}}>
           <RecentActorsIcon  sx={{ fontSize: '70px' }} color = "primary"/>
        {selectedPatient && (
          <>
@@ -312,8 +314,20 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
     
     </Paper>
   </Grid>
+            </Grid>
+          </Container>
+        </Box>
+      </Box>
+    // </ThemeProvider>
+  );
+}
 
-  <Grid item xs={12} md={6}>
+export default function PatientDashboard() {
+  return <DashboardContent />;
+}
+
+
+  {/* <Grid item xs={12} md={6}>
     <Paper elevation={24} sx={{ p: 2 , height : 447, textAlign: "center"}}>
           <Diversity3Icon sx={{ fontSize: '70px' }} color = "primary"/>
          <>
@@ -326,30 +340,4 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
                 </Popup>
          </>
     </Paper>
-  </Grid>
-
-  <Grid item xs={12} md={6}>
-    <Paper elevation={24} sx={{ p: 2 , height : 477, textAlign: "center"}}>
-          <CalendarMonthIcon sx={{ fontSize: '70px' }} color = "primary"/>
-        {selectedPatient && (
-          <>
-      <Typography>
-        <TicketsAnalisys patient ={selectedPatient}/>
-        </Typography>
-      </>
-      )}
-    
-    </Paper>
-  </Grid>
-
-            </Grid>
-          </Container>
-        </Box>
-      </Box>
-    // </ThemeProvider>
-  );
-}
-
-export default function PatientDashboard() {
-  return <DashboardContent />;
-}
+  </Grid> */}

@@ -5,4 +5,18 @@
     display: center;
     justify-content: space-between;
     margin: 5%;
+    font-family: "FireSans";
+}
+
+.button_delete{
+    display: center;
+    justify-content: space-between;
+ 
+    font-family: "FireSans";
+    background-color: red;
+}
+
+text_{
+    font-family: "FireSans";
+    display: center;
 }

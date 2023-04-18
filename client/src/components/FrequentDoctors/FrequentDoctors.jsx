@@ -1,11 +1,7 @@
-
 import React from "react";
-import {useState} from "react"
-import { Typography } from "@mui/material";
 import  { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { getDoctors, getPatients } from "../../redux/actions";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import style from './FrequentDoctors.module.css';
 
 
@@ -33,14 +29,14 @@ const FrequentDoctors = ({patient}) => {
        {frequentDoctors.length > 0 ? (
     <div>
       <h2 className={style.text}>MÉDICOS FRECUENTES</h2>
-      <ul>
+      <div>
         {frequentDoctors.map((doctor) => (
-          <li key={doctor.id}>{doctor.full_name}</li>
+          <div className={style.text} key={doctor.id}>{doctor.full_name}</div>
         ))}
-      </ul>
+      </div>
     </div>
       ):(
-        <Typography>"No hay suficiente informacion para mostrar medicos frecuentes"</Typography>
+        <div className={style.text} >"Aun no hay tenés médicos frecuentes"</div>
       )}
     </>
   );

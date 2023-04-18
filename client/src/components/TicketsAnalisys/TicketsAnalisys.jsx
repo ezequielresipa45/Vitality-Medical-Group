@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPatients, getAnalysis, getDoctors } from '../../redux/actions';
-import style from './TicketsAnalisys.module.css';
-import { useState } from 'react';
-import Swal from "sweetalert2";
 import axios from 'axios';
+import style from './TicketsAnalisys.module.css';
+import Swal from "sweetalert2";
+
 
 const TicketsAnalisys = ({ patient }) => {
 //   const ticketsAnalisys = useSelector((state) => state.ticketsAnalisys);
@@ -69,6 +69,7 @@ const TicketsAnalisys = ({ patient }) => {
         const analysisIndex = updatedPatients.ticketAnalyses.findIndex((a) => a.id === id);
         updatedPatients.ticketAnalyses[analysisIndex].is_delete = true;
         setPatients(updatedPatients);
+        window.location.reload();
 console.log(updatedPatients)
           
           // setTicket((prevTickets) => prevTickets.filter((ticket) => ticket.id !== idTicket));
@@ -94,17 +95,17 @@ console.log(updatedPatients)
 
   return (
     <div className={style.div}>
-      <h2>TUS TURNOS</h2>
+      <h2>TUS ANALISIS</h2>
       {patient.ticketAnalyses.length > 0 && (
         <div>
               {ticketToShow.map((ticket) => {
       if (!ticketToShow.is_delete) {
         return (
-          <div className={style["ticket-info"]} key={ticketToShow.id}>
+          <div className={style["ticket-info"]} key={ticket.id}>
             
             <h3>
               Nombre:{' '}
-              {tickets.find((d) => d.id === ticketToShow.analysisId)?.name}
+              {tickets.find((d) => d.id === ticket.analysisId)?.name}
               
             </h3>
             <h3>Fecha: {ticket.date}</h3>
@@ -112,15 +113,12 @@ console.log(updatedPatients)
             <form onSubmit={(e) => handleDelete(ticket.id, e)}>
                             <button
                               type="submit"
-                              style={{
-                               
-                                padding: ".2rem",
-                                backgroundColor: "red",
-                                border: "none",
-                              }}
+                             
+                                className={style.button_delete}
+                              
                             >
-                              <i className="fas fa-trash" style={{ color: "white", paddingTop: ".4rem" }}
-                              >eliminar
+                              <i className={style.button_delete}
+                              >Cancelar
                               </i>
                             </button>
                           </form>
@@ -129,6 +127,7 @@ console.log(updatedPatients)
         )
                             }
                           })}
+                          {ticketToShow.length === 0 && <p className={style.text}>No tiene análisis próximos</p>}
           <button className={style.button} disabled={page === 1} onClick={handlePrevPage}>
             Anterior
           </button>
