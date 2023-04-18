@@ -36,6 +36,7 @@ export const SORT_DOCTORS_BY_SPECIALTY = "SORT_DOCTORS_BY_SPECIALTY";
 export const GET_TICKETS = "GET_TICKETS";
 export const DELETE_TICKET = "DELETE_TICKET";
 export const GET_TICKETS_ANALISYS = "GET_TICKETS_ANALISYS";
+export const GET_USER_BYID = "GET_USER_BYID";
 
 
 export function getSpecialities() {
@@ -383,4 +384,13 @@ export const putDoctor = (doctorData) => async (dispatch) => {
   
   };
 
-
+  export function getUserById(id){
+    return async function(dispatch){
+      const json= await axios.get(`https://apiclinica.onrender.com/user/${id}`);
+  
+      return dispatch({
+        type: GET_USER_BYID,
+        payload: json.data,
+      })
+    }
+  }
