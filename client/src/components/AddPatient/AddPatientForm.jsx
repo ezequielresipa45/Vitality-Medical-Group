@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import style from "../AddPatient/AddPatientForm.module.css";
-import patientPic from "../../images/patientForm-img.jpeg";
 import { useSelector } from "react-redux";
 
 import { Dialog, DialogContent } from "@mui/material";
@@ -85,6 +84,18 @@ export default function AddPatientForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
     try {
       // Enviar la solicitud POST a la API
       const response = await axios.post("patient/", newPatient);
@@ -92,12 +103,10 @@ export default function AddPatientForm() {
     } catch (error) {
       console.error(error.message);
     }
-    Swal.fire({
-      position: "top-end",
+
+    Toast.fire({
       icon: "success",
-      title: "Gracias por elegirnos!",
-      showConfirmButton: false,
-      timer: 1500,
+      title: "Gracias por elegirnos",
     });
     handleReset();
     setClickAdd(null ? 1 : clickAdd + 1);
@@ -105,10 +114,9 @@ export default function AddPatientForm() {
   };
 
   return (
-    <Dialog open={state} onClose={null} maxWidth={'lg'}>
+    <Dialog open={state} onClose={null} maxWidth={"sm"}>
       <DialogContent id="alert-content">
         <div className={style.container__patient}>
-          <img src={patientPic} alt="" />
           <h2 className={style.text_img}></h2>
 
           <div className={style.container__patient_form}>
@@ -237,7 +245,7 @@ export default function AddPatientForm() {
               </div>
 
               <button
-                className={style.btn__form}
+                className={[style.btn__form, style.btn_color].join(" ")}
                 type="submit"
                 disabled={Object.keys(errors).length > 0}
               >
