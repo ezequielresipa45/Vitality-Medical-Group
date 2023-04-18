@@ -5,6 +5,7 @@ import style from './PatientTickets.module.css';
 import { useState } from 'react';
 import Swal from "sweetalert2";
 import axios from 'axios';
+import TicketsAnalisys from '../TicketsAnalisys/TicketsAnalisys';
 
 const PatientTickets = ({ patient }) => {
   const doctors = useSelector((state) => state.doctors);
@@ -17,6 +18,8 @@ const PatientTickets = ({ patient }) => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(1);
   const [deletedTicket, setDeletedTicket] = useState(false)
+
+  const page_size = 1
 
 
   useEffect(() => {
@@ -34,6 +37,15 @@ const PatientTickets = ({ patient }) => {
       setDeletedTicket(false);
     }
   }, [deletedTicket, dispatch])
+
+  const handleNextPage = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    setPage((prevPage) => prevPage - 1);
+  };
+
 
   const handleDelete = async (data, e) => {
     e.preventDefault();
@@ -66,8 +78,6 @@ const PatientTickets = ({ patient }) => {
               idTicket: data,
             },
           });
-        
-
             setDeletedTicket(true);
         
           console.log(response.data);
@@ -85,43 +95,35 @@ const PatientTickets = ({ patient }) => {
   };
 
 
-
-  const handleNextPage = () => {
-    setPage((prevPage) => prevPage + 1);
-  };
-
-  const handlePrevPage = () => {
-    setPage((prevPage) => prevPage - 1);
-  };
-
-  const ticketToShow = patient.ticketMedicals[page - 1];
+  // const ticketToShow = patient.ticketMedicals[page - 1];
+  const ticketToShow = patient.ticketMedicals
+  .filter((ticket)=>!ticket.is_delete)
+  .slice((page-1)* page_size, page * page_size)
 
   return (
     <div className={style.div}>
       <h2>TUS TURNOS</h2>
-      {patient.ticketMedicals.length > 0 &&  (
+      {ticketToShow &&  (
         <div>
-           {patient.ticketMedicals.filter((ticket) => !ticket.is_delete).map((ticketToShow)=> (
-            <div className={style["ticket-info"]} key={ticketToShow.id}>
+           {ticketToShow.map((ticket) => (
+            <div className={style["ticket-info"]} key={ticket.id}>
             
-            <h3>Condición: {ticketToShow.title}</h3>
-
+            <h3>Condición: {ticket.title}</h3>
             <h3>
               Doctor/a:{' '}
-              {doctors.find((d) => d.id === ticketToShow.doctorId)?.full_name}
+              {doctors.find((d) => d.id === ticket.doctorId)?.full_name}
             </h3>
-            <h3>Fecha: {ticketToShow.date}</h3>
-            <h3>Hora: {ticketToShow.hour}</h3>
-            <form onSubmit={(e) => handleDelete(ticketToShow.id, e)}>
-                            <button
-                              type="submit"
-                              style={{
-                               
-                                padding: ".2rem",
-                                backgroundColor: "red",
-                                border: "none",
-                              }}
-                            >
+            <h3>Fecha: {ticket.date}</h3>
+            <h3>Hora: {ticket.hour}</h3>
+            <form onSubmit={(e) => handleDelete(ticket.id, e)}>
+               <button
+                 type="submit"
+                  style={{            
+                  padding: ".2rem",
+                  backgroundColor: "red",
+                   border: "none",
+                   }}
+                      >
                               <i className="fas fa-trash" style={{ color: "white", paddingTop: ".4rem" }}
                               >eliminar
                               </i>
@@ -130,14 +132,17 @@ const PatientTickets = ({ patient }) => {
           
           </div>
         ))}
-          
+          {ticketToShow.length === 0 && <p>No tienes turnos próximos</p>}
           <button className={style.button} disabled={page === 1} onClick={handlePrevPage}>
             Anterior
           </button>
           
           <button className={style.button}
-            disabled={page === patient.ticketMedicals.length}
-            onClick={handleNextPage}
+           disabled= {
+             (page-1) * page_size + ticketToShow.length >= 
+            patient.ticketMedicals.filter((ticket) => !ticket.is_deleted).length
+           }
+           onClick={handleNextPage}
           >
             Siguiente
           </button>
