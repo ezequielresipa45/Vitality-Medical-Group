@@ -105,7 +105,7 @@ export default function AddPatientForm() {
   };
 
   return (
-    <Dialog open={state} onClose={null}>
+    <Dialog open={state} onClose={null} maxWidth={'lg'}>
       <DialogContent id="alert-content">
         <div className={style.container__patient}>
           <img src={patientPic} alt="" />
