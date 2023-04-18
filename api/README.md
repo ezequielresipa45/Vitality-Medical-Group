@@ -1069,6 +1069,13 @@ Devuelve:
 ""El Turno médico fue cancelado exitosamente""
 ```
 
+- `delete => /ticketMedical/destroyAllTicket` => este endpoint es capaz de destruir TODOS los registros de turnos médicos creados en la base de datos y asimismo, destruir tambien los schedules asociados a el.
+  Devuelve:
+
+```shell
+"Todos los registros de los turnos médicos fueron exitosamente destruidos"
+```
+
 ## Endpoints de la ruta _/speciality_:
 
 - `get => /speciality` => Este endpoint devuelve un array con todas las especialidades de la clínica y los nombres y ids de los médicos asociados a esas especialidades.
@@ -1832,6 +1839,13 @@ Devuelve:
 
 ```shell
 "El turno para análisis clinico fue borrado exitosamente"
+```
+
+- `delete => /ticketAnalysis/destroyAllTicket` => este endpoint es capaz de destruir TODOS los registros de turnos para análisis creados en la base de datos.
+  Devuelve:
+
+```shell
+"Todos los registros de los turnos para análisis clínico fueron exitosamente destruidos"
 ```
 
 ## Endpoints de la ruta _/payment_:

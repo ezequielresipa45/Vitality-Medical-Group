@@ -4,6 +4,7 @@ const {
   allTicketAnalisysHandler,
   ticketAnalisysIdHandler,
   deleteTicketAnalisysHandler,
+  destroyAllTicketHandler,
 } = require("../handlers/ticketAnalisysHandlers/ticketAnalisysHandlers.js");
 const {
   validatorCreateTicketAnalisys,
@@ -21,6 +22,8 @@ ticketAnalisysRouter.post(
   validatorCreateTicketAnalisys,
   createTicketAnalisysHandler
 );
+
+ticketAnalisysRouter.delete("/destroyAllTicket", destroyAllTicketHandler);
 
 ticketAnalisysRouter.delete("/:id/delete", deleteTicketAnalisysHandler);
 
