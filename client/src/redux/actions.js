@@ -1,9 +1,6 @@
 import axios from 'axios';
 
 
-const { VITE_URL_HOST_DB } = import.meta.env
-const URL =  VITE_URL_HOST_DB || "http://localhost:3001"
-
 export const GET_PATIENTS = "GET_PATIENTS";
 export const GET_SPECIALITIES = 'GET_SPECIALITIES';
 export const GET_ANALYSIS = 'GET_ANALYSIS';
@@ -71,7 +68,7 @@ export function filterAnalysis(value) {
 
 export function getDoctors(){
     return async function(dispatch){
-      const json = await axios.get("https://apiclinica.onrender.com/doctor");
+      const json = await axios.get("/doctor");
 
       return dispatch({
         type: GET_DOCTORS,
@@ -82,7 +79,7 @@ export function getDoctors(){
 
 export function getDoctorsByID(id){
   return async function(dispatch){
-    const json= await axios.get(`https://apiclinica.onrender.com/doctor/${id}`);
+    const json= await axios.get(`/doctor/${id}`);
 
     return dispatch({
       type: GET_DOCTOR_BYID,
@@ -92,7 +89,7 @@ export function getDoctorsByID(id){
 }
 export function getPatients(){
   return async function(dispatch){
-    const json= await axios.get(`https://apiclinica.onrender.com/patient`);
+    const json= await axios.get(`/patient`);
 
     return dispatch({
       type: GET_PATIENTS,
@@ -104,7 +101,7 @@ export function getPatients(){
 
 export function getPatientsById(id){
   return async function(dispatch){
-    const json= await axios.get(`https://apiclinica.onrender.com/patient/${id}`);
+    const json= await axios.get(`/patient/${id}`);
 
     return dispatch({
       type: GET_PATIENT_BYID,
@@ -115,7 +112,7 @@ export function getPatientsById(id){
 
 export function getPlans(){
   return async function(dispatch){
-    const json = await axios.get("https://apiclinica.onrender.com/plan"); 
+    const json = await axios.get("/plan"); 
 
     return dispatch({
       type: GET_PLANS,
@@ -161,7 +158,7 @@ export function getFarmacy(){
 
 export function deleteDoctor(id){
   return async function(dispatch){
-    const json = await axios.delete(`https://apiclinica.onrender.com/doctor/${id}/delete`);
+    const json = await axios.delete(`/doctor/${id}/delete`);
 
     return dispatch({
       type: DELETE_DOCTOR,
@@ -171,7 +168,7 @@ export function deleteDoctor(id){
 };
 export function deletePatient(id){
   return async function(dispatch){
-    const json = await axios.delete(`https://apiclinica.onrender.com/patient/${id}/delete`);
+    const json = await axios.delete(`/patient/${id}/delete`);
 
     return dispatch({
       type: DELETE_PATIENT,
@@ -234,7 +231,7 @@ export function resetConfirmedTickets(value) {
 
 export const putDoctor = (doctorData) => async (dispatch) => {
   
-  const res = await axios.put(`https://apiclinica.onrender.com/doctor`, doctorData);
+  const res = await axios.put(`/doctor`, doctorData);
   
   // Dispatch a success action with the updated doctor data
   dispatch({
@@ -244,7 +241,7 @@ export const putDoctor = (doctorData) => async (dispatch) => {
   };
 
   export const putPatient = (patientData) => async (dispatch)=> {
-    const res = await axios.put(`https://apiclinica.onrender.com/patient`, patientData);
+    const res = await axios.put(`/patient`, patientData);
   
     dispatch({
       type: 'PUT_PATIENT',
@@ -277,7 +274,7 @@ export const putDoctor = (doctorData) => async (dispatch) => {
   export function loginByEmail(token, email){
     return async function(dispatch){
       const config = {
-        url: `${URL}/login?email=${email}`,
+        url: `/login?email=${email}`,
         method: "GET",
         headers: {
           "content-type": "application/json",
@@ -295,7 +292,7 @@ export const putDoctor = (doctorData) => async (dispatch) => {
   export function signUp(token, data) {
     return async function (dispatch) {
       const config = {
-        url: `${URL}/login`,
+        url: `/login`,
         method: "PUT",
         data: data,
         headers: {
@@ -322,7 +319,7 @@ export const putDoctor = (doctorData) => async (dispatch) => {
 
   export const postComment= (commentData) => async (dispatch) => {
   
-  const res = await axios.post(`https://apiclinica.onrender.com/comment`, commentData);  // El post y le put son funciones asincronicas siempre
+  const res = await axios.post(`/comment`, commentData);  // El post y le put son funciones asincronicas siempre
   dispatch({
     type: 'POST_COMMENT',
     payload: res.data,
@@ -370,7 +367,7 @@ export const putDoctor = (doctorData) => async (dispatch) => {
 
   export function getTickets(){
     return async function(dispatch){
-      const json = await axios.get("https://apiclinica.onrender.com/ticketMedical"); 
+      const json = await axios.get("/ticketMedical"); 
   
       return dispatch({
         type: GET_TICKETS,
@@ -382,7 +379,7 @@ export const putDoctor = (doctorData) => async (dispatch) => {
 
   export function getTicketsAnalisys(){
     return async function(dispatch){
-      const json = await axios.get("https://apiclinica.onrender.com/ticketAnalysis"); 
+      const json = await axios.get("/ticketAnalysis"); 
   
       return dispatch({
         type: GET_TICKETS_ANALISYS,
@@ -394,7 +391,7 @@ export const putDoctor = (doctorData) => async (dispatch) => {
 
   export function getUserById(id){
     return async function(dispatch){
-      const json= await axios.get(`https://apiclinica.onrender.com/user/${id}`);
+      const json= await axios.get(`/user/${id}`);
   
       return dispatch({
         type: GET_USER_BYID,
