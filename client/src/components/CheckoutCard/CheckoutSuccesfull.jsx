@@ -20,6 +20,10 @@ const CheckoutSuccessfull = () => {
 
     const [queries, setQueries] = useState(null);
 
+    const [isPaid, setIsPaid] = useState(false);
+
+    const [inProcess, setInProcess] = useState(true);
+
     const paidTickets = userTickets.map((item) => {
             return {
                 title: item.ticket.title,
@@ -45,7 +49,7 @@ const CheckoutSuccessfull = () => {
     const payment = {
         user: userId,
         planId: paidPlan ? paidPlan.id : null,
-        ticketId: paidTickets ? paidTickets.map((item) => item.id) : null,
+        ticketsIds: paidTickets ? paidTickets.map((item) => item.idAnalysis) : null,
         description: paidTickets ? 'Pago de análisis clínicos' : 'Pago de plan médico',
         price: 666,
         code: queries?.collection_id,
@@ -56,11 +60,14 @@ const CheckoutSuccessfull = () => {
 
     console.log(paidTickets);
 
+    console.log(payment);
+
     const handleConfirmTickets = async () => {
-        const isPaid = await axios.post('/payment/createPaymentAnalysis', payment)
+        inProcess && await axios.post('/payment/createPaymentAnalysis', payment)
             .then((res) => {
                 console.log(res.data);
-                return true;
+                setIsPaid(true);
+                setInProcess(false);
             })
             //.then(() => dispatch(resetConfirmedTickets(userId)))
             .catch((err) => console.log(err));
@@ -86,16 +93,17 @@ const CheckoutSuccessfull = () => {
     }, [searchParams]);
 
     useEffect(() => {
-        paymentProcessing();
-    }, [queries]);
+        inProcess && payment?.ticketsIds.length && paymentProcessing();
+    }, [queries, userTickets]);
 
     useEffect(() => {
-        localStorage.setItem('confirmedItems', JSON.stringify(tickets));
+        isPaid && localStorage.setItem('confirmedItems', JSON.stringify(tickets));
     }, [tickets]);
 
     return (
         <div className={styles.container_succesfull}>
-            {queries?.status === "approved" && <h1>Pago realizado con éxito</h1>}
+            {inProcess && <h1>Procesando el pago...</h1>}
+            {!inProcess && isPaid ? <h1>Pago realizado con éxito</h1> : <h1>Ha ocurrido un error en el pago</h1>}
             <button onClick={() => navigate('/')}>Pagina Principal</button>
             <button onClick={() => navigate('/paciente')}>Perfil</button>
         </div>
