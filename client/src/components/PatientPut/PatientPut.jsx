@@ -13,7 +13,7 @@ const PatientPut = () => {
   const patient = useSelector((state) => state.patient);
   const location = useLocation();
   const [userDate, setUserDate] = useState({
-    id: '',
+  
     phone: '',
     address: '',
     
@@ -21,7 +21,7 @@ const PatientPut = () => {
 
   useEffect(() => {
     setUserDate({
-     
+      id: patient.id,
       name: patient.full_name,
       phone: patient.phone,
       address: patient.address,
@@ -37,7 +37,7 @@ const PatientPut = () => {
   },[location])
 
  
-
+console.log(patient);
   // const handleSearch = (e) => {
   //   e.preventDefault();
   //   dispatch(getPatientsById(id));
