@@ -103,7 +103,8 @@ const CheckoutSuccessfull = () => {
     return (
         <div className={styles.container_succesfull}>
             {inProcess && <h1>Procesando el pago...</h1>}
-            {!inProcess && isPaid ? <h1>Pago realizado con éxito</h1> : <h1>Ha ocurrido un error en el pago</h1>}
+            {!inProcess && isPaid && <h1>Pago realizado con éxito</h1>} 
+            {!inProcess && !isPaid &&<h1>Ha ocurrido un error en el pago</h1>}
             <button onClick={() => navigate('/')}>Pagina Principal</button>
             <button onClick={() => navigate('/paciente')}>Perfil</button>
         </div>
