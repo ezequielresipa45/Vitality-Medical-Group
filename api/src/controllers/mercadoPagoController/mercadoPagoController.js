@@ -32,7 +32,7 @@ const createPago = async (
     ],
     back_urls: {
       success:
-        "https://vitality-medical-group.vercel.app/checkoutcart/feedback",
+        "https://vitality-medical-group.vercel.app/checkout/feedback",
       failure: "",
       pending: "",
     },
