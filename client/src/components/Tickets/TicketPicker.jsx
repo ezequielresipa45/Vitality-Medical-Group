@@ -125,7 +125,7 @@ const TicketPicker = () => {
                 schedule: selectedSchedule,
                 code: selectedTickets.code,
                 price: selectedTickets.price,
-                observations
+                observations: observations ? observations : 'none'
             }
         };
 
