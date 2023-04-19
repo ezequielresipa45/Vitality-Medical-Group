@@ -12,7 +12,7 @@ import CommentsCard from '../CommentsCards/CommentsCards';
 
 export default function Home() {
 
-  const [buttonPopup, setButtonPopup] = useState(false)
+  // const [buttonPopup, setButtonPopup] = useState(false)
 
 
 // Aca va la logica
@@ -23,11 +23,11 @@ export default function Home() {
 
     <Header/>
 
-    <br /><br /><br />
+    {/* <br /><br /><br />
     <button onClick={()=>setButtonPopup(true)}>Contanos tu experiencia</button>
     <Popup trigger = {buttonPopup} setTrigger = {setButtonPopup}>   
         <ExperienceForm/>
-    </Popup>
+    </Popup> */}
 
     <Cards/>
 

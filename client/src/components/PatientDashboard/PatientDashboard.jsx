@@ -194,8 +194,17 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
               height: 63
             }}
           >
-             <Avatar sx={{ width: 56, height: 56, position: "absolute", left: 90}} > {initials}</Avatar>
-             
+            {/* <Avatar sx={{ width: 56, height: 56, position: "absolute", left: 90}} > {initials}</Avatar>
+             */}
+             <Avatar sx={{ width: 56, height: 56, position: "absolute", left: 90}} > 
+{user.image ? (
+<img src={user.image} alt={user.full_name} />
+) : (
+initials
+)}
+
+</Avatar>
+               
         </Toolbar>
         <Divider />
         <List component="nav" >
@@ -243,8 +252,13 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
             <Grid item xs={12} sm={6} >
             
               
-    <Paper elevation ={24} sx={{ p: 2}} style = {{height : "477px"}} >
-      <PersonIcon sx={{ fontSize: '70px' }}color="primary"/>
+    <Paper elevation ={24} sx={{ p: 2 }} style = {{height : "477px"}} >
+      {/* <PersonIcon sx={{ fontSize: '70px' }}color="primary"/> */}
+      <Avatar sx={{ width: 100, height: 100, justifyContent: "center", alignItems:"center",  display: 'flex', marginLeft: "180px"}} >{user.image ? (
+<img src={user.image} alt={user.full_name} />
+) : (
+initials
+)}</Avatar>
 
     {!selectedPatient ? (
           <div>
@@ -253,7 +267,7 @@ const patientsByLogin = patients.filter((p)=>p.userId === user.id)
           </div>) : (
           <>
            <Grid sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Avatar sx={{ width: 100, height: 100}}></Avatar>
+            {/* <Avatar sx={{ width: 100, height: 100}}></Avatar> */}
             </Grid>
             <div style = {{textAlign: "center"}}>    
             
