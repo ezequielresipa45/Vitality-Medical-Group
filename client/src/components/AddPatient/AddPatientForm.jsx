@@ -35,7 +35,7 @@ export default function AddPatientForm() {
     gender: "",
     birthday: "",
     comments: "",
-    planId: "",
+    planId: 6,
     disease: "",
     idUser: userInfo.id,
   });
@@ -49,7 +49,6 @@ export default function AddPatientForm() {
       gender: "",
       birthday: "",
       comments: "",
-      planId: "",
       disease: "",
       idUser: userInfo.id,
     });
@@ -198,26 +197,8 @@ export default function AddPatientForm() {
                   </option>
                   <option value="masculino">Masculino</option>
                   <option value="femenino">Femenino</option>
-                  <option value="no-binario">No Binario</option>
                 </select>
 
-                <select
-                  name="planId"
-                  onChange={(e) =>
-                    setNewPatient({
-                      ...newPatient,
-                      planId: parseInt(e.target.value),
-                    })
-                  }
-                  value={newPatient.planId}
-                >
-                  <option disabled value="">
-                    Seleccionar plan
-                  </option>
-                  <option value={3}>Vital</option>
-                  <option value={4}>Vital Familiar</option>
-                  <option value={5}>Vital Age</option>
-                </select>
                 <select
                   name="disease"
                   onChange={(e) =>
