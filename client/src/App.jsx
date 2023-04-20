@@ -28,8 +28,8 @@ import CheckoutSuccessfull from "./components/CheckoutCard/CheckoutSuccesfull";
 import { useAuth0 } from "@auth0/auth0-react"; // Import para Auth0
 
 
-const { RAILWAY_URL_HOST_DB } = import.meta.env
-const URL =  RAILWAY_URL_HOST_DB || "http://localhost:3001"
+const { VITE_RAILWAY_URL_HOST_DB } = import.meta.env
+const URL =  VITE_RAILWAY_URL_HOST_DB
 
 axios.defaults.baseURL = URL;
 
