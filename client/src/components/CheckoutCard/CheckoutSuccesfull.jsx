@@ -60,6 +60,7 @@ const CheckoutSuccessfull = () => {
     console.log(payment);
 
     const handleConfirmTickets = async () => {
+        if(isPaid) return;
         inProcess && await axios.post('/payment/createPaymentAnalysis', payment)
             .then((res) => {
                 console.log(res.data);

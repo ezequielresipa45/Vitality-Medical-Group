@@ -35,7 +35,7 @@ export default function TicketsDrawer() {
     };
 
     const paymentItems = {
-        medical: userTickets.map((item) => {
+        analisys: userTickets.map((item) => {
             return { 
                 id: item.id,
                 title: item.ticket.title,
