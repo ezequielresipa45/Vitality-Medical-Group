@@ -7,8 +7,6 @@ import { deleteConfirmedTickets, postConfirmedTickets, resetConfirmedTickets } f
 
 
 const CheckoutSuccessfull = () => {
-    let count = 0;
-    console.log('hola');
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [ searchParams ] = useSearchParams();
