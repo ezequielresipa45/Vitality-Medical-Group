@@ -67,23 +67,35 @@ const CheckoutSuccessfull = () => {
             .then((res) => {
                 console.log(res.data);
                 setIsPaid(true);
-                setInProcess(false);
+            })
+            .then(() => {
+
+                paidTickets.map(async (item) => {
+                    await axios.post('/ticketAnalysis/createTicketAnalisys', item)
+                        .then((res) => console.log(res.data))
+                        .catch((err) => console.log(err));
+                    dispatch(deleteConfirmedTickets({user: item.idPatient, id: item.idAnalysis}));
+                });
+
             })
             //.then(() => dispatch(resetConfirmedTickets(userId)))
             .catch((err) => console.log(err));
 
-        isPaid && await paidTickets.map((item) => axios.post('/ticketAnalysis/createTicketAnalisys', item)
+        /* isPaid && await paidTickets.map((item) => axios.post('/ticketAnalysis/createTicketAnalisys', item)
             .then((res) => {
                 console.log(res.data);
+                console.log(item.id);
                 dispatch(deleteConfirmedTickets({user: userId, id: item.id}));
             })
             .catch((err) => console.log(err))
-        );
+        ); */
+        setInProcess(false);
     };
 
     const paymentProcessing = async () => {
         if(queries?.status === "approved") {
             await handleConfirmTickets();
+            
             console.log('Ok');
         };
     };
@@ -102,11 +114,28 @@ const CheckoutSuccessfull = () => {
 
     return (
         <div className={styles.container_succesfull}>
-            {inProcess && <h1>Procesando el pago...</h1>}
-            {!inProcess && isPaid && <h1>Pago realizado con éxito</h1>} 
-            {!inProcess && !isPaid &&<h1>Ha ocurrido un error en el pago</h1>}
-            <button onClick={() => navigate('/')}>Pagina Principal</button>
-            <button onClick={() => navigate('/paciente')}>Perfil</button>
+            {inProcess && 
+                <div className={styles.div_item}>
+                    <h1>Procesando el pago</h1>
+                    <i className='fa-solid fa-spinner fa-spin' style={{color: '#639cc7', fontSize: '50px'}}></i>
+                </div>    
+                }
+            {!inProcess && isPaid && 
+                <div className={styles.div_item}>
+                    <h1>Pago realizado con éxito </h1>
+                    <i className='fa-regular fa-circle-check' style={{color: '#639cc7', fontSize: '80px'}}></i>
+                </div> 
+            } 
+            {!inProcess && !isPaid &&
+                <div className={styles.div_item}>
+                    <h1>Ha ocurrido un error en el pago </h1>
+                    <i className='fa-regular fa-circle-xmark' style={{color: '#639cc7', fontSize: '80px'}}></i>
+                </div> 
+            }
+            <div className={styles.div_item}>
+                <button onClick={() => navigate('/')}>Pagina Principal</button>
+                <button onClick={() => navigate('/paciente')}>Perfil</button>
+            </div>
         </div>
     );
 };
