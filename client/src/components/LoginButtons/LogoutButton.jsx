@@ -45,7 +45,7 @@ const LogoutButton = () => {
             src={user.image} 
             sx={{ width: 32, height: 32 }}
           >
-            <AccountCircleIcon sx={{ fontSize: 30 }} />
+            <AccountCircleIcon sx={{ fontSize: 30 , color: 'gray' }} />
           </Avatar>
         </IconButton>
       </Tooltip>
