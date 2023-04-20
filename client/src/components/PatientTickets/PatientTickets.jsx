@@ -9,9 +9,7 @@ import Swal from "sweetalert2";
 
 const PatientTickets = ({ patient }) => {
   const doctors = useSelector((state) => state.doctors);
-  // const tickets = useSelector((state) => state.tickets);
-  // const user = useSelector((state) => state.user);
-  // const patients = useSelector((state) => state.patients);
+  
   const dispatch = useDispatch();
 
   
@@ -47,7 +45,7 @@ const PatientTickets = ({ patient }) => {
   };
 
 
-  const handleDelete = async (data, e) => {
+  const handleDelete = (data, e) => {
     e.preventDefault();
 
     // const deleteTicketFromState = (idTicket) => {
@@ -71,8 +69,6 @@ const PatientTickets = ({ patient }) => {
       if (result.isConfirmed) {
         try {
         
-          // // const response = await axios.delete(`/ticketMedical/${idTicket}/delete`);
-          // setDeletedTicket(true);
           const response = await axios.delete("/ticketMedical/destroyTicket", {
             data: {
               idTicket: data,
@@ -82,6 +78,7 @@ const PatientTickets = ({ patient }) => {
             // window.location.reload();
         
           console.log(response.data);
+        
 
           
           // setTicket((prevTickets) => prevTickets.filter((ticket) => ticket.id !== idTicket));
