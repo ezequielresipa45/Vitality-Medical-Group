@@ -376,7 +376,7 @@ export const putDoctor = (doctorData) => async (dispatch) => {
   export function getTickets(){
     return async function(dispatch){
       const json = await axios.get("/ticketMedical"); 
-  
+  console.log(json)
       return dispatch({
         type: GET_TICKETS,
         payload: json.data,

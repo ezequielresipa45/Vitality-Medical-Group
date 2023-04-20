@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import styles from "./AdminDashboard.module.css";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -21,7 +21,7 @@ export default function AdminDashboard() {
 
 
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(getTickets());
   }, []);
 
@@ -222,7 +222,7 @@ export default function AdminDashboard() {
             <div className={styles.container__turnos}>
               {console.log(tickets)}
 
-              {tickets &&
+              {tickets?.length > 0 &&
                 tickets.map((ticket) => {
                   if (ticket.doctor !== null) {
                     return (
