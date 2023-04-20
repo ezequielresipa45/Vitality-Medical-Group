@@ -81,8 +81,6 @@ const CheckoutSuccessfull = () => {
 
     const paymentProcessing = async () => {
         if(queries?.status === "approved") {
-            count +=1;
-            console.log('init', count);
             setInit(true)
             await handleConfirmTickets();
             setInProcess(false);
