@@ -6,7 +6,7 @@ import {getPatients, getDoctors} from "../../redux/actions"
 
 import FrequentDoctors from '../FrequentDoctors/FrequentDoctors';
 import PatientTickets from '../PatientTickets/PatientTickets';
-import TicketsAnalisys from "../TicketsAnalisys/TicketsAnalisys"
+import TicketsAnalysis from '../TicketsAnalysis/TicketsAnalysis';
 import ExperienceForm from "../ExperienceForm/ExperienceForm";
 import Popup from "../PopUp/PopUp";
 
@@ -307,7 +307,7 @@ initials
         {selectedPatient && (
           <>
       <Typography>
-        <TicketsAnalisys patient ={selectedPatient}/>
+        <TicketsAnalysis patient ={selectedPatient}/>
         </Typography>
       </>
       )}
