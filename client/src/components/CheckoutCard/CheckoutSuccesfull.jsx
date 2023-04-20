@@ -7,37 +7,20 @@ import { deleteConfirmedTickets, postConfirmedTickets, resetConfirmedTickets } f
 
 
 const CheckoutSuccessfull = () => {
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [ searchParams ] = useSearchParams();
 
     const userId = useSelector((state) => state.user.id);
-
     const tickets = useSelector((state) => state.confirmedTickets);
-
     const userTickets = useSelector((state) => state.confirmedTickets.filter((item) => item.user === userId));
+    const paidPlan = useSelector((state) => state.selectedPlan);
 
     const [queries, setQueries] = useState(null);
-
+    const [init, setInit] = useState(false);
+    const [inProcess, setInProcess] = useState(true);
     const [isPaid, setIsPaid] = useState(false);
 
-    const [inProcess, setInProcess] = useState(true);
-
-    const paidTickets = userTickets.map((item) => {
-            return {
-                title: item.ticket.title,
-                observations: item.ticket.observations,
-                idAnalysis: item.ticket.code,
-                idPatient: item.patient,
-                date: item.ticket.date,
-                hour: item.ticket.schedule,
-                price: item.ticket.price
-            };
-    });
-
-    const paidPlan = null;
-    
     const queryHandler = () => {
         let feedback = {};
         for (const entry of searchParams.entries()) {
@@ -45,6 +28,18 @@ const CheckoutSuccessfull = () => {
         };
         setQueries(feedback);
     };
+
+    const paidTickets = userTickets.map((item) => {
+        return {
+            title: item.ticket.title,
+            observations: item.ticket.observations,
+            idAnalysis: item.ticket.code,
+            idPatient: item.patient,
+            date: item.ticket.date,
+            hour: item.ticket.schedule,
+            price: item.ticket.price
+        };
+    });
 
     const payment = {
         user: userId,
@@ -63,28 +58,37 @@ const CheckoutSuccessfull = () => {
     console.log(payment);
 
     const handleConfirmTickets = async () => {
+        if(isPaid) return;
         inProcess && await axios.post('/payment/createPaymentAnalysis', payment)
             .then((res) => {
                 console.log(res.data);
                 setIsPaid(true);
-                setInProcess(false);
+            })
+            .then(() => {
+                paidTickets.forEach(async (item) => {
+                    await axios.post('/ticketAnalysis/createTicketAnalisys', item)
+                        .then((res) => console.log(res.data))
+                        .catch((err) => console.log(err));
+                    dispatch(deleteConfirmedTickets({user: item.idPatient, id: item.idAnalysis}));
+                });
             })
             //.then(() => dispatch(resetConfirmedTickets(userId)))
-            .catch((err) => console.log(err));
-
-        isPaid && await paidTickets.map((item) => axios.post('/ticketAnalysis/createTicketAnalisys', item)
-            .then((res) => {
-                console.log(res.data);
-                dispatch(deleteConfirmedTickets({user: userId, id: item.id}));
-            })
-            .catch((err) => console.log(err))
-        );
+            .catch((err) => {
+                console.log(err);
+                setIsPaid(false);
+            });  
     };
 
     const paymentProcessing = async () => {
         if(queries?.status === "approved") {
+            setInit(true)
             await handleConfirmTickets();
+            setInProcess(false);
             console.log('Ok');
+        }
+        else {
+            setIsPaid(false);
+            setInProcess(false);
         };
     };
 
@@ -92,20 +96,42 @@ const CheckoutSuccessfull = () => {
         queryHandler();
     }, [searchParams]);
 
-    useEffect(() => {
-        inProcess && payment?.ticketsIds.length && paymentProcessing();
-    }, [queries, userTickets]);
+    /* useEffect(() => {
+        inProcess && payment?.ticketsIds?.length && paymentProcessing();
+        inProcess && payment?.planId && paymentProcessing();
+    }, [queries, userTickets, paidPlan]); */
 
     useEffect(() => {
-        isPaid && localStorage.setItem('confirmedItems', JSON.stringify(tickets));
+        !inProcess && isPaid && localStorage.setItem('confirmedItems', JSON.stringify(tickets));
     }, [tickets]);
+
+    !init && inProcess && payment?.ticketsIds?.length && paymentProcessing();
+    !init && inProcess && payment?.planId && paymentProcessing();
 
     return (
         <div className={styles.container_succesfull}>
-            {inProcess && <h1>Procesando el pago...</h1>}
-            {!inProcess && isPaid ? <h1>Pago realizado con éxito</h1> : <h1>Ha ocurrido un error en el pago</h1>}
-            <button onClick={() => navigate('/')}>Pagina Principal</button>
-            <button onClick={() => navigate('/paciente')}>Perfil</button>
+            {inProcess && 
+                <div className={styles.div_item}>
+                    <h1>Procesando el pago</h1>
+                    <i className='fa-solid fa-spinner fa-spin' style={{color: '#639cc7', fontSize: '50px'}}></i>
+                </div>    
+                }
+            {!inProcess && isPaid && 
+                <div className={styles.div_item}>
+                    <h1>Pago realizado con éxito </h1>
+                    <i className='fa-regular fa-circle-check' style={{color: '#639cc7', fontSize: '80px'}}></i>
+                </div> 
+            } 
+            {!inProcess && !isPaid &&
+                <div className={styles.div_item}>
+                    <h1>Ha ocurrido un error en el pago </h1>
+                    <i className='fa-regular fa-circle-xmark' style={{color: '#639cc7', fontSize: '80px'}}></i>
+                </div> 
+            }
+            <div className={styles.div_item}>
+                <button onClick={() => navigate('/')}>Pagina Principal</button>
+                <button onClick={() => navigate('/paciente')}>Perfil</button>
+            </div>
         </div>
     );
 };

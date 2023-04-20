@@ -27,6 +27,8 @@ const TicketPicker = () => {
 
     const confirmedTickets = useSelector((state) => state.confirmedTickets);
 
+    const userTickets = useSelector((state) => state.confirmedTickets.filter((item) => item.user === user.id));
+
     const selectedTickets = useSelector((state) => state.selectedTickets);
     
     const [isTrue, setIsTrue] = useState(false);
@@ -125,7 +127,7 @@ const TicketPicker = () => {
                 schedule: selectedSchedule,
                 code: selectedTickets.code,
                 price: selectedTickets.price,
-                observations
+                observations: observations.length ? observations : 'none'
             }
         };
 
@@ -192,8 +194,25 @@ const TicketPicker = () => {
     };
 
     const onClickGoToPaid = () => {
-        if(message === 'Turno creado exitosamente') navigate('/paciente');
-        else console.log('continuar al pago');
+        if(message === 'Turno creado exitosamente' || message === 'Ha ocurrido un error. Intentelo más tarde.') return navigate('/');
+        
+        const paymentItems = {
+            analisys: userTickets.map((item) => {
+                return { 
+                    id: item.id,
+                    title: item.ticket.title,
+                    description: item.ticket.observations,
+                    quantity: 1,
+                    price: item.ticket.price
+                };
+            })
+        };
+    
+        console.log(paymentItems);
+    
+        axios.post('/mercadoPago/v2', paymentItems)
+            .then((res) => window.location.replace(res.data?.mpresult?.body.init_point))
+            .catch((err) => console.log(err)); 
     };
 
     const onClickBackToSelect = () => {

@@ -12,7 +12,6 @@ import TicketsDrawer from "../TicketsDrawer/TicketsDrawer";
 
 export default function NavBar() {
   let arraySpecialists = [
-    "Clínica Médica",
     "Traumatología ",
     "Neurología",
     "Otorrinolaringología",

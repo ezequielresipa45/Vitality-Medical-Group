@@ -7,6 +7,7 @@ export const GET_ANALYSIS = 'GET_ANALYSIS';
 export const FILTER_ANALYSIS = 'FILTER_ANALYSIS';
 export const GET_DOCTORS="GET_DOCTORS";
 export const GET_PLANS="GET_PLANS";
+export const SELECT_PLAN="SELECT_PLAN";
 export const GET_FARMACY="GET_FARMACY";
 export const DELETE_DOCTOR= "DELETE_DOCTOR";
 export const DELETE_PATIENT= "DELETE_PATIENT";
@@ -119,7 +120,14 @@ export function getPlans(){
       payload: json.data,
     })
   }
+};
 
+export function selectPlan() {
+  const value = JSON.parse(localStorage.getItem('selectedPlan'));
+  return {
+      type: SELECT_PLAN,
+      payload: value
+  }; 
 };
 
 export function getFarmacy(){
