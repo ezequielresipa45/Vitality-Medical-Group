@@ -1,4 +1,4 @@
-import { GET_ANALYSIS , GET_SPECIALITIES, FILTER_ANALYSIS, GET_DOCTORS, GET_PLANS, GET_FARMACY, DELETE_DOCTOR, DELETE_PATIENT, GET_DOCTOR_BYID, GET_PATIENT_BYID, GET_SELECTED_TICKETS , POST_SELECTED_TICKETS , DELETE_SELECTED_TICKETS, PUT_DOCTOR, GET_USER, USER_UPDATE, PUT_USER, PUT_PATIENT, GET_CONFIRMED_TICKETS , POST_CONFIRMED_TICKETS , DELETE_CONFIRMED_TICKETS, LOGIN, LOGOUT_LOGIN, POST_COMMENT, GET_COMMENTS,SORT_DOCTORS,SORT_DOCTORS_BY_ID,SORT_DOCTORS_BY_SPECIALTY, GET_PATIENTS, SIGNUP} from "./actions";
+import { GET_ANALYSIS , GET_SPECIALITIES, FILTER_ANALYSIS, GET_DOCTORS, GET_PLANS, GET_FARMACY, DELETE_DOCTOR, DELETE_PATIENT, GET_DOCTOR_BYID, GET_PATIENT_BYID, GET_SELECTED_TICKETS , POST_SELECTED_TICKETS , DELETE_SELECTED_TICKETS, PUT_DOCTOR, GET_USER, GET_USER_SUCCESS, USER_UPDATE_SUCCESS, USER_UPDATE_SUCCESS, USER_UPDATE_FAILURE, PUT_PATIENT, GET_CONFIRMED_TICKETS , POST_CONFIRMED_TICKETS , DELETE_CONFIRMED_TICKETS, LOGIN, LOGOUT_LOGIN, POST_COMMENT, GET_COMMENTS,SORT_DOCTORS,SORT_DOCTORS_BY_ID,SORT_DOCTORS_BY_SPECIALTY, GET_PATIENTS, SIGNUP} from "./actions";
 
 const initialState = {
     specialities: [],
@@ -14,6 +14,8 @@ const initialState = {
     confirmedTickets: [],
     comment: [],
     allUsers: [],
+    loading: false,
+    error: null,
     user: {},
   };
   
@@ -153,18 +155,34 @@ const initialState = {
           allUsers: action.payload,
         };
 
-        case USER_UPDATE:
-          return {
-            ...state,
-            allUsers: state.allUsers.map(user => user.id === action.payload.id ? { ...user, ...action.payload.data } : user),
-          };
-      
-      case PUT_USER:
-        return{
-          ...state,
-          allUsers: action.payload
+      case GET_USER_SUCCESS:
+        return { 
+          ...state, 
+          allUsers: action.payload, 
+          loading: false 
         };
-
+    case USER_UPDATE_SUCCESS:
+      const updatedUser = action.payload;
+      const updatedUsers = state.allUsers.map((user) =>
+        user.id === updatedUser.id ? updatedUser : user
+      );
+      return { 
+        ...state, 
+        allUsers: updatedUsers, 
+        loading: false 
+      };
+      case GET_USER_FAILURE:
+        return { 
+          ...state, 
+          error: action.payload, 
+          loading: false 
+        };
+      case USER_UPDATE_FAILURE:
+        return { 
+          ...state, 
+          error: action.payload, 
+          loading: false 
+        };
       case PUT_PATIENT:
         return{
           ...state,

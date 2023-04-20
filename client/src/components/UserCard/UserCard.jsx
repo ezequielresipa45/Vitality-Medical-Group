@@ -1,19 +1,20 @@
-import React, {useLayoutEffect, useState} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styles from './UserCard.module.css';
-import { getUser, userUpdate } from '../../redux/actions';
+import React, { useLayoutEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styles from "./UserCard.module.css";
+import { getUser, userUpdate } from "../../redux/actions";
 
 const UserCard = () => {
   const dispatch = useDispatch();
   const datos = useSelector((state) => state.allUsers);
 
   useLayoutEffect(() => {
-    dispatch(getUser())
+    dispatch(getUser());
   }, []);
 
-  const handleButtonClick = (id) => {
-    const newIsAdmin = !datos.find((dato) => dato.id === id).isAdmin;
-    dispatch(userUpdate(id, { isAdmin: newIsAdmin }));
+  const handleButtonClick = (id, is_admin) => {
+    const newIsAdmin = !is_admin;
+    console.log(`is_admin: ${is_admin}, newIsAdmin: ${newIsAdmin}`);
+    dispatch(userUpdate({ id, is_admin: newIsAdmin }));
   };
 
   return (
@@ -35,10 +36,10 @@ const UserCard = () => {
 
           <label htmlFor={`check-card-${dato.id}`}>Es administrador </label>
           <button
-            onClick={() => handleButtonClick(dato.id)}
-            className={dato.isAdmin ? styles.adminButton : styles.notAdminButton}
+            onClick={() => handleButtonClick(dato.id, dato.is_admin)}
+            className={dato.is_admin ? styles.adminButton : styles.notAdminButton}
           >
-            {dato.isAdmin ? "Sí" : "No"}
+            {dato.is_admin ? "Sí" : "No"}
           </button>
         </div>
       ))}

@@ -257,21 +257,18 @@ export const putDoctor = (doctorData) => async (dispatch) => {
     };
   };
 
-  export function putUser(userData){ 
-    return async function(dispatch){
-    const res = await axios.put(`/user`, userData);
-    
-    return dispatch({
-      type: 'PUT_USER',
-      payload: res.data,
-    });
+  export const userUpdate = (id, data) => {
+    return (dispatch) => {
+      fetch(`https://apiclinica.onrender.com/user/isAdmin/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, ...data }), // incluir id y nuevo valor is_admin
+      })
+        .then((response) => response.json())
+        .then((user) => dispatch(userUpdateSuccess(user)))
+        .catch((error) => dispatch(userUpdateFailure(error)));
+    };
   };
-};
-
-export const userUpdate = (id, data) => ({
-  type: 'USER_UPDATE',
-  payload: { id, data },
-}); 
 
   export function loginByEmail(token, email){
     return async function(dispatch){
