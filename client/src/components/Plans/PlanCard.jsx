@@ -1,13 +1,14 @@
 import react from "react"
 import style from "../Plans/PlanCard.module.css"
 import Button from "@mui/material/Button"
-import {Link} from "react-router-dom"
 import img from "../../images/logo.png"
-import img2 from "../../images/happy_doctors.avif"
-import CheckIcon from '@mui/icons-material/Check';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 
 const PlanCard = ({ name,description,price }) => {
+
+  const sentences = description.split(". ")
+
     return (
        <div className ={style.background}>
          <div className={style.fondo}></div>
@@ -23,10 +24,9 @@ const PlanCard = ({ name,description,price }) => {
                   </div>
 
           <div className={style.right_text}>
-            <h3><CheckIcon/>{description}</h3>
-            {/* <ul className={style.right}>{description.map((item, index) => (
-            <ul key={index}> <CheckIcon fontSize = "medium"/> {item} </ul> ))} </ul> */}
-
+            {sentences.map((sentence, index)=>(
+              <h3 key = {index}><CheckCircleIcon/>{sentence}</h3>
+            ))}
           </div>
         </div>
 
