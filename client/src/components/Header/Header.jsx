@@ -17,12 +17,6 @@ export default function Header() {
     <p>Guía que le permite al usuario y su grupo familiar acceder a todos los servicios que le ofrece Vitality Medical Group.</p>
   </Link>
 
-  <Link to='' className={styles.container__boxs__box}>
-    <i className='fa-solid fa-heart-pulse'></i>
-    <h3>Turnos Clínicos</h3>
-    <p>Los turnos clínicos son periodos de tiempo asignados donde un profesional de la salud atiende a los pacientes.</p>
-  </Link>
-
   <Link to='/analisis' className={styles.container__boxs__box}>
     <i className='fa-solid fa-flask-vial'></i>
     <h3>Análisis Clínicos</h3>
