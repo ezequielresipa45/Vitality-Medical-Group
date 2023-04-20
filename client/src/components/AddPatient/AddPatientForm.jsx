@@ -225,29 +225,19 @@ export default function AddPatientForm() {
                 />
               </div>
 
-
-{
-
-!Object.entries(newPatient)
-  .filter(([key, value]) => key !== "comments")
-  .some(([key, value]) => value === "") && 
-
-              <button
-                className={[style.btn__form, style.btn_color].join(" ")}
-                type="submit"
-              >
-                Agregar
-              </button>
-
-}
-
-
-
+              {!Object.entries(newPatient)
+                .filter(([key, value]) => key !== "comments")
+                .some(([key, value]) => value === "") && (
+                <button
+                  className={[style.btn__form, style.btn_color].join(" ")}
+                  type="submit"
+                >
+                  Agregar
+                </button>
+              )}
             </form>
 
-
-
-            <button  className={style.btn__form} onClick={handleClose}>
+            <button className={style.btn__form} onClick={handleClose}>
               Finalizar
             </button>
           </div>
