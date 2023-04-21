@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import style from './JitsiMeet.module.css';
+import { useSelector, useDispatch } from "react-redux"
+import { useEffect,  } from "react"
+import { getPatients } from "../../redux/actions"
 
 const JitsiMeet = () => {
+
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user)
+  const patients = useSelector(state => state.patients)
+  const [hasPatients, setHasPatients] = useState(false)
+
+  useEffect( () => {
+    dispatch(getPatients())
+  }, [])
+
+  useEffect( () => {
+    setHasPatients(patients.filter( p => p?.userId === user?.id).length >= 1)
+    console.log(patients.filter( p => p.userId === user.id).length >= 1)
+  }, [patients])
     return(
         <div className={style.background}>
           <h1 className={style.title}>Médico Online</h1>
@@ -24,11 +41,17 @@ const JitsiMeet = () => {
             </blockquote>
           </div>
         <div>
-          <Link to="https://meet.jit.si/DarkJamsHurryPartially" target="_blank">
+          <Link to="https://meet.jit.si/DarkJamsHurryPartially" target="_blank"
+                  style={{pointerEvents: hasPatients ? "auto" : "none"}}>
             <button className= {style.meetbutton}>
               Ir al consultorio virtual
             </button>
           </Link>
+          {!hasPatients && <div>
+              <p>Tienes que ser o tener un paciente registrado</p>
+              <p>para poder ingresar</p>
+            </div>
+          }
         </div>
         </div>
     );
