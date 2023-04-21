@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { LocalizationProvider , DatePicker, DateTimePicker, TimePicker } from '@mui/x-date-pickers';
 import { FormControl , InputLabel , Select , MenuItem , FormHelperText, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { format, parse } from 'date-fns';
+import { format, parse, parseISO } from 'date-fns';
 import { enGB, es } from 'date-fns/locale';
 import styles from './TicketPicker.module.css';
 
@@ -151,8 +151,8 @@ const TicketPicker = () => {
             .then((res) => {
                 setMessage({
                     response: res.data,
-                    ticket: `Consulta Médica: ${ticketInfo.ticket.title}`,
-                    date: format(ticketInfo.ticket.date, 'dd/MM/yyyy'),
+                    ticket: ticketInfo.ticket.title,
+                    date: format(parseISO(ticketInfo.ticket.date), 'dd/MM/yyyy'),
                     schedule: ticketInfo.ticket.schedule,
                     observation: !ticketInfo.plan ? 'Recuerde que debera abonar la consulta en el momento' : null
                 });
@@ -163,6 +163,10 @@ const TicketPicker = () => {
                 setMessage({...message, response: 'Ha ocurrido un error, intentelo más tarde'});
                 setIsTrue(true);
             });
+            setSelectedSchedule('');
+            setAvailableSchedules(availableSchedules.filter((item) => item !== selectedSchedule));
+            return ticketInfo;
+        };
 
         if(ticketInfo.ticket.type === 'Análisis / Estudio' && ticketInfo.plan) { 
             console.log('El usuario tiene un plan valido');
@@ -179,7 +183,7 @@ const TicketPicker = () => {
                 setMessage({
                     response: res.data,
                     ticket: `Análisis / Estudio: ${ticketInfo.ticket.title}`,
-                    date: format(ticketInfo.ticket.date, 'dd/MM/yyyy'),
+                    date: format(parseISO(ticketInfo.ticket.date), 'dd/MM/yyyy'),
                     schedule: ticketInfo.ticket.schedule,
                     observation: null
                 });
@@ -191,11 +195,6 @@ const TicketPicker = () => {
                 setIsTrue(true);
             });
             
-            setSelectedSchedule('');
-            setAvailableSchedules(availableSchedules.filter((item) => item !== selectedSchedule));
-            return ticketInfo;
-        };
-
             setSelectedSchedule('');
             setAvailableSchedules(availableSchedules.filter((item) => item !== selectedSchedule));
             return ticketInfo;
@@ -353,7 +352,7 @@ const TicketPicker = () => {
                 {isTrue &&  
                 <Dialog
                 open={isTrue}
-                onClose={handleCloseModal}
+                onClose={null}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 >
@@ -365,10 +364,10 @@ const TicketPicker = () => {
                             {message.ticket}
                         </DialogContentText>}
                         {message.date && <DialogContentText id="alert-dialog-description">
-                            {message.date}
+                            Día: {message.date}
                         </DialogContentText>}
                         {message.schedule && <DialogContentText id="alert-dialog-description">
-                            {message.schedule}
+                            Hora: {message.schedule}
                         </DialogContentText>}
                         {message.observation && <DialogContentText id="alert-dialog-description">
                             {message.observation}
