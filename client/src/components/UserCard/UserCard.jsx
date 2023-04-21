@@ -2,7 +2,6 @@ import React, { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./UserCard.module.css";
 import { getUser } from "../../redux/actions";
-import axios from "axios";
 
 const UserCard = () => {
   const dispatch = useDispatch();
