@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPatients, getAnalysis, getDoctors } from '../../redux/actions';
+import { getAnalysis} from '../../redux/actions';
 import axios from 'axios';
 import style from './TicketsAnalysis.module.css';
 import Swal from "sweetalert2";
@@ -18,15 +18,15 @@ const TicketsAnalysis = ({ patient }) => {
   const [deletedAnalysis, setDeletedAnalysis] = useState(false)
  
   useEffect(() => {
-    dispatch(getPatients());
-    dispatch(getDoctors());
+    // dispatch(getPatients());
+    // dispatch(getDoctors());
     dispatch(getAnalysis());
   }, [dispatch]);
 
   useEffect(() => {
     if (deletedAnalysis) {
-      dispatch(getPatients());
-      dispatch(getDoctors())
+      // dispatch(getPatients());
+      // dispatch(getDoctors())
       dispatch(getAnalysis())
       setDeletedAnalysis(false);
     }
@@ -41,13 +41,8 @@ const TicketsAnalysis = ({ patient }) => {
   };
 
   const handleDelete = (id, e) => {
-    
- 
-   
     e.preventDefault();
     
-   
-
     Swal.fire({
       title: "Está seguro?",
       text: "No podrá revertir los cambios!",
@@ -97,34 +92,32 @@ const TicketsAnalysis = ({ patient }) => {
             <h3>Fecha: {ticket.date}</h3>
             <h3>Hora: {ticket.hour}</h3>
             <form onSubmit={(e) => handleDelete(ticket.id, e)}>
-                            <button
-                              type="submit"
-                             
-                                className={style.button_delete}
-                              
-                            >
-                              <i className={style.button_delete}
-                              >Cancelar
-                              </i>
-                            </button>
-                          </form>
+                  <button
+                    type="submit"
+                    className={style.button_delete}
+                    >
+                       <i className={style.button_delete}
+                         >Cancelar
+                          </i>
+                  </button>
+            </form>
           
           </div>
-        )
-                            
-                          })}
-                          {ticketToShow.length === 0 && <p className={style.text}>No tiene análisis próximos</p>}
-          <button className={style.button} disabled={page === 1} onClick={handlePrevPage}>
-            Anterior
-          </button>
+        )}
+      )}
           
-          <button className={style.button}
-            // disabled={page === patient.ticketAnalyses.length}
+         {ticketToShow.length === 0 && <p className={style.text}>No tiene análisis próximos</p>}
+              <button className={style.button} disabled={page === 1} onClick={handlePrevPage}>
+                Anterior
+          
+              </button>
+          
+             <button className={style.button}
             disabled={page * pageSize >= patient.ticketAnalyses.length}
             onClick={handleNextPage}
           >
-            Siguiente
-          </button>
+               Siguiente
+             </button>
         </div>
       )}
     </div>
