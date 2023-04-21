@@ -49,6 +49,7 @@ export default function TicketsDrawer() {
     //console.log(paymentItems);
 
     const onClickContinue = async () => {
+        localStorage.setItem('payment_type', 'ticket');
         await axios.post('/mercadoPago/v2', paymentItems)
             .then((res) => window.location.replace(res.data?.mpresult?.body.init_point))
             .catch((err) => console.log(err)); 

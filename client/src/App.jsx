@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState, useEffect, useLayoutEffect } from "react";
 import { useLocation, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAnalysis, getConfirmedTickets, getSpecialities, loginByEmail, getUserById, putUser, signUp } from "./redux/actions";
+import { getAnalysis, getConfirmedTickets, getSpecialities, loginByEmail, getUserById, putUser, signUp, selectPlan, getPaymentType } from "./redux/actions";
 import Home from "./components/Home/Home";
 import Institutional from "./components/Institutional/Institutional";
 import PlanCards from "./components/Plans/PlanCards";
@@ -44,6 +44,8 @@ function App() {
   useLayoutEffect(() => {
     dispatch(getSpecialities());
     dispatch(getAnalysis());
+    //dispatch(selectPlan());
+    dispatch(getPaymentType());
     localStorage.getItem("confirmedItems") && dispatch(getConfirmedTickets());
   }, []);
 
