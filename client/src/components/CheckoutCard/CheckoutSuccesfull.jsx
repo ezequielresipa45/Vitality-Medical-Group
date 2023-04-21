@@ -3,7 +3,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { useLocation, useSearchParams, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./CheckoutCart.module.css";
-import { deleteConfirmedTickets, postConfirmedTickets, resetConfirmedTickets } from "../../redux/actions";
+import { deleteConfirmedTickets, getPaymentType, postConfirmedTickets, resetConfirmedTickets, selectPlan } from "../../redux/actions";
 
 
 const CheckoutSuccessfull = () => {
@@ -11,10 +11,15 @@ const CheckoutSuccessfull = () => {
     const navigate = useNavigate();
     const [ searchParams ] = useSearchParams();
 
+    //const payment_type = useSelector((state) => state.payment_type);
+    const payment_type = localStorage.getItem('payment_type');
+
     const userId = useSelector((state) => state.user.id);
     const tickets = useSelector((state) => state.confirmedTickets);
     const userTickets = useSelector((state) => state.confirmedTickets.filter((item) => item.user === userId));
-    const paidPlan = useSelector((state) => state.selectedPlan);
+    //const plan = useSelector((state) => state.selectedPlan);
+    const plan = JSON.parse(localStorage.getItem('selectedPlan'));
+    //console.log((plan));
 
     const [queries, setQueries] = useState(null);
     const [init, setInit] = useState(false);
@@ -41,11 +46,17 @@ const CheckoutSuccessfull = () => {
         };
     });
 
-    const payment = {
+    const paidPlan = {
+        id: plan.id,
+        title: plan.title,
+        description: plan.description,
+        price: plan.price,
+    };
+
+    const ticket_payment = {
         user: userId,
-        planId: paidPlan ? paidPlan.id : null,
-        ticketsIds: paidTickets ? paidTickets.map((item) => item.idAnalysis) : null,
-        description: paidTickets ? 'Pago de análisis clínicos' : 'Pago de plan médico',
+        ticketsIds: paidTickets.map((item) => item.idAnalysis),
+        description: 'Pago de análisis clínicos',
         price: 666,
         code: queries?.collection_id,
         paymentId: queries?.payment_id,
@@ -53,13 +64,21 @@ const CheckoutSuccessfull = () => {
         date: new Date()
     };
 
-    console.log(paidTickets);
-
-    console.log(payment);
+    const plan_payment = {
+        user: userId,
+        planId: paidPlan.id,
+        description: 'Pago de plan médico',
+        price: 666,
+        code: queries?.collection_id,
+        paymentId: queries?.payment_id,
+        status: queries?.status,
+        date: new Date()
+    };
 
     const handleConfirmTickets = async () => {
         if(isPaid) return;
-        inProcess && await axios.post('/payment/createPaymentAnalysis', payment)
+        if(payment_type === 'ticket') {
+            inProcess && await axios.post('/payment/createPaymentAnalysis', ticket_payment)
             .then((res) => {
                 console.log(res.data);
                 setIsPaid(true);
@@ -76,37 +95,44 @@ const CheckoutSuccessfull = () => {
             .catch((err) => {
                 console.log(err);
                 setIsPaid(false);
-            });  
+            }); 
+        };
+        if(payment_type === 'plan') {
+            inProcess && await axios.post('/payment/createPaymentPlan', plan_payment)
+            .then((res) => {
+                console.log(res.data);
+                setIsPaid(true);
+            })
+            .catch((err) => {
+                console.log(err);
+                setIsPaid(false);
+            }); 
+        };
     };
 
     const paymentProcessing = async () => {
-        if(queries?.status === "approved") {
-            setInit(true)
-            await handleConfirmTickets();
-            setInProcess(false);
-            console.log('Ok');
-        }
-        else {
+        if(queries?.status !== "approved") {
             setIsPaid(false);
             setInProcess(false);
+            return;
         };
+        console.log('init');
+        setInit(true)
+        await handleConfirmTickets();
+        setInProcess(false);
+        console.log('Ok');
     };
 
     useEffect(() => {
         queryHandler();
     }, [searchParams]);
 
-    /* useEffect(() => {
-        inProcess && payment?.ticketsIds?.length && paymentProcessing();
-        inProcess && payment?.planId && paymentProcessing();
-    }, [queries, userTickets, paidPlan]); */
-
     useEffect(() => {
         !inProcess && isPaid && localStorage.setItem('confirmedItems', JSON.stringify(tickets));
     }, [tickets]);
 
-    !init && inProcess && payment?.ticketsIds?.length && paymentProcessing();
-    !init && inProcess && payment?.planId && paymentProcessing();
+    !init && inProcess && ticket_payment?.ticketsIds?.length && paymentProcessing();
+    !init && inProcess && plan_payment?.id && paymentProcessing();
 
     return (
         <div className={styles.container_succesfull}>

@@ -35,6 +35,7 @@ export const GET_TICKETS = "GET_TICKETS";
 export const DELETE_TICKET = "DELETE_TICKET";
 export const GET_TICKETS_ANALISYS = "GET_TICKETS_ANALISYS";
 export const GET_USER_BYID = "GET_USER_BYID";
+export const POST_PAYMENT_TYPE = "POST_PAYMENT_TYPE";
 
 
 export function getSpecialities() {
@@ -125,6 +126,14 @@ export function selectPlan() {
   const value = JSON.parse(localStorage.getItem('selectedPlan'));
   return {
       type: SELECT_PLAN,
+      payload: value
+  }; 
+};
+
+export function getPaymentType() {
+  const value = localStorage.getItem('payment_type');
+  return {
+      type: POST_PAYMENT_TYPE,
       payload: value
   }; 
 };

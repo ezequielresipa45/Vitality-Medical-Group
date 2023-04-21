@@ -23,8 +23,6 @@ const TicketPicker = () => {
 
     const patientInfo = useSelector((state) => state.patient);
 
-    console.log(patientInfo);
-
     const confirmedTickets = useSelector((state) => state.confirmedTickets);
 
     const userTickets = useSelector((state) => state.confirmedTickets.filter((item) => item.user === user.id));
@@ -231,9 +229,9 @@ const TicketPicker = () => {
                 };
             })
         };
-    
-        console.log(paymentItems);
-    
+
+        localStorage.setItem('payment_type', 'ticket');
+
         axios.post('/mercadoPago/v2', paymentItems)
             .then((res) => window.location.replace(res.data?.mpresult?.body.init_point))
             .catch((err) => console.log(err)); 
