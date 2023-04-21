@@ -66,7 +66,7 @@ const CheckoutSuccessfull = () => {
 
     const plan_payment = {
         user: userId,
-        planId: paidPlan.id,
+        planId: paidPlan?.id,
         description: 'Pago de plan médico',
         price: 666,
         code: queries?.collection_id,
