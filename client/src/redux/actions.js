@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 export const GET_PATIENTS = "GET_PATIENTS";
 export const GET_SPECIALITIES = 'GET_SPECIALITIES';
 export const GET_ANALYSIS = 'GET_ANALYSIS';
@@ -407,3 +406,5 @@ export const putDoctor = (doctorData) => async (dispatch) => {
       })
     }
   }
+
+
