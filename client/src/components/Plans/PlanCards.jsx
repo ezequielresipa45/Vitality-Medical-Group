@@ -14,7 +14,6 @@ const PlanCards = () => {
   useEffect(()=>{
     dispatch(getPlans());
   }, [dispatch])
-console.log(plans)
 
     return (
       <div>
@@ -24,34 +23,13 @@ console.log(plans)
 
         {plans.filter((p) => p.name !== "Sin Plan").map((p)=>(
           <PlanCard
+          id={p.id}
           name = {p.name}
           description = {p.description}
           price = {p.price}
           />
         ))}
         
-          {/* <PlanCard
-            name= "PLAN JUVENIL VITAL"
-            description = {descriptions}
-            price = "1000$"    
-            
-          /> */}
-    
-          {/* <PlanCard
-          name= "PLAN FAMILIAR VITAL"
-          description = {descriptions}
-          price = "5000$"
-          />
-  
-          <PlanCard
-            name= "PLAN ADULTO VITAL"
-            description = {descriptions}
-            price = "3000$"
-
-          />  */}
-          
-          
-
           </div>
           </div>)
 }

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getComments } from '../../redux/actions';
 import {useEffect} from "react";
 import style from "../CommentsCards/CommentsCards.module.css"
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
@@ -62,11 +63,10 @@ export default function CommentsCard() {
   };
 
   return (
-    <Box className={style.container}  sx={{height: 300, maxWidth:800, marginLeft: "300px", marginTop: "80px", border: "1px solid black",
+    <Box className={style.container}  sx={{height: 230, width:"80%", margin: "auto", border: "1px solid black",
     padding: "10px",
   }} >
-      <Paper 
-
+    <Paper 
         square
         elevation={4}
         variant= "rounded"
@@ -76,25 +76,27 @@ export default function CommentsCard() {
           width: 400,
           fontSize: "25px"
         }}
-      > Nuestros pacientes: <br />
+        > Nuestros pacientes: <br />
         
       </Paper>
-      <Box sx={{ height: 80, maxWidth: 800, width: '100%', p: 2, marginTop:"50px", display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <Box sx={{marginLeft: "-25px"}}> {customIcons[comment[activeStep]?.rating]?.icon} </Box>
-       <Box>"{comment[activeStep]?.comment}"</Box>
+      <Box sx={{ height: 80, maxWidth: 500, width: '100%', p: 2, margin: "auto", display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      
+          <Box sx={{marginLeft: "-25px"}}> {customIcons[comment[activeStep]?.rating]?.icon} </Box>
+      
+          <Box>"{comment[activeStep]?.comment}"</Box>
+      
       </Box>
-      <MobileStepper sx={{ marginTop: "50px" }}  className={style.btn}
+      <MobileStepper sx={{ margin: "auto" }}  className={style.btn}
         variant="dots"
         steps={5}
         position="static"
         activeStep={activeStep}
         nextButton={
-          <Button 
-          
-            size="small"
-            onClick={handleNext}
-            disabled={activeStep === maxSteps - 1}
-           
+      <Button 
+          sx={{ margin: "auto" }}
+          size="small"
+          onClick={handleNext}
+          disabled={activeStep === maxSteps - 1} 
           >
             
             {theme.direction === 'rtl' ? (
@@ -102,12 +104,13 @@ export default function CommentsCard() {
             ) : (
               <KeyboardArrowRight />
             )}
-          </Button>
+      </Button>
         }
         backButton={
-          <Button   size="small" onClick={handleBack} disabled={activeStep === 0}>
+          
+          <Button sx={{ margin: "auto" }}  size="small" onClick={handleBack} disabled={activeStep === 0}>
             {theme.direction === 'rtl' ? (
-              <KeyboardArrowRight />
+              <KeyboardArrowRight/>
             ) : (
               <KeyboardArrowLeft />
             )}

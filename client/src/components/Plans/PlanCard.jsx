@@ -1,11 +1,42 @@
 import react from "react"
+import axios from "axios"
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import {useEffect} from "react"
+import { selectPlan } from "../../redux/actions";
 import style from "../Plans/PlanCard.module.css"
 import Button from "@mui/material/Button"
 import img from "../../images/logo.png"
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 
-const PlanCard = ({ name,description,price }) => {
+const PlanCard = ({ id, name,description,price }) => {
+
+  const dispatch = useDispatch();
+
+
+  const selectedPlan = {
+    id: id,
+    title: name,
+    description: description,
+    price: price,
+    quantity: 1
+  };
+
+  const onClickPaid = async () => {
+    await axios.post('/mercadoPago/v2', {
+         plan: [selectedPlan],
+         
+         })
+        .then((res) => { 
+          localStorage.setItem('selectedPlan', JSON.stringify(selectedPlan));
+          dispatch(selectPlan())
+          window.location.replace(res.data?.mpresult?.body.init_point);
+        
+      })
+      
+        .catch((err) => console.log(err)); 
+};
 
   const sentences = description.split(". ")
 
@@ -18,8 +49,8 @@ const PlanCard = ({ name,description,price }) => {
                   
                   <div className={style.left}> 
                       <img className={style.imagen}  src={img} alt="" />
-                      <a href="/agregarPaciente">
-                      <Button variant="outlined" >MI PLAN</Button></a>
+                      
+                      <Button variant="outlined" onClick={onClickPaid} >MI PLAN</Button>
                       <h4 className={style.price}>Precio: {price}</h4>
                   </div>
 
@@ -38,4 +69,3 @@ const PlanCard = ({ name,description,price }) => {
   
   export default PlanCard
 
-  // el BOTON MI PLAN DEBE LLEVARME AL FORMULARIO DE CREAR PACIENTE

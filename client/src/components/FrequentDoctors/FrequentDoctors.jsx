@@ -8,10 +8,7 @@ import style from './FrequentDoctors.module.css';
 const FrequentDoctors = ({patient}) => {
   
   const doctors = useSelector((state)=>state.doctors)
-  // const patients =useSelector((state)=>state.patients)
-
-  //traer paciente x id con useLocation
-
+  
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -31,7 +28,7 @@ const FrequentDoctors = ({patient}) => {
       <h2 className={style.text}>MÉDICOS FRECUENTES</h2>
       <div>
         {frequentDoctors.map((doctor) => (
-          <div className={style.text} key={doctor.id}>{doctor.full_name}</div>
+          <div  key={doctor.id}>{doctor.full_name}</div>
         ))}
       </div>
     </div>

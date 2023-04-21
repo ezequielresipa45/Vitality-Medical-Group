@@ -8,29 +8,24 @@ import Swal from "sweetalert2";
 
 
 const PatientTickets = ({ patient }) => {
-  const doctors = useSelector((state) => state.doctors);
   
+  const doctors = useSelector((state) => state.doctors);
   const dispatch = useDispatch();
 
-  
   const [page, setPage] = useState(1);
-  // const [pageSize, setPageSize] = useState(1);
   const [deletedTicket, setDeletedTicket] = useState(false)
 
   const page_size = 1
 
-
   useEffect(() => {
-    dispatch(getPatients());
-    dispatch(getDoctors());
+   
     dispatch(getTickets())
 
   }, [dispatch]);
 
   useEffect(() => {
     if (deletedTicket) {
-      dispatch(getPatients());
-      dispatch(getDoctors())
+      
       dispatch(getTickets())
       setDeletedTicket(false);
     }
@@ -44,18 +39,8 @@ const PatientTickets = ({ patient }) => {
     setPage((prevPage) => prevPage - 1);
   };
 
-
   const handleDelete = (data, e) => {
     e.preventDefault();
-
-    // const deleteTicketFromState = (idTicket) => {
-    //   setPatient((prevPatient) => ({
-    //     ...prevPatient,
-    //     ticketMedicals: prevPatient.ticketMedicals.filter(
-    //       (ticket) => ticket.id !== idTicket
-    //     ),
-    //   }));
-    // };  
 
     Swal.fire({
       title: "Está seguro?",
@@ -92,8 +77,6 @@ const PatientTickets = ({ patient }) => {
     });
   };
 
-
-  // const ticketToShow = patient.ticketMedicals[page - 1];
   const ticketToShow = patient.ticketMedicals
   .filter((ticket)=>!ticket.is_delete)
   .slice((page-1)* page_size, page * page_size)
