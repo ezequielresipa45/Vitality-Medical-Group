@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import {useSelector, useDispatch} from "react-redux"
-import {getPatients, getDoctors} from "../../redux/actions"
+import {getPatients} from "../../redux/actions"
 
 import FrequentDoctors from '../FrequentDoctors/FrequentDoctors';
 import PatientTickets from '../PatientTickets/PatientTickets';

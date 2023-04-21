@@ -86,7 +86,10 @@ const PatientTickets = ({ patient }) => {
       <h2>TUS TURNOS MEDICOS</h2>
       {ticketToShow &&  (
         <div>
-           {ticketToShow.map((ticket) => (
+           {ticketToShow.map((ticket) => {
+             
+             return (
+
             <div className={style["ticket-info"]} key={ticket.id}>
             
             <h3>Condición: {ticket.title}</h3>
@@ -106,9 +109,9 @@ const PatientTickets = ({ patient }) => {
                               </i>
                             </button>
                           </form>
-          
-          </div>
-        ))}
+            </div>
+             )}
+        )}
           {ticketToShow.length === 0 && <p>No tienes turnos próximos</p>}
           <button className={style.button} disabled={page === 1} onClick={handlePrevPage}>
             Anterior
@@ -117,17 +120,18 @@ const PatientTickets = ({ patient }) => {
           <button className={style.button}
            disabled= {
              (page-1) * page_size + ticketToShow.length >= 
-            patient.ticketMedicals.filter((ticket) => !ticket.is_deleted).length
-           }
-           onClick={handleNextPage}
+             patient.ticketMedicals.filter((ticket) => !ticket.is_deleted).length}
+             onClick={handleNextPage}
           >
             Siguiente
           </button>
       
+        </div>
+       )}
     </div>
-  )}
-</div>
-)}
+  );
+};
+
 export default PatientTickets;
 
 

@@ -11,29 +11,23 @@ const UserCard = () => {
     dispatch(getUser());
   }, []);
 
-  const handleCheckboxChange = (e, id) => {
+  const handleCheckboxChange = async (e, id) => {
     const { checked } = e.target;
 
-    Swal.fire({
-      title: "Está seguro ?",
-      text: "No podrá revertir los cambios!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si, setear a admin!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(updateUser(id, { isAdmin: checked }));
-        Swal.fire(
-          "Ahora es administrador!",
-          "El usuario ah sido seteado.",
-          "Exitosamente"
-        ).then(() => {
-          dispatch(getUser());
-        });
-      }
-    });
+    let userDate = {
+      id,
+      is_admin: checked,
+    };
+
+    try {
+      // Enviar la solicitud POST a la API
+      const response = await axios.put("user/isAdmin", userDate);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+
+    dispatch(getUser());
   };
 
   return (
@@ -41,31 +35,21 @@ const UserCard = () => {
       {console.log(datos)}
       {datos.map((dato) => (
         <div className={styles.card} key={dato.id}>
-
-          {dato.image ? 
-          <img
-            src={
-              dato.image
-
-            }
-            alt={dato.full_name}
-
-            className={styles.image}
-          />
-
-        : 
-        
-        <img
-        src={
-          "https://img.freepik.com/vector-premium/icono-circulo-usuario-anonimo-ilustracion-vector-estilo-plano-sombra_520826-1931.jpg"
-        }
-        alt="user"
-
-        className={styles.image}
-      />
-        
-        
-        }
+          {dato.image ? (
+            <img
+              src={dato.image}
+              alt={dato.full_name}
+              className={styles.image}
+            />
+          ) : (
+            <img
+              src={
+                "https://img.freepik.com/vector-premium/icono-circulo-usuario-anonimo-ilustracion-vector-estilo-plano-sombra_520826-1931.jpg"
+              }
+              alt="user"
+              className={styles.image}
+            />
+          )}
           <h2>{dato.full_name}</h2>
           <p>ID: {dato.id}</p>
           <p>Username: {dato.user_name}</p>

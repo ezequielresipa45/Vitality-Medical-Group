@@ -76,7 +76,7 @@ const TicketsAnalysis = ({ patient }) => {
 
   return (
     <div className={style.div}>
-      <h2>TUS ANALISIS</h2>
+      <h2>TUS ANALISIS CLÍNICOS</h2>
       {ticketToShow && (
         <div>
               {ticketToShow.map((ticket) => {

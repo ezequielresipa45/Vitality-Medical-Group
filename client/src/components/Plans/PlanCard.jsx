@@ -7,7 +7,7 @@ import { selectPlan } from "../../redux/actions";
 import style from "../Plans/PlanCard.module.css"
 import Button from "@mui/material/Button"
 import img from "../../images/logo.png"
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CheckIcon from '@mui/icons-material/CheckCircle';
 
 
 const PlanCard = ({ id, name,description,price }) => {
@@ -56,7 +56,7 @@ const PlanCard = ({ id, name,description,price }) => {
 
           <div className={style.right_text}>
             {sentences.map((sentence, index)=>(
-              <h3 key = {index}><CheckCircleIcon/>{sentence}</h3>
+              <h3 key = {index}><CheckIcon sx={{marginTop: "-8px"}}/>{sentence}</h3>
             ))}
           </div>
         </div>
