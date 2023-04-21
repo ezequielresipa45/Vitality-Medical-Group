@@ -2,8 +2,6 @@ import React, { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./UserCard.module.css";
 import { getUser } from "../../redux/actions";
-import axios from "axios";
-
 
 const UserCard = () => {
   const dispatch = useDispatch();
@@ -18,7 +16,7 @@ const UserCard = () => {
 
     let userDate = {
       id,
-      is_admin: !checked,
+      is_admin: checked,
     };
 
     try {
@@ -35,10 +33,7 @@ const UserCard = () => {
   return (
     <div className={styles.contenedor}>
       {console.log(datos)}
-      {datos.map((dato) =>{
-        let isChecked = dato.is_admin;
-        return (
-        
+      {datos.map((dato) => (
         <div className={styles.card} key={dato.id}>
           {dato.image ? (
             <img
@@ -65,16 +60,11 @@ const UserCard = () => {
           <input
             type="checkbox"
             id={`check-card-${dato.id}`}
-            checked={isChecked}
-            onChange={(e) => {
-          isChecked = !isChecked;
-          dato.is_admin = isChecked;
-          handleCheckboxChange(e, dato.id);
-        }}
+            checked={dato.is_admin}
+            onChange={(e) => handleCheckboxChange(e, dato.id)}
           />
         </div>
-      );
-      })}
+      ))}
     </div>
   );
 };
