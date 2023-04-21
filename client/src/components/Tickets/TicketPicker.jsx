@@ -97,7 +97,7 @@ const TicketPicker = () => {
     };
 
     const handlePlanChange = (value) => {
-        if(value === 'Particular - Sin Plan') setSelectedPatient({
+        if(value === 'Sin Plan') setSelectedPatient({
             ...selectedPatient,
             patient_plan: null
         })
@@ -326,11 +326,11 @@ const TicketPicker = () => {
                         labelId='select_plan'
                         id='select'
                         label='Seleccione un plan'
-                        value={selectedPatient.patient_plan ? selectedPatient.patient_plan : 'Particular - Sin Plan'}
+                        value={selectedPatient.patient_plan ? selectedPatient.patient_plan : 'Sin Plan'}
                         onChange={(e) => handlePlanChange(e.target.value)}
                     >
                         {patientInfo.plan && <MenuItem value={patientInfo.plan.name}>{patientInfo.plan.name}</MenuItem>}
-                        <MenuItem value={'Particular - Sin Plan'}>Particular - Sin Plan</MenuItem>
+                        <MenuItem value={'Sin Plan'}>Sin Plan</MenuItem>
                     </Select>
                 </FormControl>
 
