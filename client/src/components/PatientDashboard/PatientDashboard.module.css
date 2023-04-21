@@ -1,7 +1,7 @@
-@font-face {
+/* @font-face {
     font-family: "FireSans";
     src: url("../../Fonts/FiraSans-Bold.ttf");
-}
+} */
 
 
 .toolbar{
@@ -24,16 +24,17 @@
    
 }
 .font{
-    font-family: "FireSans";
+    /* font-family: "FireSans"; */
     text-align: center;
     margin-right: 10px;
     text-decoration: none;
+    font-weight: bolder;
 }
 .patient{
     margin-bottom: 30px;
 }
 .form_text{
-    font-family: "FireSans";
+    /* font-family: "FireSans"; */
     text-align: center;
     margin-right: 10px;
     text-decoration: none;
