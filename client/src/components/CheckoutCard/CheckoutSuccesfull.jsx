@@ -48,9 +48,9 @@ const CheckoutSuccessfull = () => {
 
     const paidPlan = {
         id: plan?.id,
-        title: plan.title,
-        description: plan.description,
-        price: plan.price,
+        title: plan?.title,
+        description: plan?.description,
+        price: plan?.price,
     };
 
     const ticket_payment = {
