@@ -11,10 +11,21 @@ const UserCard = () => {
     dispatch(getUser());
   }, []);
 
-  const handleCheckboxChange = (e, id) => {
+  const handleCheckboxChange = async (e, id) => {
     const { checked } = e.target;
 
-    dispatch(updateUser(id, { is_admin: !checked }));
+    let userDate = {
+      id,
+      is_admin: checked,
+    };
+
+    try {
+      // Enviar la solicitud POST a la API
+      const response = await axios.put("user/isAdmin", userDate);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error.message);
+    }
 
     dispatch(getUser());
   };
