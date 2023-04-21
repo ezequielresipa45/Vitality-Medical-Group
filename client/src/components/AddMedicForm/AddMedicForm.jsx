@@ -164,7 +164,7 @@ export default function AddMedicForm() {
 
   let arraySpecialists = [
     "Clínica Médica",
-    "Traumatología ",
+    "Traumatología",
     "Neurología",
     "Otorrinolaringología",
     "Pediatría",
