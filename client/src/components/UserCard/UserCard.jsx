@@ -17,7 +17,7 @@ const UserCard = () => {
 
     let userDate = {
       id,
-      is_admin: checked,
+      is_admin: !checked,
     };
 
     try {
