@@ -158,7 +158,8 @@ const submitHandler = (e) =>{ // aca quiero mandar una request al backend. Manej
   return (
     
     <div className={style.container}>
-        <p>En Vitality Medical Center nos esforzamos por brindartle la mejor atención posible a nuestros pacientes. Con tu opinión nos ayudas a mejorar.</p>
+        <p>En Vitality Medical Center nos esforzamos por brindartle la mejor atención posible a nuestros pacientes</p> 
+        <p> Con tu opinión nos ayudas a mejorar.</p>
         <h3 className = {style.text}>Como clasificarías tu experiencia con nosotros?</h3>
        
     <form onSubmit={(e)=> submitHandler(e)}>    
