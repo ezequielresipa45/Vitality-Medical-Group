@@ -61,7 +61,7 @@ const UserCard = () => {
           <input
             type="checkbox"
             id={`check-card-${dato.id}`}
-            checked={dato.isAdmin}
+            checked={dato.is_admin}
             onChange={(e) => handleCheckboxChange(e, dato.id)}
           />
         </div>
