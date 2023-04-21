@@ -1,10 +1,10 @@
-@font-face {
+/* @font-face {
     font-family: "FireSans";
     src: url("../../Fonts/FiraSans-Bold.ttf");
-}
+} */
 
 .div{
-    font-family: "FireSans";
+    /* font-family: "FireSans"; */
 }
 .button{
     display: center;
@@ -16,6 +16,6 @@
     display: center;
     justify-content: space-between;
     background-color: red;
-    font-family: "FireSans";
+    /* font-family: "FireSans"; */
 }
 

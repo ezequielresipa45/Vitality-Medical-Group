@@ -95,7 +95,7 @@ console.log(updatedPatients)
 
   return (
     <div className={style.div}>
-      <h2>TUS ANALISIS</h2>
+      <h2>TUS ANALISIS CLÍNICOS</h2>
       {patient.ticketAnalyses.length > 0 && (
         <div>
               {ticketToShow.map((ticket) => {

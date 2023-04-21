@@ -35,6 +35,10 @@ import Avatar from '@mui/material/Avatar';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
+import CakeIcon from '@mui/icons-material/Cake';
+import PlaceIcon from '@mui/icons-material/Place';
+import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
+
 
 
 function Copyright(props) {
@@ -263,10 +267,10 @@ initials
             
               <>
             <h2 className = {style.font}>{selectedPatient.full_name}</h2>
-            <p className = {style.font}>{`Edad: ${selectedPatient.age} años`}</p>
-            <p className = {style.font}>{`Cumpleaños: ${selectedPatient.birthday}`}</p>
-            <p className = {style.font}>{`Direccion: ${selectedPatient.address}`}</p>
-            <p className = {style.font}>{`Teléfono: ${selectedPatient.phone}`}</p>
+            <p className = {style.font}>{selectedPatient.age} años</p>
+            <p className = {style.font}><CakeIcon fontSize= "medium"/>  {selectedPatient.birthday}</p>
+            <p className = {style.font}><PlaceIcon fontSize= "medium"/>   {selectedPatient.address}</p>
+            <p className = {style.font}><PhoneEnabledIcon fontSize= "medium"/>  {selectedPatient.phone}</p>
             <br />
             <Link href={`/putpatient/${selectedPatient.id}`} underline="none" >Actualizar Perfil</Link>
             </>
@@ -279,7 +283,7 @@ initials
  
 <Grid item xs={12} md={6}>
     <Paper elevation={24} sx={{ p: 2 , height : 477, textAlign: "center"}}>
-          <CalendarMonthIcon sx={{ fontSize: '70px' }} color = "primary"/>
+          <CalendarMonthIcon sx={{ fontSize: '70px', margin: "auto" }} color = "primary"/>
         {selectedPatient && (
           <>
       <Typography>
@@ -293,7 +297,7 @@ initials
 
 <Grid item xs={12} md={6}>
     <Paper elevation={24} sx={{ p: 2 , height : 447, textAlign: "center"}}>
-        <CalendarMonthIcon sx={{ fontSize: '70px' }} color = "primary"/>
+        <CalendarMonthIcon sx={{ fontSize: '70px', margin: "auto" }} color = "primary"/>
         {selectedPatient && (
           <>
     <Typography>
@@ -306,7 +310,7 @@ initials
 </Grid>
 <Grid item xs={12} md={6}>
     <Paper elevation={24} sx={{ p: 2 , height : 447, textAlign: "center"}}>
-          <RecentActorsIcon  sx={{ fontSize: '80px' }} color = "primary"/>
+          <RecentActorsIcon  sx={{ fontSize: '70px', margin: "auto" }} color = "primary"/>
               {selectedPatient && (
          <>
       <Typography>
