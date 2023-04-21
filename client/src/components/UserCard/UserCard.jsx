@@ -35,7 +35,10 @@ const UserCard = () => {
   return (
     <div className={styles.contenedor}>
       {console.log(datos)}
-      {datos.map((dato) => (
+      {datos.map((dato) =>{
+        let isChecked = dato.is_admin;
+        return (
+        
         <div className={styles.card} key={dato.id}>
           {dato.image ? (
             <img
@@ -62,11 +65,16 @@ const UserCard = () => {
           <input
             type="checkbox"
             id={`check-card-${dato.id}`}
-            checked={dato.is_admin}
-            onChange={(e) => handleCheckboxChange(e, dato.id)}
+            checked={isChecked}
+            onChange={(e) => {
+          isChecked = !isChecked;
+          dato.is_admin = isChecked;
+          handleCheckboxChange(e, dato.id);
+        }}
           />
         </div>
-      ))}
+      );
+      })}
     </div>
   );
 };
