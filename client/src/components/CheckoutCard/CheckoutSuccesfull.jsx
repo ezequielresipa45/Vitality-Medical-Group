@@ -19,7 +19,6 @@ const CheckoutSuccessfull = () => {
     const userTickets = useSelector((state) => state.confirmedTickets.filter((item) => item.user === userId));
     //const plan = useSelector((state) => state.selectedPlan);
     const plan = JSON.parse(localStorage.getItem('selectedPlan'));
-    //console.log((plan));
 
     const [queries, setQueries] = useState(null);
     const [init, setInit] = useState(false);
@@ -64,17 +63,6 @@ const CheckoutSuccessfull = () => {
         date: new Date()
     };
 
-    const plan_payment = {
-        user: userId,
-        planId: paidPlan?.id,
-        description: 'Pago de plan médico',
-        price: 666,
-        code: queries?.collection_id,
-        paymentId: queries?.payment_id,
-        status: queries?.status,
-        date: new Date()
-    };
-
     const handleConfirmTickets = async () => {
         if(isPaid) return;
         if(payment_type === 'ticket') {
@@ -98,6 +86,16 @@ const CheckoutSuccessfull = () => {
             }); 
         };
         if(payment_type === 'plan') {
+            const plan_payment = {
+                user: userId,
+                planId: paidPlan?.id,
+                description: 'Pago de plan médico',
+                price: 666,
+                code: queries?.collection_id,
+                paymentId: queries?.payment_id,
+                status: queries?.status,
+                date: new Date()
+            };
             inProcess && await axios.post('/payment/createPaymentPlan', plan_payment)
             .then((res) => {
                 console.log(res.data);
@@ -112,6 +110,7 @@ const CheckoutSuccessfull = () => {
 
     const paymentProcessing = async () => {
         if(queries?.status !== "approved") {
+            console.log('?');
             setIsPaid(false);
             setInProcess(false);
             return;
@@ -132,7 +131,11 @@ const CheckoutSuccessfull = () => {
     }, [tickets]);
 
     !init && inProcess && ticket_payment?.ticketsIds?.length && paymentProcessing();
-    !init && inProcess && plan_payment?.id && paymentProcessing();
+    //!init && inProcess && plan_payment?.id && paymentProcessing();
+
+    useEffect(() => {
+        !init && inProcess && userId && paymentProcessing();
+    }, [plan])
 
     return (
         <div className={styles.container_succesfull}>
