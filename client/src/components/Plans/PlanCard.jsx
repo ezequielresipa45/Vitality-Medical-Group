@@ -12,6 +12,8 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const PlanCard = ({ id, name,description,price }) => {
 
+  const user = useSelector ((state)=> state.user)
+
   const dispatch = useDispatch();
 
 
@@ -20,7 +22,8 @@ const PlanCard = ({ id, name,description,price }) => {
     title: name,
     description: description,
     price: price,
-    quantity: 1
+    quantity: 1,
+    user: user.id
   };
 
   const onClickPaid = async () => {
