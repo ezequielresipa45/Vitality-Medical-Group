@@ -24,6 +24,7 @@ const PlanCard = ({ id, name,description,price }) => {
   };
 
   const onClickPaid = async () => {
+    localStorage.setItem('payment_type', 'plan');
     await axios.post('/mercadoPago/v2', {
          plan: [selectedPlan],
          

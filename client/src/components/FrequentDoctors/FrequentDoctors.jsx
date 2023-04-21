@@ -28,7 +28,7 @@ const FrequentDoctors = ({patient}) => {
       <h2 className={style.text}>MÉDICOS FRECUENTES</h2>
       <div>
         {frequentDoctors.map((doctor) => (
-          <div  key={doctor.id}>{doctor.full_name}</div>
+          <div  key={doctor.id}> ＊ {doctor.full_name}</div>
         ))}
       </div>
     </div>

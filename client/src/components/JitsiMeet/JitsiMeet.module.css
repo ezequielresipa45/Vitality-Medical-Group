@@ -14,11 +14,11 @@
 }
 
 .paragraph {
-    font-family:"FireSans" ;
+    /* font-family:"FireSans" ; */
     font-size: 20px;
     justify-content: center;
     text-align: justify;
-    color: rgb(215, 207, 196);
+    color: black;
     margin: 5px;
 }
 
