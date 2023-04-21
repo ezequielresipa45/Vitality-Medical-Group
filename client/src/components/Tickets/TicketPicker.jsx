@@ -19,6 +19,8 @@ const TicketPicker = () => {
 
     const user = useSelector((state) => state.user);
 
+    const userInfo = useSelector((state) => state.userById);
+
     const patients = useSelector((state) => state.patients.filter((item) => item.userId === user.id));
 
     const patientInfo = useSelector((state) => state.patient);
@@ -329,7 +331,7 @@ const TicketPicker = () => {
                         value={selectedPatient.patient_plan ? selectedPatient.patient_plan : 'Sin Plan'}
                         onChange={(e) => handlePlanChange(e.target.value)}
                     >
-                        {patientInfo.plan && <MenuItem value={patientInfo.plan.name}>{patientInfo.plan.name}</MenuItem>}
+                        {userInfo.plan && <MenuItem value={userInfo.plan.name}>{userInfo.plan.name}</MenuItem>}
                         <MenuItem value={'Sin Plan'}>Sin Plan</MenuItem>
                     </Select>
                 </FormControl>
