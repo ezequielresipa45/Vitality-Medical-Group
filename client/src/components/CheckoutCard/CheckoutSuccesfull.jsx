@@ -47,7 +47,7 @@ const CheckoutSuccessfull = () => {
     });
 
     const paidPlan = {
-        id: plan.id,
+        id: plan?.id,
         title: plan.title,
         description: plan.description,
         price: plan.price,
