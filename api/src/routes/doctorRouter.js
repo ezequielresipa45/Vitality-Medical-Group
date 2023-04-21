@@ -3,7 +3,7 @@ const {
   validatorCreateDoctor,
   validatorUpdateDoctor,
 } = require("../middlewares/validators.js");
-const jwtCheck = require("../middlewares/auth.js");
+
 const {
   getNamesHandler,
   getDoctorsDeletedHandler,
@@ -39,8 +39,8 @@ doctorRouter.put("/recoverDoctor", recoverDoctorHandler);
 
 doctorRouter.put("/medicalGuard", updateMedicalGuardHandler);
 
-doctorRouter.delete("/delSchedule", jwtCheck, deleteScheduleHandler);
+doctorRouter.delete("/delSchedule", deleteScheduleHandler);
 
-doctorRouter.delete("/:id/delete", jwtCheck,  deleteDoctorHandler);
+doctorRouter.delete("/:id/delete", deleteDoctorHandler);
 
 module.exports = doctorRouter;
