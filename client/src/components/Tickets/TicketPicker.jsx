@@ -33,7 +33,13 @@ const TicketPicker = () => {
     
     const [isTrue, setIsTrue] = useState(false);
     const [error, setError] = useState(null);
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState({
+        response: '',
+        ticket: '',
+        date: '',
+        schedule: '',
+        observation: ''
+    });
     
     //Tipo de turno
     const ticket_type = selectedTickets?.origin === '/analisis' ? 'Análisis / Estudio' : 'Consulta Médica';
@@ -131,32 +137,6 @@ const TicketPicker = () => {
             }
         };
 
-        if(ticketInfo.plan) { 
-            console.log('El usuario tiene un plan valido');
-            ticketInfo.ticket.type === 'Análisis / Estudio' && await axios.post('/ticketAnalysis/createTicketAnalisys', {
-                title: ticketInfo.ticket.title,
-                observations: ticketInfo.ticket.observations,
-                idAnalysis: ticketInfo.ticket.code,
-                idPatient: ticketInfo.patient,
-                date: ticketInfo.ticket.date,
-                hour: ticketInfo.ticket.schedule,
-                price: ticketInfo.ticket.price
-            })
-            .then((res) => {
-                setMessage(res.data);
-                setIsTrue(true);
-            })
-            .catch((err) => {
-                console.log(err);
-                setMessage('Ha ocurrido un error. Intentelo más tarde.');
-                setIsTrue(true);
-            });
-            
-            setSelectedSchedule('');
-            setAvailableSchedules(availableSchedules.filter((item) => item !== selectedSchedule));
-            return ticketInfo;
-        };
-
         if(ticketInfo.ticket.type === 'Consulta Médica') {
             await axios.post('/ticketMedical/createTicketMedical', {
                 title: ticketInfo.ticket.title,
@@ -169,21 +149,66 @@ const TicketPicker = () => {
                 paid: ticketInfo.plan ? ticketInfo.plan : null
             })
             .then((res) => {
-                setMessage(res.data);
+                setMessage({
+                    response: res.data,
+                    ticket: `Consulta Médica: ${ticketInfo.ticket.title}`,
+                    date: format(ticketInfo.ticket.date, 'dd/MM/yyyy'),
+                    schedule: ticketInfo.ticket.schedule,
+                    observation: !ticketInfo.plan ? 'Recuerde que debera abonar la consulta en el momento' : null
+                });
                 setIsTrue(true);
             })
             .catch((err) => {
                 console.log(err);
-                setMessage('Ha ocurrido un error. Intentelo más tarde.');
+                setMessage({...message, response: 'Ha ocurrido un error, intentelo más tarde'});
                 setIsTrue(true);
             });
+
+        if(ticketInfo.ticket.type === 'Análisis / Estudio' && ticketInfo.plan) { 
+            console.log('El usuario tiene un plan valido');
+            await axios.post('/ticketAnalysis/createTicketAnalisys', {
+                title: ticketInfo.ticket.title,
+                observations: ticketInfo.ticket.observations,
+                idAnalysis: ticketInfo.ticket.code,
+                idPatient: ticketInfo.patient,
+                date: ticketInfo.ticket.date,
+                hour: ticketInfo.ticket.schedule,
+                price: ticketInfo.ticket.price
+            })
+            .then((res) => {
+                setMessage({
+                    response: res.data,
+                    ticket: `Análisis / Estudio: ${ticketInfo.ticket.title}`,
+                    date: format(ticketInfo.ticket.date, 'dd/MM/yyyy'),
+                    schedule: ticketInfo.ticket.schedule,
+                    observation: null
+                });
+                setIsTrue(true);
+            })
+            .catch((err) => {
+                console.log(err);
+                setMessage('Ha ocurrido un error, intentelo más tarde');
+                setIsTrue(true);
+            });
+            
+            setSelectedSchedule('');
+            setAvailableSchedules(availableSchedules.filter((item) => item !== selectedSchedule));
+            return ticketInfo;
+        };
+
             setSelectedSchedule('');
             setAvailableSchedules(availableSchedules.filter((item) => item !== selectedSchedule));
             return ticketInfo;
         };
 
         dispatch(postConfirmedTickets(ticketInfo));
-        setMessage('¿Quiere seguir agregando items o finalizar el proceso de confirmación del turno?');
+        setMessage({
+            response: 'Turno agregado a la lista',
+            ticket: null,
+            date: null,
+            schedule: null,
+            observation: '¿Quiere seguir agregando items o desea finalizar el proceso de confirmación del turno?'
+        });
         setIsTrue(true);
         setSelectedSchedule('');
         setAvailableSchedules(availableSchedules.filter((item) => item !== selectedSchedule));
@@ -194,7 +219,7 @@ const TicketPicker = () => {
     };
 
     const onClickGoToPaid = () => {
-        if(message === 'Turno creado exitosamente' || message === 'Ha ocurrido un error. Intentelo más tarde.') return navigate('/');
+        if(message.response === 'Turno creado exitosamente' || message.response === 'Ha ocurrido un error, intentelo más tarde') return navigate('/');
         
         const paymentItems = {
             analisys: userTickets.map((item) => {
@@ -333,12 +358,21 @@ const TicketPicker = () => {
                 aria-describedby="alert-dialog-description"
                 >
                     <DialogTitle id="alert-dialog-title">
-                        {''}
+                        {message.response}
                     </DialogTitle>
                     <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            {message}
-                        </DialogContentText>
+                        {message.ticket && <DialogContentText id="alert-dialog-description">
+                            {message.ticket}
+                        </DialogContentText>}
+                        {message.date && <DialogContentText id="alert-dialog-description">
+                            {message.date}
+                        </DialogContentText>}
+                        {message.schedule && <DialogContentText id="alert-dialog-description">
+                            {message.schedule}
+                        </DialogContentText>}
+                        {message.observation && <DialogContentText id="alert-dialog-description">
+                            {message.observation}
+                        </DialogContentText>}
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={onClickBackToSelect}>Volver</Button>
