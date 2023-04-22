@@ -10,6 +10,7 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import styles from './TicketsDrawer.module.css';
 import MPButton from '../MPButton/MPButton';
 import { useNavigate } from 'react-router-dom';
+import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 
 export default function TicketsDrawer() {
 
@@ -24,6 +25,8 @@ export default function TicketsDrawer() {
     const userTickets = useSelector((state) => state.confirmedTickets.filter((item) => item.user === userId));
     
     const [toggle, setToggle] = useState(false);
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const toggleDrawer = () => {
         setToggle(!toggle);
@@ -49,10 +52,12 @@ export default function TicketsDrawer() {
     //console.log(paymentItems);
 
     const onClickContinue = async () => {
+        setIsLoading(!isLoading);
         localStorage.setItem('payment_type', 'ticket');
         await axios.post('/mercadoPago/v2', paymentItems)
             .then((res) => window.location.replace(res.data?.mpresult?.body.init_point))
-            .catch((err) => console.log(err)); 
+            .catch((err) => console.log(err));
+        setIsLoading(!isLoading);
     };
     
     useEffect(() => {
@@ -68,7 +73,8 @@ export default function TicketsDrawer() {
                 
                 <Tooltip title='Lista de turnos'>
                     <IconButton onClick={toggleDrawer}>
-                        <MonitorHeartIcon sx={{ fontSize: 30 }} />
+                        {/* <MonitorHeartIcon sx={{ fontSize: 30 }} /> */}
+                        <i className='fa-solid fa-heart-pulse' style={{ fontSize:30, color:'#767676', marginBlockStart:3 }}></i>
                         <div className={styles.badge}>
                             <p>{userTickets.length}</p>
                         </div>
@@ -107,7 +113,17 @@ export default function TicketsDrawer() {
                     <Divider />
                     <List >
                         <ListItem>
-                            <Button sx={{ minWidth: 268 }} variant="outlined" endIcon={<PaymentIcon />} onClick={onClickContinue}>Finalizar</Button>
+                            {/* <Button sx={{ minWidth: 268 }} variant="outlined" endIcon={<PaymentIcon />} onClick={onClickContinue}>Finalizar</Button> */}
+                            <LoadingButton
+                                onClick={onClickContinue}
+                                loading={isLoading}
+                                loadingPosition='end'
+                                variant="outlined"
+                                sx={{minWidth: 268}}
+                                endIcon={<PaymentIcon />} 
+                            >
+                            Finalizar                    
+                            </LoadingButton>
                         </ListItem>
                     </List>
                 </Box>
