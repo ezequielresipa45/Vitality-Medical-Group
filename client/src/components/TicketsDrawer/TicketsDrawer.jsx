@@ -74,7 +74,7 @@ export default function TicketsDrawer() {
                 <Tooltip title='Lista de turnos'>
                     <IconButton onClick={toggleDrawer}>
                         {/* <MonitorHeartIcon sx={{ fontSize: 30 }} /> */}
-                        <i className='fa-solid fa-heart-pulse' style={{ fontSize:30, color:'#767676', marginBlockStart:3 }}></i>
+                        <i className='fa-solid fa-heart-pulse' style={{ fontSize:30, color:'#606060', marginBlockStart:3 }}></i>
                         <div className={styles.badge}>
                             <p>{userTickets.length}</p>
                         </div>
