@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { getDoctors, getFarmacy  } from '../../redux/actions';
 import SearchContainer from '../Search/SearchContainer';
 import style from './MedicalBook.module.css';
 
-const itemsPerPage = 4; // number of items to show per page
+const itemsPerPage = 3; // number of items to show per page
 
 const MedicalBook = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentFarmacyPage, setCurrentFarmacyPage] = useState(1);
     
   const pharmacies = useSelector((state)=> state.farmacies);
   const doctors = useSelector((state)=> state.doctors);
   
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getFarmacy());
@@ -22,39 +25,57 @@ const MedicalBook = () => {
   // logic for rendering items on current page
   const startItem = (currentPage - 1) * itemsPerPage;
   const endItem = startItem + itemsPerPage;
-  const currentPharmacies = pharmacies.slice(startItem, endItem);
   const currentDoctors = doctors.slice(startItem, endItem);
 
+  const start = (currentFarmacyPage - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  const currentPharmacies = pharmacies.slice(start, end);
+
   // logic for calculating total number of pages
-  const maxItems = Math.max(pharmacies.length, doctors.length);
+  const maxItems = Math.max( doctors.length);
   const totalPages = Math.ceil(maxItems / itemsPerPage);
 
+  const onClick = (value) => {
+    navigate(`/especialidad/${value[0].toUpperCase() + value.slice(1)}`);
+  };
+
   return (
-    <div className={style.firstDiv}>
+    <div className={style.container}>
 
       <SearchContainer />
 
-      <h2 className={style.h2}>Farmacias</h2>
-      { currentPharmacies.map((pharmacy, index) => (
-        <div className={style.divCard} key={index}>
-          <h3>{pharmacy.name}</h3>
-          <p>Dirección: {pharmacy.address}</p>
-          <p>Teléfono: {pharmacy.phone}</p>
-        </div>
-      ))}
-      <h2 className={style.h2}>Doctores</h2>
+      <h2 className={style.h2}>Farmacias con descuentos</h2>
+      <div className={style.div_items}>
+        <button className={style.button} onClick={() => setCurrentFarmacyPage(currentFarmacyPage - 1)} disabled={currentFarmacyPage === 1}>
+          <i className="fas fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        {currentPharmacies.map((pharmacy, index) => (
+          <div className={style.item_farmacy} key={index}>
+            <h3>{pharmacy.name}</h3>
+            <p>Dirección: {pharmacy.address}</p>
+            <p>Teléfono: {pharmacy.phone}</p>
+          </div>
+        ))}
+        <button className={style.button} onClick={() => setCurrentFarmacyPage(currentFarmacyPage + 1)} disabled={currentFarmacyPage === Math.ceil(pharmacies.length / itemsPerPage)}>
+          <i className="fas fa-chevron-right" aria-hidden="true"></i>  
+        </button>
+      </div>
+
+      <h2 className={style.h2}>Médicos de la clínica</h2>
+      <div className={style.div_items}>
       {currentDoctors.map((doctor, index) => (
-        <div className={style.divCard} key={index}>
+        <div className={style.item} key={index} onClick={() => onClick(doctor.specialities[0].speciality)}>
+          <img src={doctor.image} alt='med_pic'/>
           <h3>{doctor.full_name}</h3>
-          <p>Especialidad: {doctor.specialities.map((esp)=> esp.speciality)}</p>
+          <p>{doctor.specialities.map((esp) => esp.speciality[0].toUpperCase() + esp.speciality.slice(1))}</p>
           <p>Teléfono: {doctor.phone}</p>
-          <p>Dirección: {doctor.address}</p>
         </div>
       ))}
-      <div className={style.buttonDiv}>
-        <button className={style.button} onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>Anterior</button>
+      </div>
+      <div className={style.div_button}>
+        <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>Anterior</button>
         <span className={style.span}>Página {currentPage} de {totalPages}</span>
-        <button className={style.button} onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>Siguiente</button>
+        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>Siguiente</button>
       </div>
     </div>
   );

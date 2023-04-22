@@ -23,7 +23,7 @@ export default function Header() {
     <p>Los análisis clínicos son procedimientos que se realizan en laboratorios para detectar y monitorear afecciones médicas.</p>
   </Link>
 
-  <Link to= '/jitsimeet' className={styles.container__boxs__box}>
+  <Link to= '/medico-online' className={styles.container__boxs__box}>
     <i className='fa-solid fa-comments'></i>
     <h3>Médico Online</h3>
     <p>Medico online es una forma de ofrecer asesoramiento médico a través del uso de internet. Ingresá para más información.</p>
