@@ -8,23 +8,23 @@ import img3 from '../../images/pastillasAco.jpg';
 const Cards = () => {
   return (
     <div className={style.dad}>
-      <h3>Beneficios</h3>
+      <h3>Beneficios de nuestros planes</h3>
       <div className={style.container}>
         <Card
-          title="Descuentos en Farmacia"
+          title="Calidad médica y calidez humana"
+          description="Recibe atención médica de calidad y un trato humano y amable por parte de nuestros profesionales de la salud."
+          image={img1}
+        />
+        <Card
+          title="Descuentos en farmacia"
           description="Obtén descuentos en medicamentos y otros productos en farmacias cercanas a tu ubicación."
           image={img2}
         />
             <Card
-              title="Anticonceptivos Gratuitos"
+              title="Anticonceptivos gratuitos"
               description="Obtén acceso a anticonceptivos gratuitos y confiables en tu centro de salud más cercano."
               image={img3}
             />
-          <Card
-            title="Calidad Médica y Calidez Humana"
-            description="Recibe atención médica de calidad y un trato humano y amable por parte de nuestros profesionales de la salud."
-            image={img1}
-          />
       </div>
     </div>
   );

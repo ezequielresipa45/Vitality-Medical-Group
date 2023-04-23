@@ -121,7 +121,7 @@ function App() {
 
         <Route path="/paciente" element={<PatientDashboard />} />
 
-        <Route path="/jitsimeet" element={<JitsiMeet />} />
+        <Route path="/medico-online" element={<JitsiMeet />} />
 
         <Route path='/checkout/feedback' element={<CheckoutSuccessfull/>} />
 
