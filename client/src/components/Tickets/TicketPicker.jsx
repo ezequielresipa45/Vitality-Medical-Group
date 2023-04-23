@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { LocalizationProvider , DatePicker, DateTimePicker, TimePicker } from '@mui/x-date-pickers';
 import { FormControl , InputLabel , Select , MenuItem , FormHelperText, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import LoadingButton from '@mui/lab/LoadingButton';
+import PaymentIcon from '@mui/icons-material/Payment';
 import { format, parse, parseISO } from 'date-fns';
 import { enGB, es } from 'date-fns/locale';
 import styles from './TicketPicker.module.css';
@@ -31,6 +33,7 @@ const TicketPicker = () => {
 
     const selectedTickets = useSelector((state) => state.selectedTickets);
     
+    const [isLoading, setIsLoading] = useState(false);
     const [isTrue, setIsTrue] = useState(false);
     const [error, setError] = useState(null);
     const [message, setMessage] = useState({
@@ -217,8 +220,10 @@ const TicketPicker = () => {
         setIsTrue(false);
     };
 
-    const onClickGoToPaid = () => {
+    const onClickGoToPaid = async () => {
         if(message.response === 'Turno creado exitosamente' || message.response === 'Ha ocurrido un error, intentelo más tarde') return navigate('/');
+
+        setIsLoading(!isLoading);
         
         const paymentItems = {
             analisys: userTickets.map((item) => {
@@ -234,9 +239,11 @@ const TicketPicker = () => {
 
         localStorage.setItem('payment_type', 'ticket');
 
-        axios.post('/mercadoPago/v2', paymentItems)
+        await axios.post('/mercadoPago/v2', paymentItems)
             .then((res) => window.location.replace(res.data?.mpresult?.body.init_point))
-            .catch((err) => console.log(err)); 
+            .catch((err) => console.log(err));
+            
+        setIsLoading(!isLoading);
     };
 
     const onClickBackToSelect = () => {
@@ -375,7 +382,14 @@ const TicketPicker = () => {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={onClickBackToSelect}>Volver</Button>
-                        <Button onClick={onClickGoToPaid} autoFocus>Finalizar</Button>
+                        <LoadingButton
+                            onClick={onClickGoToPaid}
+                            loading={isLoading}
+                            loadingPosition='end'
+                            sx={{width:'120px', justifyContent:'flex-start'}}
+                        >
+                        Finalizar                    
+                        </LoadingButton>
                     </DialogActions>
                 </Dialog>
             }
