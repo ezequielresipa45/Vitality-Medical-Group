@@ -29,5 +29,7 @@
     font-style: italic;
     
 }
-
+.swal2-container{
+    z-index:9999;
+}
     

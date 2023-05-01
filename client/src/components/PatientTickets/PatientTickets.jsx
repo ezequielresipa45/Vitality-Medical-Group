@@ -60,7 +60,7 @@ const PatientTickets = ({ patient }) => {
             },
           });
             setDeletedTicket(true);
-            // window.location.reload();
+            window.location.reload();
         
           console.log(response.data);
         

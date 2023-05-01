@@ -52,7 +52,7 @@ const PlanCard = ({ id, name,description,price }) => {
                       <img className={style.imagen}  src={img} alt="" />
                       
                       <Button variant="outlined" onClick={onClickPaid} >MI PLAN</Button>
-                      <h4 className={style.price}>Precio: {price}</h4>
+                      <h4 className={style.price}>Precio: $ {price}</h4>
                   </div>
 
           <div className={style.right_text}>

@@ -9,10 +9,11 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import {useParams} from "react-router-dom";
+// import {useParams} from "react-router-dom";
 import { useState, useEffect } from 'react';
 import style from "../ExperienceForm/ExperienceForm.module.css";
-import {postComment} from "../../redux/actions"
+import {postComment} from "../../redux/actions";
+import Swal from "sweetalert2";
 
 
 function validate(experienceForm){
@@ -82,6 +83,8 @@ export default function ExperienceForm() {
 
 const user = useSelector(state=>state.user.id) // me traigo del esto global el user.id
 
+const [showForm, setShowForm] = useState(true)
+
  
 const [experienceForm, setExperienceForm] = useState({
 
@@ -124,6 +127,18 @@ const submitHandler = (e) =>{ // aca quiero mandar una request al backend. Manej
             [e.target.name] : e.target.value
         })
     )
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
     if (Object.keys(errors).length === 0) {  // si el form no maneja errores, 
       const data = {
         rating: experienceForm.rating,
@@ -138,14 +153,16 @@ const submitHandler = (e) =>{ // aca quiero mandar una request al backend. Manej
         dispatch(postComment(data))
 
         console.log(postComment(data))
-        alert("Gracias por confiar en nosotros");
+        Toast.fire({
+          icon: "success",
+          title: "Gracias por elegirnos",
+        });;
         
         setExperienceForm({                         // vuelvo a setear  los valores del formulario en string vacio, cero, etc.
          rating : 0,
-         comment: "",
-         
-          
+         comment: "", 
         });
+        setShowForm(false);
       } else {
         alert("ERROR! No pudimos enviar el formulario");
         return;
