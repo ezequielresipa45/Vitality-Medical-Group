@@ -23,6 +23,7 @@
 .card{
     position: relative;
     background-color:  var(--primary);
+    flex-basis: 400px;
     border-radius:8px;
     box-shadow: 20px;
     margin-left: 10px;

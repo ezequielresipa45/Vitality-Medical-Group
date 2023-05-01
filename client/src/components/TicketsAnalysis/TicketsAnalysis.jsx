@@ -59,9 +59,10 @@ const TicketsAnalysis = ({ patient }) => {
               idTicket: id,
             },
           });
-          setDeletedAnalysis(true)
-          console.log(response.id)
-        
+          // dispatch(getAnalysis());
+          setDeletedAnalysis(true);
+          console.log(response.id);
+        window.location.reload();
         } catch (error) {
           console.error("error");
         }
