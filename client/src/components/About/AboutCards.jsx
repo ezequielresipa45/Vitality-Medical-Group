@@ -6,13 +6,14 @@ import img3 from "../../images/emanuel-m.jpg"
 import img4 from "../../images/jonathan-r.jpeg"
 import img5 from "../../images/ezequiel-r.jpeg"
 import img6 from "../../images/jonathan-b.jpeg"
-import img7 from "../../images/catalina-h.jpeg"
+import img7 from "../../images/catu-h.jpeg"
 import img8 from "../../images/santiago-m.jpeg"
 import style from "../About/AboutCard.module.css"
 
 const AboutCards = () => {
   return (
     <div className={style.container}>
+      <div>CONOCENOS</div>
         <AboutCard
           fullName="Pamela Yael Herrera"
           city="CABA, Argentina"
