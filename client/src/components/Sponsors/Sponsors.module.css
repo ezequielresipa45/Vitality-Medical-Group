@@ -4,12 +4,12 @@
         -webkit-transform: translateX(0);
     }
 	50% { 
-        transform: translateX(calc(-150px * 10));
-        -webkit-transform: translateX(calc(-150px * 10));
+        transform: translateX(calc(-150px * 11));
+        -webkit-transform: translateX(calc(-150px * 11));
     }
     50.00001% { 
-        transform: translateX(calc(150px * 10)); 
-        -webkit-transform: translateX(calc(150px * 10));
+        transform: translateX(calc(150px * 11)); 
+        -webkit-transform: translateX(calc(150px * 11));
     }
     100% { 
         transform: translateX(0); 

@@ -77,9 +77,17 @@ const TicketPicker = () => {
         setError(null);
     };
 
-    const availabilityValidator = (value) => {
+    const availabilityValidator = async (value) => {
         let days = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado']
         let userDate = new Date(value);
+        /* const schedulesTaken = ticket_type === 'Análisis / Estudio' 
+            ? await axios.get('/ticketAnalysis/ticketAnalysisByDate', {analisysId: selectedTickets.code , date: format(value, 'yyyy-MM-dd')})
+                .then((res) => res.data.map((item) => item.hour))
+                .catch((err) => console.log(err))
+            : await axios.get('/ticketMedical/ticketsByDate', {doctorId: selectedTickets.code , date: format(value, 'yyyy-MM-dd')})
+                .then((res) => res.data.map((item) => item.hour))
+                .catch((err) => console.log(err))
+        console.log(schedulesTaken); */
         //console.log(userDate);
         //console.log(days[userDate.getDay()]);
         if(availableDays.includes(days[userDate.getDay()])) {
@@ -271,88 +279,117 @@ const TicketPicker = () => {
             <div className={styles.container}>
                 
                 <h2>Selector de fecha y horario para el turno</h2>
-                <p>Tipo de turno: {ticket_type}</p>
 
-                {selectedTickets?.title && <p>{selectedTickets?.title}</p>}
-                
-                {selectedTickets?.name && <p>Profesional: {selectedTickets?.name} - {selectedTickets?.speciality[0].toUpperCase() + selectedTickets?.speciality.slice(1)}</p>}
+                <div className={styles.div_info}>
 
-                <p>Días:  {selectedTickets?.days?.join(' - ') || days?.join(' - ')}</p>
+                    <p><strong>Tipo de turno: </strong>{ticket_type}</p>
 
-                <FormControl sx={{ m: 1, minWidth: 320 , textAlign: 'left' }} error={error === 'Faltan datos obligatorios'}>
-                    <InputLabel id='select_patient'>{'Seleccione un paciente'}</InputLabel>
-                    <Select
-                        labelId='select_patient'
-                        id='select'
-                        label='Seleccione un paciente'
-                        defaultValue={selectedPatient.patient_name}
-                        onChange={(e) => handlePatientChange(e.target.value)}
-                    >
-                        {patients.map((item, index) => (
-                            <MenuItem key={index} value={item}>{item.full_name}</MenuItem>
-                        ))}
-                    </Select>
-                    {error === 'Faltan datos obligatorios' && <FormHelperText>{error}</FormHelperText>}
-                </FormControl>
+                    {selectedTickets?.title && <p><strong>Descripción del turno seleccionado: </strong>{selectedTickets?.title}</p>}
+                    
+                    {selectedTickets?.name && <p><strong>Profesional seleccionado: </strong>{selectedTickets?.name} - {selectedTickets?.speciality[0].toUpperCase() + selectedTickets?.speciality.slice(1)}</p>}
 
-                <DatePicker 
-                    sx={{ m: 1, minWidth: 320 }}
-                    label='Seleccione la fecha'
-                    value={selectedDate}
-                    slotProps={{
-                        textField: {
-                            error: error === 'El dia seleccionado no esta disponible',
-                            helperText: error === 'El dia seleccionado no esta disponible' && error
-                        }
-                    }}
-                    onChange={(value) => handleDateChange(value)}
-                    disablePast
-                />
-                {isAvailable && 
+                    <p><strong>Días disponibles: </strong>{selectedTickets?.days?.join(' - ') || days?.join(' - ')}</p>
 
-                <FormControl sx={{ m: 1, minWidth: 320, textAlign: 'left' }} >
-                    <InputLabel id='select_schedules'>Horarios</InputLabel>
-                    <Select
-                        labelId='select_schedules'
-                        id='select'
-                        label='Horarios'
-                        value={selectedSchedule}
-                        onChange={(e) => handleSchedulesChange(e)}
-                    >
-                        {availableSchedules.map((item, index) => (
-                            <MenuItem key={index} value={item}>{item}</MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
+                </div>
 
-                }
+                <div className={styles.div_item}>
 
-                {selectedSchedule && 
-                
-                <FormControl sx={{ m: 1, minWidth: 320, textAlign: 'left' }}>
-                    <InputLabel id='select_plan'>{'Seleccione un plan'}</InputLabel>
-                    <Select
-                        labelId='select_plan'
-                        id='select'
-                        label='Seleccione un plan'
-                        value={selectedPatient.patient_plan ? selectedPatient.patient_plan : 'Sin Plan'}
-                        onChange={(e) => handlePlanChange(e.target.value)}
-                    >
-                        {userInfo.plan && <MenuItem value={userInfo.plan.name}>{userInfo.plan.name}</MenuItem>}
-                        <MenuItem value={'Sin Plan'}>Sin Plan</MenuItem>
-                    </Select>
-                </FormControl>
+                    <p><strong>Seleccione un paciente: </strong></p>
 
-                }
+                    <FormControl sx={{ m: 1, minWidth: 320 , textAlign: 'left' }} error={error === 'Faltan datos obligatorios'}>
+                        <InputLabel id='select_patient'>{'Seleccione un paciente'}</InputLabel>
+                        <Select
+                            labelId='select_patient'
+                            id='select'
+                            label='Seleccione un paciente'
+                            defaultValue={selectedPatient.patient_name}
+                            onChange={(e) => handlePatientChange(e.target.value)}
+                        >
+                            {patients.map((item, index) => (
+                                <MenuItem key={index} value={item}>{item.full_name}</MenuItem>
+                            ))}
+                        </Select>
+                        {error === 'Faltan datos obligatorios' && <FormHelperText>{error}</FormHelperText>}
+                    </FormControl>
 
-                {selectedSchedule && <TextField
-                        sx={{ m: 1, minWidth: 320, textAlign: 'left' }}
-                        id='observations'
-                        label='Observaciones'
-                        placeholder=''
-                        multiline
-                        onChange={(e) => setOvservations(e.target.value)}
-                />}
+                </div>
+
+                <div className={styles.div_item}>
+
+                    <p><strong>Seleccione un día valido: </strong></p>
+
+                    <DatePicker 
+                        sx={{ m: 1, minWidth: 320 }}
+                        label='Seleccione la fecha'
+                        value={selectedDate}
+                        slotProps={{
+                            textField: {
+                                error: error === 'El dia seleccionado no esta disponible',
+                                helperText: error === 'El dia seleccionado no esta disponible' && error
+                            }
+                        }}
+                        onChange={(value) => handleDateChange(value)}
+                        disablePast
+                    />
+
+                </div>
+
+                {isAvailable && <div className={styles.div_item}>
+
+                    <p><strong>Seleccione un horario: </strong></p> 
+
+                    <FormControl sx={{ m: 1, minWidth: 320, textAlign: 'left' }} >
+                        <InputLabel id='select_schedules'>Horarios</InputLabel>
+                        <Select
+                            labelId='select_schedules'
+                            id='select'
+                            label='Horarios'
+                            value={selectedSchedule}
+                            onChange={(e) => handleSchedulesChange(e)}
+                        >
+                            {availableSchedules.map((item, index) => (
+                                <MenuItem key={index} value={item}>{item}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+
+                </div> }
+
+                {selectedSchedule && <div className={styles.div_item}>
+
+                    <p><strong>Seleccione el plan: </strong></p> 
+                    
+                    <FormControl sx={{ m: 1, minWidth: 320, textAlign: 'left' }}>
+                        <InputLabel id='select_plan'>{'Seleccione un plan'}</InputLabel>
+                        <Select
+                            labelId='select_plan'
+                            id='select'
+                            label='Seleccione un plan'
+                            value={selectedPatient.patient_plan ? selectedPatient.patient_plan : 'Sin Plan'}
+                            onChange={(e) => handlePlanChange(e.target.value)}
+                        >
+                            {userInfo.plan && <MenuItem value={userInfo.plan.name}>{userInfo.plan.name}</MenuItem>}
+                            <MenuItem value={'Sin Plan'}>Sin Plan</MenuItem>
+                        </Select>
+                    </FormControl>
+
+                </div> }
+
+
+                {selectedSchedule && <div className={styles.div_item}>
+
+                    <p><strong>Observaciones: </strong></p>
+
+                    <TextField
+                            sx={{ m: 1, minWidth: 320, textAlign: 'left' }}
+                            id='observations'
+                            label='Observaciones'
+                            placeholder=''
+                            multiline
+                            onChange={(e) => setOvservations(e.target.value)}
+                    />
+
+                </div> }
 
                 {selectedSchedule && <Button variant='outlined' onClick={onClickConfirm} >Confirmar turno</Button>}
 

@@ -33,7 +33,7 @@ export default function Analysis(props) {
 
             <p>{props.description}</p>
 
-            <p>{props.price}</p>
+            <p><strong>Precio:</strong>{` $ ${props.price}`}</p>
 
             <button onClick={() => props.onClick(props)}>Turno</button>
 
